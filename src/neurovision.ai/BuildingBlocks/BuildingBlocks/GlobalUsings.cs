@@ -1,7 +1,13 @@
-﻿namespace BuildingBlocks
-{
-    public class GlobalUsings
-    {
-
-    }
-}
+﻿global using BuildingBlocks.CQRS;
+global using FluentValidation;
+global using MediatR;
+global using Microsoft.AspNetCore.Authentication.JwtBearer;
+global using Microsoft.AspNetCore.Diagnostics;
+global using Microsoft.AspNetCore.Http;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Logging;
+global using Microsoft.IdentityModel.Tokens;
+global using System.Diagnostics;
+global using System.Text;
