@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36327.8 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateway", "ApiGateway", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{B773B8AF-08A6-42B2-90E9-374296728CFB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{F6C859C3-EB6D-440C-8379-9875DA7FC1A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlocks", "BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj", "{4E8990BA-B58C-4324-B26F-0137E3146202}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4E8990BA-B58C-4324-B26F-0137E3146202}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E8990BA-B58C-4324-B26F-0137E3146202}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E8990BA-B58C-4324-B26F-0137E3146202}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E8990BA-B58C-4324-B26F-0137E3146202}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4E8990BA-B58C-4324-B26F-0137E3146202} = {F6C859C3-EB6D-440C-8379-9875DA7FC1A3}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B8D0999C-0B4B-4BF8-A549-C7983EF4C67F}
+	EndGlobalSection
+EndGlobal
