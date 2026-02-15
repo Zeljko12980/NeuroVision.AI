@@ -11,7 +11,7 @@
             _sender = sender;
         }
 
-        [HttpPost("create")]
+        [HttpPost]
         public async Task<IActionResult> Create(CreateUserCommand command)
         {
             var result = await _sender.Send(command);
@@ -25,7 +25,7 @@
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
 
-        [HttpPut("update-profile")]
+        [HttpPut]
         public async Task<IActionResult> UpdateProfile(UpdateProfileCommand command)
         {
             var result = await _sender.Send(command);
@@ -67,7 +67,7 @@
             return result.IsSuccess ? Ok(result.Value) : NotFound(result.Error);
         }
 
-        [HttpGet("all")]
+        [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var result = await _sender.Send(new GetAllUsersQuery());

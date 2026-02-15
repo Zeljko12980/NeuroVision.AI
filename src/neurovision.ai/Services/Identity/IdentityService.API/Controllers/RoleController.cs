@@ -11,7 +11,7 @@
             _sender = sender;
         }
 
-        [HttpPost("create")]
+        [HttpPost]
         public async Task<IActionResult> Create(CreateRoleCommand command)
         {
             var result = await _sender.Send(command);
@@ -25,14 +25,14 @@
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
 
-        [HttpPut("update")]
+        [HttpPut]
         public async Task<IActionResult> Update(UpdateRoleCommand command)
         {
             var result = await _sender.Send(command);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
 
-        [HttpGet("all")]
+        [HttpGet]
         public async Task<IActionResult> GetRoles()
         {
             var result = await _sender.Send(new GetRolesQuery());
