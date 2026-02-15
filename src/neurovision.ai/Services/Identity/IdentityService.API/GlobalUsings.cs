@@ -1,0 +1,11 @@
+﻿global using IdentityService.Application;
+global using IdentityService.Application.Commands.Authentication;
+global using IdentityService.Application.Commands.Role;
+global using IdentityService.Application.Commands.User;
+global using IdentityService.Application.Queries.Role;
+global using IdentityService.Application.Queries.User;
+global using IdentityService.Infrastructure;
+global using IdentityService.Infrastructure.Persistence;
+global using MediatR;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.EntityFrameworkCore;

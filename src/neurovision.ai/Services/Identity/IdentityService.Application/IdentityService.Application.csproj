@@ -11,4 +11,9 @@
     <ProjectReference Include="..\IdentityService.Domain\IdentityService.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Common\Requests\" />
+    <Folder Include="Queries\Authentication\" />
+  </ItemGroup>
+
 </Project>

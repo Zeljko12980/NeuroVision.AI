@@ -2,9 +2,9 @@
 {
     public interface IAuthenticationService
     {
-        Task<bool> SignInAsync(string userName, string password);
-        Task<(bool IsSuccess, string Token, string UserId, string UserName)> LoginAsync(string email, string password);
-        Task<bool> ConfirmEmailAsync(string userId, string token);
+        Task<Result<SignInResponse>> SignInAsync(string userName, string password);
+        Task<Result<AuthResponse>> LoginAsync(string email, string password);
+        Task<Result<ConfirmEmailResponse>> ConfirmEmailAsync(string userId, string token);
     }
 
 }

@@ -8,19 +8,39 @@
         {
             _authenticationRepository = authenticationRepository;
         }
-        public Task<bool> ConfirmEmailAsync(string userId, string token)
+
+        public async Task<Result<ConfirmEmailResponse>> ConfirmEmailAsync(string userId, string token)
         {
-            throw new NotImplementedException();
+            var repoResult = await _authenticationRepository.ConfirmEmailAsync(userId, token);
+
+            if (!repoResult)
+                return Result<ConfirmEmailResponse>.Fail("Email confirmation failed.");
+
+            var dto = repoResult.Adapt<ConfirmEmailResponse>();
+            return Result<ConfirmEmailResponse>.Ok(dto);
         }
 
-        public Task<(bool IsSuccess, string Token, string UserId, string UserName)> LoginAsync(string email, string password)
+        public async Task<Result<AuthResponse>> LoginAsync(string email, string password)
         {
-            throw new NotImplementedException();
+            var repoResult = await _authenticationRepository.LoginAsync(email, password);
+
+            if (!repoResult.IsSuccess)
+                return Result<AuthResponse>.Fail("Invalid credentials.");
+
+            var dto = repoResult.Adapt<AuthResponse>();
+            return Result<AuthResponse>.Ok(dto);
         }
 
-        public Task<bool> SignInAsync(string userName, string password)
+        public async Task<Result<SignInResponse>> SignInAsync(string userName, string password)
         {
-            throw new NotImplementedException();
+            var repoResult = await _authenticationRepository.SignInAsync(userName, password);
+
+            if (!repoResult)
+                return Result<SignInResponse>.Fail("Sign-in failed.");
+
+            var dto = repoResult.Adapt<SignInResponse>();
+            return Result<SignInResponse>.Ok(dto);
         }
+
     }
 }

@@ -2,14 +2,14 @@
 {
     public static class DependencyInjectionExtension
     {
-        public static IServiceCollection AddInfrastructure(
+        public static IServiceCollection AddInfrastructureServices(
             this IServiceCollection services,
             IConfiguration configuration)
         {
 
             services.AddDbContext<IdentityContext>(options =>
                 options.UseNpgsql(
-                    configuration.GetConnectionString("DefaultConnection")));
+                    configuration.GetConnectionString("identitydb")));
 
 
             services.AddIdentity<User, IdentityRole>(options =>
