@@ -13,4 +13,7 @@ builder.AddProject<Projects.IdentityService_API>("identityservice-api")
        .WithReference(identityDb);
 
 
+builder.AddProject<Projects.DoctorService_API>("doctorservice-api");
+
+
 builder.Build().Run();
