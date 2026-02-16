@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Services\Doctor\DoctorService.API\DoctorService.API.csproj" />
     <ProjectReference Include="..\Services\Identity\IdentityService.API\IdentityService.API.csproj" />
+    <ProjectReference Include="..\Services\Mail\MailService.API\MailService.API.csproj" />
   </ItemGroup>
 
 </Project>
