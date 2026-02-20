@@ -59,8 +59,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientService.Infrastructu
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{64DB40C3-90DE-4223-BCB0-961D0B7F0817}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{64DB40C3-90DE-4223-BCB0-961D0B7F0817}"
-EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "neurovision.ai.portal", "Client\neurovision.ai.portal\neurovision.ai.portal.esproj", "{84379C46-E3AC-7D82-E05F-A328A35AA6BF}"
 EndProject
 Global
