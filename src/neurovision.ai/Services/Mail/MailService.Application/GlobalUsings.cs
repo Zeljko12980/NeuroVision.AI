@@ -1,0 +1,9 @@
+﻿global using BuildingBlocks.CQRS;
+global using FluentValidation;
+global using MailService.Application.Common.Responses;
+global using MailService.Domain.Entities;
+global using MailService.Domain.Interfaces;
+global using MailService.Domain.ValueObjects;
+global using MediatR;
+global using Microsoft.Extensions.DependencyInjection;
+global using System.Reflection;

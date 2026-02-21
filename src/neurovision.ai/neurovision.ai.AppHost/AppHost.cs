@@ -22,7 +22,6 @@ builder.AddProject<Projects.MailService_API>("mailservice-api");
 builder.AddProject<Projects.PatientService_API>("patientservice-api");
 
 
-builder.AddProject<Projects.PatientService_Application>("patientservice-application");
 
 
 builder.Build().Run();
