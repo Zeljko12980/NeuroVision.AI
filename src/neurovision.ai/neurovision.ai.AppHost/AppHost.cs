@@ -10,7 +10,7 @@ var rabbitmq = builder.AddRabbitMQ("rabbitmq")
 var identityDb = postgres.AddDatabase("identitydb");
 
 
-builder.AddProject<Projects.IdentityService_API>("identityservice-api")
+var identityService = builder.AddProject<Projects.IdentityService_API>("identityservice-api")
        .WaitFor(rabbitmq)
        .WithReference(rabbitmq)
        .WaitFor(identityDb)
@@ -20,6 +20,19 @@ builder.AddProject<Projects.IdentityService_API>("identityservice-api")
 builder.AddProject<Projects.MailService_API>("mailservice-api")
          .WaitFor(rabbitmq)
          .WithReference(rabbitmq);
+
+var gateway = builder.AddYarp("gateway")
+                     .WithHostPort(5000)
+                     .WithConfiguration(yarp =>
+                     {
+
+                         yarp.AddRoute("/api/Authentication/{**catch-all}", identityService);
+                     });
+
+builder.AddJavaScriptApp("portal", "../Client/neurovision.ai.portal")
+    .WaitFor(gateway);
+
+
 
 
 builder.Build().Run();

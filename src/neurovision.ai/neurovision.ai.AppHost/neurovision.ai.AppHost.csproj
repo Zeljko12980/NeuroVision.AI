@@ -12,11 +12,14 @@
 
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.AppHost" Version="13.1.1" />
+    <PackageReference Include="Aspire.Hosting.JavaScript" Version="13.1.2" />
     <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="13.1.1" />
     <PackageReference Include="Aspire.Hosting.RabbitMQ" Version="13.1.1" />
+    <PackageReference Include="Aspire.Hosting.Yarp" Version="13.1.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Client\neurovision.ai.portal\neurovision.ai.portal.esproj" />
     <ProjectReference Include="..\Services\Identity\IdentityService.API\IdentityService.API.csproj" />
     <ProjectReference Include="..\Services\Mail\MailService.API\MailService.API.csproj" />
   </ItemGroup>
