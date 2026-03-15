@@ -1,10 +1,8 @@
 ﻿namespace IdentityService.Application.Common.Responses
 {
-    public class AuthResponse
+    public class Confirm2FAResponse
     {
-
-        public string Email { get; set; } = string.Empty;
-
+        public string Token { get; set; }
         public string Message { get; set; }
     }
 }

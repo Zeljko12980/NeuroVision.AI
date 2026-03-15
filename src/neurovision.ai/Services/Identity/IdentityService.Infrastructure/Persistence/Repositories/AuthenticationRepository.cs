@@ -27,8 +27,7 @@
             return result.Succeeded;
         }
 
-        public async Task<(bool IsSuccess, string Token, string UserId, string UserName)>
-            LoginAsync(string email, string password)
+        public async Task<(bool IsSuccess, string Code, string UserId, string Email)> LoginAsync(string email, string password)
         {
             var user = await _userManager.FindByEmailAsync(email);
 
@@ -43,11 +42,12 @@
             if (!user.EmailConfirmed)
                 return (false, string.Empty, string.Empty, string.Empty);
 
-            var roles = await _userManager.GetRolesAsync(user);
+            var code = await _userManager.GenerateTwoFactorTokenAsync(
+                user,
+                TokenOptions.DefaultEmailProvider
+            );
 
-            var token = _jwtTokenGenerator.GenerateToken(user, roles);
-
-            return (true, token, user.Id, user.UserName!);
+            return (true, code, user.Id, user.Email!);
         }
 
         public async Task<bool> ConfirmEmailAsync(string userId, string token)
@@ -60,6 +60,29 @@
             var result = await _userManager.ConfirmEmailAsync(user, token);
 
             return result.Succeeded;
+        }
+
+        public async Task<(bool IsSuccess, string Token)> ConfirmTwoFactorAsync(string email, string code)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user == null)
+                return (false, string.Empty);
+
+            var result = await _userManager.VerifyTwoFactorTokenAsync(
+                user,
+                TokenOptions.DefaultEmailProvider,
+                code
+            );
+
+            if (!result)
+                return (false, string.Empty);
+
+            var roles = await _userManager.GetRolesAsync(user);
+
+            var token = _jwtTokenGenerator.GenerateToken(user, roles);
+
+            return (true, token);
         }
     }
 }

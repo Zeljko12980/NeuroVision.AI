@@ -5,14 +5,6 @@
         public static void RegisterMappings()
         {
 
-            TypeAdapterConfig<(bool IsSuccess, string Token, string UserId, string UserName), AuthResponse>
-                .NewConfig()
-                .Map(dest => dest.IsSuccess, src => src.IsSuccess)
-                .Map(dest => dest.Token, src => src.Token)
-                .Map(dest => dest.UserId, src => src.UserId)
-                .Map(dest => dest.UserName, src => src.UserName);
-
-
             TypeAdapterConfig<bool, SignInResponse>
                 .NewConfig()
                 .Map(dest => dest.IsSignedIn, src => src);

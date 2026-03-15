@@ -1,4 +1,4 @@
-@MailService.API_HostAddress = http://localhost:5114
+@MailService.API_HostAddress = http://localhost:5012
 
 GET {{MailService.API_HostAddress}}/weatherforecast/
 Accept: application/json

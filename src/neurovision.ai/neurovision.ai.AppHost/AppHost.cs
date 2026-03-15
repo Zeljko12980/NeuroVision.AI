@@ -4,24 +4,22 @@ var postgres = builder.AddPostgres("postgres")
                       .WithDataVolume()
                       .WithPgAdmin();
 
+var rabbitmq = builder.AddRabbitMQ("rabbitmq")
+                      .WithManagementPlugin(port: 15672);
 
 var identityDb = postgres.AddDatabase("identitydb");
 
 
 builder.AddProject<Projects.IdentityService_API>("identityservice-api")
+       .WaitFor(rabbitmq)
+       .WithReference(rabbitmq)
        .WaitFor(identityDb)
        .WithReference(identityDb);
 
 
-builder.AddProject<Projects.DoctorService_API>("doctorservice-api");
-
-
-builder.AddProject<Projects.MailService_API>("mailservice-api");
-
-
-builder.AddProject<Projects.PatientService_API>("patientservice-api");
-
-
+builder.AddProject<Projects.MailService_API>("mailservice-api")
+         .WaitFor(rabbitmq)
+         .WithReference(rabbitmq);
 
 
 builder.Build().Run();
