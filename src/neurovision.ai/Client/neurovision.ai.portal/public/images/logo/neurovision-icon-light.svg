@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96">
+  <circle cx="48" cy="48" r="46" fill="#f0f6ff"/>
+  <polygon points="48,4 88.3,27 88.3,73 48,96 7.7,73 7.7,27" stroke="#bfdbfe" stroke-width="2" fill="none"/>
+  <polygon points="48,9 84.3,30 84.3,70 48,91 11.7,70 11.7,30" stroke="#3b82f6" stroke-width="0.6" fill="none" stroke-opacity="0.2"/>
+  <path d="M48,28 C37,28 27,35 26,44 C25,51 29,57.5 36,59 C35,63 36,67 40,69 C43,70.5 47,70 49,69 L48,68.5 Z" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.2"/>
+  <path d="M48,28 C59,28 69,35 70,44 C71,51 67,57.5 60,59 C61,63 60,67 56,69 C53,70.5 49,70 47,69 L48,68.5 Z" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.2"/>
+  <circle cx="37" cy="40" r="3" fill="#3b82f6"/>
+  <circle cx="28.5" cy="50" r="2.5" fill="#2563eb" opacity="0.85"/>
+  <circle cx="39" cy="58" r="2.5" fill="#3b82f6"/>
+  <circle cx="48" cy="37" r="4" fill="#1d4ed8"/>
+  <circle cx="48" cy="61" r="2.5" fill="#2563eb"/>
+  <circle cx="59" cy="40" r="3" fill="#3b82f6"/>
+  <circle cx="67.5" cy="50" r="2.5" fill="#2563eb" opacity="0.85"/>
+  <circle cx="57" cy="58" r="2.5" fill="#3b82f6"/>
+  <line x1="37" y1="40" x2="48" y2="37" stroke="#3b82f6" stroke-width="1" opacity="0.5"/>
+  <line x1="48" y1="37" x2="59" y2="40" stroke="#3b82f6" stroke-width="1" opacity="0.5"/>
+  <line x1="37" y1="40" x2="28.5" y2="50" stroke="#3b82f6" stroke-width="1" opacity="0.4"/>
+  <line x1="28.5" y1="50" x2="39" y2="58" stroke="#3b82f6" stroke-width="1" opacity="0.4"/>
+  <line x1="39" y1="58" x2="48" y2="61" stroke="#3b82f6" stroke-width="1" opacity="0.5"/>
+  <line x1="48" y1="61" x2="57" y2="58" stroke="#3b82f6" stroke-width="1" opacity="0.5"/>
+  <line x1="57" y1="58" x2="67.5" y2="50" stroke="#3b82f6" stroke-width="1" opacity="0.4"/>
+  <line x1="67.5" y1="50" x2="59" y2="40" stroke="#3b82f6" stroke-width="1" opacity="0.4"/>
+  <line x1="24" y1="49" x2="72" y2="49" stroke="#0ea5e9" stroke-width="1" stroke-opacity="0.35" stroke-dasharray="3 4.5"/>
+  <circle cx="48" cy="37" r="9" stroke="#0ea5e9" stroke-width="1" fill="none" stroke-opacity="0.7"/>
+  <line x1="43.5" y1="37" x2="40.5" y2="37" stroke="#0ea5e9" stroke-width="1" stroke-opacity="0.7"/>
+  <line x1="52.5" y1="37" x2="55.5" y2="37" stroke="#0ea5e9" stroke-width="1" stroke-opacity="0.7"/>
+  <line x1="48" y1="32.5" x2="48" y2="29.5" stroke="#0ea5e9" stroke-width="1" stroke-opacity="0.7"/>
+  <line x1="48" y1="41.5" x2="48" y2="44.5" stroke="#0ea5e9" stroke-width="1" stroke-opacity="0.7"/>
+</svg>

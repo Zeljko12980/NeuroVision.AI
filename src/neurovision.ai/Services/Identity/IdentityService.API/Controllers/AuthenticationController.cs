@@ -1,4 +1,6 @@
-﻿namespace IdentityService.API.Controllers
+﻿using IdentityService.Application.Common.Requests;
+
+namespace IdentityService.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -11,26 +13,20 @@
             _sender = sender;
         }
 
-        [HttpPost("signin")]
-        public async Task<IActionResult> SignIn(SignInCommand command)
-        {
-            var result = await _sender.Send(command);
-            return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
-        }
-
         [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginCommand command)
+        public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
         {
-            var result = await _sender.Send(command);
+            var result = await _sender.Send(new LoginCommand(loginRequest));
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
 
-        [HttpPost("confirm-email")]
-        public async Task<IActionResult> ConfirmEmail(ConfirmEmailCommand command)
+        [HttpPost("confirm-2fa")]
+        public async Task<IActionResult> ConfirmTwoFactor([FromBody] Confirm2FARequest request)
         {
-            var result = await _sender.Send(command);
+            var result = await _sender.Send(new Confirm2FACommand(request));
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
-        }
 
+
+        }
     }
 }

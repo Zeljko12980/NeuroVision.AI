@@ -4,22 +4,33 @@ var postgres = builder.AddPostgres("postgres")
                       .WithDataVolume()
                       .WithPgAdmin();
 
+var rabbitmq = builder.AddRabbitMQ("rabbitmq")
+                      .WithManagementPlugin(port: 15672);
 
 var identityDb = postgres.AddDatabase("identitydb");
 
 
-builder.AddProject<Projects.IdentityService_API>("identityservice-api")
+var identityService = builder.AddProject<Projects.IdentityService_API>("identityservice-api")
+       .WaitFor(rabbitmq)
+       .WithReference(rabbitmq)
        .WaitFor(identityDb)
        .WithReference(identityDb);
 
 
-builder.AddProject<Projects.DoctorService_API>("doctorservice-api");
+builder.AddProject<Projects.MailService_API>("mailservice-api")
+         .WaitFor(rabbitmq)
+         .WithReference(rabbitmq);
 
+var gateway = builder.AddYarp("gateway")
+                     .WithHostPort(5000)
+                     .WithConfiguration(yarp =>
+                     {
 
-builder.AddProject<Projects.MailService_API>("mailservice-api");
+                         yarp.AddRoute("/api/Authentication/{**catch-all}", identityService);
+                     });
 
-
-builder.AddProject<Projects.PatientService_API>("patientservice-api");
+builder.AddJavaScriptApp("portal", "../Client/neurovision.ai.portal")
+    .WaitFor(gateway);
 
 
 
