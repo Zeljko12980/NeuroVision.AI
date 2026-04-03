@@ -1,17 +1,17 @@
 import PageMeta from "../../components/common/PageMeta";
+import AuthLayout from "./AuthPageLayout";
+import TwoFAForm from "../../components/auth/TwoFAForm";
 
-export default function Home() {
+export default function TwoFA() {
     return (
         <>
             <PageMeta
                 title="NeuroVision.AI"
                 description="NeuroVision.AI"
             />
-            <div className="grid grid-cols-12 gap-4 md:gap-6">
-               
-              <h1></h1>
-               
-            </div>
+            <AuthLayout>
+                <TwoFAForm />
+            </AuthLayout>
         </>
     );
 }

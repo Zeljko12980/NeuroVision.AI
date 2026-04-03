@@ -1,8 +1,18 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "./store/store";
+import { isTokenExpired } from "./utils/jwt";
+import { logout } from "./features/auth/authSlice";
+
 import SignIn from "./pages/AuthPages/SignIn";
-import SignUp from "./pages/AuthPages/SignUp";
+import TwoFA from "./pages/AuthPages/TwoFA";
 import NotFound from "./pages/OtherPage/NotFound";
+import Home from "./pages/Dashboard/Home";
 import UserProfiles from "./pages/UserProfiles";
+import Calendar from "./pages/Calendar";
+import Blank from "./pages/Blank";
+import FormElements from "./pages/Forms/FormElements";
+import BasicTables from "./pages/Tables/BasicTables";
 import Videos from "./pages/UiElements/Videos";
 import Images from "./pages/UiElements/Images";
 import Alerts from "./pages/UiElements/Alerts";
@@ -11,56 +21,55 @@ import Avatars from "./pages/UiElements/Avatars";
 import Buttons from "./pages/UiElements/Buttons";
 import LineChart from "./pages/Charts/LineChart";
 import BarChart from "./pages/Charts/BarChart";
-import Calendar from "./pages/Calendar";
-import BasicTables from "./pages/Tables/BasicTables";
-import FormElements from "./pages/Forms/FormElements";
-import Blank from "./pages/Blank";
+
 import AppLayout from "./layout/AppLayout";
+import PrivateRoute from "./components/common/PrivateRoute";
+import RoleRoute from "./components/common/RoleRoute";
 import { ScrollToTop } from "./components/common/ScrollToTop";
-import Home from "./pages/Dashboard/Home";
 
 export default function App() {
-  return (
-    <>
-      <Router>
-        <ScrollToTop />
-        <Routes>
-          {/* Dashboard Layout */}
-          <Route element={<AppLayout />}>
-            <Route index path="/" element={<Home />} />
+    const token = useAppSelector((state) => state.auth.token);
+    const dispatch = useAppDispatch();
 
-            {/* Others Page */}
-            <Route path="/profile" element={<UserProfiles />} />
-            <Route path="/calendar" element={<Calendar />} />
-            <Route path="/blank" element={<Blank />} />
 
-            {/* Forms */}
-            <Route path="/form-elements" element={<FormElements />} />
+    useEffect(() => {
+        if (token && isTokenExpired(token)) {
+            dispatch(logout());
+        }
+    }, [token, dispatch]);
 
-            {/* Tables */}
-            <Route path="/basic-tables" element={<BasicTables />} />
+    return (
+        <Router>
+            <ScrollToTop />
+            <Routes>
+                <Route path="/signin" element={<SignIn />} />
+                <Route path="/confirm-2fa" element={<TwoFA />} />
+                <Route path="*" element={<NotFound />} />
 
-            {/* Ui Elements */}
-            <Route path="/alerts" element={<Alerts />} />
-            <Route path="/avatars" element={<Avatars />} />
-            <Route path="/badge" element={<Badges />} />
-            <Route path="/buttons" element={<Buttons />} />
-            <Route path="/images" element={<Images />} />
-            <Route path="/videos" element={<Videos />} />
+                <Route element={<PrivateRoute><AppLayout /></PrivateRoute>}>
+                    <Route index path="/" element={<Home />} />
 
-            {/* Charts */}
-            <Route path="/line-chart" element={<LineChart />} />
-            <Route path="/bar-chart" element={<BarChart />} />
-          </Route>
+ 
+                    <Route element={<RoleRoute allowedRoles={["doctor"]} />}>
+                        <Route path="/basic-tables" element={<BasicTables />} />
+                    </Route>
 
-          {/* Auth Layout */}
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
+                    <Route path="/profile" element={<UserProfiles />} />
+                    <Route path="/calendar" element={<Calendar />} />
+                    <Route path="/blank" element={<Blank />} />
+                    <Route path="/form-elements" element={<FormElements />} />
 
-          {/* Fallback Route */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Router>
-    </>
-  );
+                    <Route path="/alerts" element={<Alerts />} />
+                    <Route path="/avatars" element={<Avatars />} />
+                    <Route path="/badge" element={<Badges />} />
+                    <Route path="/buttons" element={<Buttons />} />
+                    <Route path="/images" element={<Images />} />
+                    <Route path="/videos" element={<Videos />} />
+
+                    <Route path="/line-chart" element={<LineChart />} />
+                    <Route path="/bar-chart" element={<BarChart />} />
+                </Route>
+            </Routes>
+        </Router>
+    );
 }
