@@ -1,0 +1,36 @@
+{
+  "signin": {
+    "title": "Sign In",
+    "subtitle": "Enter your email and password to sign in!",
+    "emailLabel": "Email",
+    "emailPlaceholder": "info@gmail.com",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "forgotPassword": "Forgot password?",
+    "signIn": "Sign in",
+    "signingIn": "Signing in..."
+  },
+  "alerts": {
+    "success": "Success",
+    "error": "Error"
+  },
+  "errors": {
+    "invalidEmail": "Please enter a valid email address",
+    "loginFailed": "Login failed"
+  },
+  "twoFA": {
+    "title": "Two-Factor Authentication",
+    "subtitle": "Enter the 6-digit code sent to your email",
+    "code": "2FA Code",
+    "invalidCode": "Please enter a valid 6-digit code",
+    "missingEmail": "Email is missing. Please login again.",
+    "onlyDigits": "Only digits are allowed",
+    "verify": "Verify",
+    "verifying": "Verifying...",
+    "didntReceive": "Didn't receive the code?",
+    "resend": "Resend",
+    "resendIn": "Resend in {{seconds}}s",
+    "sending": "Sending...",
+    "successLogin": "You have successfully logged in!"
+  }
+}

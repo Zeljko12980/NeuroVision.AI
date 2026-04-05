@@ -1,4 +1,5 @@
-﻿using BuildingBlocks.Messaging.Events;
+﻿using BuildingBlocks.Exceptions;
+using BuildingBlocks.Messaging.Events;
 using MassTransit;
 
 namespace IdentityService.Application.Services
@@ -19,7 +20,7 @@ namespace IdentityService.Application.Services
             var repoResult = await _authenticationRepository.ConfirmEmailAsync(userId, token);
 
             if (!repoResult)
-                return Result<ConfirmEmailResponse>.Fail("Email confirmation failed.");
+                throw new BadRequestException("Email confirmation failed.");
 
             var dto = repoResult.Adapt<ConfirmEmailResponse>();
             return Result<ConfirmEmailResponse>.Ok(dto);
@@ -27,28 +28,18 @@ namespace IdentityService.Application.Services
 
         public async Task<Result<AuthResponse>> LoginAsync(string email, string password)
         {
-            try
+            var repoResult = await _authenticationRepository.LoginAsync(email, password);
+
+            if (!repoResult.IsSuccess)
+                throw new UnauthorizedException("Incorrect email or password.");
+
+            await Publish2FACode(repoResult.Email, repoResult.Code);
+
+            return Result<AuthResponse>.Ok(new AuthResponse
             {
-                var repoResult = await _authenticationRepository.LoginAsync(email, password);
-
-                if (!repoResult.IsSuccess)
-                    return Result<AuthResponse>.Fail("Invalid credentials.");
-
-                await _publishEndpoint.Publish(new TwoFactorCodeGeneratedEvent(
-                    repoResult.Email,
-                    repoResult.Code
-                ));
-
-                return Result<AuthResponse>.Ok(new AuthResponse
-                {
-                    Email = repoResult.Email,
-                    Message = "Two-factor code sent to email."
-                });
-            }
-            catch (Exception ex)
-            {
-                return Result<AuthResponse>.Fail(ex.Message);
-            }
+                Email = repoResult.Email,
+                Message = "Two-factor code sent to email."
+            });
         }
 
         public async Task<Result<SignInResponse>> SignInAsync(string userName, string password)
@@ -56,7 +47,7 @@ namespace IdentityService.Application.Services
             var repoResult = await _authenticationRepository.SignInAsync(userName, password);
 
             if (!repoResult)
-                return Result<SignInResponse>.Fail("Sign-in failed.");
+                throw new UnauthorizedException("Sign-in failed.");
 
             var dto = repoResult.Adapt<SignInResponse>();
             return Result<SignInResponse>.Ok(dto);
@@ -67,7 +58,7 @@ namespace IdentityService.Application.Services
             var result = await _authenticationRepository.ConfirmTwoFactorAsync(email, code);
 
             if (!result.IsSuccess)
-                return Result<Confirm2FAResponse>.Fail("Invalid or expired 2FA code.");
+                throw new UnauthorizedException("Invalid or expired 2FA code.");
 
             return Result<Confirm2FAResponse>.Ok(new Confirm2FAResponse
             {
@@ -76,5 +67,52 @@ namespace IdentityService.Application.Services
             });
         }
 
+        public async Task<Result<Confirm2FAResponse>> ResendTwoFactorCodeAsync(string email)
+        {
+            var repoResult = await _authenticationRepository.ResendTwoFactorCodeAsync(email);
+
+            if (!repoResult.IsSuccess)
+                throw new BadRequestException("Failed to resend 2FA code.");
+
+            await Publish2FACode(email, repoResult.Code);
+
+            return Result<Confirm2FAResponse>.Ok(new Confirm2FAResponse
+            {
+                Message = "New two-factor code sent to email."
+            });
+        }
+
+        private async Task Publish2FACode(string email, string code)
+        {
+            await _publishEndpoint.Publish(new TwoFactorCodeGeneratedEvent(email, code));
+        }
+
+        public async Task<Result<ForgotPasswordResponse>> ForgotPasswordAsync(string email)
+        {
+            var repoResult = await _authenticationRepository.GeneratePasswordResetTokenAsync(email);
+
+            if (!repoResult.IsSuccess)
+                throw new BadRequestException("User not found or email not confirmed.");
+
+            return Result<ForgotPasswordResponse>.Ok(new ForgotPasswordResponse
+            {
+                EmailSent = true,
+                Message = "Password reset email sent successfully."
+            });
+        }
+
+        public async Task<Result<ResetPasswordResponse>> ResetPasswordAsync(string email, string token, string newPassword)
+        {
+            var success = await _authenticationRepository.ResetPasswordAsync(email, token, newPassword);
+
+            if (!success)
+                throw new BadRequestException("Failed to reset password. Invalid token or email.");
+
+            return Result<ResetPasswordResponse>.Ok(new ResetPasswordResponse
+            {
+                PasswordReset = true,
+                Message = "Password reset successfully."
+            });
+        }
     }
 }

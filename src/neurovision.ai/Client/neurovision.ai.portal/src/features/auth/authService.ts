@@ -18,8 +18,20 @@ interface TwoFADto {
 interface Confirm2FAResponse {
     token: string;   
     message: string; 
+} 
+
+
+interface Resend2FADto {
+    email: string;
 }
 
+export const resend2FARequest = async (
+    data: Resend2FADto
+): Promise<{ message: string }> => {
+    return await post("/Authentication/resend-2fa", data);
+};
+
+                                       
 export const confirm2FARequest = async (
     data: TwoFADto
 ): Promise<Confirm2FAResponse> => {

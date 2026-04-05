@@ -1,21 +1,33 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Label from "../../components/form/Label";
 import Input from "../../components/form/input/InputField";
 import Button from "../../components/ui/button/Button";
 import Alert from "../../components/ui/alert/Alert";
 import { useAppDispatch, useAppSelector } from "../../store/store";
-import { verify2FA } from "../../features/auth/authSlice";
+import { verify2FA, resend2FA } from "../../features/auth/authSlice";
 import { showAlert, hideAlert } from "../../features/ui/uiSlice";
 
 export default function TwoFAForm() {
+    const { t } = useTranslation(); 
+
     const [code, setCode] = useState("");
     const [codeError, setCodeError] = useState("");
+    const [cooldown, setCooldown] = useState(0);
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const { email, loading, error, token } = useAppSelector((state) => state.auth);
+    const {
+        email,
+        loading,
+        error,
+        token,
+        resendLoading,
+        resendMessage,
+    } = useAppSelector((state) => state.auth);
+
     const { message, type, visible } = useAppSelector((state) => state.ui);
 
     useEffect(() => {
@@ -26,36 +38,72 @@ export default function TwoFAForm() {
 
     useEffect(() => {
         if (token) {
-            dispatch(showAlert({ message: "You have successfully logged in!", type: "success" }));
+            dispatch(
+                showAlert({
+                    message: t("twoFA.successLogin"),
+                    type: "success",
+                })
+            );
+
             navigate("/");
 
             const timer = setTimeout(() => dispatch(hideAlert()), 2000);
             return () => clearTimeout(timer);
         }
-    }, [token, dispatch, navigate]);
+    }, [token, dispatch, navigate, t]);
 
     useEffect(() => {
         if (error) {
-            dispatch(showAlert({ message: error, type: "error" }));
+            dispatch(showAlert({ message: t(error), type: "error" }));
+
             const timer = setTimeout(() => dispatch(hideAlert()), 5000);
             return () => clearTimeout(timer);
         }
-    }, [error, dispatch]);
+    }, [error, dispatch, t]);
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>) => {
+    useEffect(() => {
+        if (resendMessage) {
+            dispatch(showAlert({ message: t(resendMessage), type: "success" }));
+
+            const timer = setTimeout(() => dispatch(hideAlert()), 3000);
+            return () => clearTimeout(timer);
+        }
+    }, [resendMessage, dispatch, t]);
+
+    useEffect(() => {
+        if (cooldown <= 0) return;
+
+        const timer = setInterval(() => {
+            setCooldown((prev) => prev - 1);
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, [cooldown]);
+
+    const handleSubmit = (
+        e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
+    ) => {
         e.preventDefault();
 
         if (!/^\d{6}$/.test(code)) {
-            setCodeError("Please enter a valid 6-digit code");
+            setCodeError(t("twoFA.invalidCode"));
             return;
         }
+
         if (!email) {
-            setCodeError("Email is missing. Please login again.");
+            setCodeError(t("twoFA.missingEmail"));
             return;
         }
 
         setCodeError("");
         dispatch(verify2FA({ email, code }));
+    };
+
+    const handleResend = () => {
+        if (!email || cooldown > 0) return;
+
+        dispatch(resend2FA({ email }));
+        setCooldown(30);
     };
 
     const isButtonDisabled = !/^\d{6}$/.test(code) || loading;
@@ -66,10 +114,10 @@ export default function TwoFAForm() {
                 <div>
                     <div className="mb-5 sm:mb-8">
                         <h1 className="mb-2 font-semibold text-gray-800 text-title-sm dark:text-white/90 sm:text-title-md">
-                            Two-Factor Authentication
+                            {t("twoFA.title")}
                         </h1>
                         <p className="text-sm text-gray-500 dark:text-gray-400">
-                            Enter the 6-digit code from your authenticator app
+                            {t("twoFA.subtitle")}
                         </p>
                     </div>
 
@@ -77,17 +125,17 @@ export default function TwoFAForm() {
                         <div className="fixed top-4 right-4 z-50">
                             <Alert
                                 variant={type}
-                                title={type === "success" ? "Success" : "Error"}
+                                title={type === "success" ? t("alerts.success") : t("alerts.error")}
                                 message={message}
                             />
                         </div>
                     )}
 
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <div className="space-y-6">
                             <div>
                                 <Label>
-                                    2FA Code <span className="text-error-500">*</span>
+                                    {t("twoFA.code")} <span className="text-error-500">*</span>
                                 </Label>
                                 <Input
                                     type="text"
@@ -95,11 +143,12 @@ export default function TwoFAForm() {
                                     value={code}
                                     onChange={(e) => {
                                         const val = e.target.value;
+
                                         if (/^\d{0,6}$/.test(val)) {
                                             setCode(val);
                                             setCodeError("");
                                         } else {
-                                            setCodeError("Only digits are allowed");
+                                            setCodeError(t("twoFA.onlyDigits"));
                                         }
                                     }}
                                     error={!!codeError}
@@ -111,10 +160,10 @@ export default function TwoFAForm() {
                                 <Button
                                     className="w-full"
                                     size="sm"
-                                    onClick={handleSubmit}
+                                    type="submit"
                                     disabled={isButtonDisabled}
                                 >
-                                    {loading ? "Verifying..." : "Verify"}
+                                    {loading ? t("twoFA.verifying") : t("twoFA.verify")}
                                 </Button>
                             </div>
                         </div>
@@ -122,7 +171,21 @@ export default function TwoFAForm() {
 
                     <div className="mt-4 text-center">
                         <p className="text-sm text-gray-500 dark:text-gray-400">
-                            Didn't receive the code? <span className="text-brand-500 cursor-pointer hover:text-brand-600">Resend</span>
+                            {t("twoFA.didntReceive")}{" "}
+                            <span
+                                onClick={handleResend}
+                                className={`cursor-pointer ${
+                                    cooldown > 0 || resendLoading
+                                        ? "text-gray-400 cursor-not-allowed"
+                                        : "text-brand-500 hover:text-brand-600"
+                                }`}
+                            >
+                                {cooldown > 0
+                                    ? t("twoFA.resendIn", { seconds: cooldown })
+                                    : resendLoading
+                                    ? t("twoFA.sending")
+                                    : t("twoFA.resend")}
+                            </span>
                         </p>
                     </div>
                 </div>

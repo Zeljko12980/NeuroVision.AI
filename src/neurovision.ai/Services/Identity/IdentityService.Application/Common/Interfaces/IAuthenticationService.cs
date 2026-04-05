@@ -6,6 +6,9 @@
         Task<Result<AuthResponse>> LoginAsync(string email, string password);
         Task<Result<ConfirmEmailResponse>> ConfirmEmailAsync(string userId, string token);
         Task<Result<Confirm2FAResponse>> ConfirmTwoFactorAsync(string email, string code);
+        Task<Result<Confirm2FAResponse>> ResendTwoFactorCodeAsync(string email);
+        Task<Result<ForgotPasswordResponse>> ForgotPasswordAsync(string email);
+        Task<Result<ResetPasswordResponse>> ResetPasswordAsync(string email, string token, string newPassword);
     }
 
 }

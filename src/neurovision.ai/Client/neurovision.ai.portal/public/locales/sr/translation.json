@@ -1,0 +1,36 @@
+{
+  "signin": {
+    "title": "Prijava",
+    "subtitle": "Unesite svoj email i lozinku da se prijavite!",
+    "emailLabel": "Email",
+    "emailPlaceholder": "info@gmail.com",
+    "passwordLabel": "Lozinka",
+    "passwordPlaceholder": "Unesite lozinku",
+    "forgotPassword": "Zaboravljena lozinka?",
+    "signIn": "Prijavi se",
+    "signingIn": "Prijava u toku..."
+  },
+  "alerts": {
+    "success": "Uspeh",
+    "error": "Greška"
+  },
+  "errors": {
+    "invalidEmail": "Unesite validnu email adresu",
+    "loginFailed": "Prijava nije uspela"
+  },
+  "twoFA": {
+    "title": "Dvostepena autentifikacija",
+    "subtitle": "Unesite 6-cifreni kod poslat na vaš email",
+    "code": "2FA Kod",
+    "invalidCode": "Molimo unesite validan 6-cifreni kod",
+    "missingEmail": "Email nedostaje. Molimo prijavite se ponovo.",
+    "onlyDigits": "Dozvoljene su samo cifre",
+    "verify": "Potvrdi",
+    "verifying": "Proveravam...",
+    "didntReceive": "Niste dobili kod?",
+    "resend": "Pošalji ponovo",
+    "resendIn": "Ponovo pošalji za {{seconds}}s",
+    "sending": "Šaljem...",
+    "successLogin": "Uspešno ste se prijavili!"
+  }
+}

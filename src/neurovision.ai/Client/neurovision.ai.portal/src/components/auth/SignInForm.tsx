@@ -8,8 +8,11 @@ import Alert from "../ui/alert/Alert";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { login } from "../../features/auth/authSlice";
 import { showAlert, hideAlert } from "../../features/ui/uiSlice";
+import { useTranslation } from "react-i18next";
 
 export default function SignInForm() {
+    const { t } = useTranslation();
+
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -21,13 +24,16 @@ export default function SignInForm() {
     const { requires2FA, error, loading } = useAppSelector((state) => state.auth);
     const { message, type, visible } = useAppSelector((state) => state.ui);
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!isValidEmail(email)) {
-            setEmailError("Please enter a valid email address");
+            setEmailError(t("errors.invalidEmail"));
             return;
         }
-        dispatch(login({ email, password }));
+
+        await dispatch(login({ email, password }));
+
+       
     };
 
     useEffect(() => {
@@ -61,10 +67,10 @@ export default function SignInForm() {
                 <div>
                     <div className="mb-5 sm:mb-8">
                         <h1 className="mb-2 font-semibold text-gray-800 text-title-sm dark:text-white/90 sm:text-title-md">
-                            Sign In
+                            {t("signin.title")}
                         </h1>
                         <p className="text-sm text-gray-500 dark:text-gray-400">
-                            Enter your email and password to sign in!
+                            {t("signin.subtitle")}
                         </p>
                     </div>
 
@@ -72,29 +78,27 @@ export default function SignInForm() {
                         <div className="fixed top-4 right-4 z-50">
                             <Alert
                                 variant={type}
-                                title={type === "success" ? "Success" : "Error"}
+                                title={type === "success" ? t("alerts.success") : t("alerts.error")}
                                 message={message}
-
                             />
                         </div>
                     )}
 
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <div className="space-y-6">
+
                             <div>
-                                <Label>
-                                    Email <span className="text-error-500">*</span>
-                                </Label>
+                                <Label>{t("signin.emailLabel")} *</Label>
                                 <Input
-                                    placeholder="info@gmail.com"
+                                    placeholder={t("signin.emailPlaceholder")}
                                     value={email}
                                     onChange={(e) => {
                                         setEmail(e.target.value);
-                                        if (!isValidEmail(e.target.value)) {
-                                            setEmailError("Please enter a valid email address");
-                                        } else {
-                                            setEmailError("");
-                                        }
+                                        setEmailError(
+                                            isValidEmail(e.target.value)
+                                                ? ""
+                                                : t("errors.invalidEmail")
+                                        );
                                     }}
                                     error={!!emailError}
                                     hint={emailError}
@@ -102,13 +106,11 @@ export default function SignInForm() {
                             </div>
 
                             <div>
-                                <Label>
-                                    Password <span className="text-error-500">*</span>
-                                </Label>
+                                <Label>{t("signin.passwordLabel")} *</Label>
                                 <div className="relative">
                                     <Input
                                         type={showPassword ? "text" : "password"}
-                                        placeholder="Enter your password"
+                                        placeholder={t("signin.passwordPlaceholder")}
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                     />
@@ -116,34 +118,21 @@ export default function SignInForm() {
                                         onClick={() => setShowPassword(!showPassword)}
                                         className="absolute z-30 -translate-y-1/2 cursor-pointer right-4 top-1/2"
                                     >
-                                        {showPassword ? (
-                                            <EyeIcon className="fill-gray-500 dark:fill-gray-400 size-5" />
-                                        ) : (
-                                            <EyeCloseIcon className="fill-gray-500 dark:fill-gray-400 size-5" />
-                                        )}
+                                        {showPassword ? <EyeIcon /> : <EyeCloseIcon />}
                                     </span>
                                 </div>
                             </div>
 
-                            <div className="flex items-center justify-between">
-                                <Link
-                                    to="/reset-password"
-                                    className="text-sm text-brand-500 hover:text-brand-600 dark:text-brand-400"
-                                >
-                                    Forgot password?
-                                </Link>
-                            </div>
+                            <Link
+                                to="/reset-password"
+                                className="text-sm text-brand-500 hover:text-brand-600 dark:text-brand-400"
+                            >
+                                {t("signin.forgotPassword")}
+                            </Link>
 
-                            <div>
-                                <Button
-                                    className="w-full"
-                                    size="sm"
-                                    onClick={handleSubmit}
-                                    disabled={isButtonDisabled}
-                                >
-                                    {loading ? "Signing in..." : "Sign in"}
-                                </Button>
-                            </div>
+                            <Button type="submit" className="w-full" size="sm" disabled={isButtonDisabled}>
+                                {loading ? t("signin.signingIn") : t("signin.signIn")}
+                            </Button>
                         </div>
                     </form>
                 </div>

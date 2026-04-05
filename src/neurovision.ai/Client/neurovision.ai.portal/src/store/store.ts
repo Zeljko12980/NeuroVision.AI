@@ -2,10 +2,12 @@ import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 import authReducer from "../features/auth/authSlice";
 import uiReducer from "../features/ui/uiSlice";
+import languageReducer from "../features/language/languageSlice";
 export const store = configureStore({
     reducer: {
         auth: authReducer,
-        ui:uiReducer
+        ui:uiReducer,
+        language: languageReducer,
     },
 });
 
