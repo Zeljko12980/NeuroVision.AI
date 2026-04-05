@@ -84,5 +84,44 @@
 
             return (true, token);
         }
+
+        public async Task<(bool IsSuccess, string Code)> ResendTwoFactorCodeAsync(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user == null)
+                return (false, string.Empty);
+
+            if (!user.EmailConfirmed)
+                return (false, string.Empty);
+
+
+            var code = await _userManager.GenerateTwoFactorTokenAsync(
+                user,
+                TokenOptions.DefaultEmailProvider
+            );
+
+            return (true, code);
+        }
+
+        public async Task<(bool IsSuccess, string Token)> GeneratePasswordResetTokenAsync(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+                return (false, string.Empty);
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            return (true, token);
+        }
+
+        public async Task<bool> ResetPasswordAsync(string email, string token, string newPassword)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+                return false;
+
+            var result = await _userManager.ResetPasswordAsync(user, token, newPassword);
+            return result.Succeeded;
+        }
     }
 }

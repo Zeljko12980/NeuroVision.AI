@@ -36,6 +36,18 @@
                     exception.GetType().Name,
                     context.Response.StatusCode = StatusCodes.Status404NotFound
                 ),
+                AccessDeniedException =>
+                (
+                   exception.Message,
+                   exception.GetType().Name,
+                   context.Response.StatusCode = StatusCodes.Status403Forbidden
+                ),
+                UnauthorizedException =>
+                (
+                   exception.Message,
+                   exception.GetType().Name,
+                   context.Response.StatusCode = StatusCodes.Status401Unauthorized
+                ),
                 _ =>
                 (
                     exception.Message,

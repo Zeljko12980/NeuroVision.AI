@@ -1,0 +1,36 @@
+{
+  "signin": {
+    "title": "Anmelden",
+    "subtitle": "Geben Sie Ihre E-Mail und Ihr Passwort ein, um sich anzumelden!",
+    "emailLabel": "E-Mail",
+    "emailPlaceholder": "info@gmail.com",
+    "passwordLabel": "Passwort",
+    "passwordPlaceholder": "Passwort eingeben",
+    "forgotPassword": "Passwort vergessen?",
+    "signIn": "Anmelden",
+    "signingIn": "Anmeldung läuft..."
+  },
+  "alerts": {
+    "success": "Erfolg",
+    "error": "Fehler"
+  },
+  "errors": {
+    "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+    "loginFailed": "Anmeldung fehlgeschlagen"
+  },
+  "twoFA": {
+    "title": "Zwei-Faktor-Authentifizierung",
+    "subtitle": "Geben Sie den 6-stelligen Code ein, der an Ihre E-Mail gesendet wurde",
+    "code": "2FA-Code",
+    "invalidCode": "Bitte geben Sie einen gültigen 6-stelligen Code ein",
+    "missingEmail": "E-Mail fehlt. Bitte erneut anmelden.",
+    "onlyDigits": "Nur Zahlen sind erlaubt",
+    "verify": "Überprüfen",
+    "verifying": "Überprüfe...",
+    "didntReceive": "Code nicht erhalten?",
+    "resend": "Erneut senden",
+    "resendIn": "Erneut senden in {{seconds}}s",
+    "sending": "Sende...",
+    "successLogin": "Sie haben sich erfolgreich angemeldet!"
+  }
+}

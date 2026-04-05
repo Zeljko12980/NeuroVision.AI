@@ -2,8 +2,8 @@
 {
     public class User : IdentityUser
     {
-        public string FirstName { get; private set; } = string.Empty;
-        public string LastName { get; private set; } = string.Empty;
+        public string FirstName { get; private set; }
+        public string LastName { get; private set; }
 
         protected User() { }
 

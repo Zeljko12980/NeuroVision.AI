@@ -2,6 +2,7 @@ import React from "react";
 import GridShape from "../../components/common/GridShape";
 import { Link } from "react-router";
 import ThemeTogglerTwo from "../../components/common/ThemeTogglerTwo";
+import LanguageToggler from "../../components/common/LanguageToggler";
 
 export default function AuthLayout({
   children,
@@ -14,7 +15,6 @@ export default function AuthLayout({
         {children}
         <div className="items-center hidden w-full h-full lg:w-1/2 bg-brand-950 dark:bg-white/5 lg:grid">
           <div className="relative flex items-center justify-center z-1">
-            {/* <!-- ===== Common Grid Shape Start ===== --> */}
             <GridShape />
             <div className="flex flex-col items-center max-w-xs">
               <Link to="/" className="block mb-4">
@@ -33,6 +33,9 @@ export default function AuthLayout({
         </div>
         <div className="fixed z-50 hidden bottom-6 right-6 sm:block">
           <ThemeTogglerTwo />
+        </div>
+        <div className="absolute top-6 right-6 flex space-x-3">
+          <LanguageToggler />
         </div>
       </div>
     </div>

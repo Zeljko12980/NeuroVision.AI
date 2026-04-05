@@ -25,8 +25,13 @@ namespace IdentityService.API.Controllers
         {
             var result = await _sender.Send(new Confirm2FACommand(request));
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+        }
 
-
+        [HttpPost("resend-2fa")]
+        public async Task<IActionResult> ResendTwoFactor([FromBody] Resend2FARequest request)
+        {
+            var result = await _sender.Send(new Resend2FACommand(request));
+            return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
     }
 }

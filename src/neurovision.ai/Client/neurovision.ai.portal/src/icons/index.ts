@@ -54,6 +54,12 @@ import { ReactComponent as ChatIcon } from "./chat.svg?react";
 import { ReactComponent as MoreDotIcon } from "./moredot.svg?react";
 import { ReactComponent as AlertHexaIcon } from "./alert-hexa.svg?react";
 import { ReactComponent as ErrorHexaIcon } from "./info-hexa.svg?react";
+import { ReactComponent as LanguageIcon } from "./language.svg?react";
+import { ReactComponent as SerbiaIcon } from "./serbia.svg?react";
+import { ReactComponent as GermanyIcon } from "./germany.svg?react";
+import { ReactComponent as EnglandIcon } from "./england.svg?react";
+
+
 
 export {
   ErrorHexaIcon,
@@ -112,4 +118,8 @@ export {
   ChatIcon,
   AngleLeftIcon,
   AngleRightIcon,
+  LanguageIcon,
+  SerbiaIcon,
+  GermanyIcon,
+  EnglandIcon,
 };
