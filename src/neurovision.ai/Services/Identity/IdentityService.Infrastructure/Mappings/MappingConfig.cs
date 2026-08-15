@@ -1,7 +1,4 @@
-﻿using IdentityService.Application.Common.DTOs;
-using Mapster;
-
-namespace IdentityService.Infrastructure.Mappings
+﻿namespace IdentityService.Infrastructure.Mappings
 {
     public static class MappingConfig
     {

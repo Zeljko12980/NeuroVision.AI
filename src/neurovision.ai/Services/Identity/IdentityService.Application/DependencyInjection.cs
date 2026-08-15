@@ -1,7 +1,4 @@
-﻿using BuildingBlocks.Behaviors;
-using BuildingBlocks.Messaging.MassTransit;
-using Microsoft.Extensions.Configuration;
-namespace IdentityService.Application
+﻿namespace IdentityService.Application
 {
     public static class DependencyInjection
     {
@@ -12,11 +9,15 @@ namespace IdentityService.Application
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddMessageBroker(configuration, Assembly.GetExecutingAssembly());
 
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
             services.AddMediatR(ctg =>
             {
                 ctg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+                ctg.AddOpenBehavior(typeof(ValidationBehavior<,>));
                 ctg.AddOpenBehavior(typeof(LoggingBehavior<,>));
             });
+
             return services;
         }
     }

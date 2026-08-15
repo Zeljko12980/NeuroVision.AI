@@ -1,9 +1,6 @@
-﻿using IdentityService.Application.Common.Requests;
-
-namespace IdentityService.Application.Commands.Authentication
+﻿namespace IdentityService.Application.Commands.Authentication
 {
     public record LoginCommand(LoginRequest LoginRequest) : ICommand<Result<AuthResponse>>;
-
 
     public class LoginCommandValidator : AbstractValidator<LoginCommand>
     {
@@ -19,8 +16,7 @@ namespace IdentityService.Application.Commands.Authentication
         }
     }
 
-
-    public sealed class LoginCommandHandler: ICommandHandler<LoginCommand, Result<AuthResponse>>
+    public sealed class LoginCommandHandler : ICommandHandler<LoginCommand, Result<AuthResponse>>
     {
         private readonly IAuthenticationService _authenticationService;
 
@@ -39,5 +35,4 @@ namespace IdentityService.Application.Commands.Authentication
                 cancellationToken);
         }
     }
-
 }

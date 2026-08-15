@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Extensions.Configuration;
-using System.Text;
-
-namespace IdentityService.Application.Commands.User
+﻿namespace IdentityService.Application.Commands.User
 {
     public class CreateUserCommand : ICommand<Result<UserResponse>>
     {
@@ -31,7 +27,7 @@ namespace IdentityService.Application.Commands.User
     }
 
     public class CreateUserCommandHandler
-    : ICommandHandler<CreateUserCommand, Result<UserResponse>>
+        : ICommandHandler<CreateUserCommand, Result<UserResponse>>
     {
         private readonly IUserService _userService;
         private readonly IRoleService _roleService;
@@ -51,8 +47,8 @@ namespace IdentityService.Application.Commands.User
         }
 
         public async Task<Result<UserResponse>> Handle(
-    CreateUserCommand command,
-    CancellationToken cancellationToken)
+            CreateUserCommand command,
+            CancellationToken cancellationToken)
         {
             var userResult = await _userService.CreateAsync(
                 command.Id,
@@ -95,7 +91,6 @@ namespace IdentityService.Application.Commands.User
                 return Result.Fail("Frontend URL is not configured.");
 
             var encodedToken = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(tokenResult.Value));
-
 
             var link = $"{frontendUrl}/confirm-email?email={email}&token={encodedToken}";
 

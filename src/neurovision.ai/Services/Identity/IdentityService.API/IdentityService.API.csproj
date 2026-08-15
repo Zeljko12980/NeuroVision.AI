@@ -21,8 +21,4 @@
 		<ProjectReference Include="..\IdentityService.Infrastructure\IdentityService.Infrastructure.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="wwwroot\" />
-	</ItemGroup>
-
 </Project>

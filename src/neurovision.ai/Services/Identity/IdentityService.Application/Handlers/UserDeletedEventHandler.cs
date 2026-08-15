@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-
-namespace IdentityService.Application.Handlers
+﻿namespace IdentityService.Application.Handlers
 {
     public class UserDeletedEventHandler : IConsumer<DeleteUserEvent>
     {

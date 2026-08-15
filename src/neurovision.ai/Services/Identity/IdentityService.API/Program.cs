@@ -1,13 +1,6 @@
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.AddServiceDefaults();
-
-var lokiUrl = builder.Configuration.GetValue<string>("AppSettings:Loki")
-    ?? throw new InvalidOperationException("Loki URL is not configured.");
-
-var serviceName = builder.Configuration.GetValue<string>("AppSettings:ServiceName")
-    ?? builder.Environment.ApplicationName;
 
 builder.Services.AddRouting(options =>
 {
@@ -44,8 +37,6 @@ var app = builder.Build();
 
 app.UseSerilogRequestLogging();
 
-app.UseStaticFiles();
-
 app.MapDefaultEndpoints();
 
 using (var scope = app.Services.CreateScope())
@@ -53,9 +44,9 @@ using (var scope = app.Services.CreateScope())
     var db = scope.ServiceProvider.GetRequiredService<IdentityContext>();
     db.Database.Migrate();
 
-     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AspIdentityUser>>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AspIdentityUser>>();
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<AspIdentityRole>>();
-    await DatabaseSeeder.SeedAsync(db, userManager, roleManager);
+    await DatabaseSeeder.SeedAsync(userManager, roleManager);
 }
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();

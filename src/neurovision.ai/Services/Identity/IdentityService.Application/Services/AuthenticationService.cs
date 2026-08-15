@@ -1,7 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using System.Net;
-
-namespace IdentityService.Application.Services
+﻿namespace IdentityService.Application.Services
 {
     public class AuthenticationService : IAuthenticationService
     {
@@ -25,21 +22,7 @@ namespace IdentityService.Application.Services
             _logger = logger;
         }
 
-        public async Task<Result<SignInResponse>> SignInAsync(string userName, string password)
-        {
-            var success = await _identityService.SignInAsync(userName, password);
-
-            if (!success)
-                return Result<SignInResponse>.Fail("Invalid username or password.");
-
-            return Result<SignInResponse>.Ok(new SignInResponse
-            {
-                IsSignedIn = true,
-                Message = "Sign-in successful."
-            });
-        }
-
-        public async Task<Result<AuthResponse>> LoginAsync(string email, string password,CancellationToken cancellationToken)
+        public async Task<Result<AuthResponse>> LoginAsync(string email, string password, CancellationToken cancellationToken)
         {
             _logger.LogInformation(
                 "Login started. Email={Email}",
@@ -122,7 +105,7 @@ namespace IdentityService.Application.Services
             if (userResult == null)
                 return Result<Confirm2FAResponse>.Fail("User not found.");
 
-            var token = _jwt.GenerateToken(userResult.Value.Id, email,userResult.Value.UserName, roles.ToList());
+            var token = _jwt.GenerateToken(userResult.Value.Id, email, userResult.Value.UserName, roles.ToList());
 
             return Result<Confirm2FAResponse>.Ok(new Confirm2FAResponse
             {
@@ -143,37 +126,6 @@ namespace IdentityService.Application.Services
             return Result<Confirm2FAResponse>.Ok(new Confirm2FAResponse
             {
                 Message = "New two-factor code sent."
-            });
-        }
-
-        public async Task<Result<ForgotPasswordResponse>> ForgotPasswordAsync(string email)
-        {
-            var token = await _identityService.GeneratePasswordResetTokenAsync(email);
-
-            if (token is null)
-                return Result<ForgotPasswordResponse>.Fail("User not found.");
-
-            return Result<ForgotPasswordResponse>.Ok(new ForgotPasswordResponse
-            {
-                EmailSent = true,
-                Message = "Password reset token generated."
-            });
-        }
-
-        public async Task<Result<ResetPasswordResponse>> ResetPasswordAsync(
-            string email,
-            string token,
-            string newPassword)
-        {
-            var success = await _identityService.ResetPasswordAsync(email, token, newPassword);
-
-            if (!success)
-                return Result<ResetPasswordResponse>.Fail("Invalid token or email.");
-
-            return Result<ResetPasswordResponse>.Ok(new ResetPasswordResponse
-            {
-                PasswordReset = true,
-                Message = "Password reset successful."
             });
         }
 
@@ -212,7 +164,6 @@ namespace IdentityService.Application.Services
 
             if (!success)
                 return Result.Fail("Invalid token or user not found.");
-
 
             return Result.Ok();
         }

@@ -16,9 +16,6 @@
 
         Task<bool> ResetPasswordAsync(string email, string token, string newPassword);
 
-        Task<bool> SetPasswordAsync(string email, string token, string password);
-
         Task<string?> GetUserNameByEmailAsync(string email);
-
     }
 }

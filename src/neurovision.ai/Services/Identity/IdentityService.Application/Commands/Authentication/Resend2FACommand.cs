@@ -1,6 +1,4 @@
-﻿using IdentityService.Application.Common.Requests;
-
-namespace IdentityService.Application.Commands.Authentication
+﻿namespace IdentityService.Application.Commands.Authentication
 {
     public record Resend2FACommand(Resend2FARequest Resend2FARequest)
          : ICommand<Result<Confirm2FAResponse>>;

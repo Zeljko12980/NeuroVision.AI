@@ -1,6 +1,4 @@
-﻿using IdentityService.Application.Common.Requests;
-
-namespace IdentityService.Application.Commands.Authentication
+﻿namespace IdentityService.Application.Commands.Authentication
 {
     public record Confirm2FACommand(Confirm2FARequest Confirm2FARequest) : ICommand<Result<Confirm2FAResponse>>;
 
@@ -20,10 +18,12 @@ namespace IdentityService.Application.Commands.Authentication
     public class Confirm2FACommandHandler : ICommandHandler<Confirm2FACommand, Result<Confirm2FAResponse>>
     {
         private readonly IAuthenticationService _authService;
+
         public Confirm2FACommandHandler(IAuthenticationService authService)
         {
             _authService = authService;
         }
+
         public async Task<Result<Confirm2FAResponse>> Handle(Confirm2FACommand command, CancellationToken cancellationToken)
         {
             return await _authService.ConfirmTwoFactorAsync(command.Confirm2FARequest.Email, command.Confirm2FARequest.Code);

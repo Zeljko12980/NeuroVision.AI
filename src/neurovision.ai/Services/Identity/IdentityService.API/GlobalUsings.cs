@@ -1,4 +1,6 @@
 ﻿global using BuildingBlocks.Exceptions.Handler;
+global using BuildingBlocks.Logging;
+global using BuildingBlocks.Results;
 global using IdentityService.API.Middleware;
 global using IdentityService.Application;
 global using IdentityService.Application.Commands.Authentication;
@@ -11,10 +13,7 @@ global using IdentityService.Infrastructure.Persistence;
 global using MediatR;
 global using Microsoft.AspNetCore.Authentication.JwtBearer;
 global using Microsoft.AspNetCore.Authorization;
+global using Microsoft.AspNetCore.Identity;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.EntityFrameworkCore;
-global using BuildingBlocks.Results;
 global using Serilog;
-global using BuildingBlocks.Logging;
-global using Microsoft.AspNetCore.Identity;
-

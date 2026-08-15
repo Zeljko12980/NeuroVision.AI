@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Extensions.Configuration;
-using System.Text;
-
-namespace IdentityService.Application.Handlers
+﻿namespace IdentityService.Application.Handlers
 {
     public class UserCreatedEventHandler : IConsumer<CreateUserEvent>
     {
@@ -10,21 +6,17 @@ namespace IdentityService.Application.Handlers
         private readonly IRoleService _roleService;
         private readonly IPublishEndpoint _publishEndpoint;
         private readonly IConfiguration _configuration;
-        private readonly IFileStorageService _fileStorageService;
 
         public UserCreatedEventHandler(
             IUserService userService,
             IRoleService roleService,
             IPublishEndpoint publishEndpoint,
-            IConfiguration configuration,
-            IFileStorageService fileStorageService
-            )
+            IConfiguration configuration)
         {
             _userService = userService;
             _roleService = roleService;
             _publishEndpoint = publishEndpoint;
             _configuration = configuration;
-            _fileStorageService = fileStorageService;
         }
 
         public async Task Consume(ConsumeContext<CreateUserEvent> context)
@@ -36,14 +28,10 @@ namespace IdentityService.Application.Handlers
             await AssignRoleAsync(message, context.CancellationToken);
 
             await SendConfirmationEmailAsync(user);
-
         }
-
-
 
         private async Task<UserResponse> CreateUserAsync(CreateUserEvent message)
         {
-
             var user = await _userService.CreateAsync(
                message.UserId,
                message.Username,
@@ -56,6 +44,7 @@ namespace IdentityService.Application.Handlers
                 UserName = user.Value.UserName
             };
         }
+
         private async Task AssignRoleAsync(CreateUserEvent message, CancellationToken cancellationToken)
         {
             if (string.IsNullOrEmpty(message.RoleName))
@@ -82,8 +71,6 @@ namespace IdentityService.Application.Handlers
 
             var link =
                 $"{frontendUrl}/confirm-email?email={user.Email}&token={encodedToken}";
-
-
 
             await _publishEndpoint.Publish(new ConfirmEmailEvent(
                 user.Id,

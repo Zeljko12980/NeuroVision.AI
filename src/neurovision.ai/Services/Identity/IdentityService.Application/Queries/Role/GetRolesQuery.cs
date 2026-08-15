@@ -1,9 +1,4 @@
-﻿using BuildingBlocks.Pagination;
-using IdentityService.Application.Common.DTOs;
-using IdentityService.Application.Common.Requests;
-using Mapster;
-
-namespace IdentityService.Application.Queries.Role;
+﻿namespace IdentityService.Application.Queries.Role;
 
 public sealed record GetRolesQuery(GetAllRolesRequest Request)
     : IQuery<Result<PaginatedResult<RoleResponse>>>;

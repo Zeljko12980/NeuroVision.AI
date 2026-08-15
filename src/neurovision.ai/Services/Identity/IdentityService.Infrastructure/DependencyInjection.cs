@@ -1,7 +1,4 @@
-﻿using IdentityService.Infrastructure.Mappings;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-
-namespace IdentityService.Infrastructure
+﻿namespace IdentityService.Infrastructure
 {
     public static class DependencyInjection
     {
@@ -80,7 +77,6 @@ namespace IdentityService.Infrastructure
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddScoped<IIdentityService, IdentityService.Infrastructure.Services.IdentityService>();
-            services.AddScoped<IFileStorageService, FileStorageService>();
 
             return services;
         }

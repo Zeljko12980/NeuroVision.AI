@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace IdentityService.Application.Common.Requests
+﻿namespace IdentityService.Application.Common.Requests
 {
     public class CreateRoleRequest
     {

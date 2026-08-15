@@ -1,14 +1,11 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-
 namespace IdentityService.Infrastructure.Persistence;
 
 public static class DatabaseSeeder
 {
-    public static async Task SeedAsync(IdentityContext context, UserManager<AspIdentityUser> userManager, RoleManager<AspIdentityRole> roleManager)
+    public static async Task SeedAsync(UserManager<AspIdentityUser> userManager, RoleManager<AspIdentityRole> roleManager)
     {
         await SeedRolesAsync(roleManager);
-        await SeedSuperAdministratorAsync(userManager, roleManager);
+        await SeedSuperAdministratorAsync(userManager);
         await SeedDoctorAsync(userManager);
     }
 
@@ -37,7 +34,7 @@ public static class DatabaseSeeder
         }
     }
 
-    private static async Task SeedSuperAdministratorAsync(UserManager<AspIdentityUser> userManager, RoleManager<AspIdentityRole> roleManager)
+    private static async Task SeedSuperAdministratorAsync(UserManager<AspIdentityUser> userManager)
     {
         const string superAdminEmail = "ikanoviczeljko095@gmail.com";
         const string superAdminUserName = "superadmin";
@@ -46,7 +43,7 @@ public static class DatabaseSeeder
         var existingUser = await userManager.FindByEmailAsync(superAdminEmail);
         if (existingUser != null)
         {
-            return; 
+            return;
         }
 
         var superAdmin = new AspIdentityUser(
@@ -63,18 +60,15 @@ public static class DatabaseSeeder
 
         if (result.Succeeded)
         {
-            // Add SuperAdministrator role
             await userManager.AddToRoleAsync(superAdmin, "SuperAdministrator");
-
-            // Add claim for role
-            await userManager.AddClaimAsync(superAdmin, new System.Security.Claims.Claim("role", "SuperAdministrator"));
+            await userManager.AddClaimAsync(superAdmin, new Claim("role", "SuperAdministrator"));
         }
     }
 
     private static async Task SeedDoctorAsync(UserManager<AspIdentityUser> userManager)
     {
         const string doctorEmail = "ikanoviczeljko362@gmail.com";
-        const string doctorUserName = "doctor.zeljko";
+        const string doctorUserName = "zeljko.ikanovic";
         const string doctorPassword = "Zeljko123!";
 
         var existingUser = await userManager.FindByEmailAsync(doctorEmail);
@@ -83,7 +77,7 @@ public static class DatabaseSeeder
             if (!await userManager.IsInRoleAsync(existingUser, "Doctor"))
             {
                 await userManager.AddToRoleAsync(existingUser, "Doctor");
-                await userManager.AddClaimAsync(existingUser, new System.Security.Claims.Claim("role", "Doctor"));
+                await userManager.AddClaimAsync(existingUser, new Claim("role", "Doctor"));
             }
 
             return;
@@ -104,7 +98,7 @@ public static class DatabaseSeeder
         if (result.Succeeded)
         {
             await userManager.AddToRoleAsync(doctor, "Doctor");
-            await userManager.AddClaimAsync(doctor, new System.Security.Claims.Claim("role", "Doctor"));
+            await userManager.AddClaimAsync(doctor, new Claim("role", "Doctor"));
         }
     }
 }
