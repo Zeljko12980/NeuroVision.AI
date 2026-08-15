@@ -1,0 +1,339 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 900" width="800" height="900">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Syne:wght@800&amp;family=Space+Mono:wght@400;700&amp;display=swap');
+    </style>
+  </defs>
+
+  <!-- ==================== BACKGROUND ==================== -->
+  <rect width="800" height="900" fill="#080d1a"/>
+
+  <!-- ==================== SECTION LABELS ==================== -->
+  <text x="40" y="32" font-family="'Courier New', monospace" font-size="10" fill="#4a6080" letter-spacing="0.15em">01 — DARK / PRIMARY HORIZONTAL</text>
+  <text x="40" y="182" font-family="'Courier New', monospace" font-size="10" fill="#4a6080" letter-spacing="0.15em">02 — LIGHT / WHITE BACKGROUND</text>
+  <text x="40" y="332" font-family="'Courier New', monospace" font-size="10" fill="#4a6080" letter-spacing="0.15em">03 — ICON MARK ONLY (DARK)</text>
+  <text x="200" y="332" font-family="'Courier New', monospace" font-size="10" fill="#4a6080" letter-spacing="0.15em">04 — STACKED VARIANT</text>
+  <text x="430" y="332" font-family="'Courier New', monospace" font-size="10" fill="#4a6080" letter-spacing="0.15em">05 — MONOCHROME WHITE</text>
+  <text x="40" y="512" font-family="'Courier New', monospace" font-size="10" fill="#4a6080" letter-spacing="0.15em">06 — BLUE ACCENT VARIANT</text>
+  <text x="40" y="662" font-family="'Courier New', monospace" font-size="10" fill="#4a6080" letter-spacing="0.15em">07 — FAVICON / ICON SIZES: 16px  32px  64px  96px</text>
+
+  <!-- ==================== 01: DARK PRIMARY ==================== -->
+  <rect x="40" y="44" width="720" height="120" rx="12" fill="#0a0e1a"/>
+  <!-- Grid pattern -->
+  <line x1="40" y1="44" x2="760" y2="44" stroke="#63b3ed" stroke-width="0.3" stroke-opacity="0.06"/>
+  <line x1="40" y1="68" x2="760" y2="68" stroke="#63b3ed" stroke-width="0.3" stroke-opacity="0.06"/>
+  <line x1="40" y1="92" x2="760" y2="92" stroke="#63b3ed" stroke-width="0.3" stroke-opacity="0.06"/>
+  <line x1="40" y1="116" x2="760" y2="116" stroke="#63b3ed" stroke-width="0.3" stroke-opacity="0.06"/>
+  <line x1="40" y1="140" x2="760" y2="140" stroke="#63b3ed" stroke-width="0.3" stroke-opacity="0.06"/>
+  <line x1="40" y1="164" x2="760" y2="164" stroke="#63b3ed" stroke-width="0.3" stroke-opacity="0.06"/>
+
+  <!-- Icon centered at 100,104 -->
+  <!-- Hex rings -->
+  <polygon points="100,60 124.9,74.5 124.9,103.5 100,118 75.1,103.5 75.1,74.5" stroke="#1a3a5c" stroke-width="1.5" fill="none"/>
+  <polygon points="100,64 121.2,76.5 121.2,101.5 100,114 78.8,101.5 78.8,76.5" stroke="#2563eb" stroke-width="0.5" fill="none" stroke-opacity="0.4"/>
+  <!-- Brain left -->
+  <path d="M100,74 C92,74 85,79 84.5,85 C84,89 86.5,93 90.5,94 C90,96.5 90.5,99 93,100 C94.5,100.5 96.5,100 97.5,99.5 L100,98.5 Z" fill="#0d1f35" stroke="#1e4d8c" stroke-width="1"/>
+  <!-- Brain right -->
+  <path d="M100,74 C108,74 115,79 115.5,85 C116,89 113.5,93 109.5,94 C110,96.5 109.5,99 107,100 C105.5,100.5 103.5,100 102.5,99.5 L100,98.5 Z" fill="#0d1f35" stroke="#1e4d8c" stroke-width="1"/>
+  <!-- Neural nodes -->
+  <circle cx="92" cy="82" r="2" fill="#63b3ed"/>
+  <circle cx="86.5" cy="89" r="1.5" fill="#3b82f6" opacity="0.8"/>
+  <circle cx="94" cy="94" r="1.5" fill="#60a5fa" opacity="0.9"/>
+  <circle cx="100" cy="80" r="2.5" fill="#93c5fd"/>
+  <circle cx="100" cy="96" r="1.5" fill="#3b82f6"/>
+  <circle cx="108" cy="82" r="2" fill="#63b3ed"/>
+  <circle cx="113.5" cy="89" r="1.5" fill="#3b82f6" opacity="0.8"/>
+  <circle cx="106" cy="94" r="1.5" fill="#60a5fa" opacity="0.9"/>
+  <!-- Synaptic connections -->
+  <line x1="92" y1="82" x2="100" y2="80" stroke="#3b82f6" stroke-width="0.75" opacity="0.7"/>
+  <line x1="100" y1="80" x2="108" y2="82" stroke="#3b82f6" stroke-width="0.75" opacity="0.7"/>
+  <line x1="92" y1="82" x2="86.5" y2="89" stroke="#3b82f6" stroke-width="0.75" opacity="0.5"/>
+  <line x1="86.5" y1="89" x2="94" y2="94" stroke="#3b82f6" stroke-width="0.75" opacity="0.5"/>
+  <line x1="94" y1="94" x2="100" y2="96" stroke="#3b82f6" stroke-width="0.75" opacity="0.6"/>
+  <line x1="100" y1="96" x2="106" y2="94" stroke="#3b82f6" stroke-width="0.75" opacity="0.6"/>
+  <line x1="106" y1="94" x2="113.5" y2="89" stroke="#3b82f6" stroke-width="0.75" opacity="0.5"/>
+  <line x1="113.5" y1="89" x2="108" y2="82" stroke="#3b82f6" stroke-width="0.75" opacity="0.5"/>
+  <!-- Scan line -->
+  <line x1="82" y1="88" x2="118" y2="88" stroke="#00d4ff" stroke-width="0.75" stroke-opacity="0.4" stroke-dasharray="2 3"/>
+  <!-- Detection reticle -->
+  <circle cx="100" cy="80" r="6" stroke="#00d4ff" stroke-width="0.75" fill="none" stroke-opacity="0.7"/>
+  <line x1="97" y1="80" x2="94.5" y2="80" stroke="#00d4ff" stroke-width="0.75" stroke-opacity="0.7"/>
+  <line x1="103" y1="80" x2="105.5" y2="80" stroke="#00d4ff" stroke-width="0.75" stroke-opacity="0.7"/>
+  <line x1="100" y1="77" x2="100" y2="74.5" stroke="#00d4ff" stroke-width="0.75" stroke-opacity="0.7"/>
+  <line x1="100" y1="83" x2="100" y2="85.5" stroke="#00d4ff" stroke-width="0.75" stroke-opacity="0.7"/>
+
+  <!-- Wordmark -->
+  <text x="148" y="97" font-family="'Arial Black', 'Helvetica Neue', sans-serif" font-weight="900" font-size="38" letter-spacing="-1">
+    <tspan fill="#e8f4fd">Neuro</tspan><tspan fill="#63b3ed">Vision</tspan>
+  </text>
+  <!-- .ai badge -->
+  <rect x="390" y="64" width="32" height="18" rx="4" fill="#1e3a5f" stroke="#2563eb" stroke-width="0.75"/>
+  <text x="406" y="76.5" font-family="'Courier New', monospace" font-weight="700" font-size="10" fill="#63b3ed" text-anchor="middle">.ai</text>
+  <!-- Divider -->
+  <line x1="148" y1="105" x2="428" y2="105" stroke="#1a3a5c" stroke-width="0.75"/>
+  <!-- Subtitle -->
+  <text x="148" y="121" font-family="'Courier New', monospace" font-size="11" fill="#4a7cb5" letter-spacing="0.14em">BRAIN TUMOR DETECTION SYSTEM</text>
+  <!-- Accuracy bar -->
+  <rect x="148" y="127" width="36" height="4" rx="2" fill="#1e3a5f"/>
+  <rect x="148" y="127" width="27" height="4" rx="2" fill="#2563eb"/>
+  <text x="190" y="133" font-family="'Courier New', monospace" font-size="9" fill="#3b82f6">97.4% acc</text>
+
+  <!-- ==================== 02: LIGHT ==================== -->
+  <rect x="40" y="194" width="720" height="120" rx="12" fill="#f4f6fb"/>
+
+  <!-- Icon for light -->
+  <polygon points="100,210 124.9,224.5 124.9,253.5 100,268 75.1,253.5 75.1,224.5" stroke="#bfdbfe" stroke-width="1.5" fill="none"/>
+  <polygon points="100,214 121.2,226.5 121.2,251.5 100,264 78.8,251.5 78.8,226.5" stroke="#3b82f6" stroke-width="0.5" fill="none" stroke-opacity="0.25"/>
+  <path d="M100,224 C92,224 85,229 84.5,235 C84,239 86.5,243 90.5,244 C90,246.5 90.5,249 93,250 C94.5,250.5 96.5,250 97.5,249.5 L100,248.5 Z" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+  <path d="M100,224 C108,224 115,229 115.5,235 C116,239 113.5,243 109.5,244 C110,246.5 109.5,249 107,250 C105.5,250.5 103.5,250 102.5,249.5 L100,248.5 Z" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+  <circle cx="92" cy="232" r="2" fill="#3b82f6"/>
+  <circle cx="86.5" cy="239" r="1.5" fill="#2563eb" opacity="0.8"/>
+  <circle cx="94" cy="244" r="1.5" fill="#3b82f6" opacity="0.9"/>
+  <circle cx="100" cy="230" r="2.5" fill="#1d4ed8"/>
+  <circle cx="100" cy="246" r="1.5" fill="#2563eb"/>
+  <circle cx="108" cy="232" r="2" fill="#3b82f6"/>
+  <circle cx="113.5" cy="239" r="1.5" fill="#2563eb" opacity="0.8"/>
+  <circle cx="106" cy="244" r="1.5" fill="#3b82f6" opacity="0.9"/>
+  <line x1="92" y1="232" x2="100" y2="230" stroke="#3b82f6" stroke-width="0.75" opacity="0.5"/>
+  <line x1="100" y1="230" x2="108" y2="232" stroke="#3b82f6" stroke-width="0.75" opacity="0.5"/>
+  <line x1="92" y1="232" x2="86.5" y2="239" stroke="#3b82f6" stroke-width="0.75" opacity="0.4"/>
+  <line x1="86.5" y1="239" x2="94" y2="244" stroke="#3b82f6" stroke-width="0.75" opacity="0.4"/>
+  <line x1="94" y1="244" x2="100" y2="246" stroke="#3b82f6" stroke-width="0.75" opacity="0.5"/>
+  <line x1="100" y1="246" x2="106" y2="244" stroke="#3b82f6" stroke-width="0.75" opacity="0.5"/>
+  <line x1="106" y1="244" x2="113.5" y2="239" stroke="#3b82f6" stroke-width="0.75" opacity="0.4"/>
+  <line x1="113.5" y1="239" x2="108" y2="232" stroke="#3b82f6" stroke-width="0.75" opacity="0.4"/>
+  <line x1="82" y1="238" x2="118" y2="238" stroke="#0ea5e9" stroke-width="0.75" stroke-opacity="0.35" stroke-dasharray="2 3"/>
+  <circle cx="100" cy="230" r="6" stroke="#0ea5e9" stroke-width="0.75" fill="none" stroke-opacity="0.7"/>
+  <line x1="97" y1="230" x2="94.5" y2="230" stroke="#0ea5e9" stroke-width="0.75" stroke-opacity="0.7"/>
+  <line x1="103" y1="230" x2="105.5" y2="230" stroke="#0ea5e9" stroke-width="0.75" stroke-opacity="0.7"/>
+  <line x1="100" y1="227" x2="100" y2="224.5" stroke="#0ea5e9" stroke-width="0.75" stroke-opacity="0.7"/>
+  <line x1="100" y1="233" x2="100" y2="235.5" stroke="#0ea5e9" stroke-width="0.75" stroke-opacity="0.7"/>
+  <!-- Wordmark light -->
+  <text x="148" y="247" font-family="'Arial Black', 'Helvetica Neue', sans-serif" font-weight="900" font-size="38" letter-spacing="-1">
+    <tspan fill="#0f172a">Neuro</tspan><tspan fill="#1d4ed8">Vision</tspan>
+  </text>
+  <rect x="390" y="214" width="32" height="18" rx="4" fill="#dbeafe" stroke="#93c5fd" stroke-width="0.75"/>
+  <text x="406" y="226.5" font-family="'Courier New', monospace" font-weight="700" font-size="10" fill="#1d4ed8" text-anchor="middle">.ai</text>
+  <line x1="148" y1="255" x2="428" y2="255" stroke="#dbeafe" stroke-width="0.75"/>
+  <text x="148" y="271" font-family="'Courier New', monospace" font-size="11" fill="#2563eb" letter-spacing="0.14em" opacity="0.7">BRAIN TUMOR DETECTION SYSTEM</text>
+  <rect x="148" y="277" width="36" height="4" rx="2" fill="#dbeafe"/>
+  <rect x="148" y="277" width="27" height="4" rx="2" fill="#3b82f6"/>
+  <text x="190" y="283" font-family="'Courier New', monospace" font-size="9" fill="#2563eb">97.4% acc</text>
+
+  <!-- ==================== 03: ICON ONLY ==================== -->
+  <rect x="40" y="344" width="140" height="140" rx="12" fill="#0a0e1a"/>
+  <!-- Icon large centered at 110, 414 -->
+  <circle cx="110" cy="414" r="58" fill="#0a1628"/>
+  <polygon points="110,358 161.5,387.5 161.5,440.5 110,470 58.5,440.5 58.5,387.5" stroke="#1e4d8c" stroke-width="2" fill="none"/>
+  <polygon points="110,365 155,391.5 155,436.5 110,463 65,436.5 65,391.5" stroke="#3b82f6" stroke-width="0.75" fill="none" stroke-opacity="0.3"/>
+  <path d="M110,383 C98,383 88,390.5 87,400 C86,407 90,413 97,414.5 C96,418 97,422 101,423.5 C103.5,424.5 107.5,424 109.5,423 L110,422.5 Z" fill="#0d1f35" stroke="#1e4d8c" stroke-width="1.2"/>
+  <path d="M110,383 C122,383 132,390.5 133,400 C134,407 130,413 123,414.5 C124,418 123,422 119,423.5 C116.5,424.5 112.5,424 110.5,423 L110,422.5 Z" fill="#0d1f35" stroke="#1e4d8c" stroke-width="1.2"/>
+  <circle cx="100" cy="394" r="3" fill="#63b3ed"/>
+  <circle cx="91" cy="404" r="2.5" fill="#3b82f6" opacity="0.8"/>
+  <circle cx="102" cy="412" r="2.5" fill="#60a5fa"/>
+  <circle cx="110" cy="390" r="4" fill="#93c5fd"/>
+  <circle cx="110" cy="416" r="2.5" fill="#3b82f6"/>
+  <circle cx="120" cy="394" r="3" fill="#63b3ed"/>
+  <circle cx="129" cy="404" r="2.5" fill="#3b82f6" opacity="0.8"/>
+  <circle cx="118" cy="412" r="2.5" fill="#60a5fa"/>
+  <line x1="100" y1="394" x2="110" y2="390" stroke="#3b82f6" stroke-width="1" opacity="0.7"/>
+  <line x1="110" y1="390" x2="120" y2="394" stroke="#3b82f6" stroke-width="1" opacity="0.7"/>
+  <line x1="100" y1="394" x2="91" y2="404" stroke="#3b82f6" stroke-width="1" opacity="0.5"/>
+  <line x1="91" y1="404" x2="102" y2="412" stroke="#3b82f6" stroke-width="1" opacity="0.5"/>
+  <line x1="102" y1="412" x2="110" y2="416" stroke="#3b82f6" stroke-width="1" opacity="0.6"/>
+  <line x1="110" y1="416" x2="118" y2="412" stroke="#3b82f6" stroke-width="1" opacity="0.6"/>
+  <line x1="118" y1="412" x2="129" y2="404" stroke="#3b82f6" stroke-width="1" opacity="0.5"/>
+  <line x1="129" y1="404" x2="120" y2="394" stroke="#3b82f6" stroke-width="1" opacity="0.5"/>
+  <line x1="87" y1="402" x2="133" y2="402" stroke="#00d4ff" stroke-width="1" stroke-opacity="0.35" stroke-dasharray="3 4"/>
+  <circle cx="110" cy="390" r="8" stroke="#00d4ff" stroke-width="1" fill="none" stroke-opacity="0.7"/>
+  <line x1="105.5" y1="390" x2="102.5" y2="390" stroke="#00d4ff" stroke-width="1" stroke-opacity="0.7"/>
+  <line x1="114.5" y1="390" x2="117.5" y2="390" stroke="#00d4ff" stroke-width="1" stroke-opacity="0.7"/>
+  <line x1="110" y1="385.5" x2="110" y2="382.5" stroke="#00d4ff" stroke-width="1" stroke-opacity="0.7"/>
+  <line x1="110" y1="394.5" x2="110" y2="397.5" stroke="#00d4ff" stroke-width="1" stroke-opacity="0.7"/>
+
+  <!-- ==================== 04: STACKED VARIANT ==================== -->
+  <rect x="200" y="344" width="200" height="140" rx="12" fill="#1e2d4a"/>
+  <!-- Smaller icon at 300, 385 -->
+  <circle cx="300" cy="390" r="35" fill="#0a1628"/>
+  <polygon points="300,357 330.3,374.5 330.3,409.5 300,427 269.7,409.5 269.7,374.5" stroke="#1e4d8c" stroke-width="1.5" fill="none"/>
+  <path d="M300,371 C294,371 288,375.5 287.5,380.5 C287,384 289,387.5 292.5,388.5 C292,390.5 292.5,392.5 295,393.5 C296.5,394 298.5,393.5 299.5,393 L300,392.5 Z" fill="#0d1f35" stroke="#1e4d8c" stroke-width="0.9"/>
+  <path d="M300,371 C306,371 312,375.5 312.5,380.5 C313,384 311,387.5 307.5,388.5 C308,390.5 307.5,392.5 305,393.5 C303.5,394 301.5,393.5 300.5,393 L300,392.5 Z" fill="#0d1f35" stroke="#1e4d8c" stroke-width="0.9"/>
+  <circle cx="295" cy="376" r="1.5" fill="#63b3ed"/>
+  <circle cx="291" cy="381.5" r="1.2" fill="#3b82f6"/>
+  <circle cx="296" cy="386" r="1.2" fill="#60a5fa"/>
+  <circle cx="300" cy="374" r="2" fill="#93c5fd"/>
+  <circle cx="300" cy="387.5" r="1.2" fill="#3b82f6"/>
+  <circle cx="305" cy="376" r="1.5" fill="#63b3ed"/>
+  <circle cx="309" cy="381.5" r="1.2" fill="#3b82f6"/>
+  <circle cx="304" cy="386" r="1.2" fill="#60a5fa"/>
+  <line x1="295" y1="376" x2="300" y2="374" stroke="#3b82f6" stroke-width="0.7" opacity="0.7"/>
+  <line x1="300" y1="374" x2="305" y2="376" stroke="#3b82f6" stroke-width="0.7" opacity="0.7"/>
+  <line x1="295" y1="376" x2="291" y2="381.5" stroke="#3b82f6" stroke-width="0.7" opacity="0.5"/>
+  <line x1="291" y1="381.5" x2="296" y2="386" stroke="#3b82f6" stroke-width="0.7" opacity="0.5"/>
+  <line x1="296" y1="386" x2="300" y2="387.5" stroke="#3b82f6" stroke-width="0.7" opacity="0.6"/>
+  <line x1="300" y1="387.5" x2="304" y2="386" stroke="#3b82f6" stroke-width="0.7" opacity="0.6"/>
+  <line x1="304" y1="386" x2="309" y2="381.5" stroke="#3b82f6" stroke-width="0.7" opacity="0.5"/>
+  <line x1="309" y1="381.5" x2="305" y2="376" stroke="#3b82f6" stroke-width="0.7" opacity="0.5"/>
+  <line x1="286" y1="381" x2="314" y2="381" stroke="#00d4ff" stroke-width="0.7" stroke-opacity="0.35" stroke-dasharray="2 3"/>
+  <circle cx="300" cy="374" r="4.5" stroke="#00d4ff" stroke-width="0.7" fill="none" stroke-opacity="0.7"/>
+  <!-- Stacked wordmark -->
+  <text x="300" y="418" font-family="'Arial Black', 'Helvetica Neue', sans-serif" font-weight="900" font-size="16" text-anchor="middle">
+    <tspan fill="#e8f4fd">Neuro</tspan><tspan fill="#63b3ed">Vision</tspan><tspan font-size="9" fill="#63b3ed" font-family="'Courier New', monospace" baseline-shift="super">.ai</tspan>
+  </text>
+  <text x="300" y="434" font-family="'Courier New', monospace" font-size="7.5" fill="#4a7cb5" text-anchor="middle" letter-spacing="0.12em">BRAIN TUMOR DETECTION</text>
+
+  <!-- ==================== 05: MONOCHROME WHITE ==================== -->
+  <rect x="420" y="344" width="320" height="140" rx="12" fill="#0a0e1a"/>
+  <!-- Small icon white at 480, 414 -->
+  <polygon points="480,360 507.7,376 507.7,408 480,424 452.3,408 452.3,376" stroke="white" stroke-width="1.5" fill="none" opacity="0.9"/>
+  <path d="M480,374 C473,374 467,378.5 466.5,383.5 C466,387 468,390.5 471.5,391.5 C471,393.5 471.5,395.5 474,396.5 C475.5,397 477.5,396.5 478.5,396 L480,395.5 Z" fill="none" stroke="white" stroke-width="0.9" opacity="0.7"/>
+  <path d="M480,374 C487,374 493,378.5 493.5,383.5 C494,387 492,390.5 488.5,391.5 C489,393.5 488.5,395.5 486,396.5 C484.5,397 482.5,396.5 481.5,396 L480,395.5 Z" fill="none" stroke="white" stroke-width="0.9" opacity="0.7"/>
+  <circle cx="474" cy="380" r="1.8" fill="white" opacity="0.9"/>
+  <circle cx="469" cy="386.5" r="1.5" fill="white" opacity="0.7"/>
+  <circle cx="475" cy="391" r="1.5" fill="white" opacity="0.8"/>
+  <circle cx="480" cy="378" r="2.2" fill="white"/>
+  <circle cx="480" cy="393" r="1.5" fill="white" opacity="0.7"/>
+  <circle cx="486" cy="380" r="1.8" fill="white" opacity="0.9"/>
+  <circle cx="491" cy="386.5" r="1.5" fill="white" opacity="0.7"/>
+  <circle cx="485" cy="391" r="1.5" fill="white" opacity="0.8"/>
+  <line x1="474" y1="380" x2="480" y2="378" stroke="white" stroke-width="0.7" opacity="0.7"/>
+  <line x1="480" y1="378" x2="486" y2="380" stroke="white" stroke-width="0.7" opacity="0.7"/>
+  <line x1="474" y1="380" x2="469" y2="386.5" stroke="white" stroke-width="0.7" opacity="0.5"/>
+  <line x1="469" y1="386.5" x2="475" y2="391" stroke="white" stroke-width="0.7" opacity="0.5"/>
+  <line x1="475" y1="391" x2="480" y2="393" stroke="white" stroke-width="0.7" opacity="0.6"/>
+  <line x1="480" y1="393" x2="485" y2="391" stroke="white" stroke-width="0.7" opacity="0.6"/>
+  <line x1="485" y1="391" x2="491" y2="386.5" stroke="white" stroke-width="0.7" opacity="0.5"/>
+  <line x1="491" y1="386.5" x2="486" y2="380" stroke="white" stroke-width="0.7" opacity="0.5"/>
+  <line x1="464" y1="386" x2="496" y2="386" stroke="white" stroke-width="0.7" stroke-opacity="0.35" stroke-dasharray="2 3"/>
+  <circle cx="480" cy="378" r="5.5" stroke="white" stroke-width="0.7" fill="none" opacity="0.6"/>
+  <!-- Monochrome wordmark -->
+  <text x="514" y="402" font-family="'Arial Black', 'Helvetica Neue', sans-serif" font-weight="900" font-size="26" fill="white" letter-spacing="-0.5">NeuroVision</text>
+  <text x="514" y="418" font-family="'Courier New', monospace" font-size="10" fill="white" opacity="0.5" letter-spacing="0.12em">BRAIN TUMOR DETECTION</text>
+
+  <!-- ==================== 06: BLUE ACCENT ==================== -->
+  <rect x="40" y="524" width="720" height="120" rx="12" fill="#0d2347"/>
+  <!-- Reuse icon, blue accent at 100, 584 -->
+  <polygon points="100,530 124.9,544.5 124.9,573.5 100,588 75.1,573.5 75.1,544.5" stroke="#60a5fa" stroke-width="1.5" fill="none" opacity="0.9"/>
+  <polygon points="100,534 121.2,546.5 121.2,571.5 100,584 78.8,571.5 78.8,546.5" stroke="#3b82f6" stroke-width="0.5" fill="none" stroke-opacity="0.3"/>
+  <path d="M100,544 C92,544 85,549 84.5,555 C84,559 86.5,563 90.5,564 C90,566.5 90.5,569 93,570 C94.5,570.5 96.5,570 97.5,569.5 L100,568.5 Z" fill="#0d1f35" stroke="#1e4d8c" stroke-width="1"/>
+  <path d="M100,544 C108,544 115,549 115.5,555 C116,559 113.5,563 109.5,564 C110,566.5 109.5,569 107,570 C105.5,570.5 103.5,570 102.5,569.5 L100,568.5 Z" fill="#0d1f35" stroke="#1e4d8c" stroke-width="1"/>
+  <circle cx="92" cy="552" r="2" fill="#93c5fd"/>
+  <circle cx="86.5" cy="559" r="1.5" fill="#60a5fa" opacity="0.8"/>
+  <circle cx="94" cy="564" r="1.5" fill="#60a5fa"/>
+  <circle cx="100" cy="550" r="2.5" fill="#bfdbfe"/>
+  <circle cx="100" cy="566" r="1.5" fill="#60a5fa"/>
+  <circle cx="108" cy="552" r="2" fill="#93c5fd"/>
+  <circle cx="113.5" cy="559" r="1.5" fill="#60a5fa" opacity="0.8"/>
+  <circle cx="106" cy="564" r="1.5" fill="#60a5fa"/>
+  <line x1="92" y1="552" x2="100" y2="550" stroke="#60a5fa" stroke-width="0.75" opacity="0.7"/>
+  <line x1="100" y1="550" x2="108" y2="552" stroke="#60a5fa" stroke-width="0.75" opacity="0.7"/>
+  <line x1="92" y1="552" x2="86.5" y2="559" stroke="#60a5fa" stroke-width="0.75" opacity="0.5"/>
+  <line x1="86.5" y1="559" x2="94" y2="564" stroke="#60a5fa" stroke-width="0.75" opacity="0.5"/>
+  <line x1="94" y1="564" x2="100" y2="566" stroke="#60a5fa" stroke-width="0.75" opacity="0.6"/>
+  <line x1="100" y1="566" x2="106" y2="564" stroke="#60a5fa" stroke-width="0.75" opacity="0.6"/>
+  <line x1="106" y1="564" x2="113.5" y2="559" stroke="#60a5fa" stroke-width="0.75" opacity="0.5"/>
+  <line x1="113.5" y1="559" x2="108" y2="552" stroke="#60a5fa" stroke-width="0.75" opacity="0.5"/>
+  <line x1="82" y1="558" x2="118" y2="558" stroke="#38bdf8" stroke-width="0.75" stroke-opacity="0.4" stroke-dasharray="2 3"/>
+  <circle cx="100" cy="550" r="6" stroke="#38bdf8" stroke-width="0.75" fill="none" stroke-opacity="0.7"/>
+  <line x1="97" y1="550" x2="94.5" y2="550" stroke="#38bdf8" stroke-width="0.75" stroke-opacity="0.7"/>
+  <line x1="103" y1="550" x2="105.5" y2="550" stroke="#38bdf8" stroke-width="0.75" stroke-opacity="0.7"/>
+  <line x1="100" y1="547" x2="100" y2="544.5" stroke="#38bdf8" stroke-width="0.75" stroke-opacity="0.7"/>
+  <line x1="100" y1="553" x2="100" y2="555.5" stroke="#38bdf8" stroke-width="0.75" stroke-opacity="0.7"/>
+  <!-- Blue accent wordmark -->
+  <text x="148" y="567" font-family="'Arial Black', 'Helvetica Neue', sans-serif" font-weight="900" font-size="38" letter-spacing="-1">
+    <tspan fill="#bfdbfe">Neuro</tspan><tspan fill="#60a5fa">Vision</tspan>
+  </text>
+  <rect x="390" y="534" width="32" height="18" rx="4" fill="#1e3a5f" stroke="#60a5fa" stroke-width="0.75"/>
+  <text x="406" y="546.5" font-family="'Courier New', monospace" font-weight="700" font-size="10" fill="#60a5fa" text-anchor="middle">.ai</text>
+  <line x1="148" y1="575" x2="428" y2="575" stroke="#1e3a5f" stroke-width="0.75"/>
+  <text x="148" y="591" font-family="'Courier New', monospace" font-size="11" fill="#3b82f6" letter-spacing="0.14em" opacity="0.7">BRAIN TUMOR DETECTION SYSTEM</text>
+  <rect x="148" y="597" width="36" height="4" rx="2" fill="#1e3a5f"/>
+  <rect x="148" y="597" width="27" height="4" rx="2" fill="#3b82f6"/>
+  <text x="190" y="603" font-family="'Courier New', monospace" font-size="9" fill="#60a5fa">97.4% acc</text>
+
+  <!-- ==================== 07: FAVICON SIZES ==================== -->
+  <rect x="40" y="674" width="720" height="190" rx="12" fill="#0a0e1a"/>
+
+  <!-- 16px (displayed 24px box) -->
+  <rect x="80" y="710" width="60" height="60" rx="8" fill="#0d1628"/>
+  <polygon points="110,718 126.7,727.5 126.7,742.5 110,752 93.3,742.5 93.3,727.5" stroke="#3b82f6" stroke-width="1.5" fill="none"/>
+  <circle cx="110" cy="727" r="3" fill="#93c5fd"/>
+  <line x1="94" y1="735" x2="126" y2="735" stroke="#00d4ff" stroke-width="1" stroke-opacity="0.5" stroke-dasharray="2 3"/>
+  <circle cx="110" cy="727" r="6" stroke="#00d4ff" stroke-width="1" fill="none" stroke-opacity="0.6"/>
+  <text x="110" y="785" font-family="'Courier New', monospace" font-size="9" fill="#4a6080" text-anchor="middle">16 × 16</text>
+
+  <!-- 32px -->
+  <rect x="185" y="706" width="80" height="80" rx="10" fill="#0d1628"/>
+  <polygon points="225,715 252.4,730 252.4,760 225,775 197.6,760 197.6,730" stroke="#1e4d8c" stroke-width="1.5" fill="none"/>
+  <polygon points="225,719 249,732 249,758 225,771 201,758 201,732" stroke="#3b82f6" stroke-width="0.5" fill="none" opacity="0.3"/>
+  <path d="M225,727 C219,727 213,731 212.5,736 C212,739.5 214,743 217.5,744 C217,746 217.5,748 220,749 C221.5,749.5 223.5,749 224.5,748.5 L225,748 Z" fill="#0d1f35" stroke="#1e4d8c" stroke-width="0.9"/>
+  <path d="M225,727 C231,727 237,731 237.5,736 C238,739.5 236,743 232.5,744 C233,746 232.5,748 230,749 C228.5,749.5 226.5,749 225.5,748.5 L225,748 Z" fill="#0d1f35" stroke="#1e4d8c" stroke-width="0.9"/>
+  <circle cx="225" cy="724" r="2.5" fill="#93c5fd"/>
+  <circle cx="219" cy="730" r="2" fill="#63b3ed"/>
+  <circle cx="231" cy="730" r="2" fill="#63b3ed"/>
+  <line x1="213" y1="737" x2="237" y2="737" stroke="#00d4ff" stroke-width="0.75" stroke-opacity="0.4" stroke-dasharray="2 3"/>
+  <circle cx="225" cy="724" r="5" stroke="#00d4ff" stroke-width="0.75" fill="none" stroke-opacity="0.7"/>
+  <text x="225" y="803" font-family="'Courier New', monospace" font-size="9" fill="#4a6080" text-anchor="middle">32 × 32</text>
+
+  <!-- 64px -->
+  <rect x="320" y="698" width="100" height="100" rx="12" fill="#0d1628"/>
+  <circle cx="370" cy="748" r="45" fill="#0a1628"/>
+  <polygon points="370,706 409.8,729 409.8,771 370,794 330.2,771 330.2,729" stroke="#1e4d8c" stroke-width="1.5" fill="none"/>
+  <polygon points="370,712 405.7,733 405.7,769 370,790 334.3,769 334.3,733" stroke="#3b82f6" stroke-width="0.5" fill="none" opacity="0.25"/>
+  <path d="M370,723 C362,723 355,728 354.5,734 C354,738 356,742 360,743 C359.5,745.5 360,748 362.5,749 C364,749.5 366,749 367.5,748.5 L370,748 Z" fill="#0d1f35" stroke="#1e4d8c" stroke-width="1"/>
+  <path d="M370,723 C378,723 385,728 385.5,734 C386,738 384,742 380,743 C380.5,745.5 380,748 377.5,749 C376,749.5 374,749 372.5,748.5 L370,748 Z" fill="#0d1f35" stroke="#1e4d8c" stroke-width="1"/>
+  <circle cx="362" cy="729" r="2" fill="#63b3ed"/>
+  <circle cx="356.5" cy="736" r="1.5" fill="#3b82f6"/>
+  <circle cx="363.5" cy="742" r="1.5" fill="#60a5fa"/>
+  <circle cx="370" cy="727" r="2.5" fill="#93c5fd"/>
+  <circle cx="370" cy="744" r="1.5" fill="#3b82f6"/>
+  <circle cx="378" cy="729" r="2" fill="#63b3ed"/>
+  <circle cx="383.5" cy="736" r="1.5" fill="#3b82f6"/>
+  <circle cx="376.5" cy="742" r="1.5" fill="#60a5fa"/>
+  <line x1="362" y1="729" x2="370" y2="727" stroke="#3b82f6" stroke-width="0.75" opacity="0.7"/>
+  <line x1="370" y1="727" x2="378" y2="729" stroke="#3b82f6" stroke-width="0.75" opacity="0.7"/>
+  <line x1="362" y1="729" x2="356.5" y2="736" stroke="#3b82f6" stroke-width="0.75" opacity="0.5"/>
+  <line x1="356.5" y1="736" x2="363.5" y2="742" stroke="#3b82f6" stroke-width="0.75" opacity="0.5"/>
+  <line x1="363.5" y1="742" x2="370" y2="744" stroke="#3b82f6" stroke-width="0.75" opacity="0.6"/>
+  <line x1="370" y1="744" x2="376.5" y2="742" stroke="#3b82f6" stroke-width="0.75" opacity="0.6"/>
+  <line x1="376.5" y1="742" x2="383.5" y2="736" stroke="#3b82f6" stroke-width="0.75" opacity="0.5"/>
+  <line x1="383.5" y1="736" x2="378" y2="729" stroke="#3b82f6" stroke-width="0.75" opacity="0.5"/>
+  <line x1="352" y1="735" x2="388" y2="735" stroke="#00d4ff" stroke-width="0.75" stroke-opacity="0.35" stroke-dasharray="2 3"/>
+  <circle cx="370" cy="727" r="5.5" stroke="#00d4ff" stroke-width="0.75" fill="none" stroke-opacity="0.7"/>
+  <line x1="367" y1="727" x2="364.5" y2="727" stroke="#00d4ff" stroke-width="0.75" stroke-opacity="0.7"/>
+  <line x1="373" y1="727" x2="375.5" y2="727" stroke="#00d4ff" stroke-width="0.75" stroke-opacity="0.7"/>
+  <line x1="370" y1="724" x2="370" y2="721.5" stroke="#00d4ff" stroke-width="0.75" stroke-opacity="0.7"/>
+  <line x1="370" y1="730" x2="370" y2="732.5" stroke="#00d4ff" stroke-width="0.75" stroke-opacity="0.7"/>
+  <text x="370" y="815" font-family="'Courier New', monospace" font-size="9" fill="#4a6080" text-anchor="middle">64 × 64</text>
+
+  <!-- 96px -->
+  <rect x="480" y="690" width="130" height="130" rx="14" fill="#0d1628"/>
+  <circle cx="545" cy="755" r="59" fill="#0a1628"/>
+  <polygon points="545,694 601.2,726.5 601.2,783.5 545,816 488.8,783.5 488.8,726.5" stroke="#1e4d8c" stroke-width="1.5" fill="none"/>
+  <path d="M545,714 C534,714 524,721 523,730 C522,737 526,743.5 533,745 C532,749 533,753 536.5,754.5 C539,755.5 543,755 545,754 L545,753 Z" fill="#0d1f35" stroke="#1e4d8c" stroke-width="1"/>
+  <path d="M545,714 C556,714 566,721 567,730 C568,737 564,743.5 557,745 C558,749 557,753 553.5,754.5 C551,755.5 547,755 545,754 L545,753 Z" fill="#0d1f35" stroke="#1e4d8c" stroke-width="1"/>
+  <circle cx="536" cy="722" r="2.5" fill="#63b3ed"/>
+  <circle cx="528.5" cy="730.5" r="2" fill="#3b82f6"/>
+  <circle cx="537.5" cy="738" r="2" fill="#60a5fa"/>
+  <circle cx="545" cy="719" r="3.5" fill="#93c5fd"/>
+  <circle cx="545" cy="740.5" r="2" fill="#3b82f6"/>
+  <circle cx="554" cy="722" r="2.5" fill="#63b3ed"/>
+  <circle cx="561.5" cy="730.5" r="2" fill="#3b82f6"/>
+  <circle cx="552.5" cy="738" r="2" fill="#60a5fa"/>
+  <line x1="536" y1="722" x2="545" y2="719" stroke="#3b82f6" stroke-width="0.8" opacity="0.7"/>
+  <line x1="545" y1="719" x2="554" y2="722" stroke="#3b82f6" stroke-width="0.8" opacity="0.7"/>
+  <line x1="536" y1="722" x2="528.5" y2="730.5" stroke="#3b82f6" stroke-width="0.8" opacity="0.5"/>
+  <line x1="528.5" y1="730.5" x2="537.5" y2="738" stroke="#3b82f6" stroke-width="0.8" opacity="0.5"/>
+  <line x1="537.5" y1="738" x2="545" y2="740.5" stroke="#3b82f6" stroke-width="0.8" opacity="0.6"/>
+  <line x1="545" y1="740.5" x2="552.5" y2="738" stroke="#3b82f6" stroke-width="0.8" opacity="0.6"/>
+  <line x1="552.5" y1="738" x2="561.5" y2="730.5" stroke="#3b82f6" stroke-width="0.8" opacity="0.5"/>
+  <line x1="561.5" y1="730.5" x2="554" y2="722" stroke="#3b82f6" stroke-width="0.8" opacity="0.5"/>
+  <line x1="520" y1="730" x2="570" y2="730" stroke="#00d4ff" stroke-width="0.8" stroke-opacity="0.35" stroke-dasharray="3 4"/>
+  <circle cx="545" cy="719" r="7.5" stroke="#00d4ff" stroke-width="0.8" fill="none" stroke-opacity="0.7"/>
+  <line x1="540.5" y1="719" x2="537.5" y2="719" stroke="#00d4ff" stroke-width="0.8" stroke-opacity="0.7"/>
+  <line x1="549.5" y1="719" x2="552.5" y2="719" stroke="#00d4ff" stroke-width="0.8" stroke-opacity="0.7"/>
+  <line x1="545" y1="714.5" x2="545" y2="711.5" stroke="#00d4ff" stroke-width="0.8" stroke-opacity="0.7"/>
+  <line x1="545" y1="723.5" x2="545" y2="726.5" stroke="#00d4ff" stroke-width="0.8" stroke-opacity="0.7"/>
+  <text x="545" y="838" font-family="'Courier New', monospace" font-size="9" fill="#4a6080" text-anchor="middle">96 × 96</text>
+
+</svg>

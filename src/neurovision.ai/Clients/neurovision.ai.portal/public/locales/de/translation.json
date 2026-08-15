@@ -1,0 +1,1216 @@
+{
+  "signin": {
+    "title": "Anmelden",
+    "subtitle": "Geben Sie Ihre E-Mail und Ihr Passwort ein, um sich anzumelden!",
+    "emailLabel": "E-Mail",
+    "emailPlaceholder": "info@gmail.com",
+    "passwordLabel": "Passwort",
+    "passwordPlaceholder": "Passwort eingeben",
+    "forgotPassword": "Passwort vergessen?",
+    "signIn": "Anmelden",
+    "signingIn": "Anmeldung läuft..."
+  },
+  "alerts": {
+    "success": "Erfolg",
+    "error": "Fehler"
+  },
+  "errors": {
+    "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+    "loginFailed": "Anmeldung fehlgeschlagen"
+  },
+  "twoFA": {
+    "title": "Zwei-Faktor-Authentifizierung",
+    "subtitle": "Geben Sie den 6-stelligen Code ein, der an Ihre E-Mail gesendet wurde",
+    "code": "2FA-Code",
+    "invalidCode": "Bitte geben Sie einen gültigen 6-stelligen Code ein",
+    "missingEmail": "E-Mail fehlt. Bitte erneut anmelden.",
+    "onlyDigits": "Nur Zahlen sind erlaubt",
+    "verify": "Überprüfen",
+    "verifying": "Überprüfe...",
+    "didntReceive": "Code nicht erhalten?",
+    "resend": "Erneut senden",
+    "resendIn": "Erneut senden in {{seconds}}s",
+    "sending": "Sende...",
+    "successLogin": "Sie haben sich erfolgreich angemeldet!"
+  },
+  "roles": {
+    "pageTitle": "Rollenverwaltung",
+    "pageDescription": "Systemrollen und Berechtigungen verwalten",
+    "title": "Systemrollen",
+    "role": "Rolle",
+    "description": "Beschreibung",
+    "users": "Benutzer",
+    "status": "Status",
+    "actions": "Aktionen",
+    "edit": "Rolle bearbeiten",
+    "delete": "Löschen",
+    "deleteTitle": "Rolle löschen",
+    "deleteConfirm": "Sind Sie sicher, dass Sie diese Rolle löschen möchten?",
+    "deleteSuccess": "Rolle erfolgreich gelöscht",
+    "deleteError": "Fehler beim Löschen der Rolle",
+    "updateSuccess": "Rolle erfolgreich aktualisiert",
+    "updateError": "Fehler beim Aktualisieren der Rolle"
+  },
+  "doctor": {
+    "pageTitle": "Arzt erstellen",
+    "pageDescription": "Erstellen Sie ein neues Arztprofil",
+    "title": "Neuer Arzt",
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "licenseNumber": "Lizenznummer",
+    "specialization": "Spezialisierung",
+    "email": "E-Mail",
+    "phoneNumber": "Telefon",
+    "languages": "Sprachen",
+    "hospital": "Krankenhaus",
+    "degrees": "Abschlüsse",
+    "bio": "Biografie",
+    "profilePicture": "Profilbild",
+    "removeImage": "Bild entfernen",
+    "cancel": "Abbrechen",
+    "create": "Arzt erstellen",
+    "creating": "Wird erstellt...",
+    "requiredError": "Alle Felder sind erforderlich",
+    "success": "Arzt erfolgreich erstellt",
+    "error": "Fehler beim Erstellen des Arztes"
+  },
+  "pdf": {
+    "pageTitle": "PDF-Vorlagen",
+    "pageDescription": "PDF-Vorlagen verwalten",
+    "title": "PDF-Vorlagen",
+    "columns": {
+      "name": "Name",
+      "code": "Code",
+      "version": "Version",
+      "status": "Status",
+      "created": "Erstellt",
+      "actions": "Aktionen"
+    },
+    "status": {
+      "active": "Aktiv",
+      "inactive": "Inaktiv"
+    },
+    "actions": {
+      "edit": "Bearbeiten",
+      "preview": "Vorschau",
+      "delete": "Löschen",
+      "refresh": "Aktualisieren"
+    },
+    "messages": {
+      "empty": "Keine PDF-Vorlagen gefunden.",
+      "deleteSuccess": "Vorlage erfolgreich gelöscht.",
+      "deleteError": "Vorlage konnte nicht gelöscht werden.",
+      "updateSuccess": "Vorlage erfolgreich aktualisiert.",
+      "updateError": "Vorlage konnte nicht aktualisiert werden."
+    },
+    "dialogs": {
+      "deleteTitle": "PDF-Vorlage löschen",
+      "deleteDescription": "Möchten Sie diese PDF-Vorlage wirklich löschen?"
+    },
+    "editModal": {
+      "title": "PDF-Vorlage bearbeiten",
+      "description": "Vorlageninformationen und HTML verwalten.",
+      "tabs": {
+        "general": "Allgemein",
+        "html": "HTML-Editor",
+        "preview": "Vorschau"
+      },
+      "fields": {
+        "name": "Vorlagenname",
+        "code": "Vorlagencode",
+        "version": "Version",
+        "status": "Status",
+        "activeTemplate": "Aktive Vorlage"
+      }
+    },
+    "previewModal": {
+      "title": "PDF-Vorlagenvorschau",
+      "readOnly": "Schreibgeschützte Vorschau"
+    },
+    "create": {
+      "pageTitle": "PDF-Vorlage erstellen",
+      "pageDescription": "Erstellen Sie eine neue PDF-Vorlage.",
+      "generalInformation": "Allgemeine Informationen",
+      "htmlTemplate": "HTML-Vorlage",
+      "livePreview": "Vorschau",
+      "create": "Vorlage erstellen"
+    }
+  },
+  "health": {
+    "pageTitle": "Systemgesundheit",
+    "pageDescription": "Überwachung des Gesundheitsstatus der Systemdienste",
+    "title": "Systemüberwachung",
+    "systemStatus": "Systemstatus",
+    "autoRefresh": "Automatische Aktualisierung alle 5 Sekunden",
+    "cards": {
+      "total": "Gesamte Dienste",
+      "healthy": "Gesund",
+      "unhealthy": "Fehlerhaft",
+      "status": "Systemstatus"
+    },
+    "columns": {
+      "name": "Dienstname",
+      "status": "Status",
+      "duration": "Antwortzeit",
+      "error": "Fehler"
+    },
+    "status": {
+      "healthy": "Gesund",
+      "unhealthy": "Fehlerhaft",
+      "degraded": "Eingeschränkt"
+    },
+    "empty": "Keine Dienste gefunden"
+  },
+  "location": {
+    "territorialOrganization": "Territoriale Organisation",
+    "countries": {
+      "pageTitle": "Länder",
+      "pageDescription": "Verwaltung von Ländern und deren Informationen",
+      "title": "Länder",
+      "createTitle": "Land erstellen",
+      "editTitle": "Land bearbeiten",
+      "columns": {
+        "code": "Code",
+        "name": "Name",
+        "founding": "Gründungsdatum",
+        "calling": "Vorwahl",
+        "actions": "Aktionen"
+      },
+      "fields": {
+        "code": "Code",
+        "name": "Name",
+        "foundingDate": "Gründungsdatum",
+        "callingCode": "Telefonvorwahl"
+      },
+      "actions": {
+        "edit": "Bearbeiten",
+        "delete": "Löschen"
+      },
+      "messages": {
+        "deleteTitle": "Land löschen",
+        "deleteDescription": "Möchten Sie dieses Land wirklich löschen?",
+        "deleteSuccess": "Land erfolgreich gelöscht",
+        "deleteError": "Fehler beim Löschen des Landes",
+        "updateSuccess": "Land erfolgreich aktualisiert",
+        "updateError": "Fehler beim Aktualisieren des Landes"
+      }
+    },
+    "governmentTypes": {
+      "pageTitle": "Regierungsformen",
+      "pageDescription": "Verwaltung von Regierungsformen",
+      "title": "Regierungsformen",
+      "createTitle": "Regierungsform erstellen",
+      "editTitle": "Regierungsform bearbeiten",
+      "createButton": "Regierungsform erstellen",
+      "fields": {
+        "code": "Code",
+        "name": "Name",
+        "actions": "Aktionen"
+      },
+      "actions": {
+        "edit": "Bearbeiten",
+        "delete": "Löschen"
+      },
+      "messages": {
+        "deleteTitle": "Regierungsform löschen",
+        "deleteDescription": "Sind Sie sicher, dass Sie diese Regierungsform löschen möchten?",
+        "deleteSuccess": "Regierungsform erfolgreich gelöscht",
+        "deleteError": "Fehler beim Löschen der Regierungsform",
+        "updateSuccess": "Regierungsform erfolgreich aktualisiert",
+        "updateError": "Fehler beim Aktualisieren der Regierungsform"
+      }
+    },
+    "healthInstitutions": {
+      "pageTitle": "Gesundheitseinrichtungen",
+      "pageDescription": "Verwaltung von Gesundheitseinrichtungen",
+      "title": "Gesundheitseinrichtungen",
+      "createButton": "Gesundheitseinrichtung hinzufügen",
+      "createTitle": "Neue Gesundheitseinrichtung",
+      "editTitle": "Gesundheitseinrichtung bearbeiten",
+      "tabs": {
+        "general": "Allgemein",
+        "location": "Standort",
+        "contact": "Kontakt"
+      },
+      "fields": {
+        "name": "Name",
+        "typeCode": "Typ",
+        "countryCode": "Land",
+        "settlementCode": "Siedlung",
+        "address": "Adresse",
+        "bedCount": "Bettenanzahl",
+        "foundingDate": "Gründungsdatum",
+        "phone": "Telefon",
+        "actions": "Aktionen"
+      },
+      "actions": {
+        "edit": "Bearbeiten",
+        "delete": "Löschen"
+      },
+      "messages": {
+        "deleteTitle": "Gesundheitseinrichtung löschen",
+        "deleteDescription": "Möchten Sie diese Gesundheitseinrichtung wirklich löschen?",
+        "deleteSuccess": "Gesundheitseinrichtung erfolgreich gelöscht",
+        "deleteError": "Fehler beim Löschen der Gesundheitseinrichtung",
+        "updateSuccess": "Gesundheitseinrichtung erfolgreich aktualisiert",
+        "updateError": "Fehler beim Aktualisieren der Gesundheitseinrichtung",
+        "createSuccess": "Gesundheitseinrichtung erfolgreich erstellt",
+        "createError": "Fehler beim Erstellen der Gesundheitseinrichtung"
+      }
+    },
+    "healthInstitutionTypes": {
+      "pageTitle": "Typen von Gesundheitseinrichtungen",
+      "pageDescription": "Verwaltung von Typen von Gesundheitseinrichtungen",
+      "title": "Typen von Gesundheitseinrichtungen",
+      "createTitle": "Typ einer Gesundheitseinrichtung erstellen",
+      "editTitle": "Typ einer Gesundheitseinrichtung bearbeiten",
+      "createButton": "Typ erstellen",
+      "table": {
+        "code": "Code",
+        "name": "Name",
+        "actions": "Aktionen"
+      },
+      "fields": {
+        "code": "Code",
+        "name": "Name",
+        "actions": "Aktionen"
+      },
+      "placeholders": {
+        "code": "KRANKENHAUS",
+        "name": "Allgemeines Krankenhaus"
+      },
+      "actions": {
+        "edit": "Bearbeiten",
+        "delete": "Löschen"
+      },
+      "messages": {
+        "required": "Code und Name sind erforderlich",
+        "deleteTitle": "Typ der Gesundheitseinrichtung löschen",
+        "deleteDescription": "Sind Sie sicher, dass Sie diesen Typ löschen möchten?",
+        "deleteSuccess": "Typ der Gesundheitseinrichtung erfolgreich gelöscht",
+        "deleteError": "Fehler beim Löschen des Typs der Gesundheitseinrichtung",
+        "createSuccess": "Typ der Gesundheitseinrichtung erfolgreich erstellt",
+        "createError": "Fehler beim Erstellen des Typs der Gesundheitseinrichtung",
+        "updateSuccess": "Typ der Gesundheitseinrichtung erfolgreich aktualisiert",
+        "updateError": "Fehler beim Aktualisieren des Typs der Gesundheitseinrichtung",
+        "saved": "Erfolgreich gespeichert",
+        "saveFailed": "Fehler beim Speichern"
+      }
+    },
+    "regions": {
+      "pageTitle": "Regionen",
+      "pageDescription": "Regionen verwalten",
+      "title": "Regionen",
+      "createTitle": "Region erstellen",
+      "editTitle": "Region bearbeiten",
+      "columns": {
+        "typeCode": "Regionstyp",
+        "code": "Code",
+        "name": "Name",
+        "belongsToCountryCode": "Land",
+        "headquartersCountryCode": "Hauptsitz Land",
+        "administrativeSeatSettlementCode": "Verwaltungssitz",
+        "actions": "Aktionen"
+      },
+      "fields": {
+        "typeCode": "Regionstyp",
+        "code": "Code",
+        "name": "Name",
+        "belongsToCountryCode": "Land",
+        "headquartersCountryCode": "Hauptsitz Land",
+        "administrativeSeatSettlementCode": "Verwaltungssitz",
+        "actions": "Aktionen"
+      },
+      "actions": {
+        "edit": "Bearbeiten",
+        "delete": "Löschen"
+      },
+      "messages": {
+        "deleteTitle": "Regionen löschen",
+        "deleteDescription": "Sind Sie sicher?",
+        "deleteSuccess": "Erfolgreich gelöscht.",
+        "deleteError": "Löschen fehlgeschlagen.",
+        "updateSuccess": "Erfolgreich aktualisiert.",
+        "updateError": "Aktualisierung fehlgeschlagen.",
+        "createSuccess": "Erfolgreich erstellt.",
+        "createError": "Erstellen fehlgeschlagen."
+      }
+    },
+    "municipalities": {
+      "pageTitle": "Gemeinden",
+      "pageDescription": "Gemeinden verwalten",
+      "title": "Gemeinden",
+      "createTitle": "Gemeinde erstellen",
+      "editTitle": "Gemeinde bearbeiten",
+      "columns": {
+        "countryCode": "Land",
+        "code": "Code",
+        "name": "Name",
+        "seatSettlementCode": "Sitz Siedlung",
+        "actions": "Aktionen"
+      },
+      "fields": {
+        "countryCode": "Land",
+        "code": "Code",
+        "name": "Name",
+        "seatSettlementCode": "Sitz Siedlung",
+        "actions": "Aktionen"
+      },
+      "actions": {
+        "edit": "Bearbeiten",
+        "delete": "Löschen"
+      },
+      "messages": {
+        "deleteTitle": "Gemeinden löschen",
+        "deleteDescription": "Sind Sie sicher?",
+        "deleteSuccess": "Erfolgreich gelöscht.",
+        "deleteError": "Löschen fehlgeschlagen.",
+        "updateSuccess": "Erfolgreich aktualisiert.",
+        "updateError": "Aktualisierung fehlgeschlagen.",
+        "createSuccess": "Erfolgreich erstellt.",
+        "createError": "Erstellen fehlgeschlagen."
+      }
+    },
+    "capitals": {
+      "pageTitle": "Hauptstädte",
+      "pageDescription": "Hauptstädte verwalten",
+      "title": "Hauptstädte",
+      "createTitle": "Hauptstadt erstellen",
+      "editTitle": "Hauptstadt bearbeiten",
+      "columns": {
+        "countryCode": "Land",
+        "settlementCode": "Siedlungscode",
+        "actions": "Aktionen"
+      },
+      "fields": {
+        "countryCode": "Land",
+        "settlementCode": "Siedlungscode",
+        "actions": "Aktionen"
+      },
+      "actions": {
+        "edit": "Bearbeiten",
+        "delete": "Löschen"
+      },
+      "messages": {
+        "deleteTitle": "Hauptstädte löschen",
+        "deleteDescription": "Sind Sie sicher?",
+        "deleteSuccess": "Erfolgreich gelöscht.",
+        "deleteError": "Löschen fehlgeschlagen.",
+        "updateSuccess": "Erfolgreich aktualisiert.",
+        "updateError": "Aktualisierung fehlgeschlagen.",
+        "createSuccess": "Erfolgreich erstellt.",
+        "createError": "Erstellen fehlgeschlagen."
+      }
+    },
+    "regionTypes": {
+      "pageTitle": "Regionstypen",
+      "pageDescription": "Regionstypen verwalten",
+      "title": "Regionstypen",
+      "createTitle": "Regionstyp erstellen",
+      "editTitle": "Regionstyp bearbeiten",
+      "columns": {
+        "code": "Code",
+        "name": "Name",
+        "actions": "Aktionen"
+      },
+      "fields": {
+        "code": "Code",
+        "name": "Name",
+        "actions": "Aktionen"
+      },
+      "actions": {
+        "edit": "Bearbeiten",
+        "delete": "Löschen"
+      },
+      "messages": {
+        "deleteTitle": "Regionstypen löschen",
+        "deleteDescription": "Sind Sie sicher?",
+        "deleteSuccess": "Erfolgreich gelöscht.",
+        "deleteError": "Löschen fehlgeschlagen.",
+        "updateSuccess": "Erfolgreich aktualisiert.",
+        "updateError": "Aktualisierung fehlgeschlagen.",
+        "createSuccess": "Erfolgreich erstellt.",
+        "createError": "Erstellen fehlgeschlagen."
+      }
+    },
+    "localCommunities": {
+      "pageTitle": "Lokale Gemeinschaften",
+      "pageDescription": "Lokale Gemeinschaften verwalten",
+      "title": "Lokale Gemeinschaften",
+      "createTitle": "Lokale Gemeinschaft erstellen",
+      "editTitle": "Lokale Gemeinschaft bearbeiten",
+      "columns": {
+        "countryCode": "Land",
+        "municipalityCode": "Gemeinde",
+        "identifier": "Kennung",
+        "name": "Name",
+        "officeSettlementCode": "Büro Siedlung",
+        "actions": "Aktionen"
+      },
+      "fields": {
+        "countryCode": "Land",
+        "municipalityCode": "Gemeinde",
+        "identifier": "Kennung",
+        "name": "Name",
+        "officeSettlementCode": "Büro Siedlung",
+        "actions": "Aktionen"
+      },
+      "actions": {
+        "edit": "Bearbeiten",
+        "delete": "Löschen"
+      },
+      "messages": {
+        "deleteTitle": "Lokale Gemeinschaften löschen",
+        "deleteDescription": "Sind Sie sicher?",
+        "deleteSuccess": "Erfolgreich gelöscht.",
+        "deleteError": "Löschen fehlgeschlagen.",
+        "updateSuccess": "Erfolgreich aktualisiert.",
+        "updateError": "Aktualisierung fehlgeschlagen.",
+        "createSuccess": "Erfolgreich erstellt.",
+        "createError": "Erstellen fehlgeschlagen."
+      }
+    },
+    "countryCompositions": {
+      "pageTitle": "Länderzusammensetzungen",
+      "pageDescription": "Länderzusammensetzungen verwalten",
+      "title": "Länderzusammensetzungen",
+      "createTitle": "Zusammensetzung erstellen",
+      "editTitle": "Zusammensetzung bearbeiten",
+      "columns": {
+        "unionCountryCode": "Union",
+        "memberCountryCode": "Mitglied",
+        "sequenceNumber": "Sequenz",
+        "from": "Von",
+        "to": "Bis",
+        "actions": "Aktionen"
+      },
+      "fields": {
+        "unionCountryCode": "Union",
+        "memberCountryCode": "Mitglied",
+        "sequenceNumber": "Sequenz",
+        "from": "Von",
+        "to": "Bis",
+        "actions": "Aktionen"
+      },
+      "actions": {
+        "edit": "Bearbeiten",
+        "delete": "Löschen"
+      },
+      "messages": {
+        "deleteTitle": "Länderzusammensetzungen löschen",
+        "deleteDescription": "Sind Sie sicher?",
+        "deleteSuccess": "Erfolgreich gelöscht.",
+        "deleteError": "Löschen fehlgeschlagen.",
+        "updateSuccess": "Erfolgreich aktualisiert.",
+        "updateError": "Aktualisierung fehlgeschlagen.",
+        "createSuccess": "Erfolgreich erstellt.",
+        "createError": "Erstellen fehlgeschlagen."
+      }
+    },
+    "regionCompositions": {
+      "pageTitle": "Regionszusammensetzungen",
+      "pageDescription": "Regionszusammensetzungen verwalten",
+      "title": "Regionszusammensetzungen",
+      "createTitle": "Regionszusammensetzung erstellen",
+      "editTitle": "Regionszusammensetzung bearbeiten",
+      "columns": {
+        "parentRegionTypeCode": "Elterntyp",
+        "parentRegionCode": "Elterncode",
+        "memberRegionTypeCode": "Mitgliedstyp",
+        "memberRegionCode": "Mitgliedscode",
+        "actions": "Aktionen"
+      },
+      "fields": {
+        "parentRegionTypeCode": "Elterntyp",
+        "parentRegionCode": "Elterncode",
+        "memberRegionTypeCode": "Mitgliedstyp",
+        "memberRegionCode": "Mitgliedscode",
+        "actions": "Aktionen"
+      },
+      "actions": {
+        "edit": "Bearbeiten",
+        "delete": "Löschen"
+      },
+      "messages": {
+        "deleteTitle": "Regionszusammensetzungen löschen",
+        "deleteDescription": "Sind Sie sicher?",
+        "deleteSuccess": "Erfolgreich gelöscht.",
+        "deleteError": "Löschen fehlgeschlagen.",
+        "updateSuccess": "Erfolgreich aktualisiert.",
+        "updateError": "Aktualisierung fehlgeschlagen.",
+        "createSuccess": "Erfolgreich erstellt.",
+        "createError": "Erstellen fehlgeschlagen."
+      }
+    },
+    "regionSettlementCoverages": {
+      "pageTitle": "Regionsabdeckungen",
+      "pageDescription": "Regionsabdeckungen verwalten",
+      "title": "Regionsabdeckungen",
+      "createTitle": "Abdeckung erstellen",
+      "editTitle": "Abdeckung bearbeiten",
+      "columns": {
+        "regionTypeCode": "Regionstyp",
+        "regionCode": "Regionscode",
+        "countryCode": "Land",
+        "settlementCode": "Siedlung",
+        "actions": "Aktionen"
+      },
+      "fields": {
+        "regionTypeCode": "Regionstyp",
+        "regionCode": "Regionscode",
+        "countryCode": "Land",
+        "settlementCode": "Siedlung",
+        "actions": "Aktionen"
+      },
+      "actions": {
+        "edit": "Bearbeiten",
+        "delete": "Löschen"
+      },
+      "messages": {
+        "deleteTitle": "Regionsabdeckungen löschen",
+        "deleteDescription": "Sind Sie sicher?",
+        "deleteSuccess": "Erfolgreich gelöscht.",
+        "deleteError": "Löschen fehlgeschlagen.",
+        "updateSuccess": "Erfolgreich aktualisiert.",
+        "updateError": "Aktualisierung fehlgeschlagen.",
+        "createSuccess": "Erfolgreich erstellt.",
+        "createError": "Erstellen fehlgeschlagen."
+      }
+    },
+    "municipalitySettlementCoverages": {
+      "pageTitle": "Gemeindeabdeckungen",
+      "pageDescription": "Gemeindeabdeckungen verwalten",
+      "title": "Gemeindeabdeckungen",
+      "createTitle": "Abdeckung erstellen",
+      "editTitle": "Abdeckung bearbeiten",
+      "columns": {
+        "countryCode": "Land",
+        "municipalityCode": "Gemeinde",
+        "settlementCode": "Siedlung",
+        "actions": "Aktionen"
+      },
+      "fields": {
+        "countryCode": "Land",
+        "municipalityCode": "Gemeinde",
+        "settlementCode": "Siedlung",
+        "actions": "Aktionen"
+      },
+      "actions": {
+        "edit": "Bearbeiten",
+        "delete": "Löschen"
+      },
+      "messages": {
+        "deleteTitle": "Gemeindeabdeckungen löschen",
+        "deleteDescription": "Sind Sie sicher?",
+        "deleteSuccess": "Erfolgreich gelöscht.",
+        "deleteError": "Löschen fehlgeschlagen.",
+        "updateSuccess": "Erfolgreich aktualisiert.",
+        "updateError": "Aktualisierung fehlgeschlagen.",
+        "createSuccess": "Erfolgreich erstellt.",
+        "createError": "Erstellen fehlgeschlagen."
+      }
+    },
+    "localCommunityCoverages": {
+      "pageTitle": "Lokalgemeinschaftsabdeckungen",
+      "pageDescription": "Lokalgemeinschaftsabdeckungen verwalten",
+      "title": "Lokalgemeinschaftsabdeckungen",
+      "createTitle": "Abdeckung erstellen",
+      "editTitle": "Abdeckung bearbeiten",
+      "columns": {
+        "countryCode": "Land",
+        "municipalityCode": "Gemeinde",
+        "localCommunityIdentifier": "Lokalgemeinschaft",
+        "settlementCode": "Siedlung",
+        "actions": "Aktionen"
+      },
+      "fields": {
+        "countryCode": "Land",
+        "municipalityCode": "Gemeinde",
+        "localCommunityIdentifier": "Lokalgemeinschaft",
+        "settlementCode": "Siedlung",
+        "actions": "Aktionen"
+      },
+      "actions": {
+        "edit": "Bearbeiten",
+        "delete": "Löschen"
+      },
+      "messages": {
+        "deleteTitle": "Lokalgemeinschaftsabdeckungen löschen",
+        "deleteDescription": "Sind Sie sicher?",
+        "deleteSuccess": "Erfolgreich gelöscht.",
+        "deleteError": "Löschen fehlgeschlagen.",
+        "updateSuccess": "Erfolgreich aktualisiert.",
+        "updateError": "Aktualisierung fehlgeschlagen.",
+        "createSuccess": "Erfolgreich erstellt.",
+        "createError": "Erstellen fehlgeschlagen."
+      }
+    },
+    "legalSuccessors": {
+      "pageTitle": "Rechtsnachfolger",
+      "pageDescription": "Rechtsnachfolger verwalten",
+      "title": "Rechtsnachfolger",
+      "createTitle": "Rechtsnachfolger erstellen",
+      "editTitle": "Rechtsnachfolger bearbeiten",
+      "columns": {
+        "successorCountryCode": "Nachfolger",
+        "predecessorCountryCode": "Vorgänger",
+        "actions": "Aktionen"
+      },
+      "fields": {
+        "successorCountryCode": "Nachfolger",
+        "predecessorCountryCode": "Vorgänger",
+        "actions": "Aktionen"
+      },
+      "actions": {
+        "edit": "Bearbeiten",
+        "delete": "Löschen"
+      },
+      "messages": {
+        "deleteTitle": "Rechtsnachfolger löschen",
+        "deleteDescription": "Sind Sie sicher?",
+        "deleteSuccess": "Erfolgreich gelöscht.",
+        "deleteError": "Löschen fehlgeschlagen.",
+        "updateSuccess": "Erfolgreich aktualisiert.",
+        "updateError": "Aktualisierung fehlgeschlagen.",
+        "createSuccess": "Erfolgreich erstellt.",
+        "createError": "Erstellen fehlgeschlagen."
+      }
+    },
+    "governmentHistories": {
+      "pageTitle": "Regierungshistorie",
+      "pageDescription": "Regierungshistorie verwalten",
+      "title": "Regierungshistorie",
+      "createTitle": "Historie erstellen",
+      "editTitle": "Historie bearbeiten",
+      "columns": {
+        "countryCode": "Land",
+        "sequenceNumber": "Sequenz",
+        "governmentTypeCode": "Regierungstyp",
+        "from": "Von",
+        "to": "Bis",
+        "actions": "Aktionen"
+      },
+      "fields": {
+        "countryCode": "Land",
+        "sequenceNumber": "Sequenz",
+        "governmentTypeCode": "Regierungstyp",
+        "from": "Von",
+        "to": "Bis",
+        "actions": "Aktionen"
+      },
+      "actions": {
+        "edit": "Bearbeiten",
+        "delete": "Löschen"
+      },
+      "messages": {
+        "deleteTitle": "Regierungshistorie löschen",
+        "deleteDescription": "Sind Sie sicher?",
+        "deleteSuccess": "Erfolgreich gelöscht.",
+        "deleteError": "Löschen fehlgeschlagen.",
+        "updateSuccess": "Erfolgreich aktualisiert.",
+        "updateError": "Aktualisierung fehlgeschlagen.",
+        "createSuccess": "Erfolgreich erstellt.",
+        "createError": "Erstellen fehlgeschlagen."
+      }
+    }
+  },
+  "tumor": {
+    "scanTypes": {
+      "mri": "MRT",
+      "ct": "CT"
+    },
+    "status": {
+      "Pending": "Ausstehend",
+      "Processing": "In Bearbeitung",
+      "Completed": "Abgeschlossen",
+      "Failed": "Fehlgeschlagen",
+      "Corrected": "Korrigiert"
+    },
+    "classes": {
+      "glioma": "Gliom",
+      "meningioma": "Meningeom",
+      "pituitary": "Hypophysentumor",
+      "noTumor": "Kein Tumor"
+    },
+    "scans": {
+      "doctor": {
+        "pageTitle": "Scans",
+        "pageDescription": "Liste der MRT/CT-Gehirnscans",
+        "title": "Gehirnscans",
+        "empty": "Noch keine Scans hochgeladen.",
+        "columns": {
+          "file": "Datei",
+          "type": "Typ",
+          "size": "Größe",
+          "analyses": "Analysen",
+          "uploaded": "Hochgeladen"
+        },
+        "actions": {
+          "upload": "Scan hinzufügen"
+        },
+        "messages": {
+          "loadError": "Scans konnten nicht geladen werden."
+        }
+      },
+      "patient": {
+        "pageTitle": "Meine Scans",
+        "pageDescription": "Ihre MRT/CT-Scans",
+        "title": "Meine Scans",
+        "empty": "Sie haben keine hochgeladenen Scans.",
+        "columns": {
+          "file": "Datei",
+          "type": "Typ",
+          "size": "Größe",
+          "analyses": "Analysen",
+          "uploaded": "Hochgeladen"
+        },
+        "actions": {
+          "upload": "Scan hochladen"
+        },
+        "messages": {
+          "loadError": "Scans konnten nicht geladen werden."
+        }
+      }
+    },
+    "upload": {
+      "doctor": {
+        "pageTitle": "Scan hinzufügen",
+        "pageDescription": "MRT/CT-Scan eines Patienten hochladen",
+        "title": "Neuer Scan",
+        "fields": {
+          "patientId": "Patienten-ID",
+          "scanType": "Scan-Typ",
+          "file": "Bild"
+        },
+        "actions": {
+          "upload": "Scan speichern",
+          "uploading": "Wird hochgeladen..."
+        },
+        "messages": {
+          "required": "Patient und Datei sind erforderlich.",
+          "success": "Scan erfolgreich hochgeladen.",
+          "error": "Upload fehlgeschlagen."
+        }
+      },
+      "patient": {
+        "pageTitle": "Scan hochladen",
+        "pageDescription": "Laden Sie Ihren MRT/CT-Scan hoch",
+        "title": "Scan hochladen",
+        "fields": {
+          "scanType": "Scan-Typ",
+          "file": "Bild"
+        },
+        "actions": {
+          "upload": "Scan speichern",
+          "uploading": "Wird hochgeladen..."
+        },
+        "messages": {
+          "required": "Datei ist erforderlich.",
+          "success": "Scan erfolgreich hochgeladen.",
+          "error": "Upload fehlgeschlagen."
+        }
+      }
+    },
+    "analyses": {
+      "doctor": {
+        "pageTitle": "Neue Analyse",
+        "pageDescription": "KI-Tumoranalyse starten",
+        "title": "Analysen",
+        "startTitle": "Analyse starten",
+        "empty": "Noch keine Analysen.",
+        "fields": {
+          "scan": "Scan"
+        },
+        "columns": {
+          "scan": "Scan",
+          "status": "Status",
+          "classification": "Klasse",
+          "confidence": "Konfidenz",
+          "requested": "Angefordert",
+          "actions": "Aktionen"
+        },
+        "actions": {
+          "run": "KI starten",
+          "running": "KI läuft...",
+          "view": "Details"
+        },
+        "messages": {
+          "loadError": "Analysen konnten nicht geladen werden.",
+          "analysisStarted": "Analyse gestartet. Ergebnisse werden automatisch geladen.",
+          "analysisSuccess": "Analyse abgeschlossen.",
+          "analysisFailed": "Analyse fehlgeschlagen."
+        }
+      },
+      "doctorArchive": {
+        "pageTitle": "Analysearchiv",
+        "pageDescription": "Abgeschlossene Analysen",
+        "title": "Archivierte Analysen",
+        "empty": "Keine archivierten Analysen.",
+        "columns": {
+          "scan": "Scan",
+          "status": "Status",
+          "classification": "Klasse",
+          "confidence": "Konfidenz",
+          "requested": "Angefordert",
+          "actions": "Aktionen"
+        },
+        "actions": {
+          "view": "Details"
+        },
+        "messages": {
+          "loadError": "Analysen konnten nicht geladen werden."
+        }
+      },
+      "patient": {
+        "pageTitle": "Neue Analyse",
+        "pageDescription": "Ihre KI-Analyse",
+        "title": "Meine Analysen",
+        "startTitle": "Analyse starten",
+        "empty": "Noch keine Analysen.",
+        "fields": {
+          "scan": "Scan"
+        },
+        "columns": {
+          "scan": "Scan",
+          "status": "Status",
+          "classification": "Klasse",
+          "confidence": "Konfidenz",
+          "requested": "Angefordert",
+          "actions": "Aktionen"
+        },
+        "actions": {
+          "run": "KI starten",
+          "running": "KI läuft...",
+          "view": "Details"
+        },
+        "messages": {
+          "loadError": "Analysen konnten nicht geladen werden.",
+          "analysisStarted": "Analyse gestartet. Ergebnisse werden automatisch geladen.",
+          "analysisSuccess": "Analyse abgeschlossen.",
+          "analysisFailed": "Analyse fehlgeschlagen."
+        }
+      },
+      "patientArchive": {
+        "pageTitle": "Analysearchiv",
+        "pageDescription": "Ihre abgeschlossenen Analysen",
+        "title": "Archivierte Analysen",
+        "empty": "Keine archivierten Analysen.",
+        "columns": {
+          "scan": "Scan",
+          "status": "Status",
+          "classification": "Klasse",
+          "confidence": "Konfidenz",
+          "requested": "Angefordert",
+          "actions": "Aktionen"
+        },
+        "actions": {
+          "view": "Details"
+        },
+        "messages": {
+          "loadError": "Analysen konnten nicht geladen werden."
+        }
+      }
+    },
+    "detail": {
+      "doctor": {
+        "pageTitle": "Analysedetails",
+        "pageDescription": "KI-Analyseergebnisse",
+        "loading": "Wird geladen...",
+        "notFound": "Analyse nicht gefunden.",
+        "detectionsTitle": "Detektionen",
+        "imageTitle": "Scan-Visualisierung",
+        "imageAlt": "Gehirnscan mit Tumormarkierungen",
+        "imageLoading": "Bild wird geladen...",
+        "imageLoadError": "Bild ist nicht verfügbar.",
+        "imageLegend": "Roter Rahmen markiert die erkannte Tumorregion.",
+        "imageViews": {
+          "original": "Original",
+          "detection": "Detektion",
+          "segmentation": "Segmentierung",
+          "annotated": "Markiert"
+        },
+        "correctionTitle": "Manuelle Korrektur",
+        "reportTitle": "PDF-Bericht",
+        "reportEmpty": "Noch kein Bericht erstellt. Klicken Sie unten, um ein PDF mit Analyseergebnissen zu erstellen.",
+        "reportAvailable": "PDF-Bericht verfügbar (erstellt {{date}}).",
+        "commentsTitle": "Kommentare",
+        "commentPlaceholder": "Kommentar eingeben...",
+        "emptyDetections": "Keine Detektionen.",
+        "emptyDetectionsHint": "KI klassifizierte «{{class}}», aber keine Bounding Box gefunden. Starten Sie eine neue Analyse mit dem aktualisierten Modell.",
+        "emptyComments": "Noch keine Kommentare.",
+        "fields": {
+          "status": "Status",
+          "classification": "Klasse",
+          "confidence": "Konfidenz",
+          "tumorArea": "Tumorfläche"
+        },
+        "columns": {
+          "class": "Klasse",
+          "confidence": "Konfidenz",
+          "bbox": "Bounding Box",
+          "size": "Größe"
+        },
+        "actions": {
+          "back": "Zurück zur Liste",
+          "applyCorrection": "Korrektur anwenden",
+          "postComment": "Kommentar posten",
+          "generateReport": "Bericht erstellen",
+          "downloadReport": "PDF herunterladen",
+          "regenerateReport": "Neu erstellen"
+        },
+        "messages": {
+          "loadError": "Analyse konnte nicht geladen werden.",
+          "analysisReady": "Analyse abgeschlossen — Ergebnisse geladen.",
+          "analysisFailed": "Analyse fehlgeschlagen.",
+          "commentSuccess": "Kommentar gespeichert.",
+          "commentError": "Kommentar konnte nicht gespeichert werden.",
+          "correctionSuccess": "Korrektur angewendet.",
+          "correctionError": "Korrektur fehlgeschlagen.",
+          "reportGenerated": "PDF-Bericht erfolgreich erstellt.",
+          "reportError": "Bericht konnte nicht erstellt werden.",
+          "reportDownloadError": "Bericht konnte nicht heruntergeladen werden."
+        }
+      },
+      "patient": {
+        "pageTitle": "Analysedetails",
+        "pageDescription": "Ihre Analyseergebnisse",
+        "loading": "Wird geladen...",
+        "notFound": "Analyse nicht gefunden.",
+        "detectionsTitle": "Detektionen",
+        "imageTitle": "Scan-Visualisierung",
+        "imageAlt": "Gehirnscan mit Tumormarkierungen",
+        "imageLoading": "Bild wird geladen...",
+        "imageLoadError": "Bild ist nicht verfügbar.",
+        "imageLegend": "Roter Rahmen markiert die erkannte Tumorregion.",
+        "imageViews": {
+          "original": "Original",
+          "detection": "Detektion",
+          "segmentation": "Segmentierung",
+          "annotated": "Markiert"
+        },
+        "reportTitle": "PDF-Bericht",
+        "reportEmpty": "Noch kein Bericht erstellt. Klicken Sie unten, um ein PDF mit Analyseergebnissen zu erstellen.",
+        "reportAvailable": "PDF-Bericht verfügbar (erstellt {{date}}).",
+        "commentsTitle": "Kommentare",
+        "commentPlaceholder": "Kommentar eingeben...",
+        "emptyDetections": "Keine Detektionen.",
+        "emptyDetectionsHint": "KI klassifizierte «{{class}}», aber keine Bounding Box gefunden. Starten Sie eine neue Analyse mit dem aktualisierten Modell.",
+        "emptyComments": "Noch keine Kommentare.",
+        "fields": {
+          "status": "Status",
+          "classification": "Klasse",
+          "confidence": "Konfidenz",
+          "tumorArea": "Tumorfläche"
+        },
+        "columns": {
+          "class": "Klasse",
+          "confidence": "Konfidenz",
+          "bbox": "Bounding Box",
+          "size": "Größe"
+        },
+        "actions": {
+          "back": "Zurück zur Liste",
+          "postComment": "Kommentar posten",
+          "generateReport": "Bericht erstellen",
+          "downloadReport": "PDF herunterladen",
+          "regenerateReport": "Neu erstellen"
+        },
+        "messages": {
+          "loadError": "Analyse konnte nicht geladen werden.",
+          "analysisReady": "Analyse abgeschlossen — Ergebnisse geladen.",
+          "analysisFailed": "Analyse fehlgeschlagen.",
+          "commentSuccess": "Kommentar gespeichert.",
+          "commentError": "Kommentar konnte nicht gespeichert werden.",
+          "reportGenerated": "PDF-Bericht erfolgreich erstellt.",
+          "reportError": "Bericht konnte nicht erstellt werden.",
+          "reportDownloadError": "Bericht konnte nicht heruntergeladen werden."
+        }
+      }
+    },
+    "reports": {
+      "doctor": {
+        "pageTitle": "Berichte",
+        "pageDescription": "Analyse-PDF-Berichte",
+        "title": "Analyseberichte",
+        "description": "Generierte PDF-Berichte anzeigen",
+        "empty": "Noch keine Berichte erstellt.",
+        "columns": {
+          "scan": "Scan",
+          "classification": "Klasse",
+          "status": "Status",
+          "generatedAt": "Erstellt",
+          "actions": "Aktionen"
+        },
+        "actions": {
+          "refresh": "Aktualisieren",
+          "download": "PDF herunterladen",
+          "viewAnalysis": "Analyse anzeigen"
+        },
+        "messages": {
+          "loadError": "Berichte konnten nicht geladen werden.",
+          "downloadError": "Bericht konnte nicht heruntergeladen werden."
+        }
+      },
+      "patient": {
+        "pageTitle": "Meine Berichte",
+        "pageDescription": "Ihre PDF-Berichte",
+        "title": "Meine Berichte",
+        "description": "Ihre generierten PDF-Berichte anzeigen",
+        "empty": "Sie haben noch keine Berichte.",
+        "columns": {
+          "scan": "Scan",
+          "classification": "Klasse",
+          "status": "Status",
+          "generatedAt": "Erstellt",
+          "actions": "Aktionen"
+        },
+        "actions": {
+          "refresh": "Aktualisieren",
+          "download": "PDF herunterladen",
+          "viewAnalysis": "Analyse anzeigen"
+        },
+        "messages": {
+          "loadError": "Berichte konnten nicht geladen werden.",
+          "downloadError": "Bericht konnte nicht heruntergeladen werden."
+        }
+      }
+    },
+    "monitoring": {
+      "pageTitle": "KI-Monitoring",
+      "pageDescription": "Statistiken und Modelle",
+      "modelsTitle": "Registrierte KI-Modelle",
+      "emptyModels": "Keine Modelle registriert. Starten Sie den Dienst nach dem Training neu.",
+      "stats": {
+        "completed": "Abgeschlossene Analysen",
+        "scans": "Hochgeladene Scans"
+      },
+      "columns": {
+        "task": "Aufgabe",
+        "version": "Version",
+        "runId": "Run-ID",
+        "status": "Status",
+        "registered": "Registriert"
+      },
+      "messages": {
+        "loadError": "Monitoring-Daten konnten nicht geladen werden."
+      }
+    }
+  },
+  "common": {
+    "actions": {
+      "create": "Erstellen",
+      "edit": "Bearbeiten",
+      "delete": "Löschen",
+      "save": "Speichern",
+      "cancel": "Abbrechen",
+      "close": "Schließen",
+      "refresh": "Aktualisieren"
+    },
+    "status": {
+      "active": "Aktiv",
+      "inactive": "Inaktiv"
+    },
+    "messages": {
+      "requiredField": "Dieses Feld ist erforderlich.",
+      "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+      "invalidNumber": "Bitte geben Sie eine gültige Zahl ein.",
+      "successSave": "Erfolgreich gespeichert.",
+      "errorSave": "Speichern fehlgeschlagen.",
+      "successDelete": "Erfolgreich gelöscht.",
+      "errorDelete": "Löschen fehlgeschlagen."
+    },
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "saveChanges": "Änderungen speichern",
+    "saving": "Wird gespeichert...",
+    "close": "Schließen",
+    "loading": "Wird geladen...",
+    "creating": "Wird erstellt...",
+    "delete": "Löschen",
+    "edit": "Bearbeiten"
+  },
+  "sidebar": {
+    "menu": "Menü",
+    "dashboard": "Dashboard",
+    "myScans": "Meine Scans",
+    "viewScans": "Scans anzeigen",
+    "myAnalysis": "Meine Analysen",
+    "newAnalysis": "Neue Analyse",
+    "archivedAnalysis": "Analysearchiv",
+    "myReports": "Meine Berichte",
+    "patients": "Patienten",
+    "patientList": "Patientenliste",
+    "addPatient": "Patient hinzufügen",
+    "scans": "Scans",
+    "addScan": "Scan hinzufügen",
+    "analysis": "Analysen",
+    "reports": "Berichte",
+    "aiMonitoring": "KI-Monitoring",
+    "roleManagement": "Rollenverwaltung",
+    "roles": "Rollen",
+    "createRole": "Rolle erstellen",
+    "assignRoles": "Rollen zuweisen",
+    "doctors": "Ärzte",
+    "doctorList": "Ärzteliste",
+    "addDoctor": "Arzt hinzufügen",
+    "pdfManagement": "PDF-Verwaltung",
+    "pdfTemplates": "PDF-Vorlagen",
+    "createPdfTemplate": "PDF-Vorlage erstellen",
+    "territorialOrganization": "Territoriale Organisation",
+    "countries": "Länder",
+    "countriesTable": "Länder-Tabelle",
+    "createCountry": "Land erstellen",
+    "governmentTypes": "Regierungsformen",
+    "governmentTypesTable": "Tabelle Regierungsformen",
+    "createGovernmentType": "Regierungsform erstellen",
+    "healthInstitutions": "Gesundheitseinrichtungen",
+    "healthInstitutionsTable": "Tabelle Gesundheitseinrichtungen",
+    "createHealthInstitution": "Gesundheitseinrichtung erstellen",
+    "healthInstitutionTypes": "Typen von Gesundheitseinrichtungen",
+    "healthInstitutionTypesTable": "Tabelle Einrichtungstypen",
+    "createHealthInstitutionType": "Einrichtungstyp erstellen",
+    "settlements": "Siedlungen",
+    "settlementsTable": "Siedlungstabelle",
+    "createSettlement": "Siedlung erstellen",
+    "municipalities": "Gemeinden",
+    "municipalitiesTable": "Gemeindetabelle",
+    "createMunicipality": "Gemeinde erstellen",
+    "regions": "Regionen",
+    "regionsTable": "Regionentabelle",
+    "createRegion": "Region erstellen",
+    "capitals": "Hauptstädte",
+    "capitalsTable": "Hauptstadt-Tabelle",
+    "createCapital": "Hauptstadt erstellen",
+    "regionTypes": "Regionstypen",
+    "regionTypesTable": "Tabelle Regionstypen",
+    "createRegionType": "Regionstyp erstellen",
+    "localCommunities": "Lokalgemeinden",
+    "localCommunitiesTable": "Tabelle Lokalgemeinden",
+    "createLocalCommunity": "Lokalgemeinde erstellen",
+    "countryCompositions": "Länderzusammensetzungen",
+    "countryCompositionsTable": "Tabelle Länderzusammensetzungen",
+    "createCountryComposition": "Länderzusammensetzung erstellen",
+    "regionCompositions": "Regionszusammensetzungen",
+    "regionCompositionsTable": "Tabelle Regionszusammensetzungen",
+    "createRegionComposition": "Regionszusammensetzung erstellen",
+    "regionSettlementCoverages": "Regions-Siedlungsabdeckungen",
+    "regionSettlementCoveragesTable": "Tabelle Regions-Siedlungsabdeckungen",
+    "createRegionSettlementCoverage": "Regions-Siedlungsabdeckung erstellen",
+    "municipalitySettlementCoverages": "Gemeinde-Siedlungsabdeckungen",
+    "municipalitySettlementCoveragesTable": "Tabelle Gemeinde-Siedlungsabdeckungen",
+    "createMunicipalitySettlementCoverage": "Gemeinde-Siedlungsabdeckung erstellen",
+    "localCommunityCoverages": "Lokalgemeinde-Abdeckungen",
+    "localCommunityCoveragesTable": "Tabelle Lokalgemeinde-Abdeckungen",
+    "createLocalCommunityCoverage": "Lokalgemeinde-Abdeckung erstellen",
+    "legalSuccessors": "Rechtsnachfolger",
+    "legalSuccessorsTable": "Tabelle Rechtsnachfolger",
+    "createLegalSuccessor": "Rechtsnachfolger erstellen",
+    "governmentHistories": "Regierungshistorien",
+    "governmentHistoriesTable": "Tabelle Regierungshistorien",
+    "createGovernmentHistory": "Regierungshistorie erstellen",
+    "system": "System",
+    "healthMonitoring": "Systemüberwachung",
+    "logs": "Protokolle",
+    "settings": "Einstellungen"
+  }
+}

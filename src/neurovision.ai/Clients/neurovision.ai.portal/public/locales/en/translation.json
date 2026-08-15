@@ -1,0 +1,1214 @@
+{
+  "signin": {
+    "title": "Sign In",
+    "subtitle": "Enter your email and password to sign in!",
+    "emailLabel": "Email",
+    "emailPlaceholder": "info@gmail.com",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "forgotPassword": "Forgot password?",
+    "signIn": "Sign in",
+    "signingIn": "Signing in..."
+  },
+  "alerts": {
+    "success": "Success",
+    "error": "Error"
+  },
+  "errors": {
+    "invalidEmail": "Please enter a valid email address",
+    "loginFailed": "Login failed"
+  },
+  "twoFA": {
+    "title": "Two-Factor Authentication",
+    "subtitle": "Enter the 6-digit code sent to your email",
+    "code": "2FA Code",
+    "invalidCode": "Please enter a valid 6-digit code",
+    "missingEmail": "Email is missing. Please login again.",
+    "onlyDigits": "Only digits are allowed",
+    "verify": "Verify",
+    "verifying": "Verifying...",
+    "didntReceive": "Didn't receive the code?",
+    "resend": "Resend",
+    "resendIn": "Resend in {{seconds}}s",
+    "sending": "Sending...",
+    "successLogin": "You have successfully logged in!"
+  },
+  "roles": {
+    "pageTitle": "Role Management",
+    "pageDescription": "Manage system roles and permissions",
+    "title": "System Roles",
+    "role": "Role",
+    "description": "Description",
+    "users": "Users",
+    "status": "Status",
+    "actions": "Actions",
+    "edit": "Edit Role",
+    "delete": "Delete",
+    "deleteTitle": "Delete Role",
+    "deleteConfirm": "Are you sure you want to delete this role?",
+    "deleteSuccess": "Role successfully deleted",
+    "deleteError": "Failed to delete role",
+    "updateSuccess": "Role successfully updated",
+    "updateError": "Failed to update role"
+  },
+  "doctor": {
+    "pageTitle": "Create Doctor",
+    "pageDescription": "Create a new doctor profile",
+    "title": "New Doctor",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "licenseNumber": "License Number",
+    "specialization": "Specialization",
+    "email": "Email",
+    "phoneNumber": "Phone",
+    "languages": "Languages",
+    "hospital": "Hospital",
+    "degrees": "Degrees",
+    "bio": "Bio",
+    "profilePicture": "Profile Picture",
+    "removeImage": "Remove Image",
+    "cancel": "Cancel",
+    "create": "Create Doctor",
+    "creating": "Creating...",
+    "requiredError": "All fields are required",
+    "success": "Doctor created successfully",
+    "error": "Failed to create doctor"
+  },
+  "pdf": {
+    "pageTitle": "PDF Templates",
+    "pageDescription": "Manage PDF templates",
+    "title": "PDF Templates",
+    "columns": {
+      "name": "Name",
+      "code": "Code",
+      "version": "Version",
+      "status": "Status",
+      "created": "Created",
+      "actions": "Actions"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "actions": {
+      "edit": "Edit",
+      "preview": "Preview",
+      "delete": "Delete",
+      "refresh": "Refresh"
+    },
+    "messages": {
+      "empty": "No PDF templates found.",
+      "deleteSuccess": "Template deleted successfully.",
+      "deleteError": "Failed to delete template.",
+      "updateSuccess": "Template updated successfully.",
+      "updateError": "Failed to update template."
+    },
+    "dialogs": {
+      "deleteTitle": "Delete PDF Template",
+      "deleteDescription": "Are you sure you want to delete this PDF template?"
+    },
+    "editModal": {
+      "title": "Edit PDF Template",
+      "description": "Manage template information and HTML.",
+      "tabs": {
+        "general": "General",
+        "html": "HTML Editor",
+        "preview": "Preview"
+      },
+      "fields": {
+        "name": "Template Name",
+        "code": "Template Code",
+        "version": "Version",
+        "status": "Status",
+        "activeTemplate": "Active Template"
+      }
+    },
+    "previewModal": {
+      "title": "PDF Template Preview",
+      "readOnly": "Read-only preview"
+    },
+    "create": {
+      "pageTitle": "Create PDF Template",
+      "pageDescription": "Create a reusable PDF template.",
+      "generalInformation": "General Information",
+      "htmlTemplate": "HTML Template",
+      "livePreview": "Live Preview",
+      "create": "Create Template"
+    }
+  },
+  "health": {
+    "pageTitle": "System Health",
+    "pageDescription": "Monitor the health status of system services",
+    "title": "System Health Monitoring",
+    "systemStatus": "System Status",
+    "autoRefresh": "Auto refresh every 5 seconds",
+    "cards": {
+      "total": "Total Services",
+      "healthy": "Healthy",
+      "unhealthy": "Unhealthy",
+      "status": "System Status"
+    },
+    "columns": {
+      "name": "Service Name",
+      "status": "Status",
+      "duration": "Response Time",
+      "error": "Error"
+    },
+    "status": {
+      "healthy": "Healthy",
+      "unhealthy": "Unhealthy",
+      "degraded": "Degraded"
+    },
+    "empty": "No services found"
+  },
+  "location": {
+    "settlements": {
+      "pageTitle": "Settlements",
+      "pageDescription": "Manage settlements",
+      "title": "Settlements",
+      "createTitle": "Create Settlement",
+      "editTitle": "Edit Settlement",
+      "fields": {
+        "country": "Country",
+        "countryCode": "Country",
+        "code": "Code",
+        "name": "Name",
+        "postalCode": "Postal Code",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "messages": {
+        "deleteTitle": "Delete Settlement",
+        "deleteDescription": "Are you sure you want to delete this settlement?",
+        "deleteSuccess": "Settlement deleted successfully.",
+        "deleteError": "Failed to delete settlement.",
+        "createSuccess": "Settlement created successfully.",
+        "createError": "Failed to create settlement.",
+        "updateSuccess": "Settlement updated successfully.",
+        "updateError": "Failed to update settlement."
+      }
+    },
+    "capitals": {
+      "pageTitle": "Capitals",
+      "pageDescription": "Manage capitals",
+      "title": "Capitals",
+      "createTitle": "Create Capital",
+      "editTitle": "Edit Capital",
+      "columns": {
+        "countryCode": "Country",
+        "settlementCode": "Settlement Code",
+        "actions": "Actions"
+      },
+      "fields": {
+        "countryCode": "Country",
+        "settlementCode": "Settlement Code",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "messages": {
+        "deleteTitle": "Delete Capitals",
+        "deleteDescription": "Are you sure?",
+        "deleteSuccess": "Deleted successfully.",
+        "deleteError": "Delete failed.",
+        "updateSuccess": "Updated successfully.",
+        "updateError": "Update failed.",
+        "createSuccess": "Created successfully.",
+        "createError": "Create failed."
+      }
+    },
+    "municipalities": {
+      "pageTitle": "Municipalities",
+      "pageDescription": "Manage municipalities",
+      "title": "Municipalities",
+      "createTitle": "Create Municipality",
+      "editTitle": "Edit Municipality",
+      "columns": {
+        "countryCode": "Country",
+        "code": "Code",
+        "name": "Name",
+        "seatSettlementCode": "Seat Settlement",
+        "actions": "Actions"
+      },
+      "fields": {
+        "countryCode": "Country",
+        "code": "Code",
+        "name": "Name",
+        "seatSettlementCode": "Seat Settlement",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "messages": {
+        "deleteTitle": "Delete Municipalities",
+        "deleteDescription": "Are you sure?",
+        "deleteSuccess": "Deleted successfully.",
+        "deleteError": "Delete failed.",
+        "updateSuccess": "Updated successfully.",
+        "updateError": "Update failed.",
+        "createSuccess": "Created successfully.",
+        "createError": "Create failed."
+      }
+    },
+    "regions": {
+      "pageTitle": "Regions",
+      "pageDescription": "Manage regions",
+      "title": "Regions",
+      "createTitle": "Create Region",
+      "editTitle": "Edit Region",
+      "columns": {
+        "typeCode": "Region Type",
+        "code": "Code",
+        "name": "Name",
+        "belongsToCountryCode": "Country",
+        "headquartersCountryCode": "HQ Country",
+        "administrativeSeatSettlementCode": "Admin Seat Settlement",
+        "actions": "Actions"
+      },
+      "fields": {
+        "typeCode": "Region Type",
+        "code": "Code",
+        "name": "Name",
+        "belongsToCountryCode": "Country",
+        "headquartersCountryCode": "HQ Country",
+        "administrativeSeatSettlementCode": "Admin Seat Settlement",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "messages": {
+        "deleteTitle": "Delete Regions",
+        "deleteDescription": "Are you sure?",
+        "deleteSuccess": "Deleted successfully.",
+        "deleteError": "Delete failed.",
+        "updateSuccess": "Updated successfully.",
+        "updateError": "Update failed.",
+        "createSuccess": "Created successfully.",
+        "createError": "Create failed."
+      }
+    },
+    "governmentTypes": {
+      "pageTitle": "Government Types",
+      "pageDescription": "Manage government types",
+      "title": "Government Types",
+      "createTitle": "Create Government Type",
+      "editTitle": "Edit Government Type",
+      "createButton": "Create Government Type",
+      "fields": {
+        "code": "Code",
+        "name": "Name",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "messages": {
+        "deleteTitle": "Delete Government Type",
+        "deleteDescription": "Are you sure you want to delete this government type?",
+        "deleteSuccess": "Government type deleted successfully.",
+        "deleteError": "Failed to delete government type.",
+        "updateSuccess": "Government type updated successfully.",
+        "updateError": "Failed to update government type.",
+        "createSuccess": "Government type created successfully.",
+        "createError": "Failed to create government type."
+      }
+    },
+    "healthInstitutions": {
+      "pageTitle": "Health Institutions",
+      "pageDescription": "Manage health institutions",
+      "title": "Health Institutions",
+      "createButton": "Add Health Institution",
+      "createTitle": "Create Health Institution",
+      "editTitle": "Edit Health Institution",
+      "tabs": {
+        "general": "General",
+        "location": "Location",
+        "contact": "Contact"
+      },
+      "fields": {
+        "name": "Name",
+        "typeCode": "Type",
+        "countryCode": "Country",
+        "settlementCode": "Settlement",
+        "address": "Address",
+        "bedCount": "Bed Count",
+        "foundingDate": "Founding Date",
+        "phone": "Phone",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "messages": {
+        "deleteTitle": "Delete Health Institution",
+        "deleteDescription": "Are you sure you want to delete this health institution?",
+        "deleteSuccess": "Health institution deleted successfully.",
+        "deleteError": "Failed to delete health institution.",
+        "createSuccess": "Health institution created successfully.",
+        "createError": "Failed to create health institution.",
+        "updateSuccess": "Health institution updated successfully.",
+        "updateError": "Failed to update health institution."
+      }
+    },
+    "healthInstitutionTypes": {
+      "pageTitle": "Health Institution Types",
+      "pageDescription": "Manage health institution types",
+      "title": "Health Institution Types",
+      "createTitle": "Create Health Institution Type",
+      "editTitle": "Edit Health Institution Type",
+      "createButton": "Create Type",
+      "table": {
+        "code": "Code",
+        "name": "Name",
+        "actions": "Actions"
+      },
+      "fields": {
+        "code": "Code",
+        "name": "Name",
+        "actions": "Actions"
+      },
+      "placeholders": {
+        "code": "HOSPITAL",
+        "name": "General Hospital"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "messages": {
+        "required": "Code and name are required.",
+        "deleteTitle": "Delete Health Institution Type",
+        "deleteDescription": "Are you sure you want to delete this health institution type?",
+        "deleteSuccess": "Health institution type deleted successfully.",
+        "deleteError": "Failed to delete health institution type.",
+        "createSuccess": "Health institution type created successfully.",
+        "createError": "Failed to create health institution type.",
+        "updateSuccess": "Health institution type updated successfully.",
+        "updateError": "Failed to update health institution type.",
+        "saved": "Saved successfully.",
+        "saveFailed": "Save failed."
+      }
+    },
+    "regionTypes": {
+      "pageTitle": "Region Types",
+      "pageDescription": "Manage region types",
+      "title": "Region Types",
+      "createTitle": "Create Region Type",
+      "editTitle": "Edit Region Type",
+      "columns": {
+        "code": "Code",
+        "name": "Name",
+        "actions": "Actions"
+      },
+      "fields": {
+        "code": "Code",
+        "name": "Name",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "messages": {
+        "deleteTitle": "Delete Region Types",
+        "deleteDescription": "Are you sure?",
+        "deleteSuccess": "Deleted successfully.",
+        "deleteError": "Delete failed.",
+        "updateSuccess": "Updated successfully.",
+        "updateError": "Update failed.",
+        "createSuccess": "Created successfully.",
+        "createError": "Create failed."
+      }
+    },
+    "localCommunities": {
+      "pageTitle": "Local Communities",
+      "pageDescription": "Manage local communities",
+      "title": "Local Communities",
+      "createTitle": "Create Local Community",
+      "editTitle": "Edit Local Community",
+      "columns": {
+        "countryCode": "Country",
+        "municipalityCode": "Municipality",
+        "identifier": "Identifier",
+        "name": "Name",
+        "officeSettlementCode": "Office Settlement",
+        "actions": "Actions"
+      },
+      "fields": {
+        "countryCode": "Country",
+        "municipalityCode": "Municipality",
+        "identifier": "Identifier",
+        "name": "Name",
+        "officeSettlementCode": "Office Settlement",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "messages": {
+        "deleteTitle": "Delete Local Communities",
+        "deleteDescription": "Are you sure?",
+        "deleteSuccess": "Deleted successfully.",
+        "deleteError": "Delete failed.",
+        "updateSuccess": "Updated successfully.",
+        "updateError": "Update failed.",
+        "createSuccess": "Created successfully.",
+        "createError": "Create failed."
+      }
+    },
+    "countryCompositions": {
+      "pageTitle": "Country Compositions",
+      "pageDescription": "Manage country compositions",
+      "title": "Country Compositions",
+      "createTitle": "Create Composition",
+      "editTitle": "Edit Composition",
+      "columns": {
+        "unionCountryCode": "Union",
+        "memberCountryCode": "Member",
+        "sequenceNumber": "Sequence",
+        "from": "From",
+        "to": "To",
+        "actions": "Actions"
+      },
+      "fields": {
+        "unionCountryCode": "Union",
+        "memberCountryCode": "Member",
+        "sequenceNumber": "Sequence",
+        "from": "From",
+        "to": "To",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "messages": {
+        "deleteTitle": "Delete Country Compositions",
+        "deleteDescription": "Are you sure?",
+        "deleteSuccess": "Deleted successfully.",
+        "deleteError": "Delete failed.",
+        "updateSuccess": "Updated successfully.",
+        "updateError": "Update failed.",
+        "createSuccess": "Created successfully.",
+        "createError": "Create failed."
+      }
+    },
+    "regionCompositions": {
+      "pageTitle": "Region Compositions",
+      "pageDescription": "Manage region compositions",
+      "title": "Region Compositions",
+      "createTitle": "Create Region Composition",
+      "editTitle": "Edit Region Composition",
+      "columns": {
+        "parentRegionTypeCode": "Parent Type",
+        "parentRegionCode": "Parent Code",
+        "memberRegionTypeCode": "Member Type",
+        "memberRegionCode": "Member Code",
+        "actions": "Actions"
+      },
+      "fields": {
+        "parentRegionTypeCode": "Parent Type",
+        "parentRegionCode": "Parent Code",
+        "memberRegionTypeCode": "Member Type",
+        "memberRegionCode": "Member Code",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "messages": {
+        "deleteTitle": "Delete Region Compositions",
+        "deleteDescription": "Are you sure?",
+        "deleteSuccess": "Deleted successfully.",
+        "deleteError": "Delete failed.",
+        "updateSuccess": "Updated successfully.",
+        "updateError": "Update failed.",
+        "createSuccess": "Created successfully.",
+        "createError": "Create failed."
+      }
+    },
+    "regionSettlementCoverages": {
+      "pageTitle": "Region Settlement Coverages",
+      "pageDescription": "Manage region settlement coverages",
+      "title": "Region Settlement Coverages",
+      "createTitle": "Create Coverage",
+      "editTitle": "Edit Coverage",
+      "columns": {
+        "regionTypeCode": "Region Type",
+        "regionCode": "Region Code",
+        "countryCode": "Country",
+        "settlementCode": "Settlement",
+        "actions": "Actions"
+      },
+      "fields": {
+        "regionTypeCode": "Region Type",
+        "regionCode": "Region Code",
+        "countryCode": "Country",
+        "settlementCode": "Settlement",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "messages": {
+        "deleteTitle": "Delete Region Settlement Coverages",
+        "deleteDescription": "Are you sure?",
+        "deleteSuccess": "Deleted successfully.",
+        "deleteError": "Delete failed.",
+        "updateSuccess": "Updated successfully.",
+        "updateError": "Update failed.",
+        "createSuccess": "Created successfully.",
+        "createError": "Create failed."
+      }
+    },
+    "municipalitySettlementCoverages": {
+      "pageTitle": "Municipality Settlement Coverages",
+      "pageDescription": "Manage municipality settlement coverages",
+      "title": "Municipality Settlement Coverages",
+      "createTitle": "Create Coverage",
+      "editTitle": "Edit Coverage",
+      "columns": {
+        "countryCode": "Country",
+        "municipalityCode": "Municipality",
+        "settlementCode": "Settlement",
+        "actions": "Actions"
+      },
+      "fields": {
+        "countryCode": "Country",
+        "municipalityCode": "Municipality",
+        "settlementCode": "Settlement",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "messages": {
+        "deleteTitle": "Delete Municipality Settlement Coverages",
+        "deleteDescription": "Are you sure?",
+        "deleteSuccess": "Deleted successfully.",
+        "deleteError": "Delete failed.",
+        "updateSuccess": "Updated successfully.",
+        "updateError": "Update failed.",
+        "createSuccess": "Created successfully.",
+        "createError": "Create failed."
+      }
+    },
+    "localCommunityCoverages": {
+      "pageTitle": "Local Community Coverages",
+      "pageDescription": "Manage local community coverages",
+      "title": "Local Community Coverages",
+      "createTitle": "Create Coverage",
+      "editTitle": "Edit Coverage",
+      "columns": {
+        "countryCode": "Country",
+        "municipalityCode": "Municipality",
+        "localCommunityIdentifier": "Local Community",
+        "settlementCode": "Settlement",
+        "actions": "Actions"
+      },
+      "fields": {
+        "countryCode": "Country",
+        "municipalityCode": "Municipality",
+        "localCommunityIdentifier": "Local Community",
+        "settlementCode": "Settlement",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "messages": {
+        "deleteTitle": "Delete Local Community Coverages",
+        "deleteDescription": "Are you sure?",
+        "deleteSuccess": "Deleted successfully.",
+        "deleteError": "Delete failed.",
+        "updateSuccess": "Updated successfully.",
+        "updateError": "Update failed.",
+        "createSuccess": "Created successfully.",
+        "createError": "Create failed."
+      }
+    },
+    "legalSuccessors": {
+      "pageTitle": "Legal Successors",
+      "pageDescription": "Manage legal successors",
+      "title": "Legal Successors",
+      "createTitle": "Create Legal Successor",
+      "editTitle": "Edit Legal Successor",
+      "columns": {
+        "successorCountryCode": "Successor",
+        "predecessorCountryCode": "Predecessor",
+        "actions": "Actions"
+      },
+      "fields": {
+        "successorCountryCode": "Successor",
+        "predecessorCountryCode": "Predecessor",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "messages": {
+        "deleteTitle": "Delete Legal Successors",
+        "deleteDescription": "Are you sure?",
+        "deleteSuccess": "Deleted successfully.",
+        "deleteError": "Delete failed.",
+        "updateSuccess": "Updated successfully.",
+        "updateError": "Update failed.",
+        "createSuccess": "Created successfully.",
+        "createError": "Create failed."
+      }
+    },
+    "governmentHistories": {
+      "pageTitle": "Government Histories",
+      "pageDescription": "Manage government histories",
+      "title": "Government Histories",
+      "createTitle": "Create History",
+      "editTitle": "Edit History",
+      "columns": {
+        "countryCode": "Country",
+        "sequenceNumber": "Sequence",
+        "governmentTypeCode": "Government Type",
+        "from": "From",
+        "to": "To",
+        "actions": "Actions"
+      },
+      "fields": {
+        "countryCode": "Country",
+        "sequenceNumber": "Sequence",
+        "governmentTypeCode": "Government Type",
+        "from": "From",
+        "to": "To",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "messages": {
+        "deleteTitle": "Delete Government Histories",
+        "deleteDescription": "Are you sure?",
+        "deleteSuccess": "Deleted successfully.",
+        "deleteError": "Delete failed.",
+        "updateSuccess": "Updated successfully.",
+        "updateError": "Update failed.",
+        "createSuccess": "Created successfully.",
+        "createError": "Create failed."
+      }
+    }
+  },
+  "tumor": {
+    "scanTypes": {
+      "mri": "MRI",
+      "ct": "CT"
+    },
+    "status": {
+      "Pending": "Pending",
+      "Processing": "Processing",
+      "Completed": "Completed",
+      "Failed": "Failed",
+      "Corrected": "Corrected"
+    },
+    "classes": {
+      "glioma": "Glioma",
+      "meningioma": "Meningioma",
+      "pituitary": "Pituitary",
+      "noTumor": "No tumor"
+    },
+    "scans": {
+      "doctor": {
+        "pageTitle": "Scans",
+        "pageDescription": "List of MRI/CT brain scans",
+        "title": "Brain scans",
+        "empty": "No scans uploaded yet.",
+        "columns": {
+          "file": "File",
+          "type": "Type",
+          "size": "Size",
+          "analyses": "Analyses",
+          "uploaded": "Uploaded"
+        },
+        "actions": {
+          "upload": "Add scan"
+        },
+        "messages": {
+          "loadError": "Failed to load scans."
+        }
+      },
+      "patient": {
+        "pageTitle": "My scans",
+        "pageDescription": "Your MRI/CT scans",
+        "title": "My scans",
+        "empty": "You have no uploaded scans.",
+        "columns": {
+          "file": "File",
+          "type": "Type",
+          "size": "Size",
+          "analyses": "Analyses",
+          "uploaded": "Uploaded"
+        },
+        "actions": {
+          "upload": "Upload scan"
+        },
+        "messages": {
+          "loadError": "Failed to load scans."
+        }
+      }
+    },
+    "upload": {
+      "doctor": {
+        "pageTitle": "Add scan",
+        "pageDescription": "Upload a patient's MRI/CT scan",
+        "title": "New scan",
+        "fields": {
+          "patientId": "Patient ID",
+          "scanType": "Scan type",
+          "file": "Image"
+        },
+        "actions": {
+          "upload": "Save scan",
+          "uploading": "Uploading..."
+        },
+        "messages": {
+          "required": "Patient and file are required.",
+          "success": "Scan uploaded successfully.",
+          "error": "Upload failed."
+        }
+      },
+      "patient": {
+        "pageTitle": "Upload scan",
+        "pageDescription": "Upload your MRI/CT scan",
+        "title": "Upload scan",
+        "fields": {
+          "scanType": "Scan type",
+          "file": "Image"
+        },
+        "actions": {
+          "upload": "Save scan",
+          "uploading": "Uploading..."
+        },
+        "messages": {
+          "required": "File is required.",
+          "success": "Scan uploaded successfully.",
+          "error": "Upload failed."
+        }
+      }
+    },
+    "analyses": {
+      "doctor": {
+        "pageTitle": "New analysis",
+        "pageDescription": "Run AI tumor analysis",
+        "title": "Analyses",
+        "startTitle": "Start analysis",
+        "empty": "No analyses yet.",
+        "fields": {
+          "scan": "Scan"
+        },
+        "columns": {
+          "scan": "Scan",
+          "status": "Status",
+          "classification": "Class",
+          "confidence": "Confidence",
+          "requested": "Requested",
+          "actions": "Actions"
+        },
+        "actions": {
+          "run": "Run AI",
+          "running": "Running...",
+          "view": "Details"
+        },
+        "messages": {
+          "loadError": "Failed to load analyses.",
+          "analysisStarted": "Analysis started. Results will load automatically.",
+          "analysisSuccess": "Analysis completed.",
+          "analysisFailed": "Analysis failed."
+        }
+      },
+      "doctorArchive": {
+        "pageTitle": "Analysis archive",
+        "pageDescription": "Completed analyses",
+        "title": "Archived analyses",
+        "empty": "No archived analyses.",
+        "columns": {
+          "scan": "Scan",
+          "status": "Status",
+          "classification": "Class",
+          "confidence": "Confidence",
+          "requested": "Requested",
+          "actions": "Actions"
+        },
+        "actions": {
+          "view": "Details"
+        },
+        "messages": {
+          "loadError": "Failed to load analyses."
+        }
+      },
+      "patient": {
+        "pageTitle": "New analysis",
+        "pageDescription": "Your AI analysis",
+        "title": "My analyses",
+        "startTitle": "Start analysis",
+        "empty": "No analyses yet.",
+        "fields": {
+          "scan": "Scan"
+        },
+        "columns": {
+          "scan": "Scan",
+          "status": "Status",
+          "classification": "Class",
+          "confidence": "Confidence",
+          "requested": "Requested",
+          "actions": "Actions"
+        },
+        "actions": {
+          "run": "Run AI",
+          "running": "Running...",
+          "view": "Details"
+        },
+        "messages": {
+          "loadError": "Failed to load analyses.",
+          "analysisStarted": "Analysis started. Results will load automatically.",
+          "analysisSuccess": "Analysis completed.",
+          "analysisFailed": "Analysis failed."
+        }
+      },
+      "patientArchive": {
+        "pageTitle": "Analysis archive",
+        "pageDescription": "Your completed analyses",
+        "title": "Archived analyses",
+        "empty": "No archived analyses.",
+        "columns": {
+          "scan": "Scan",
+          "status": "Status",
+          "classification": "Class",
+          "confidence": "Confidence",
+          "requested": "Requested",
+          "actions": "Actions"
+        },
+        "actions": {
+          "view": "Details"
+        },
+        "messages": {
+          "loadError": "Failed to load analyses."
+        }
+      }
+    },
+    "detail": {
+      "doctor": {
+        "pageTitle": "Analysis details",
+        "pageDescription": "AI analysis results",
+        "loading": "Loading...",
+        "notFound": "Analysis not found.",
+        "detectionsTitle": "Detections",
+        "imageTitle": "Scan visualization",
+        "imageAlt": "Brain scan with tumor markings",
+        "imageLoading": "Loading image...",
+        "imageLoadError": "Image is not available.",
+        "imageLegend": "Red box marks the detected tumor region.",
+        "imageViews": {
+          "original": "Original",
+          "detection": "Detection",
+          "segmentation": "Segmentation",
+          "annotated": "Annotated"
+        },
+        "correctionTitle": "Manual correction",
+        "reportTitle": "PDF report",
+        "reportEmpty": "No report has been generated yet. Click below to create a PDF with analysis results.",
+        "reportAvailable": "PDF report is available (generated {{date}}).",
+        "commentsTitle": "Comments",
+        "commentPlaceholder": "Enter a comment...",
+        "emptyDetections": "No detections.",
+        "emptyDetectionsHint": "AI classified «{{class}}», but no bounding box was found. Run a new analysis with the updated model.",
+        "emptyComments": "No comments yet.",
+        "fields": {
+          "status": "Status",
+          "classification": "Class",
+          "confidence": "Confidence",
+          "tumorArea": "Tumor area"
+        },
+        "columns": {
+          "class": "Class",
+          "confidence": "Confidence",
+          "bbox": "Bounding box",
+          "size": "Size"
+        },
+        "actions": {
+          "back": "Back to list",
+          "applyCorrection": "Apply correction",
+          "postComment": "Post comment",
+          "generateReport": "Generate report",
+          "downloadReport": "Download PDF",
+          "regenerateReport": "Regenerate"
+        },
+        "messages": {
+          "loadError": "Failed to load analysis.",
+          "analysisReady": "Analysis completed — results loaded.",
+          "analysisFailed": "Analysis failed.",
+          "commentSuccess": "Comment saved.",
+          "commentError": "Failed to save comment.",
+          "correctionSuccess": "Correction applied.",
+          "correctionError": "Correction failed.",
+          "reportGenerated": "PDF report generated successfully.",
+          "reportError": "Failed to generate report.",
+          "reportDownloadError": "Failed to download report."
+        }
+      },
+      "patient": {
+        "pageTitle": "Analysis details",
+        "pageDescription": "Your analysis results",
+        "loading": "Loading...",
+        "notFound": "Analysis not found.",
+        "detectionsTitle": "Detections",
+        "imageTitle": "Scan visualization",
+        "imageAlt": "Brain scan with tumor markings",
+        "imageLoading": "Loading image...",
+        "imageLoadError": "Image is not available.",
+        "imageLegend": "Red box marks the detected tumor region.",
+        "imageViews": {
+          "original": "Original",
+          "detection": "Detection",
+          "segmentation": "Segmentation",
+          "annotated": "Annotated"
+        },
+        "reportTitle": "PDF report",
+        "reportEmpty": "No report has been generated yet. Click below to create a PDF with analysis results.",
+        "reportAvailable": "PDF report is available (generated {{date}}).",
+        "commentsTitle": "Comments",
+        "commentPlaceholder": "Enter a comment...",
+        "emptyDetections": "No detections.",
+        "emptyDetectionsHint": "AI classified «{{class}}», but no bounding box was found. Run a new analysis with the updated model.",
+        "emptyComments": "No comments yet.",
+        "fields": {
+          "status": "Status",
+          "classification": "Class",
+          "confidence": "Confidence",
+          "tumorArea": "Tumor area"
+        },
+        "columns": {
+          "class": "Class",
+          "confidence": "Confidence",
+          "bbox": "Bounding box",
+          "size": "Size"
+        },
+        "actions": {
+          "back": "Back to list",
+          "postComment": "Post comment",
+          "generateReport": "Generate report",
+          "downloadReport": "Download PDF",
+          "regenerateReport": "Regenerate"
+        },
+        "messages": {
+          "loadError": "Failed to load analysis.",
+          "analysisReady": "Analysis completed — results loaded.",
+          "analysisFailed": "Analysis failed.",
+          "commentSuccess": "Comment saved.",
+          "commentError": "Failed to save comment.",
+          "reportGenerated": "PDF report generated successfully.",
+          "reportError": "Failed to generate report.",
+          "reportDownloadError": "Failed to download report."
+        }
+      }
+    },
+    "reports": {
+      "doctor": {
+        "pageTitle": "Reports",
+        "pageDescription": "Analysis PDF reports",
+        "title": "Analysis reports",
+        "description": "Browse generated PDF reports",
+        "empty": "No reports generated yet.",
+        "columns": {
+          "scan": "Scan",
+          "classification": "Class",
+          "status": "Status",
+          "generatedAt": "Generated",
+          "actions": "Actions"
+        },
+        "actions": {
+          "refresh": "Refresh",
+          "download": "Download PDF",
+          "viewAnalysis": "View analysis"
+        },
+        "messages": {
+          "loadError": "Failed to load reports.",
+          "downloadError": "Failed to download report."
+        }
+      },
+      "patient": {
+        "pageTitle": "My reports",
+        "pageDescription": "Your PDF reports",
+        "title": "My reports",
+        "description": "Browse your generated PDF reports",
+        "empty": "You have no generated reports yet.",
+        "columns": {
+          "scan": "Scan",
+          "classification": "Class",
+          "status": "Status",
+          "generatedAt": "Generated",
+          "actions": "Actions"
+        },
+        "actions": {
+          "refresh": "Refresh",
+          "download": "Download PDF",
+          "viewAnalysis": "View analysis"
+        },
+        "messages": {
+          "loadError": "Failed to load reports.",
+          "downloadError": "Failed to download report."
+        }
+      }
+    },
+    "monitoring": {
+      "pageTitle": "AI monitoring",
+      "pageDescription": "Statistics and models",
+      "modelsTitle": "Registered AI models",
+      "emptyModels": "No models registered. Restart the service after training.",
+      "stats": {
+        "completed": "Completed analyses",
+        "scans": "Uploaded scans"
+      },
+      "columns": {
+        "task": "Task",
+        "version": "Version",
+        "runId": "Run ID",
+        "status": "Status",
+        "registered": "Registered"
+      },
+      "messages": {
+        "loadError": "Failed to load monitoring data."
+      }
+    }
+  },
+  "common": {
+    "actions": {
+      "create": "Create",
+      "edit": "Edit",
+      "delete": "Delete",
+      "save": "Save",
+      "cancel": "Cancel",
+      "close": "Close",
+      "refresh": "Refresh"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "messages": {
+      "requiredField": "This field is required.",
+      "invalidEmail": "Please enter a valid email address.",
+      "invalidNumber": "Please enter a valid number.",
+      "successSave": "Saved successfully.",
+      "errorSave": "Failed to save.",
+      "successDelete": "Deleted successfully.",
+      "errorDelete": "Failed to delete."
+    },
+    "cancel": "Cancel",
+    "save": "Save",
+    "saveChanges": "Save Changes",
+    "saving": "Saving...",
+    "close": "Close",
+    "loading": "Loading...",
+    "creating": "Creating...",
+    "delete": "Delete",
+    "edit": "Edit"
+  },
+  "sidebar": {
+    "menu": "Menu",
+    "dashboard": "Dashboard",
+    "myScans": "My Scans",
+    "viewScans": "View Scans",
+    "myAnalysis": "My Analysis",
+    "newAnalysis": "New Analysis",
+    "archivedAnalysis": "Archived Analysis",
+    "myReports": "My Reports",
+    "patients": "Patients",
+    "patientList": "Patient List",
+    "addPatient": "Add Patient",
+    "scans": "Scans",
+    "addScan": "Add Scan",
+    "analysis": "Analysis",
+    "reports": "Reports",
+    "aiMonitoring": "AI Monitoring",
+    "roleManagement": "Role Management",
+    "roles": "Roles",
+    "createRole": "Create Role",
+    "assignRoles": "Assign Roles",
+    "doctors": "Doctors",
+    "doctorList": "Doctor List",
+    "addDoctor": "Add Doctor",
+    "pdfManagement": "PDF Management",
+    "pdfTemplates": "PDF Templates",
+    "createPdfTemplate": "Create PDF Template",
+    "territorialOrganization": "Territorial Organization",
+    "countries": "Countries",
+    "countriesTable": "Countries Table",
+    "createCountry": "Create Country",
+    "governmentTypes": "Government Types",
+    "governmentTypesTable": "Government Types Table",
+    "createGovernmentType": "Create Government Type",
+    "healthInstitutions": "Health Institutions",
+    "healthInstitutionsTable": "Health Institutions Table",
+    "createHealthInstitution": "Create Health Institution",
+    "healthInstitutionTypes": "Health Institution Types",
+    "healthInstitutionTypesTable": "Health Institution Types Table",
+    "createHealthInstitutionType": "Create Health Institution Type",
+    "settlements": "Settlements",
+    "settlementsTable": "Settlements Table",
+    "createSettlement": "Create Settlement",
+    "municipalities": "Municipalities",
+    "municipalitiesTable": "Municipalities Table",
+    "createMunicipality": "Create Municipality",
+    "regions": "Regions",
+    "regionsTable": "Regions Table",
+    "createRegion": "Create Region",
+    "capitals": "Capitals",
+    "capitalsTable": "Capitals Table",
+    "createCapital": "Create Capital",
+    "regionTypes": "Region Types",
+    "regionTypesTable": "Region Types Table",
+    "createRegionType": "Create Region Type",
+    "localCommunities": "Local Communities",
+    "localCommunitiesTable": "Local Communities Table",
+    "createLocalCommunity": "Create Local Community",
+    "countryCompositions": "Country Compositions",
+    "countryCompositionsTable": "Country Compositions Table",
+    "createCountryComposition": "Create Country Composition",
+    "regionCompositions": "Region Compositions",
+    "regionCompositionsTable": "Region Compositions Table",
+    "createRegionComposition": "Create Region Composition",
+    "regionSettlementCoverages": "Region Settlement Coverages",
+    "regionSettlementCoveragesTable": "Region Settlement Coverages Table",
+    "createRegionSettlementCoverage": "Create Region Settlement Coverage",
+    "municipalitySettlementCoverages": "Municipality Settlement Coverages",
+    "municipalitySettlementCoveragesTable": "Municipality Settlement Coverages Table",
+    "createMunicipalitySettlementCoverage": "Create Municipality Settlement Coverage",
+    "localCommunityCoverages": "Local Community Coverages",
+    "localCommunityCoveragesTable": "Local Community Coverages Table",
+    "createLocalCommunityCoverage": "Create Local Community Coverage",
+    "legalSuccessors": "Legal Successors",
+    "legalSuccessorsTable": "Legal Successors Table",
+    "createLegalSuccessor": "Create Legal Successor",
+    "governmentHistories": "Government Histories",
+    "governmentHistoriesTable": "Government Histories Table",
+    "createGovernmentHistory": "Create Government History",
+    "system": "System",
+    "healthMonitoring": "Health Monitoring",
+    "logs": "Logs",
+    "settings": "Settings"
+  }
+}
