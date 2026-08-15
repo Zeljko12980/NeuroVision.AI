@@ -1,5 +1,4 @@
 ﻿global using BuildingBlocks.Exceptions.Handler;
-global using BuildingBlocks.Pagination;
 global using IdentityService.API.Middleware;
 global using IdentityService.Application;
 global using IdentityService.Application.Commands.Authentication;
@@ -14,7 +13,8 @@ global using Microsoft.AspNetCore.Authentication.JwtBearer;
 global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.EntityFrameworkCore;
-global using OpenTelemetry.Metrics;
-global using OpenTelemetry.Trace;
+global using BuildingBlocks.Results;
 global using Serilog;
-global using Serilog.Sinks.Grafana.Loki;
+global using BuildingBlocks.Logging;
+global using Microsoft.AspNetCore.Identity;
+

@@ -1,6 +1,4 @@
-﻿using BuildingBlocks.Exceptions.Handler;
-
-namespace IdentityService.API.Middleware
+﻿namespace IdentityService.API.Middleware
 {
     public class ExceptionHandlingMiddleware
     {

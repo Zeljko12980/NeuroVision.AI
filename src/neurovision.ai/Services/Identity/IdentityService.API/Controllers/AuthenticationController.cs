@@ -1,6 +1,4 @@
-﻿using BuildingBlocks.Results;
-
-namespace IdentityService.API.Controllers
+﻿namespace IdentityService.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

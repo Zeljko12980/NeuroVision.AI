@@ -1,8 +1,3 @@
-using BuildingBlocks.Logging;
-using Microsoft.AspNetCore.Identity;
-using IdentityService.Infrastructure.Persistence;
-using OpenTelemetry.Resources;
-
 var builder = WebApplication.CreateBuilder(args);
 
 
