@@ -19,6 +19,11 @@
     <Project Path="Services/Identity/IdentityService.Domain/IdentityService.Domain.csproj" />
     <Project Path="Services/Identity/IdentityService.Infrastructure/IdentityService.Infrastructure.csproj" />
   </Folder>
+  <Folder Name="/Tests/" />
+  <Folder Name="/Tests/Identity/">
+    <Project Path="tests/Identity/IdentityService.ArchitectureTests/IdentityService.ArchitectureTests.csproj" />
+    <Project Path="tests/Identity/IdentityService.UnitTests/IdentityService.UnitTests.csproj" />
+  </Folder>
   <Project Path="neurovision.ai.AppHost/neurovision.ai.AppHost.csproj" Id="cffd2ebe-982b-42ad-b022-6bcb9aa24004" />
   <Project Path="neurovision.ai.ServiceDefaults/neurovision.ai.ServiceDefaults.csproj" />
 </Solution>
