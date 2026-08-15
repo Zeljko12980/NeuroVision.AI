@@ -3,4 +3,9 @@
     <Project Path="BuildingBlocks/BuildingBlocks.Messaging/BuildingBlocks.Messaging.csproj" />
     <Project Path="BuildingBlocks/BuildingBlocks/BuildingBlocks.csproj" />
   </Folder>
+  <Folder Name="/Gateway/">
+    <Project Path="Gateway/Gateway.API/Gateway.API.csproj" />
+  </Folder>
+  <Project Path="neurovision.ai.AppHost/neurovision.ai.AppHost.csproj" Id="cffd2ebe-982b-42ad-b022-6bcb9aa24004" />
+  <Project Path="neurovision.ai.ServiceDefaults/neurovision.ai.ServiceDefaults.csproj" />
 </Solution>
