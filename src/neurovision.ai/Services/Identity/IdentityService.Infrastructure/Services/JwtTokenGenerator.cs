@@ -3,10 +3,12 @@
 public class JwtTokenGenerator : IJwtTokenGenerator
 {
     private readonly IConfiguration _configuration;
+    private readonly ILogger<JwtTokenGenerator> _logger;
 
-    public JwtTokenGenerator(IConfiguration configuration)
+    public JwtTokenGenerator(IConfiguration configuration, ILogger<JwtTokenGenerator> logger)
     {
         _configuration = configuration;
+        _logger = logger;
     }
 
     public string GenerateToken(Guid userId, string email, string userName, IList<string> roles)
@@ -34,6 +36,12 @@ public class JwtTokenGenerator : IJwtTokenGenerator
             claims: claims,
             expires: DateTime.UtcNow.AddMinutes(expiryMinutes),
             signingCredentials: creds);
+
+        _logger.LogInformation(
+            "JWT generated. UserId={UserId}, Email={Email}, ExpiryMinutes={ExpiryMinutes}",
+            userId,
+            email,
+            expiryMinutes);
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }

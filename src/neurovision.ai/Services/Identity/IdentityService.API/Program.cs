@@ -14,8 +14,10 @@ builder.Services.AddObservabilityTelemetry(builder.Configuration);
 builder.Services.AddSingleton<CustomExceptionHandler>();
 
 builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddOpenApi(options =>
+{
+    options.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
+});
 
 builder.Services.AddInfrastructureServices(builder.Configuration, builder.Environment);
 builder.Services.AddApplicationServices(builder.Configuration);
@@ -46,19 +48,25 @@ using (var scope = app.Services.CreateScope())
 
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AspIdentityUser>>();
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<AspIdentityRole>>();
+    var seedLogger = scope.ServiceProvider.GetRequiredService<ILoggerFactory>().CreateLogger("DatabaseSeeder");
     var seedOptions = app.Configuration
         .GetSection(IdentitySeedOptions.SectionName)
         .Get<IdentitySeedOptions>();
 
-    await DatabaseSeeder.SeedAsync(userManager, roleManager, seedOptions);
+    await DatabaseSeeder.SeedAsync(userManager, roleManager, seedOptions, seedLogger);
 }
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.MapOpenApi();
+    app.MapScalarApiReference(options =>
+    {
+        options
+            .WithTitle("Identity Service API")
+            .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
+    });
 }
 
 app.UseCors("AllowFrontend");

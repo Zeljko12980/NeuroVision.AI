@@ -2,6 +2,7 @@
 global using BuildingBlocks.Logging;
 global using BuildingBlocks.Results;
 global using IdentityService.API.Middleware;
+global using IdentityService.API.OpenApi;
 global using IdentityService.Application;
 global using IdentityService.Application.Commands.Authentication;
 global using IdentityService.Application.Commands.Role;
@@ -19,4 +20,5 @@ global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Identity;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.EntityFrameworkCore;
+global using Scalar.AspNetCore;
 global using Serilog;
