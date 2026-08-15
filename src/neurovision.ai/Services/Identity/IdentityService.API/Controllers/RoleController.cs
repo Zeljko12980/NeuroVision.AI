@@ -3,7 +3,7 @@
     [ApiController]
     [Route("api/[controller]")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [Authorize(Policy = "SuperAdminPolicy")]
+    [Authorize(Policy = AuthPolicies.SuperAdmin)]
     public class RoleController : ControllerBase
     {
         private readonly ISender _sender;

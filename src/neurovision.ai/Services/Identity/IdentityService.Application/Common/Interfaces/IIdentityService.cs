@@ -1,21 +1,20 @@
-﻿namespace IdentityService.Application.Common.Interfaces
+﻿namespace IdentityService.Application.Common.Interfaces;
+
+public interface IIdentityService
 {
-    public interface IIdentityService
-    {
-        Task<bool> SignInAsync(string email, string password);
+    Task<bool> SignInAsync(string email, string password, CancellationToken cancellationToken = default);
 
-        Task<string?> GenerateTwoFactorCodeAsync(string email);
+    Task<string?> GenerateTwoFactorCodeAsync(string email, CancellationToken cancellationToken = default);
 
-        Task<bool> VerifyTwoFactorAsync(string email, string code);
+    Task<bool> VerifyTwoFactorAsync(string email, string code, CancellationToken cancellationToken = default);
 
-        Task<IList<string>?> GetUserRolesAsync(string email);
+    Task<IList<string>?> GetUserRolesAsync(string email, CancellationToken cancellationToken = default);
 
-        Task<bool> ConfirmEmailAsync(string email, string token);
+    Task<bool> ConfirmEmailAsync(string email, string token, CancellationToken cancellationToken = default);
 
-        Task<string?> GeneratePasswordResetTokenAsync(string email);
+    Task<string?> GeneratePasswordResetTokenAsync(string email, CancellationToken cancellationToken = default);
 
-        Task<bool> ResetPasswordAsync(string email, string token, string newPassword);
+    Task<bool> ResetPasswordAsync(string email, string token, string newPassword, CancellationToken cancellationToken = default);
 
-        Task<string?> GetUserNameByEmailAsync(string email);
-    }
+    Task<string?> GetUserNameByEmailAsync(string email, CancellationToken cancellationToken = default);
 }

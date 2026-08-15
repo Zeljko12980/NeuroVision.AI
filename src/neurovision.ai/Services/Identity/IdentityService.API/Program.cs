@@ -17,7 +17,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddInfrastructureServices(builder.Configuration, builder.Environment);
 builder.Services.AddApplicationServices(builder.Configuration);
 
 var frontendUrl = builder.Configuration.GetValue<string>("AppSettings:FrontendUrl");
@@ -46,7 +46,11 @@ using (var scope = app.Services.CreateScope())
 
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AspIdentityUser>>();
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<AspIdentityRole>>();
-    await DatabaseSeeder.SeedAsync(userManager, roleManager);
+    var seedOptions = app.Configuration
+        .GetSection(IdentitySeedOptions.SectionName)
+        .Get<IdentitySeedOptions>();
+
+    await DatabaseSeeder.SeedAsync(userManager, roleManager, seedOptions);
 }
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();

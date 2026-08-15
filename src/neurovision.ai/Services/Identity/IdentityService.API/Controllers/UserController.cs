@@ -1,47 +1,43 @@
-﻿namespace IdentityService.API.Controllers
+﻿namespace IdentityService.API.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+[Authorize(Policy = AuthPolicies.SuperAdmin)]
+public class UserController : ControllerBase
 {
-    [ApiController]
-    [Route("api/[controller]")]
+    private readonly ISender _sender;
 
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    //[Authorize(Policy = "SuperAdminPolicy")]
-    public class UserController : ControllerBase
+    public UserController(ISender sender)
     {
-        private readonly ISender _sender;
+        _sender = sender;
+    }
 
-        public UserController(ISender sender)
+    [HttpPost]
+    public async Task<IActionResult> Create(CreateUserRequest request)
+    {
+        var command = new CreateUserCommand
         {
-            _sender = sender;
-        }
+            Id = request.Id,
+            UserName = request.UserName,
+            Email = request.Email,
+            Roles = request.Roles,
+        };
 
-        [HttpPost]
-        public async Task<IActionResult> Create(CreateUserRequest request)
+        var result = await _sender.Send(command);
+        return result.ToActionResult();
+    }
+
+    [AllowAnonymous]
+    [HttpGet("confirm-email")]
+    public async Task<IActionResult> ConfirmEmail([FromQuery] ConfirmEmailRequest request)
+    {
+        var result = await _sender.Send(new ConfirmEmailCommand
         {
-            var command = new CreateUserCommand
-            {
-                Id = request.Id,
-                UserName = request.UserName,
-                Email = request.Email,
-                Roles = request.Roles,
-            };
+            Email = request.Email,
+            Token = request.Token
+        });
 
-            var result = await _sender.Send(command);
-            return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
-        }
-
-        [AllowAnonymous]
-        [HttpGet("confirm-email")]
-        public async Task<IActionResult> ConfirmEmail([FromQuery] ConfirmEmailRequest request)
-        {
-            var result = await _sender.Send(new ConfirmEmailCommand
-            {
-                Email = request.Email,
-                Token = request.Token
-            });
-
-            return result.IsSuccess
-                ? Ok(result.Value)
-                : BadRequest(result.Error);
-        }
+        return result.ToActionResult();
     }
 }

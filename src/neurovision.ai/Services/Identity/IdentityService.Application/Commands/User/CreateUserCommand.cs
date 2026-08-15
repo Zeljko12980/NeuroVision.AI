@@ -1,105 +1,97 @@
-﻿namespace IdentityService.Application.Commands.User
+﻿namespace IdentityService.Application.Commands.User;
+
+public class CreateUserCommand : ICommand<Result<UserResponse>>
 {
-    public class CreateUserCommand : ICommand<Result<UserResponse>>
+    public Guid Id { get; set; }
+    public string UserName { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+    public List<string> Roles { get; set; } = new();
+}
+
+public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
+{
+    public CreateUserCommandValidator()
     {
-        public Guid Id { get; set; }
-        public string UserName { get; set; }
-        public string Email { get; set; }
-        public List<string> Roles { get; set; } = new();
+        RuleFor(x => x.Id)
+            .NotEmpty().WithMessage("ID is required.");
+
+        RuleFor(x => x.UserName)
+            .NotEmpty().MinimumLength(3);
+
+        RuleFor(x => x.Email)
+            .NotEmpty().EmailAddress();
+
+        RuleFor(x => x.Roles)
+            .NotNull();
+    }
+}
+
+public class CreateUserCommandHandler
+    : ICommandHandler<CreateUserCommand, Result<UserResponse>>
+{
+    private readonly IUserService _userService;
+    private readonly IRoleService _roleService;
+    private readonly IFrontendLinkService _frontendLinkService;
+    private readonly IPublishEndpoint _publishEndpoint;
+
+    public CreateUserCommandHandler(
+        IUserService userService,
+        IRoleService roleService,
+        IFrontendLinkService frontendLinkService,
+        IPublishEndpoint publishEndpoint)
+    {
+        _userService = userService;
+        _roleService = roleService;
+        _frontendLinkService = frontendLinkService;
+        _publishEndpoint = publishEndpoint;
     }
 
-    public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
+    public async Task<Result<UserResponse>> Handle(
+        CreateUserCommand command,
+        CancellationToken cancellationToken)
     {
-        public CreateUserCommandValidator()
-        {
-            RuleFor(x => x.Id)
-                .NotEmpty().WithMessage("ID is required.");
+        var userResult = await _userService.CreateAsync(
+            command.Id,
+            command.UserName,
+            command.Email,
+            cancellationToken);
 
-            RuleFor(x => x.UserName)
-                .NotEmpty().MinimumLength(3);
+        if (!userResult.IsSuccess)
+            return Result<UserResponse>.Fail(userResult.Error);
 
-            RuleFor(x => x.Email)
-                .NotEmpty().EmailAddress();
+        var user = userResult.Value;
 
-            RuleFor(x => x.Roles)
-                .NotNull();
-        }
+        var roleResult = await _roleService.AssignRolesAsync(user.Id, command.Roles, cancellationToken);
+
+        if (!roleResult.IsSuccess)
+            return Result<UserResponse>.Fail(roleResult.Error);
+
+        var emailResult = await SendConfirmationEmailAsync(user, cancellationToken);
+
+        if (!emailResult.IsSuccess)
+            return Result<UserResponse>.Fail(emailResult.Error);
+
+        return Result<UserResponse>.Ok(user.ToResponse());
     }
 
-    public class CreateUserCommandHandler
-        : ICommandHandler<CreateUserCommand, Result<UserResponse>>
+    private async Task<Result> SendConfirmationEmailAsync(IdentityService.Domain.Entities.User user, CancellationToken cancellationToken)
     {
-        private readonly IUserService _userService;
-        private readonly IRoleService _roleService;
-        private readonly IPublishEndpoint _publishEndpoint;
-        private readonly IConfiguration _configuration;
+        var tokenResult = await _userService.GenerateEmailConfirmationTokenAsync(user.Id, cancellationToken);
 
-        public CreateUserCommandHandler(
-            IUserService userService,
-            IRoleService roleService,
-            IPublishEndpoint publishEndpoint,
-            IConfiguration configuration)
-        {
-            _userService = userService;
-            _roleService = roleService;
-            _publishEndpoint = publishEndpoint;
-            _configuration = configuration;
-        }
+        if (!tokenResult.IsSuccess)
+            return Result.Fail(tokenResult.Error);
 
-        public async Task<Result<UserResponse>> Handle(
-            CreateUserCommand command,
-            CancellationToken cancellationToken)
-        {
-            var userResult = await _userService.CreateAsync(
-                command.Id,
-                command.UserName,
-                command.Email);
+        var linkResult = _frontendLinkService.BuildConfirmEmailLink(user.Email, tokenResult.Value);
 
-            if (!userResult.IsSuccess)
-                return Result<UserResponse>.Fail(userResult.Error);
+        if (!linkResult.IsSuccess)
+            return Result.Fail(linkResult.Error);
 
-            var user = userResult.Value;
+        await _publishEndpoint.Publish(new ConfirmEmailEvent(
+            user.Id,
+            user.Email,
+            linkResult.Value),
+            cancellationToken);
 
-            var roleResult = await _roleService.AssignRolesAsync(user.Id, command.Roles, cancellationToken);
-
-            if (!roleResult.IsSuccess)
-                return Result<UserResponse>.Fail(roleResult.Error);
-
-            var emailResult = await SendConfirmationEmailAsync(user.Id, user.Email);
-
-            if (!emailResult.IsSuccess)
-                return Result<UserResponse>.Fail(emailResult.Error);
-
-            return Result<UserResponse>.Ok(new UserResponse
-            {
-                Id = user.Id,
-                UserName = user.UserName,
-                Email = user.Email
-            });
-        }
-
-        private async Task<Result> SendConfirmationEmailAsync(Guid userId, string email)
-        {
-            var tokenResult = await _userService.GenerateEmailConfirmationTokenAsync(userId);
-
-            if (!tokenResult.IsSuccess)
-                return Result.Fail(tokenResult.Error);
-
-            var frontendUrl = _configuration["AppSettings:FrontendUrl"];
-
-            if (string.IsNullOrEmpty(frontendUrl))
-                return Result.Fail("Frontend URL is not configured.");
-
-            var encodedToken = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(tokenResult.Value));
-
-            var link = $"{frontendUrl}/confirm-email?email={email}&token={encodedToken}";
-
-            await _publishEndpoint.Publish(new ConfirmEmailEvent(
-                userId,
-                email,
-                link));
-
-            return Result.Ok();
-        }
+        return Result.Ok();
     }
 }

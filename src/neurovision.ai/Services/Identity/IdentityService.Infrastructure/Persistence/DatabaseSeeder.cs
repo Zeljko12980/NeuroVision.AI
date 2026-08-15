@@ -2,103 +2,65 @@ namespace IdentityService.Infrastructure.Persistence;
 
 public static class DatabaseSeeder
 {
-    public static async Task SeedAsync(UserManager<AspIdentityUser> userManager, RoleManager<AspIdentityRole> roleManager)
+    public static async Task SeedAsync(
+        UserManager<AspIdentityUser> userManager,
+        RoleManager<AspIdentityRole> roleManager,
+        IdentitySeedOptions? seedOptions)
     {
         await SeedRolesAsync(roleManager);
-        await SeedSuperAdministratorAsync(userManager);
-        await SeedDoctorAsync(userManager);
+        await SeedUserAsync(userManager, seedOptions?.SuperAdministrator, RoleNames.SuperAdministrator);
+        await SeedUserAsync(userManager, seedOptions?.Doctor, RoleNames.Doctor);
     }
 
     private static async Task SeedRolesAsync(RoleManager<AspIdentityRole> roleManager)
     {
-        var roles = new[]
+        foreach (var definition in RoleNames.Definitions)
         {
-            new { Name = "SuperAdministrator", Description = "System superadministrator with full access" },
-            new { Name = "Administrator", Description = "Administrator with elevated privileges" },
-            new { Name = "Doctor", Description = "Medical professional user" },
-            new { Name = "Patient", Description = "Patient user" }
-        };
+            if (await roleManager.RoleExistsAsync(definition.Name))
+                continue;
 
-        foreach (var role in roles)
-        {
-            var exists = await roleManager.RoleExistsAsync(role.Name);
-            if (!exists)
-            {
-                var identityRole = new AspIdentityRole(
-                    Guid.NewGuid(),
-                    role.Name,
-                    role.Description
-                );
-                await roleManager.CreateAsync(identityRole);
-            }
+            var identityRole = AspIdentityRole.FromDomain(
+                Role.Create(Guid.NewGuid(), definition.Name, definition.Description));
+
+            await roleManager.CreateAsync(identityRole);
         }
     }
 
-    private static async Task SeedSuperAdministratorAsync(UserManager<AspIdentityUser> userManager)
+    private static async Task SeedUserAsync(
+        UserManager<AspIdentityUser> userManager,
+        SeedUserOptions? options,
+        string roleName)
     {
-        const string superAdminEmail = "ikanoviczeljko095@gmail.com";
-        const string superAdminUserName = "superadmin";
-        const string superAdminPassword = "Zeljko123!";
-
-        var existingUser = await userManager.FindByEmailAsync(superAdminEmail);
-        if (existingUser != null)
-        {
+        if (options is null || !options.IsConfigured)
             return;
-        }
 
-        var superAdmin = new AspIdentityUser(
-            Guid.NewGuid(),
-            superAdminUserName,
-            superAdminEmail
-        )
-        {
-            EmailConfirmed = true,
-            TwoFactorEnabled = true
-        };
-
-        var result = await userManager.CreateAsync(superAdmin, superAdminPassword);
-
-        if (result.Succeeded)
-        {
-            await userManager.AddToRoleAsync(superAdmin, "SuperAdministrator");
-            await userManager.AddClaimAsync(superAdmin, new Claim("role", "SuperAdministrator"));
-        }
-    }
-
-    private static async Task SeedDoctorAsync(UserManager<AspIdentityUser> userManager)
-    {
-        const string doctorEmail = "ikanoviczeljko362@gmail.com";
-        const string doctorUserName = "zeljko.ikanovic";
-        const string doctorPassword = "Zeljko123!";
-
-        var existingUser = await userManager.FindByEmailAsync(doctorEmail);
+        var existingUser = await userManager.FindByEmailAsync(options.Email);
         if (existingUser != null)
         {
-            if (!await userManager.IsInRoleAsync(existingUser, "Doctor"))
+            if (!await userManager.IsInRoleAsync(existingUser, roleName))
             {
-                await userManager.AddToRoleAsync(existingUser, "Doctor");
-                await userManager.AddClaimAsync(existingUser, new Claim("role", "Doctor"));
+                await userManager.AddToRoleAsync(existingUser, roleName);
+                await userManager.AddClaimAsync(existingUser, new Claim("role", roleName));
             }
 
             return;
         }
 
-        var doctor = new AspIdentityUser(
+        var user = new AspIdentityUser(
             Guid.NewGuid(),
-            doctorUserName,
-            doctorEmail
-        )
+            options.UserName,
+            options.Email)
         {
             EmailConfirmed = true,
             TwoFactorEnabled = true
         };
 
-        var result = await userManager.CreateAsync(doctor, doctorPassword);
+        var result = await userManager.CreateAsync(user, options.Password);
 
         if (result.Succeeded)
         {
-            await userManager.AddToRoleAsync(doctor, "Doctor");
-            await userManager.AddClaimAsync(doctor, new Claim("role", "Doctor"));
+            await userManager.AddToRoleAsync(user, roleName);
+            await userManager.AddClaimAsync(user, new Claim("role", roleName));
         }
     }
 }

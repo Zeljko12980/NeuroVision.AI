@@ -18,6 +18,7 @@
 		<ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj" />
 		<ProjectReference Include="..\..\..\neurovision.ai.ServiceDefaults\neurovision.ai.ServiceDefaults.csproj" />
 		<ProjectReference Include="..\IdentityService.Application\IdentityService.Application.csproj" />
+		<ProjectReference Include="..\IdentityService.Domain\IdentityService.Domain.csproj" />
 		<ProjectReference Include="..\IdentityService.Infrastructure\IdentityService.Infrastructure.csproj" />
 	</ItemGroup>
 

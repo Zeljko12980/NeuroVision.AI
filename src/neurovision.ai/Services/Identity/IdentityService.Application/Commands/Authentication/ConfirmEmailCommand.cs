@@ -1,69 +1,69 @@
-﻿namespace IdentityService.Application.Commands.Authentication
+﻿namespace IdentityService.Application.Commands.Authentication;
+
+public class ConfirmEmailCommand : ICommand<Result<ConfirmEmailResponse>>
 {
-    public class ConfirmEmailCommand : ICommand<Result<ConfirmEmailResponse>>
+    public string Email { get; set; } = string.Empty;
+    public string Token { get; set; } = string.Empty;
+}
+
+public class ConfirmEmailCommandValidator : AbstractValidator<ConfirmEmailCommand>
+{
+    public ConfirmEmailCommandValidator()
     {
-        public string Email { get; set; }
-        public string Token { get; set; }
+        RuleFor(x => x.Email)
+            .NotEmpty().WithMessage("Email is required.")
+            .EmailAddress().WithMessage("Email must be a valid email address.");
+
+        RuleFor(x => x.Token)
+            .NotEmpty().WithMessage("Confirmation token is required.");
+    }
+}
+
+public class ConfirmEmailCommandHandler : ICommandHandler<ConfirmEmailCommand, Result<ConfirmEmailResponse>>
+{
+    private readonly IIdentityService _identityService;
+    private readonly IFrontendLinkService _frontendLinkService;
+    private readonly IPublishEndpoint _publishEndpoint;
+
+    public ConfirmEmailCommandHandler(
+        IIdentityService identityService,
+        IFrontendLinkService frontendLinkService,
+        IPublishEndpoint publishEndpoint)
+    {
+        _identityService = identityService;
+        _frontendLinkService = frontendLinkService;
+        _publishEndpoint = publishEndpoint;
     }
 
-    public class ConfirmEmailCommandValidator : AbstractValidator<ConfirmEmailCommand>
+    public async Task<Result<ConfirmEmailResponse>> Handle(
+        ConfirmEmailCommand command,
+        CancellationToken cancellationToken)
     {
-        public ConfirmEmailCommandValidator()
+        var confirmed = await _identityService.ConfirmEmailAsync(
+            command.Email,
+            command.Token,
+            cancellationToken);
+
+        if (!confirmed)
+            return Result<ConfirmEmailResponse>.Fail("Email confirmation failed.");
+
+        var token = await _identityService.GeneratePasswordResetTokenAsync(
+            command.Email,
+            cancellationToken);
+
+        if (string.IsNullOrEmpty(token))
+            return Result<ConfirmEmailResponse>.Fail("User not found or token generation failed.");
+
+        var linkResult = _frontendLinkService.BuildSetPasswordLink(command.Email, token);
+
+        if (!linkResult.IsSuccess)
+            return Result<ConfirmEmailResponse>.Fail(linkResult.Error);
+
+        await _publishEndpoint.Publish(new SetPasswordEvent(command.Email, linkResult.Value), cancellationToken);
+
+        return Result<ConfirmEmailResponse>.Ok(new ConfirmEmailResponse
         {
-            RuleFor(x => x.Email)
-                .NotEmpty().WithMessage("Email is required.")
-                .EmailAddress().WithMessage("Email must be a valid email address.");
-
-            RuleFor(x => x.Token)
-                .NotEmpty().WithMessage("Confirmation token is required.");
-        }
-    }
-
-    public class ConfirmEmailCommandHandler : ICommandHandler<ConfirmEmailCommand, Result<ConfirmEmailResponse>>
-    {
-        private readonly IAuthenticationService _authService;
-        private readonly IPublishEndpoint _publishEndpoint;
-        private readonly IConfiguration _configuration;
-
-        public ConfirmEmailCommandHandler(
-            IAuthenticationService authService,
-            IPublishEndpoint publishEndpoint,
-            IConfiguration configuration)
-        {
-            _authService = authService;
-            _publishEndpoint = publishEndpoint;
-            _configuration = configuration;
-        }
-
-        public async Task<Result<ConfirmEmailResponse>> Handle(
-            ConfirmEmailCommand command,
-            CancellationToken cancellationToken)
-        {
-            var result = await _authService.ConfirmEmailAsync(command.Email, command.Token);
-
-            if (!result.IsSuccess)
-                return Result<ConfirmEmailResponse>.Fail(result.Error);
-
-            var tokenResult = await _authService.GenerateSetPasswordTokenAsync(command.Email);
-
-            if (!tokenResult.IsSuccess)
-                return Result<ConfirmEmailResponse>.Fail(tokenResult.Error);
-
-            var frontendUrl = _configuration["AppSettings:FrontendUrl"];
-
-            if (string.IsNullOrEmpty(frontendUrl))
-                return Result<ConfirmEmailResponse>.Fail("Frontend URL is not configured.");
-
-            var encodedToken = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(tokenResult.Value));
-
-            var link = $"{frontendUrl}/set-password?email={command.Email}&token={encodedToken}";
-
-            await _publishEndpoint.Publish(new SetPasswordEvent(command.Email, link));
-
-            return Result<ConfirmEmailResponse>.Ok(new ConfirmEmailResponse
-            {
-                IsConfirmed = true
-            });
-        }
+            IsConfirmed = true
+        });
     }
 }

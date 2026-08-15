@@ -1,13 +1,12 @@
-﻿namespace IdentityService.Application.Common.Interfaces
+﻿namespace IdentityService.Application.Common.Interfaces;
+
+public interface IUserService
 {
-    public interface IUserService
-    {
-        Task<Result<UserDto>> CreateAsync(Guid id, string username, string email);
+    Task<Result<User>> CreateAsync(Guid id, string username, string email, CancellationToken cancellationToken = default);
 
-        Task<Result<UserDto>> GetByEmailAsync(string email);
+    Task<Result<User>> GetByEmailAsync(string email, CancellationToken cancellationToken = default);
 
-        Task<Result<string>> GenerateEmailConfirmationTokenAsync(Guid userId);
+    Task<Result<string>> GenerateEmailConfirmationTokenAsync(Guid userId, CancellationToken cancellationToken = default);
 
-        Task<Result> DeleteUserAsync(Guid userId);
-    }
+    Task<Result> DeleteUserAsync(Guid userId, CancellationToken cancellationToken = default);
 }

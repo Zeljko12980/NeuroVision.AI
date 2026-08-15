@@ -14,14 +14,13 @@ public sealed class GetRolesQueryHandler
     }
 
     public async Task<Result<PaginatedResult<RoleResponse>>> Handle(
-      GetRolesQuery request,
-      CancellationToken cancellationToken)
+        GetRolesQuery request,
+        CancellationToken cancellationToken)
     {
-        return (await _roleService.GetRolesAsync(
-                request.Request.PageIndex,
-                request.Request.PageSize,
-                request.Request.RoleName,
-                cancellationToken))
-            .Map(x => x.Adapt<PaginatedResult<RoleResponse>>());
+        return await _roleService.GetRolesAsync(
+            request.Request.PageIndex,
+            request.Request.PageSize,
+            request.Request.RoleName,
+            cancellationToken);
     }
 }

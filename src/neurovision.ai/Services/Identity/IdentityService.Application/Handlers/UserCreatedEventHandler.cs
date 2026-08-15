@@ -1,81 +1,65 @@
-﻿namespace IdentityService.Application.Handlers
+﻿namespace IdentityService.Application.Handlers;
+
+public class UserCreatedEventHandler : IConsumer<CreateUserEvent>
 {
-    public class UserCreatedEventHandler : IConsumer<CreateUserEvent>
+    private readonly IUserService _userService;
+    private readonly IRoleService _roleService;
+    private readonly IFrontendLinkService _frontendLinkService;
+    private readonly IPublishEndpoint _publishEndpoint;
+
+    public UserCreatedEventHandler(
+        IUserService userService,
+        IRoleService roleService,
+        IFrontendLinkService frontendLinkService,
+        IPublishEndpoint publishEndpoint)
     {
-        private readonly IUserService _userService;
-        private readonly IRoleService _roleService;
-        private readonly IPublishEndpoint _publishEndpoint;
-        private readonly IConfiguration _configuration;
+        _userService = userService;
+        _roleService = roleService;
+        _frontendLinkService = frontendLinkService;
+        _publishEndpoint = publishEndpoint;
+    }
 
-        public UserCreatedEventHandler(
-            IUserService userService,
-            IRoleService roleService,
-            IPublishEndpoint publishEndpoint,
-            IConfiguration configuration)
+    public async Task Consume(ConsumeContext<CreateUserEvent> context)
+    {
+        var message = context.Message;
+        var cancellationToken = context.CancellationToken;
+
+        var userResult = await _userService.CreateAsync(
+            message.UserId,
+            message.Username,
+            message.Email,
+            cancellationToken);
+
+        if (!userResult.IsSuccess)
+            throw new InvalidOperationException(userResult.Error);
+
+        var user = userResult.Value;
+
+        if (!string.IsNullOrEmpty(message.RoleName))
         {
-            _userService = userService;
-            _roleService = roleService;
-            _publishEndpoint = publishEndpoint;
-            _configuration = configuration;
-        }
-
-        public async Task Consume(ConsumeContext<CreateUserEvent> context)
-        {
-            var message = context.Message;
-
-            var user = await CreateUserAsync(message);
-
-            await AssignRoleAsync(message, context.CancellationToken);
-
-            await SendConfirmationEmailAsync(user);
-        }
-
-        private async Task<UserResponse> CreateUserAsync(CreateUserEvent message)
-        {
-            var user = await _userService.CreateAsync(
-               message.UserId,
-               message.Username,
-               message.Email);
-
-            return new UserResponse
-            {
-                Id = user.Value.Id,
-                Email = user.Value.Email,
-                UserName = user.Value.UserName
-            };
-        }
-
-        private async Task AssignRoleAsync(CreateUserEvent message, CancellationToken cancellationToken)
-        {
-            if (string.IsNullOrEmpty(message.RoleName))
-                return;
-
-            await _roleService.AssignRolesAsync(
+            var roleResult = await _roleService.AssignRolesAsync(
                 message.UserId,
-                new List<string> { message.RoleName }, cancellationToken);
+                new List<string> { message.RoleName },
+                cancellationToken);
+
+            if (!roleResult.IsSuccess)
+                throw new InvalidOperationException(roleResult.Error);
         }
 
-        private async Task SendConfirmationEmailAsync(UserResponse user)
-        {
-            var tokenResult = await _userService.GenerateEmailConfirmationTokenAsync(user.Id);
+        var tokenResult = await _userService.GenerateEmailConfirmationTokenAsync(user.Id, cancellationToken);
 
-            if (!tokenResult.IsSuccess)
-                throw new Exception("Frontend URL is not configured");
+        if (!tokenResult.IsSuccess)
+            throw new InvalidOperationException(tokenResult.Error);
 
-            var frontendUrl = _configuration["AppSettings:FrontendUrl"];
+        var linkResult = _frontendLinkService.BuildConfirmEmailLink(user.Email, tokenResult.Value);
 
-            if (string.IsNullOrEmpty(frontendUrl))
-                throw new Exception("Frontend URL is not configured");
+        if (!linkResult.IsSuccess)
+            throw new InvalidOperationException(linkResult.Error);
 
-            var encodedToken = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(tokenResult.Value));
-
-            var link =
-                $"{frontendUrl}/confirm-email?email={user.Email}&token={encodedToken}";
-
-            await _publishEndpoint.Publish(new ConfirmEmailEvent(
-                user.Id,
-                user.Email!,
-                link));
-        }
+        await _publishEndpoint.Publish(new ConfirmEmailEvent(
+            user.Id,
+            user.Email,
+            linkResult.Value),
+            cancellationToken);
     }
 }

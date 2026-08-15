@@ -1,49 +1,48 @@
-﻿namespace IdentityService.Application.Commands.Authentication
+﻿namespace IdentityService.Application.Commands.Authentication;
+
+public record SetPasswordCommand(
+    string Email,
+    string Token,
+    string Password
+) : ICommand<Result>;
+
+public class SetPasswordCommandValidator : AbstractValidator<SetPasswordCommand>
 {
-    public record SetPasswordCommand(
-        string Email,
-        string Token,
-        string Password
-    ) : ICommand<Result>;
-
-    public class SetPasswordCommandValidator : AbstractValidator<SetPasswordCommand>
+    public SetPasswordCommandValidator()
     {
-        public SetPasswordCommandValidator()
-        {
-            RuleFor(x => x.Email)
-                .NotEmpty()
-                .EmailAddress();
+        RuleFor(x => x.Email)
+            .NotEmpty()
+            .EmailAddress();
 
-            RuleFor(x => x.Token)
-                .NotEmpty();
+        RuleFor(x => x.Token)
+            .NotEmpty();
 
-            RuleFor(x => x.Password)
-                .NotEmpty()
-                .MinimumLength(6);
-        }
+        RuleFor(x => x.Password)
+            .NotEmpty()
+            .MinimumLength(6);
+    }
+}
+
+public class SetPasswordCommandHandler : ICommandHandler<SetPasswordCommand, Result>
+{
+    private readonly IIdentityService _identityService;
+
+    public SetPasswordCommandHandler(IIdentityService identityService)
+    {
+        _identityService = identityService;
     }
 
-    public class SetPasswordCommandHandler
-       : ICommandHandler<SetPasswordCommand, Result>
+    public async Task<Result> Handle(SetPasswordCommand command, CancellationToken cancellationToken)
     {
-        private readonly IAuthenticationService _authService;
+        var success = await _identityService.ResetPasswordAsync(
+            command.Email,
+            command.Token,
+            command.Password,
+            cancellationToken);
 
-        public SetPasswordCommandHandler(IAuthenticationService authService)
-        {
-            _authService = authService;
-        }
+        if (!success)
+            return Result.Fail("Invalid token or user not found.");
 
-        public async Task<Result> Handle(SetPasswordCommand command, CancellationToken cancellationToken)
-        {
-            var result = await _authService.SetPasswordWithTokenAsync(
-                command.Email,
-                command.Token,
-                command.Password);
-
-            if (!result.IsSuccess)
-                return Result.Fail(result.Error);
-
-            return Result.Ok();
-        }
+        return Result.Ok();
     }
 }
