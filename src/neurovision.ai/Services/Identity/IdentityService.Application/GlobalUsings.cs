@@ -1,0 +1,13 @@
+﻿global using BuildingBlocks.CQRS;
+global using BuildingBlocks.Messaging.Events;
+global using BuildingBlocks.Results;
+global using FluentValidation;
+global using IdentityService.Application.Common.Interfaces;
+global using IdentityService.Application.Common.Mappings;
+global using IdentityService.Application.Common.Responses;
+global using IdentityService.Application.Helpers;
+global using IdentityService.Application.Services;
+global using Mapster;
+global using MassTransit;
+global using Microsoft.Extensions.DependencyInjection;
+global using System.Reflection;

@@ -12,6 +12,13 @@
   <Folder Name="/Gateway/">
     <Project Path="Gateway/Gateway.API/Gateway.API.csproj" />
   </Folder>
+  <Folder Name="/Services/" />
+  <Folder Name="/Services/Identity/">
+    <Project Path="Services/Identity/IdentityService.API/IdentityService.API.csproj" />
+    <Project Path="Services/Identity/IdentityService.Application/IdentityService.Application.csproj" />
+    <Project Path="Services/Identity/IdentityService.Domain/IdentityService.Domain.csproj" />
+    <Project Path="Services/Identity/IdentityService.Infrastructure/IdentityService.Infrastructure.csproj" />
+  </Folder>
   <Project Path="neurovision.ai.AppHost/neurovision.ai.AppHost.csproj" Id="cffd2ebe-982b-42ad-b022-6bcb9aa24004" />
   <Project Path="neurovision.ai.ServiceDefaults/neurovision.ai.ServiceDefaults.csproj" />
 </Solution>

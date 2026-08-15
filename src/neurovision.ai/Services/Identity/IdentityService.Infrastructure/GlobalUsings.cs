@@ -1,0 +1,12 @@
+﻿global using IdentityService.Application.Common.Interfaces;
+global using IdentityService.Infrastructure.Persistence;
+global using IdentityService.Infrastructure.Services;
+global using Microsoft.AspNetCore.Identity;
+global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.IdentityModel.Tokens;
+global using System.IdentityModel.Tokens.Jwt;
+global using System.Security.Claims;
+global using System.Text;
