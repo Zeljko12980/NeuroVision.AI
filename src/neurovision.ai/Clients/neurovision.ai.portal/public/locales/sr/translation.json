@@ -1,0 +1,1254 @@
+{
+  "signin": {
+    "title": "Prijava",
+    "subtitle": "Unesite svoj email i lozinku da se prijavite!",
+    "emailLabel": "Email",
+    "emailPlaceholder": "info@gmail.com",
+    "passwordLabel": "Lozinka",
+    "passwordPlaceholder": "Unesite lozinku",
+    "forgotPassword": "Zaboravili ste lozinku?",
+    "signIn": "Prijavi se",
+    "signingIn": "Prijavljivanje..."
+  },
+  "alerts": {
+    "success": "Uspešno",
+    "error": "Greška"
+  },
+  "errors": {
+    "invalidEmail": "Unesite validnu email adresu",
+    "loginFailed": "Prijava neuspešna"
+  },
+  "twoFA": {
+    "title": "Dvofaktorska autentifikacija",
+    "subtitle": "Unesite 6-cifreni kod poslat na vaš email",
+    "code": "2FA kod",
+    "invalidCode": "Unesite validan 6-cifreni kod",
+    "missingEmail": "Email nedostaje. Molimo prijavite se ponovo.",
+    "onlyDigits": "Dozvoljene su samo cifre",
+    "verify": "Potvrdi",
+    "verifying": "Potvrđivanje...",
+    "didntReceive": "Nisi primio kod?",
+    "resend": "Ponovo pošalji",
+    "resendIn": "Ponovo pošalji za {{seconds}}s",
+    "sending": "Slanje...",
+    "successLogin": "Uspešno ste se prijavili!"
+  },
+  "roles": {
+    "pageTitle": "Upravljanje ulogama",
+    "pageDescription": "Upravljanje sistemskim ulogama i dozvolama",
+    "title": "Sistemske uloge",
+    "role": "Uloga",
+    "description": "Opis",
+    "users": "Korisnici",
+    "status": "Status",
+    "actions": "Akcije",
+    "edit": "Izmeni ulogu",
+    "delete": "Obriši",
+    "deleteTitle": "Obriši ulogu",
+    "deleteConfirm": "Da li ste sigurni da želite da obrišete ovu ulogu?",
+    "deleteSuccess": "Uloga je uspešno obrisana",
+    "deleteError": "Greška prilikom brisanja uloge",
+    "updateSuccess": "Uloga je uspešno ažurirana",
+    "updateError": "Greška prilikom ažuriranja uloge"
+  },
+  "doctor": {
+    "pageTitle": "Kreiraj doktora",
+    "pageDescription": "Kreirajte novi profil doktora",
+    "title": "Novi doktor",
+    "firstName": "Ime",
+    "lastName": "Prezime",
+    "licenseNumber": "Broj licence",
+    "specialization": "Specijalizacija",
+    "email": "Email",
+    "phoneNumber": "Telefon",
+    "languages": "Jezici",
+    "hospital": "Bolnica",
+    "degrees": "Zvanja",
+    "bio": "Biografija",
+    "profilePicture": "Profilna slika",
+    "removeImage": "Ukloni sliku",
+    "cancel": "Otkaži",
+    "create": "Kreiraj doktora",
+    "creating": "Kreiranje...",
+    "requiredError": "Sva polja su obavezna",
+    "success": "Doktor je uspešno kreiran",
+    "error": "Greška prilikom kreiranja doktora"
+  },
+  "pdf": {
+    "pageTitle": "PDF šabloni",
+    "pageDescription": "Upravljanje PDF šablonima",
+    "title": "PDF šabloni",
+    "columns": {
+      "name": "Naziv",
+      "code": "Kod",
+      "version": "Verzija",
+      "status": "Status",
+      "created": "Kreirano",
+      "actions": "Akcije"
+    },
+    "status": {
+      "active": "Aktivan",
+      "inactive": "Neaktivan"
+    },
+    "actions": {
+      "edit": "Izmeni",
+      "preview": "Pregled",
+      "delete": "Obriši",
+      "refresh": "Osveži"
+    },
+    "messages": {
+      "empty": "Nema pronađenih PDF šablona.",
+      "deleteSuccess": "Šablon je uspešno obrisan.",
+      "deleteError": "Greška prilikom brisanja šablona.",
+      "updateSuccess": "Šablon je uspešno ažuriran.",
+      "updateError": "Greška prilikom ažuriranja šablona."
+    },
+    "dialogs": {
+      "deleteTitle": "Obriši PDF šablon",
+      "deleteDescription": "Da li ste sigurni da želite da obrišete ovaj PDF šablon?"
+    },
+    "editModal": {
+      "title": "Izmeni PDF šablon",
+      "description": "Upravljajte informacijama šablona i HTML-om.",
+      "tabs": {
+        "general": "Opšte",
+        "html": "HTML editor",
+        "preview": "Pregled"
+      },
+      "fields": {
+        "name": "Naziv šablona",
+        "code": "Kod šablona",
+        "version": "Verzija",
+        "status": "Status",
+        "activeTemplate": "Aktivan šablon"
+      }
+    },
+    "previewModal": {
+      "title": "Pregled PDF šablona",
+      "readOnly": "Pregled samo za čitanje"
+    },
+    "create": {
+      "pageTitle": "Kreiraj PDF šablon",
+      "pageDescription": "Kreirajte šablon za višekratnu upotrebu.",
+      "generalInformation": "Opšte informacije",
+      "htmlTemplate": "HTML šablon",
+      "livePreview": "Pregled uživo",
+      "create": "Kreiraj šablon"
+    }
+  },
+  "health": {
+    "pageTitle": "Zdravlje sistema",
+    "pageDescription": "Praćenje statusa zdravlja sistemskih servisa",
+    "title": "Praćenje zdravlja sistema",
+    "systemStatus": "Status sistema",
+    "autoRefresh": "Automatsko osvežavanje na svakih 5 sekundi",
+    "cards": {
+      "total": "Ukupno servisa",
+      "healthy": "Ispravni",
+      "unhealthy": "Neispravni",
+      "status": "Status sistema"
+    },
+    "columns": {
+      "name": "Naziv servisa",
+      "status": "Status",
+      "duration": "Vreme odziva",
+      "error": "Greška"
+    },
+    "status": {
+      "healthy": "Ispravan",
+      "unhealthy": "Neispravan",
+      "degraded": "Degradiran"
+    },
+    "empty": "Nema pronađenih servisa"
+  },
+  "location": {
+    "territorialOrganization": "Teritorijalna organizacija",
+    "countries": {
+      "pageTitle": "Države",
+      "pageDescription": "Upravljanje državama i njihovim informacijama",
+      "title": "Države",
+      "createTitle": "Kreiraj državu",
+      "editTitle": "Izmijeni državu",
+      "editDescription": "Ažuriranje informacija o državi.",
+      "columns": {
+        "code": "Kod",
+        "name": "Naziv",
+        "founding": "Datum osnivanja",
+        "calling": "Pozivni broj",
+        "actions": "Akcije"
+      },
+      "actions": {
+        "edit": "Izmijeni",
+        "delete": "Obriši"
+      },
+      "editModal": {
+        "tabs": {
+          "general": "Opšte",
+          "government": "Vlast",
+          "assets": "Resursi"
+        }
+      },
+      "fields": {
+        "code": "Kod",
+        "name": "Naziv",
+        "foundingDate": "Datum osnivanja",
+        "callingCode": "Pozivni broj",
+        "capitalSettlementCode": "Glavni grad",
+        "governmentTypeCode": "Tip vlasti",
+        "anthem": "Državna himna",
+        "coatOfArms": "Grb",
+        "flag": "Zastava"
+      },
+      "messages": {
+        "deleteTitle": "Obriši državu",
+        "deleteDescription": "Da li ste sigurni da želite obrisati ovu državu?",
+        "deleteSuccess": "Država je uspješno obrisana.",
+        "deleteError": "Brisanje države nije uspjelo.",
+        "updateSuccess": "Država je uspješno ažurirana.",
+        "updateError": "Ažuriranje države nije uspjelo."
+      }
+    },
+    "settlements": {
+      "pageTitle": "Naselja",
+      "pageDescription": "Upravljanje naseljima",
+      "title": "Naselja",
+      "createTitle": "Kreiraj naselje",
+      "editTitle": "Izmijeni naselje",
+      "fields": {
+        "countryCode": "Država",
+        "code": "Kod",
+        "name": "Naziv",
+        "postalCode": "Poštanski broj"
+      },
+      "actions": {
+        "edit": "Izmijeni",
+        "delete": "Obriši"
+      },
+      "messages": {
+        "deleteTitle": "Obriši naselje",
+        "deleteDescription": "Da li ste sigurni da želite obrisati ovo naselje?",
+        "deleteSuccess": "Naselje je uspješno obrisano.",
+        "deleteError": "Brisanje naselja nije uspjelo."
+      }
+    },
+    "capitals": {
+      "pageTitle": "Glavni gradovi",
+      "pageDescription": "Upravljanje glavnim gradovima",
+      "title": "Glavni gradovi",
+      "createTitle": "Kreiraj glavni grad",
+      "editTitle": "Izmijeni glavni grad",
+      "columns": {
+        "countryCode": "Država",
+        "settlementCode": "Kod naselja",
+        "actions": "Akcije"
+      },
+      "fields": {
+        "countryCode": "Država",
+        "settlementCode": "Kod naselja",
+        "actions": "Akcije"
+      },
+      "actions": {
+        "edit": "Izmijeni",
+        "delete": "Obriši"
+      },
+      "messages": {
+        "deleteTitle": "Obriši glavni gradovi",
+        "deleteDescription": "Da li ste sigurni?",
+        "deleteSuccess": "Uspješno obrisano.",
+        "deleteError": "Brisanje nije uspjelo.",
+        "updateSuccess": "Uspješno ažurirano.",
+        "updateError": "Ažuriranje nije uspjelo.",
+        "createSuccess": "Uspješno kreirano.",
+        "createError": "Kreiranje nije uspjelo."
+      }
+    },
+    "municipalities": {
+      "pageTitle": "Opštine",
+      "pageDescription": "Upravljanje opštinama",
+      "title": "Opštine",
+      "createTitle": "Kreiraj opštinu",
+      "editTitle": "Izmijeni opštinu",
+      "columns": {
+        "countryCode": "Država",
+        "code": "Kod",
+        "name": "Naziv",
+        "seatSettlementCode": "Sjedište naselja",
+        "actions": "Akcije"
+      },
+      "fields": {
+        "countryCode": "Država",
+        "code": "Kod",
+        "name": "Naziv",
+        "seatSettlementCode": "Sjedište naselja",
+        "actions": "Akcije"
+      },
+      "actions": {
+        "edit": "Izmijeni",
+        "delete": "Obriši"
+      },
+      "messages": {
+        "deleteTitle": "Obriši opštine",
+        "deleteDescription": "Da li ste sigurni?",
+        "deleteSuccess": "Uspješno obrisano.",
+        "deleteError": "Brisanje nije uspjelo.",
+        "updateSuccess": "Uspješno ažurirano.",
+        "updateError": "Ažuriranje nije uspjelo.",
+        "createSuccess": "Uspješno kreirano.",
+        "createError": "Kreiranje nije uspjelo."
+      }
+    },
+    "regions": {
+      "pageTitle": "Regije",
+      "pageDescription": "Upravljanje regijama",
+      "title": "Regije",
+      "createTitle": "Kreiraj regiju",
+      "editTitle": "Izmijeni regiju",
+      "columns": {
+        "typeCode": "Tip regije",
+        "code": "Kod",
+        "name": "Naziv",
+        "belongsToCountryCode": "Država",
+        "headquartersCountryCode": "Sjedište države",
+        "administrativeSeatSettlementCode": "Sjedište naselja",
+        "actions": "Akcije"
+      },
+      "fields": {
+        "typeCode": "Tip regije",
+        "code": "Kod",
+        "name": "Naziv",
+        "belongsToCountryCode": "Država",
+        "headquartersCountryCode": "Sjedište države",
+        "administrativeSeatSettlementCode": "Sjedište naselja",
+        "actions": "Akcije"
+      },
+      "actions": {
+        "edit": "Izmijeni",
+        "delete": "Obriši"
+      },
+      "messages": {
+        "deleteTitle": "Obriši regije",
+        "deleteDescription": "Da li ste sigurni?",
+        "deleteSuccess": "Uspješno obrisano.",
+        "deleteError": "Brisanje nije uspjelo.",
+        "updateSuccess": "Uspješno ažurirano.",
+        "updateError": "Ažuriranje nije uspjelo.",
+        "createSuccess": "Uspješno kreirano.",
+        "createError": "Kreiranje nije uspjelo."
+      }
+    },
+    "governmentTypes": {
+      "pageTitle": "Tipovi vlasti",
+      "pageDescription": "Upravljanje tipovima vlasti",
+      "title": "Tipovi vlasti",
+      "createTitle": "Kreiraj tip vlasti",
+      "editTitle": "Izmijeni tip vlasti",
+      "createButton": "Kreiraj tip vlasti",
+      "fields": {
+        "code": "Kod",
+        "name": "Naziv",
+        "actions": "Akcije"
+      },
+      "actions": {
+        "edit": "Izmijeni",
+        "delete": "Obriši"
+      },
+      "messages": {
+        "deleteTitle": "Obriši tip vlasti",
+        "deleteDescription": "Da li ste sigurni da želite obrisati ovaj tip vlasti?",
+        "deleteSuccess": "Tip vlasti je uspješno obrisan.",
+        "deleteError": "Brisanje tipa vlasti nije uspjelo.",
+        "updateSuccess": "Tip vlasti je uspješno ažuriran.",
+        "updateError": "Ažuriranje tipa vlasti nije uspjelo.",
+        "createSuccess": "Tip vlasti je uspješno kreiran.",
+        "createError": "Kreiranje tipa vlasti nije uspjelo."
+      }
+    },
+    "healthInstitutions": {
+      "pageTitle": "Zdravstvene ustanove",
+      "pageDescription": "Upravljanje zdravstvenim ustanovama",
+      "title": "Zdravstvene ustanove",
+      "createButton": "Dodaj zdravstvenu ustanovu",
+      "createTitle": "Kreiraj zdravstvenu ustanovu",
+      "editTitle": "Izmijeni zdravstvenu ustanovu",
+      "tabs": {
+        "general": "Opšte",
+        "location": "Lokacija",
+        "contact": "Kontakt"
+      },
+      "fields": {
+        "name": "Naziv",
+        "typeCode": "Tip",
+        "countryCode": "Država",
+        "settlementCode": "Naselje",
+        "address": "Adresa",
+        "bedCount": "Broj kreveta",
+        "foundingDate": "Datum osnivanja",
+        "phone": "Telefon",
+        "actions": "Akcije"
+      },
+      "actions": {
+        "edit": "Izmijeni",
+        "delete": "Obriši"
+      },
+      "messages": {
+        "deleteTitle": "Brisanje zdravstvene ustanove",
+        "deleteDescription": "Da li ste sigurni da želite obrisati ovu zdravstvenu ustanovu?",
+        "deleteSuccess": "Zdravstvena ustanova je uspješno obrisana.",
+        "deleteError": "Brisanje zdravstvene ustanove nije uspjelo.",
+        "createSuccess": "Zdravstvena ustanova je uspješno kreirana.",
+        "createError": "Kreiranje zdravstvene ustanove nije uspjelo.",
+        "updateSuccess": "Zdravstvena ustanova je uspješno ažurirana.",
+        "updateError": "Ažuriranje zdravstvene ustanove nije uspjelo."
+      }
+    },
+    "healthInstitutionTypes": {
+      "pageTitle": "Tipovi zdravstvenih ustanova",
+      "pageDescription": "Upravljanje tipovima zdravstvenih ustanova",
+      "title": "Tipovi zdravstvenih ustanova",
+      "createTitle": "Kreiraj tip zdravstvene ustanove",
+      "editTitle": "Izmijeni tip zdravstvene ustanove",
+      "createButton": "Kreiraj tip",
+      "table": {
+        "code": "Kod",
+        "name": "Naziv",
+        "actions": "Akcije"
+      },
+      "fields": {
+        "code": "Kod",
+        "name": "Naziv",
+        "actions": "Akcije"
+      },
+      "placeholders": {
+        "code": "BOLNICA",
+        "name": "Opšta bolnica"
+      },
+      "actions": {
+        "edit": "Izmijeni",
+        "delete": "Obriši"
+      },
+      "messages": {
+        "required": "Kod i naziv su obavezni.",
+        "deleteTitle": "Brisanje tipa zdravstvene ustanove",
+        "deleteDescription": "Da li ste sigurni da želite obrisati ovaj tip zdravstvene ustanove?",
+        "deleteSuccess": "Tip zdravstvene ustanove je uspješno obrisan.",
+        "deleteError": "Brisanje tipa zdravstvene ustanove nije uspjelo.",
+        "createSuccess": "Tip zdravstvene ustanove je uspješno kreiran.",
+        "createError": "Kreiranje tipa zdravstvene ustanove nije uspjelo.",
+        "updateSuccess": "Tip zdravstvene ustanove je uspješno ažuriran.",
+        "updateError": "Ažuriranje tipa zdravstvene ustanove nije uspjelo.",
+        "saved": "Uspješno sačuvano.",
+        "saveFailed": "Čuvanje nije uspjelo."
+      }
+    },
+    "regionTypes": {
+      "pageTitle": "Tipovi regija",
+      "pageDescription": "Upravljanje tipovima regija",
+      "title": "Tipovi regija",
+      "createTitle": "Kreiraj tip regije",
+      "editTitle": "Izmijeni tip regije",
+      "columns": {
+        "code": "Kod",
+        "name": "Naziv",
+        "actions": "Akcije"
+      },
+      "fields": {
+        "code": "Kod",
+        "name": "Naziv",
+        "actions": "Akcije"
+      },
+      "actions": {
+        "edit": "Izmijeni",
+        "delete": "Obriši"
+      },
+      "messages": {
+        "deleteTitle": "Obriši tipovi regija",
+        "deleteDescription": "Da li ste sigurni?",
+        "deleteSuccess": "Uspješno obrisano.",
+        "deleteError": "Brisanje nije uspjelo.",
+        "updateSuccess": "Uspješno ažurirano.",
+        "updateError": "Ažuriranje nije uspjelo.",
+        "createSuccess": "Uspješno kreirano.",
+        "createError": "Kreiranje nije uspjelo."
+      }
+    },
+    "localCommunities": {
+      "pageTitle": "Lokalne zajednice",
+      "pageDescription": "Upravljanje lokalnim zajednicama",
+      "title": "Lokalne zajednice",
+      "createTitle": "Kreiraj lokalnu zajednicu",
+      "editTitle": "Izmijeni lokalnu zajednicu",
+      "columns": {
+        "countryCode": "Država",
+        "municipalityCode": "Opština",
+        "identifier": "Identifikator",
+        "name": "Naziv",
+        "officeSettlementCode": "Sjedište",
+        "actions": "Akcije"
+      },
+      "fields": {
+        "countryCode": "Država",
+        "municipalityCode": "Opština",
+        "identifier": "Identifikator",
+        "name": "Naziv",
+        "officeSettlementCode": "Sjedište",
+        "actions": "Akcije"
+      },
+      "actions": {
+        "edit": "Izmijeni",
+        "delete": "Obriši"
+      },
+      "messages": {
+        "deleteTitle": "Obriši lokalne zajednice",
+        "deleteDescription": "Da li ste sigurni?",
+        "deleteSuccess": "Uspješno obrisano.",
+        "deleteError": "Brisanje nije uspjelo.",
+        "updateSuccess": "Uspješno ažurirano.",
+        "updateError": "Ažuriranje nije uspjelo.",
+        "createSuccess": "Uspješno kreirano.",
+        "createError": "Kreiranje nije uspjelo."
+      }
+    },
+    "countryCompositions": {
+      "pageTitle": "Sastav država",
+      "pageDescription": "Upravljanje sastavom država",
+      "title": "Sastav država",
+      "createTitle": "Kreiraj sastav",
+      "editTitle": "Izmijeni sastav",
+      "columns": {
+        "unionCountryCode": "Unija",
+        "memberCountryCode": "Članica",
+        "sequenceNumber": "Redni broj",
+        "from": "Od",
+        "to": "Do",
+        "actions": "Akcije"
+      },
+      "fields": {
+        "unionCountryCode": "Unija",
+        "memberCountryCode": "Članica",
+        "sequenceNumber": "Redni broj",
+        "from": "Od",
+        "to": "Do",
+        "actions": "Akcije"
+      },
+      "actions": {
+        "edit": "Izmijeni",
+        "delete": "Obriši"
+      },
+      "messages": {
+        "deleteTitle": "Obriši sastav država",
+        "deleteDescription": "Da li ste sigurni?",
+        "deleteSuccess": "Uspješno obrisano.",
+        "deleteError": "Brisanje nije uspjelo.",
+        "updateSuccess": "Uspješno ažurirano.",
+        "updateError": "Ažuriranje nije uspjelo.",
+        "createSuccess": "Uspješno kreirano.",
+        "createError": "Kreiranje nije uspjelo."
+      }
+    },
+    "regionCompositions": {
+      "pageTitle": "Sastav regija",
+      "pageDescription": "Upravljanje sastavom regija",
+      "title": "Sastav regija",
+      "createTitle": "Kreiraj sastav regije",
+      "editTitle": "Izmijeni sastav regije",
+      "columns": {
+        "parentRegionTypeCode": "Roditeljski tip",
+        "parentRegionCode": "Roditeljski kod",
+        "memberRegionTypeCode": "Članski tip",
+        "memberRegionCode": "Članski kod",
+        "actions": "Akcije"
+      },
+      "fields": {
+        "parentRegionTypeCode": "Roditeljski tip",
+        "parentRegionCode": "Roditeljski kod",
+        "memberRegionTypeCode": "Članski tip",
+        "memberRegionCode": "Članski kod",
+        "actions": "Akcije"
+      },
+      "actions": {
+        "edit": "Izmijeni",
+        "delete": "Obriši"
+      },
+      "messages": {
+        "deleteTitle": "Obriši sastav regija",
+        "deleteDescription": "Da li ste sigurni?",
+        "deleteSuccess": "Uspješno obrisano.",
+        "deleteError": "Brisanje nije uspjelo.",
+        "updateSuccess": "Uspješno ažurirano.",
+        "updateError": "Ažuriranje nije uspjelo.",
+        "createSuccess": "Uspješno kreirano.",
+        "createError": "Kreiranje nije uspjelo."
+      }
+    },
+    "regionSettlementCoverages": {
+      "pageTitle": "Pokrivenost regija",
+      "pageDescription": "Upravljanje pokrivenošću regija",
+      "title": "Pokrivenost regija",
+      "createTitle": "Kreiraj pokrivenost",
+      "editTitle": "Izmijeni pokrivenost",
+      "columns": {
+        "regionTypeCode": "Tip regije",
+        "regionCode": "Kod regije",
+        "countryCode": "Država",
+        "settlementCode": "Naselje",
+        "actions": "Akcije"
+      },
+      "fields": {
+        "regionTypeCode": "Tip regije",
+        "regionCode": "Kod regije",
+        "countryCode": "Država",
+        "settlementCode": "Naselje",
+        "actions": "Akcije"
+      },
+      "actions": {
+        "edit": "Izmijeni",
+        "delete": "Obriši"
+      },
+      "messages": {
+        "deleteTitle": "Obriši pokrivenost regija",
+        "deleteDescription": "Da li ste sigurni?",
+        "deleteSuccess": "Uspješno obrisano.",
+        "deleteError": "Brisanje nije uspjelo.",
+        "updateSuccess": "Uspješno ažurirano.",
+        "updateError": "Ažuriranje nije uspjelo.",
+        "createSuccess": "Uspješno kreirano.",
+        "createError": "Kreiranje nije uspjelo."
+      }
+    },
+    "municipalitySettlementCoverages": {
+      "pageTitle": "Pokrivenost opština",
+      "pageDescription": "Upravljanje pokrivenošću opština",
+      "title": "Pokrivenost opština",
+      "createTitle": "Kreiraj pokrivenost",
+      "editTitle": "Izmijeni pokrivenost",
+      "columns": {
+        "countryCode": "Država",
+        "municipalityCode": "Opština",
+        "settlementCode": "Naselje",
+        "actions": "Akcije"
+      },
+      "fields": {
+        "countryCode": "Država",
+        "municipalityCode": "Opština",
+        "settlementCode": "Naselje",
+        "actions": "Akcije"
+      },
+      "actions": {
+        "edit": "Izmijeni",
+        "delete": "Obriši"
+      },
+      "messages": {
+        "deleteTitle": "Obriši pokrivenost opština",
+        "deleteDescription": "Da li ste sigurni?",
+        "deleteSuccess": "Uspješno obrisano.",
+        "deleteError": "Brisanje nije uspjelo.",
+        "updateSuccess": "Uspješno ažurirano.",
+        "updateError": "Ažuriranje nije uspjelo.",
+        "createSuccess": "Uspješno kreirano.",
+        "createError": "Kreiranje nije uspjelo."
+      }
+    },
+    "localCommunityCoverages": {
+      "pageTitle": "Pokrivenost lokalnih zajednica",
+      "pageDescription": "Upravljanje pokrivenošću lokalnih zajednica",
+      "title": "Pokrivenost lokalnih zajednica",
+      "createTitle": "Kreiraj pokrivenost",
+      "editTitle": "Izmijeni pokrivenost",
+      "columns": {
+        "countryCode": "Država",
+        "municipalityCode": "Opština",
+        "localCommunityIdentifier": "Lokalna zajednica",
+        "settlementCode": "Naselje",
+        "actions": "Akcije"
+      },
+      "fields": {
+        "countryCode": "Država",
+        "municipalityCode": "Opština",
+        "localCommunityIdentifier": "Lokalna zajednica",
+        "settlementCode": "Naselje",
+        "actions": "Akcije"
+      },
+      "actions": {
+        "edit": "Izmijeni",
+        "delete": "Obriši"
+      },
+      "messages": {
+        "deleteTitle": "Obriši pokrivenost lokalnih zajednica",
+        "deleteDescription": "Da li ste sigurni?",
+        "deleteSuccess": "Uspješno obrisano.",
+        "deleteError": "Brisanje nije uspjelo.",
+        "updateSuccess": "Uspješno ažurirano.",
+        "updateError": "Ažuriranje nije uspjelo.",
+        "createSuccess": "Uspješno kreirano.",
+        "createError": "Kreiranje nije uspjelo."
+      }
+    },
+    "legalSuccessors": {
+      "pageTitle": "Pravni sljedbenici",
+      "pageDescription": "Upravljanje pravnim sljedbenicima",
+      "title": "Pravni sljedbenici",
+      "createTitle": "Kreiraj sljedbenika",
+      "editTitle": "Izmijeni sljedbenika",
+      "columns": {
+        "successorCountryCode": "Sljedbenik",
+        "predecessorCountryCode": "Prethodnik",
+        "actions": "Akcije"
+      },
+      "fields": {
+        "successorCountryCode": "Sljedbenik",
+        "predecessorCountryCode": "Prethodnik",
+        "actions": "Akcije"
+      },
+      "actions": {
+        "edit": "Izmijeni",
+        "delete": "Obriši"
+      },
+      "messages": {
+        "deleteTitle": "Obriši pravni sljedbenici",
+        "deleteDescription": "Da li ste sigurni?",
+        "deleteSuccess": "Uspješno obrisano.",
+        "deleteError": "Brisanje nije uspjelo.",
+        "updateSuccess": "Uspješno ažurirano.",
+        "updateError": "Ažuriranje nije uspjelo.",
+        "createSuccess": "Uspješno kreirano.",
+        "createError": "Kreiranje nije uspjelo."
+      }
+    },
+    "governmentHistories": {
+      "pageTitle": "Historija vlasti",
+      "pageDescription": "Upravljanje historijom vlasti",
+      "title": "Historija vlasti",
+      "createTitle": "Kreiraj zapis",
+      "editTitle": "Izmijeni zapis",
+      "columns": {
+        "countryCode": "Država",
+        "sequenceNumber": "Redni broj",
+        "governmentTypeCode": "Tip vlasti",
+        "from": "Od",
+        "to": "Do",
+        "actions": "Akcije"
+      },
+      "fields": {
+        "countryCode": "Država",
+        "sequenceNumber": "Redni broj",
+        "governmentTypeCode": "Tip vlasti",
+        "from": "Od",
+        "to": "Do",
+        "actions": "Akcije"
+      },
+      "actions": {
+        "edit": "Izmijeni",
+        "delete": "Obriši"
+      },
+      "messages": {
+        "deleteTitle": "Obriši historija vlasti",
+        "deleteDescription": "Da li ste sigurni?",
+        "deleteSuccess": "Uspješno obrisano.",
+        "deleteError": "Brisanje nije uspjelo.",
+        "updateSuccess": "Uspješno ažurirano.",
+        "updateError": "Ažuriranje nije uspjelo.",
+        "createSuccess": "Uspješno kreirano.",
+        "createError": "Kreiranje nije uspjelo."
+      }
+    }
+  },
+  "tumor": {
+    "scanTypes": {
+      "mri": "MRI",
+      "ct": "CT"
+    },
+    "status": {
+      "Pending": "Na čekanju",
+      "Processing": "U obradi",
+      "Completed": "Završeno",
+      "Failed": "Neuspelo",
+      "Corrected": "Korigovano"
+    },
+    "classes": {
+      "glioma": "Gliom",
+      "meningioma": "Meningiom",
+      "pituitary": "Hipofizarni tumor",
+      "noTumor": "Bez tumora"
+    },
+    "scans": {
+      "doctor": {
+        "pageTitle": "Snimci",
+        "pageDescription": "Lista MRI/CT snimaka",
+        "title": "Snimci mozga",
+        "empty": "Nema otpremljenih snimaka.",
+        "columns": {
+          "file": "Fajl",
+          "type": "Tip",
+          "size": "Veličina",
+          "analyses": "Analize",
+          "uploaded": "Otpremljeno"
+        },
+        "actions": {
+          "upload": "Dodaj snimak"
+        },
+        "messages": {
+          "loadError": "Greška pri učitavanju snimaka."
+        }
+      },
+      "patient": {
+        "pageTitle": "Moji snimci",
+        "pageDescription": "Vaši MRI/CT snimci",
+        "title": "Moji snimci",
+        "empty": "Nemate otpremljenih snimaka.",
+        "columns": {
+          "file": "Fajl",
+          "type": "Tip",
+          "size": "Veličina",
+          "analyses": "Analize",
+          "uploaded": "Otpremljeno"
+        },
+        "actions": {
+          "upload": "Otpremi snimak"
+        },
+        "messages": {
+          "loadError": "Greška pri učitavanju snimaka."
+        }
+      }
+    },
+    "upload": {
+      "doctor": {
+        "pageTitle": "Dodaj snimak",
+        "pageDescription": "Otpremite MRI/CT snimak pacijenta",
+        "title": "Novi snimak",
+        "fields": {
+          "patientId": "ID pacijenta",
+          "scanType": "Tip snimka",
+          "file": "Slika"
+        },
+        "actions": {
+          "upload": "Sačuvaj snimak",
+          "uploading": "Otpremanje..."
+        },
+        "messages": {
+          "required": "Pacijent i fajl su obavezni.",
+          "success": "Snimak je uspešno uploadovan.",
+          "error": "Upload nije uspeo."
+        }
+      },
+      "patient": {
+        "pageTitle": "Otpremi snimak",
+        "pageDescription": "Otpremite vaš MRI/CT snimak",
+        "title": "Otpremi snimak",
+        "fields": {
+          "scanType": "Tip snimka",
+          "file": "Slika"
+        },
+        "actions": {
+          "upload": "Sačuvaj snimak",
+          "uploading": "Otpremanje..."
+        },
+        "messages": {
+          "required": "Fajl je obavezan.",
+          "success": "Snimak je uspešno uploadovan.",
+          "error": "Upload nije uspeo."
+        }
+      }
+    },
+    "analyses": {
+      "doctor": {
+        "pageTitle": "Nova analiza",
+        "pageDescription": "Pokretanje AI analize tumora",
+        "title": "Analize",
+        "startTitle": "Pokreni analizu",
+        "empty": "Nema analiza.",
+        "fields": {
+          "scan": "Snimak"
+        },
+        "columns": {
+          "scan": "Snimak",
+          "status": "Status",
+          "classification": "Klasa",
+          "confidence": "Pouzdanost",
+          "requested": "Zahtevano",
+          "actions": "Akcije"
+        },
+        "actions": {
+          "run": "Pokreni AI",
+          "running": "AI radi...",
+          "view": "Detalji"
+        },
+        "messages": {
+          "loadError": "Greška pri učitavanju analiza.",
+          "analysisStarted": "Analiza je pokrenuta. Rezultati stižu automatski.",
+          "analysisSuccess": "Analiza je završena.",
+          "analysisFailed": "Analiza nije uspela."
+        }
+      },
+      "doctorArchive": {
+        "pageTitle": "Arhiva analiza",
+        "pageDescription": "Završene analize",
+        "title": "Arhivirane analize",
+        "empty": "Nema arhiviranih analiza.",
+        "columns": {
+          "scan": "Snimak",
+          "status": "Status",
+          "classification": "Klasa",
+          "confidence": "Pouzdanost",
+          "requested": "Zahtevano",
+          "actions": "Akcije"
+        },
+        "actions": {
+          "view": "Detalji"
+        },
+        "messages": {
+          "loadError": "Greška pri učitavanju analiza."
+        }
+      },
+      "patient": {
+        "pageTitle": "Nova analiza",
+        "pageDescription": "Vaša AI analiza",
+        "title": "Moje analize",
+        "startTitle": "Pokreni analizu",
+        "empty": "Nema analiza.",
+        "fields": {
+          "scan": "Snimak"
+        },
+        "columns": {
+          "scan": "Snimak",
+          "status": "Status",
+          "classification": "Klasa",
+          "confidence": "Pouzdanost",
+          "requested": "Zahtevano",
+          "actions": "Akcije"
+        },
+        "actions": {
+          "run": "Pokreni AI",
+          "running": "AI radi...",
+          "view": "Detalji"
+        },
+        "messages": {
+          "loadError": "Greška pri učitavanju analiza.",
+          "analysisStarted": "Analiza je pokrenuta. Rezultati stižu automatski.",
+          "analysisSuccess": "Analiza je završena.",
+          "analysisFailed": "Analiza nije uspela."
+        }
+      },
+      "patientArchive": {
+        "pageTitle": "Arhiva analiza",
+        "pageDescription": "Vaše završene analize",
+        "title": "Arhivirane analize",
+        "empty": "Nema arhiviranih analiza.",
+        "columns": {
+          "scan": "Snimak",
+          "status": "Status",
+          "classification": "Klasa",
+          "confidence": "Pouzdanost",
+          "requested": "Zahtevano",
+          "actions": "Akcije"
+        },
+        "actions": {
+          "view": "Detalji"
+        },
+        "messages": {
+          "loadError": "Greška pri učitavanju analiza."
+        }
+      }
+    },
+    "detail": {
+      "doctor": {
+        "pageTitle": "Detalji analize",
+        "pageDescription": "Rezultati AI analize",
+        "loading": "Učitavanje...",
+        "notFound": "Analiza nije pronađena.",
+        "detectionsTitle": "Detekcije",
+        "imageTitle": "Vizualizacija snimka",
+        "imageAlt": "MRI/CT snimak sa označenim tumorom",
+        "imageLoading": "Učitavanje slike...",
+        "imageLoadError": "Slika nije dostupna.",
+        "imageLegend": "Crveni okvir označava detektovanu regiju tumora.",
+        "imageViews": {
+          "original": "Original",
+          "detection": "Detekcija",
+          "segmentation": "Segmentacija",
+          "annotated": "Označeno"
+        },
+        "correctionTitle": "Ručna korekcija",
+        "reportTitle": "PDF izveštaj",
+        "reportEmpty": "Izveštaj još nije generisan. Kliknite dugme ispod da kreirate PDF sa rezultatima analize.",
+        "reportAvailable": "PDF izveštaj je dostupan (generisan {{date}}).",
+        "commentsTitle": "Komentari",
+        "commentPlaceholder": "Unesite komentar...",
+        "emptyDetections": "Nema detekcija.",
+        "emptyDetectionsHint": "AI je klasifikovao «{{class}}», ali okvir detekcije nije pronađen. Pokrenite novu analizu sa ažuriranim modelom.",
+        "emptyComments": "Još nema komentara.",
+        "fields": {
+          "status": "Status",
+          "classification": "Klasa",
+          "confidence": "Pouzdanost",
+          "tumorArea": "Površina tumora"
+        },
+        "columns": {
+          "class": "Klasa",
+          "confidence": "Pouzdanost",
+          "bbox": "Okvir detekcije",
+          "size": "Dimenzije"
+        },
+        "actions": {
+          "back": "Nazad na listu",
+          "applyCorrection": "Primeni korekciju",
+          "postComment": "Objavi komentar",
+          "generateReport": "Generiši izveštaj",
+          "downloadReport": "Preuzmi PDF",
+          "regenerateReport": "Ponovo generiši"
+        },
+        "messages": {
+          "loadError": "Greška pri učitavanju analize.",
+          "analysisReady": "Analiza je završena — rezultati su učitani.",
+          "analysisFailed": "Analiza nije uspela.",
+          "commentSuccess": "Komentar je sačuvan.",
+          "commentError": "Komentar nije sačuvan.",
+          "correctionSuccess": "Korekcija je primenjena.",
+          "correctionError": "Korekcija nije uspela.",
+          "reportGenerated": "PDF izveštaj je uspešno generisan.",
+          "reportError": "Generisanje izveštaja nije uspelo.",
+          "reportDownloadError": "Preuzimanje izveštaja nije uspelo."
+        }
+      },
+      "patient": {
+        "pageTitle": "Detalji analize",
+        "pageDescription": "Vaši rezultati analize",
+        "loading": "Učitavanje...",
+        "notFound": "Analiza nije pronađena.",
+        "detectionsTitle": "Detekcije",
+        "imageTitle": "Vizualizacija snimka",
+        "imageAlt": "MRI/CT snimak sa označenim tumorom",
+        "imageLoading": "Učitavanje slike...",
+        "imageLoadError": "Slika nije dostupna.",
+        "imageLegend": "Crveni okvir označava detektovanu regiju tumora.",
+        "imageViews": {
+          "original": "Original",
+          "detection": "Detekcija",
+          "segmentation": "Segmentacija",
+          "annotated": "Označeno"
+        },
+        "reportTitle": "PDF izveštaj",
+        "reportEmpty": "Izveštaj još nije generisan. Kliknite dugme ispod da kreirate PDF sa rezultatima analize.",
+        "reportAvailable": "PDF izveštaj je dostupan (generisan {{date}}).",
+        "commentsTitle": "Komentari",
+        "commentPlaceholder": "Unesite komentar...",
+        "emptyDetections": "Nema detekcija.",
+        "emptyDetectionsHint": "AI je klasifikovao «{{class}}», ali okvir detekcije nije pronađen. Pokrenite novu analizu sa ažuriranim modelom.",
+        "emptyComments": "Još nema komentara.",
+        "fields": {
+          "status": "Status",
+          "classification": "Klasa",
+          "confidence": "Pouzdanost",
+          "tumorArea": "Površina tumora"
+        },
+        "columns": {
+          "class": "Klasa",
+          "confidence": "Pouzdanost",
+          "bbox": "Okvir detekcije",
+          "size": "Dimenzije"
+        },
+        "actions": {
+          "back": "Nazad na listu",
+          "postComment": "Objavi komentar",
+          "generateReport": "Generiši izveštaj",
+          "downloadReport": "Preuzmi PDF",
+          "regenerateReport": "Ponovo generiši"
+        },
+        "messages": {
+          "loadError": "Greška pri učitavanju analize.",
+          "analysisReady": "Analiza je završena — rezultati su učitani.",
+          "analysisFailed": "Analiza nije uspela.",
+          "commentSuccess": "Komentar je sačuvan.",
+          "commentError": "Komentar nije sačuvan.",
+          "reportGenerated": "PDF izveštaj je uspešno generisan.",
+          "reportError": "Generisanje izveštaja nije uspelo.",
+          "reportDownloadError": "Preuzimanje izveštaja nije uspelo."
+        }
+      }
+    },
+    "reports": {
+      "doctor": {
+        "pageTitle": "Izveštaji",
+        "pageDescription": "PDF izveštaji analiza",
+        "title": "Izveštaji analiza",
+        "description": "Pregled generisanih PDF izveštaja",
+        "empty": "Nema generisanih izveštaja.",
+        "columns": {
+          "scan": "Snimak",
+          "classification": "Klasa",
+          "status": "Status",
+          "generatedAt": "Generisan",
+          "actions": "Akcije"
+        },
+        "actions": {
+          "refresh": "Osveži",
+          "download": "Preuzmi PDF",
+          "viewAnalysis": "Detalji analize"
+        },
+        "messages": {
+          "loadError": "Greška pri učitavanju izveštaja.",
+          "downloadError": "Preuzimanje izveštaja nije uspelo."
+        }
+      },
+      "patient": {
+        "pageTitle": "Moji izveštaji",
+        "pageDescription": "Vaši PDF izveštaji",
+        "title": "Moji izveštaji",
+        "description": "Pregled vaših generisanih PDF izveštaja",
+        "empty": "Nemate generisanih izveštaja.",
+        "columns": {
+          "scan": "Snimak",
+          "classification": "Klasa",
+          "status": "Status",
+          "generatedAt": "Generisan",
+          "actions": "Akcije"
+        },
+        "actions": {
+          "refresh": "Osveži",
+          "download": "Preuzmi PDF",
+          "viewAnalysis": "Detalji analize"
+        },
+        "messages": {
+          "loadError": "Greška pri učitavanju izveštaja.",
+          "downloadError": "Preuzimanje izveštaja nije uspelo."
+        }
+      }
+    },
+    "monitoring": {
+      "pageTitle": "AI nadzor",
+      "pageDescription": "Statistika i registrovani modeli",
+      "modelsTitle": "Registrovani AI modeli",
+      "emptyModels": "Nema registrovanih modela. Restartuj servis nakon treninga.",
+      "stats": {
+        "completed": "Završene analize",
+        "scans": "Otpremljeni snimci"
+      },
+      "columns": {
+        "task": "Zadatak",
+        "version": "Verzija",
+        "runId": "ID pokretanja",
+        "status": "Status",
+        "registered": "Registrovano"
+      },
+      "messages": {
+        "loadError": "Greška pri učitavanju podataka nadzora."
+      }
+    }
+  },
+  "common": {
+    "actions": {
+      "create": "Kreiraj",
+      "edit": "Izmijeni",
+      "delete": "Obriši",
+      "save": "Sačuvaj",
+      "cancel": "Otkaži",
+      "close": "Zatvori",
+      "refresh": "Osveži"
+    },
+    "status": {
+      "active": "Aktivan",
+      "inactive": "Neaktivan"
+    },
+    "messages": {
+      "requiredField": "Ovo polje je obavezno.",
+      "invalidEmail": "Unesite validnu email adresu.",
+      "invalidNumber": "Unesite validan broj.",
+      "successSave": "Uspešno sačuvano.",
+      "errorSave": "Greška prilikom čuvanja.",
+      "successDelete": "Uspešno obrisano.",
+      "errorDelete": "Greška prilikom brisanja."
+    },
+    "cancel": "Otkaži",
+    "save": "Sačuvaj",
+    "saveChanges": "Sačuvaj izmjene",
+    "saving": "Čuvanje...",
+    "close": "Zatvori",
+    "loading": "Učitavanje...",
+    "creating": "Kreiranje...",
+    "delete": "Obriši",
+    "edit": "Izmijeni"
+  },
+  "sidebar": {
+    "menu": "Meni",
+    "dashboard": "Kontrolna tabla",
+    "myScans": "Moji snimci",
+    "viewScans": "Pregled snimaka",
+    "myAnalysis": "Moje analize",
+    "newAnalysis": "Nova analiza",
+    "archivedAnalysis": "Arhiva analiza",
+    "myReports": "Moji izveštaji",
+    "patients": "Pacijenti",
+    "patientList": "Lista pacijenata",
+    "addPatient": "Dodaj pacijenta",
+    "scans": "Snimci",
+    "addScan": "Dodaj snimak",
+    "analysis": "Analize",
+    "reports": "Izveštaji",
+    "aiMonitoring": "AI nadzor",
+    "roleManagement": "Upravljanje ulogama",
+    "roles": "Uloge",
+    "createRole": "Kreiraj ulogu",
+    "assignRoles": "Dodela uloga",
+    "doctors": "Doktori",
+    "doctorList": "Lista doktora",
+    "addDoctor": "Dodaj doktora",
+    "pdfManagement": "PDF upravljanje",
+    "pdfTemplates": "PDF šabloni",
+    "createPdfTemplate": "Kreiraj PDF šablon",
+    "territorialOrganization": "Teritorijalna organizacija",
+    "countries": "Države",
+    "countriesTable": "Tabela država",
+    "createCountry": "Kreiraj državu",
+    "governmentTypes": "Tipovi vlade",
+    "governmentTypesTable": "Tabela tipova vlade",
+    "createGovernmentType": "Kreiraj tip vlade",
+    "healthInstitutions": "Zdravstvene ustanove",
+    "healthInstitutionsTable": "Tabela zdravstvenih ustanova",
+    "createHealthInstitution": "Kreiraj zdravstvenu ustanovu",
+    "healthInstitutionTypes": "Tipovi zdravstvenih ustanova",
+    "healthInstitutionTypesTable": "Tabela tipova ustanova",
+    "createHealthInstitutionType": "Kreiraj tip ustanove",
+    "settlements": "Naselja",
+    "settlementsTable": "Tabela naselja",
+    "createSettlement": "Kreiraj naselje",
+    "municipalities": "Opštine",
+    "municipalitiesTable": "Tabela opština",
+    "createMunicipality": "Kreiraj opštinu",
+    "regions": "Regioni",
+    "regionsTable": "Tabela regiona",
+    "createRegion": "Kreiraj region",
+    "capitals": "Glavni gradovi",
+    "capitalsTable": "Tabela glavnih gradova",
+    "createCapital": "Kreiraj glavni grad",
+    "regionTypes": "Tipovi regiona",
+    "regionTypesTable": "Tabela tipova regiona",
+    "createRegionType": "Kreiraj tip regiona",
+    "localCommunities": "Mesne zajednice",
+    "localCommunitiesTable": "Tabela mesnih zajednica",
+    "createLocalCommunity": "Kreiraj mesnu zajednicu",
+    "countryCompositions": "Sastav država",
+    "countryCompositionsTable": "Tabela sastava država",
+    "createCountryComposition": "Kreiraj sastav države",
+    "regionCompositions": "Sastav regiona",
+    "regionCompositionsTable": "Tabela sastava regiona",
+    "createRegionComposition": "Kreiraj sastav regiona",
+    "regionSettlementCoverages": "Pokrivenost naselja regiona",
+    "regionSettlementCoveragesTable": "Tabela pokrivenosti naselja regiona",
+    "createRegionSettlementCoverage": "Kreiraj pokrivenost naselja regiona",
+    "municipalitySettlementCoverages": "Pokrivenost naselja opštine",
+    "municipalitySettlementCoveragesTable": "Tabela pokrivenosti naselja opštine",
+    "createMunicipalitySettlementCoverage": "Kreiraj pokrivenost naselja opštine",
+    "localCommunityCoverages": "Pokrivenost mesnih zajednica",
+    "localCommunityCoveragesTable": "Tabela pokrivenosti mesnih zajednica",
+    "createLocalCommunityCoverage": "Kreiraj pokrivenost mesne zajednice",
+    "legalSuccessors": "Pravni sledbenici",
+    "legalSuccessorsTable": "Tabela pravnih sledbenika",
+    "createLegalSuccessor": "Kreiraj pravnog sledbenika",
+    "governmentHistories": "Istorija vlada",
+    "governmentHistoriesTable": "Tabela istorije vlada",
+    "createGovernmentHistory": "Kreiraj istoriju vlade",
+    "system": "Sistem",
+    "healthMonitoring": "Nadzor zdravlja sistema",
+    "logs": "Logovi",
+    "settings": "Podešavanja"
+  }
+}

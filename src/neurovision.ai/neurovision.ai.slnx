@@ -3,6 +3,12 @@
     <Project Path="BuildingBlocks/BuildingBlocks.Messaging/BuildingBlocks.Messaging.csproj" />
     <Project Path="BuildingBlocks/BuildingBlocks/BuildingBlocks.csproj" />
   </Folder>
+  <Folder Name="/Clients/">
+    <Project Path="Clients/neurovision.ai.portal/neurovision.ai.portal.esproj">
+      <Build />
+      <Deploy />
+    </Project>
+  </Folder>
   <Folder Name="/Gateway/">
     <Project Path="Gateway/Gateway.API/Gateway.API.csproj" />
   </Folder>

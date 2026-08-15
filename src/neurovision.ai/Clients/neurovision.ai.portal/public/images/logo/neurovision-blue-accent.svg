@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 96" width="480" height="96">
+  <rect width="480" height="96" rx="12" fill="#0d2347"/>
+  <polygon points="48,6 72.9,20.5 72.9,49.5 48,64 23.1,49.5 23.1,20.5" stroke="#60a5fa" stroke-width="1.5" fill="none" opacity="0.9"/>
+  <polygon points="48,10 69.7,22.5 69.7,47.5 48,60 26.3,47.5 26.3,22.5" stroke="#3b82f6" stroke-width="0.5" fill="none" stroke-opacity="0.3"/>
+  <path d="M48,22 C40,22 33,27 32.5,33 C32,37 34.5,41 38.5,42 C38,44.5 38.5,47 41,48 C42.5,48.5 44.5,48 45.5,47.5 L48,47 Z" fill="#0d1f35" stroke="#1e4d8c" stroke-width="1"/>
+  <path d="M48,22 C56,22 63,27 63.5,33 C64,37 61.5,41 57.5,42 C58,44.5 57.5,47 55,48 C53.5,48.5 51.5,48 50.5,47.5 L48,47 Z" fill="#0d1f35" stroke="#1e4d8c" stroke-width="1"/>
+  <circle cx="40" cy="29" r="2.2" fill="#93c5fd"/>
+  <circle cx="34" cy="36" r="1.7" fill="#60a5fa" opacity="0.85"/>
+  <circle cx="42" cy="41" r="1.7" fill="#60a5fa"/>
+  <circle cx="48" cy="27" r="2.8" fill="#bfdbfe"/>
+  <circle cx="48" cy="43" r="1.7" fill="#60a5fa"/>
+  <circle cx="56" cy="29" r="2.2" fill="#93c5fd"/>
+  <circle cx="62" cy="36" r="1.7" fill="#60a5fa" opacity="0.85"/>
+  <circle cx="54" cy="41" r="1.7" fill="#60a5fa"/>
+  <line x1="40" y1="29" x2="48" y2="27" stroke="#60a5fa" stroke-width="0.8" opacity="0.7"/>
+  <line x1="48" y1="27" x2="56" y2="29" stroke="#60a5fa" stroke-width="0.8" opacity="0.7"/>
+  <line x1="40" y1="29" x2="34" y2="36" stroke="#60a5fa" stroke-width="0.8" opacity="0.5"/>
+  <line x1="34" y1="36" x2="42" y2="41" stroke="#60a5fa" stroke-width="0.8" opacity="0.5"/>
+  <line x1="42" y1="41" x2="48" y2="43" stroke="#60a5fa" stroke-width="0.8" opacity="0.6"/>
+  <line x1="48" y1="43" x2="54" y2="41" stroke="#60a5fa" stroke-width="0.8" opacity="0.6"/>
+  <line x1="54" y1="41" x2="62" y2="36" stroke="#60a5fa" stroke-width="0.8" opacity="0.5"/>
+  <line x1="62" y1="36" x2="56" y2="29" stroke="#60a5fa" stroke-width="0.8" opacity="0.5"/>
+  <line x1="30" y1="35" x2="66" y2="35" stroke="#38bdf8" stroke-width="0.75" stroke-opacity="0.4" stroke-dasharray="2.5 3.5"/>
+  <circle cx="48" cy="27" r="6.5" stroke="#38bdf8" stroke-width="0.8" fill="none" stroke-opacity="0.75"/>
+  <line x1="44.7" y1="27" x2="42.2" y2="27" stroke="#38bdf8" stroke-width="0.8" stroke-opacity="0.75"/>
+  <line x1="51.3" y1="27" x2="53.8" y2="27" stroke="#38bdf8" stroke-width="0.8" stroke-opacity="0.75"/>
+  <line x1="48" y1="23.7" x2="48" y2="21.2" stroke="#38bdf8" stroke-width="0.8" stroke-opacity="0.75"/>
+  <line x1="48" y1="30.3" x2="48" y2="32.8" stroke="#38bdf8" stroke-width="0.8" stroke-opacity="0.75"/>
+  <text x="96" y="46" font-family="Georgia, 'Times New Roman', serif" font-weight="900" font-size="36" letter-spacing="-1" fill="#bfdbfe">Neuro</text>
+  <text x="228" y="46" font-family="Georgia, 'Times New Roman', serif" font-weight="900" font-size="36" letter-spacing="-1" fill="#60a5fa">Vision</text>
+  <rect x="366" y="16" width="30" height="16" rx="4" fill="#1e3a5f" stroke="#60a5fa" stroke-width="0.75"/>
+  <text x="381" y="27.5" font-family="'Courier New', monospace" font-weight="700" font-size="9" fill="#60a5fa" text-anchor="middle">.ai</text>
+  <line x1="96" y1="54" x2="400" y2="54" stroke="#1e3a5f" stroke-width="0.75"/>
+  <text x="96" y="70" font-family="'Courier New', monospace" font-size="10" fill="#3b82f6" letter-spacing="0.13em" opacity="0.7">BRAIN TUMOR DETECTION SYSTEM</text>
+  <rect x="96" y="76" width="34" height="4" rx="2" fill="#1e3a5f"/>
+  <rect x="96" y="76" width="26" height="4" rx="2" fill="#3b82f6"/>
+  <text x="136" y="82" font-family="'Courier New', monospace" font-size="8.5" fill="#60a5fa">97.4% acc</text>
+</svg>
