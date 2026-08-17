@@ -36,7 +36,6 @@ public class LoginCommandValidatorTests
 
     [Theory]
     [InlineData("")]
-    [InlineData("12345")]
     public void InvalidPassword_Fails(string password)
     {
         var result = _validator.Validate(new LoginCommand(new LoginRequest

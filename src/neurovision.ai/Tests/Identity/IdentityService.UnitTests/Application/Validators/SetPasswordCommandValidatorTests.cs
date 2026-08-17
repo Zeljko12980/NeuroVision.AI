@@ -12,7 +12,7 @@ public class SetPasswordCommandValidatorTests
         var result = _validator.Validate(new SetPasswordCommand(
             "user@neurovision.ai",
             "token",
-            "Secret1"));
+            "Secret12"));
 
         result.IsValid.Should().BeTrue();
     }
@@ -35,7 +35,7 @@ public class SetPasswordCommandValidatorTests
         var result = _validator.Validate(new SetPasswordCommand(
             "user@neurovision.ai",
             "",
-            "Secret1"));
+            "Secret12"));
 
         result.IsValid.Should().BeFalse();
         result.Errors.Should().Contain(e => e.PropertyName == "Token");

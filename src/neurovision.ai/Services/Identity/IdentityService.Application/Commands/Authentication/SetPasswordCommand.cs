@@ -19,7 +19,7 @@ public class SetPasswordCommandValidator : AbstractValidator<SetPasswordCommand>
 
         RuleFor(x => x.Password)
             .NotEmpty()
-            .MinimumLength(6);
+            .MinimumLength(8);
     }
 }
 

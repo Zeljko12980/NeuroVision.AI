@@ -45,7 +45,7 @@ export const confirmEmailRequest = async (
     token: string
 ): Promise<ConfirmEmailResponse> => {
     return await get(
-        `/user/confirm-email?Email=${encodeURIComponent(email)}&Token=${encodeURIComponent(token)}`
+        `/authentication/confirm-email?Email=${encodeURIComponent(email)}&Token=${encodeURIComponent(token)}`
     );
 };
                                        

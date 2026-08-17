@@ -5,6 +5,7 @@ global using BuildingBlocks.Messaging.MassTransit;
 global using BuildingBlocks.Pagination;
 global using BuildingBlocks.Results;
 global using FluentValidation;
+global using IdentityService.Application.Common;
 global using IdentityService.Application.Common.Interfaces;
 global using IdentityService.Application.Common.Mappings;
 global using IdentityService.Application.Common.Requests;

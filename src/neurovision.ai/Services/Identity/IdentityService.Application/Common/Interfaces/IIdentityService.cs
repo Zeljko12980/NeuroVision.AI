@@ -2,7 +2,7 @@
 
 public interface IIdentityService
 {
-    Task<bool> SignInAsync(string email, string password, CancellationToken cancellationToken = default);
+    Task<SignInStatus> SignInAsync(string email, string password, CancellationToken cancellationToken = default);
 
     Task<string?> GenerateTwoFactorCodeAsync(string email, CancellationToken cancellationToken = default);
 

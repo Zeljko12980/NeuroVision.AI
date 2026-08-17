@@ -11,8 +11,7 @@ public class LoginCommandValidator : AbstractValidator<LoginCommand>
             .EmailAddress().WithMessage("Invalid email format.");
 
         RuleFor(x => x.LoginRequest.Password)
-            .NotEmpty().WithMessage("Password is required.")
-            .MinimumLength(6).WithMessage("Password must be at least 6 characters long.");
+            .NotEmpty().WithMessage("Password is required.");
     }
 }
 
@@ -40,15 +39,30 @@ public sealed class LoginCommandHandler : ICommandHandler<LoginCommand, Result<A
 
         _logger.LogInformation("Login started. Email={Email}", email);
 
-        var success = await _identityService.SignInAsync(
+        var signInStatus = await _identityService.SignInAsync(
             email,
             request.LoginRequest.Password,
             cancellationToken);
 
-        if (!success)
+        if (signInStatus == SignInStatus.LockedOut)
+        {
+            _logger.LogWarning("Login failed. Account locked. Email={Email}", email);
+            return Result<AuthResponse>.Fail(
+                "Account is locked. Try again later.",
+                HttpStatusCode.Locked);
+        }
+
+        if (signInStatus == SignInStatus.NotAllowed)
+        {
+            _logger.LogWarning("Login failed. Email not confirmed. Email={Email}", email);
+            return Result<AuthResponse>.Fail(
+                "Email is not confirmed.",
+                HttpStatusCode.Forbidden);
+        }
+
+        if (signInStatus != SignInStatus.Succeeded)
         {
             _logger.LogWarning("Login failed. Invalid credentials. Email={Email}", email);
-
             return Result<AuthResponse>.Fail(
                 "Invalid credentials.",
                 HttpStatusCode.Unauthorized);

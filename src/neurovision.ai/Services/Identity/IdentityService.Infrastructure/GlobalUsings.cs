@@ -1,5 +1,6 @@
 ﻿global using BuildingBlocks.Pagination;
 global using BuildingBlocks.Results;
+global using IdentityService.Application.Common;
 global using IdentityService.Application.Common.Interfaces;
 global using IdentityService.Application.Common.Responses;
 global using IdentityService.Domain.Constants;

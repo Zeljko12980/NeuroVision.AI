@@ -28,16 +28,4 @@ public class UserController : ControllerBase
         return result.ToActionResult();
     }
 
-    [AllowAnonymous]
-    [HttpGet("confirm-email")]
-    public async Task<IActionResult> ConfirmEmail([FromQuery] ConfirmEmailRequest request)
-    {
-        var result = await _sender.Send(new ConfirmEmailCommand
-        {
-            Email = request.Email,
-            Token = request.Token
-        });
-
-        return result.ToActionResult();
-    }
 }

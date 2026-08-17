@@ -1,5 +1,6 @@
 using BuildingBlocks.Messaging.Events;
 using IdentityService.Application.Commands.Authentication;
+using IdentityService.Application.Common;
 using IdentityService.Application.Common.Interfaces;
 using IdentityService.Application.Common.Requests;
 using MassTransit;
@@ -25,8 +26,8 @@ public class LoginCommandHandlerTests
     [Fact]
     public async Task Handle_WhenCredentialsInvalid_ReturnsUnauthorized()
     {
-        _identityService.SignInAsync("user@neurovision.ai", "bad", Arg.Any<CancellationToken>())
-            .Returns(false);
+        _identityService.SignInAsync("user@neurovision.ai", Arg.Any<string>(), Arg.Any<CancellationToken>())
+            .Returns(SignInStatus.Failed);
 
         var result = await _handler.Handle(CreateCommand(), CancellationToken.None);
 
@@ -39,7 +40,7 @@ public class LoginCommandHandlerTests
     public async Task Handle_WhenTwoFactorCodeMissing_ReturnsInternalServerError()
     {
         _identityService.SignInAsync("user@neurovision.ai", "Secret1", Arg.Any<CancellationToken>())
-            .Returns(true);
+            .Returns(SignInStatus.Succeeded);
         _identityService.GenerateTwoFactorCodeAsync("user@neurovision.ai", Arg.Any<CancellationToken>())
             .Returns((string?)null);
 
@@ -53,7 +54,7 @@ public class LoginCommandHandlerTests
     public async Task Handle_WhenLoginSucceeds_PublishesTwoFactorEvent()
     {
         _identityService.SignInAsync("user@neurovision.ai", "Secret1", Arg.Any<CancellationToken>())
-            .Returns(true);
+            .Returns(SignInStatus.Succeeded);
         _identityService.GenerateTwoFactorCodeAsync("user@neurovision.ai", Arg.Any<CancellationToken>())
             .Returns("654321");
         _identityService.GetUserNameByEmailAsync("user@neurovision.ai", Arg.Any<CancellationToken>())
@@ -69,6 +70,32 @@ public class LoginCommandHandlerTests
                 && e.Code == "654321"
                 && e.FullName == "doctor.jane"),
             Arg.Any<CancellationToken>());
+    }
+
+    [Fact]
+    public async Task Handle_WhenAccountLocked_ReturnsLocked()
+    {
+        _identityService.SignInAsync("user@neurovision.ai", "Secret1", Arg.Any<CancellationToken>())
+            .Returns(SignInStatus.LockedOut);
+
+        var result = await _handler.Handle(CreateCommand(), CancellationToken.None);
+
+        result.IsSuccess.Should().BeFalse();
+        result.StatusCode.Should().Be(HttpStatusCode.Locked);
+        await _publishEndpoint.DidNotReceive().Publish(Arg.Any<TwoFactorCodeGeneratedEvent>(), Arg.Any<CancellationToken>());
+    }
+
+    [Fact]
+    public async Task Handle_WhenEmailNotConfirmed_ReturnsForbidden()
+    {
+        _identityService.SignInAsync("user@neurovision.ai", "Secret1", Arg.Any<CancellationToken>())
+            .Returns(SignInStatus.NotAllowed);
+
+        var result = await _handler.Handle(CreateCommand(), CancellationToken.None);
+
+        result.IsSuccess.Should().BeFalse();
+        result.StatusCode.Should().Be(HttpStatusCode.Forbidden);
+        await _publishEndpoint.DidNotReceive().Publish(Arg.Any<TwoFactorCodeGeneratedEvent>(), Arg.Any<CancellationToken>());
     }
 
     private static LoginCommand CreateCommand()
