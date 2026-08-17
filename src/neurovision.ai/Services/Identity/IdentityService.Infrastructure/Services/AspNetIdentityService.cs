@@ -16,26 +16,38 @@ public class AspNetIdentityService : IIdentityService
         _logger = logger;
     }
 
-    public async Task<bool> SignInAsync(string email, string password, CancellationToken cancellationToken = default)
+    public async Task<SignInStatus> SignInAsync(string email, string password, CancellationToken cancellationToken = default)
     {
         var user = await _userManager.FindByEmailAsync(email);
 
         if (user == null)
         {
             _logger.LogWarning("Sign-in failed. User not found. Email={Email}", email);
-            return false;
+            return SignInStatus.Failed;
         }
 
-        var result = await _signInManager.CheckPasswordSignInAsync(user, password, lockoutOnFailure: false);
+        var result = await _signInManager.CheckPasswordSignInAsync(user, password, lockoutOnFailure: true);
+
+        if (result.IsLockedOut)
+        {
+            _logger.LogWarning("Sign-in failed. Account locked. Email={Email}", email);
+            return SignInStatus.LockedOut;
+        }
+
+        if (result.IsNotAllowed)
+        {
+            _logger.LogWarning("Sign-in failed. Sign-in not allowed. Email={Email}", email);
+            return SignInStatus.NotAllowed;
+        }
 
         if (!result.Succeeded)
         {
             _logger.LogWarning("Sign-in failed. Invalid password. Email={Email}", email);
-            return false;
+            return SignInStatus.Failed;
         }
 
         _logger.LogDebug("Sign-in credentials validated. Email={Email}", email);
-        return true;
+        return SignInStatus.Succeeded;
     }
 
     public async Task<string?> GenerateTwoFactorCodeAsync(string email, CancellationToken cancellationToken = default)

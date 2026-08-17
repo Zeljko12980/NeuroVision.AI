@@ -14,11 +14,11 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateRoleRequest request)
+        public async Task<IActionResult> Create([FromBody] CreateRoleRequest request,CancellationToken cancellationToken)
         {
             var result = await _sender.Send(new CreateRoleCommand(
                 request.RoleName,
-                request.Description));
+                request.Description), cancellationToken);
 
             return result.ToActionResult(role =>
                 CreatedAtAction(
@@ -28,15 +28,15 @@
         }
 
         [HttpDelete("{id:guid}")]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
         {
-            var result = await _sender.Send(new DeleteRoleCommand(id));
+            var result = await _sender.Send(new DeleteRoleCommand(id), cancellationToken);
 
             return result.ToActionResult();
         }
 
         [HttpPut("{id:guid}")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] UpdateRoleRequest request)
+        public async Task<IActionResult> Update(Guid id, [FromBody] UpdateRoleRequest request, CancellationToken cancellationToken  )
         {
             var result = await _sender.Send(
                 new UpdateRoleCommand(id, request.RoleName, request.Description));

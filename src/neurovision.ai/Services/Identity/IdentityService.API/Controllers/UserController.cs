@@ -14,7 +14,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(CreateUserRequest request)
+    public async Task<IActionResult> Create(CreateUserRequest request, CancellationToken cancellationToken)
     {
         var command = new CreateUserCommand
         {
@@ -24,7 +24,7 @@ public class UserController : ControllerBase
             Roles = request.Roles,
         };
 
-        var result = await _sender.Send(command);
+        var result = await _sender.Send(command, cancellationToken);
         return result.ToActionResult();
     }
 
