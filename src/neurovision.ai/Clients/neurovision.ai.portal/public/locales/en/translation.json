@@ -18,6 +18,11 @@
     "invalidEmail": "Please enter a valid email address",
     "loginFailed": "Login failed"
   },
+  "dashboard": {
+    "title": "System Monitoring",
+    "description": "System metrics and logs",
+    "openGrafana": "Open in Grafana"
+  },
   "twoFA": {
     "title": "Two-Factor Authentication",
     "subtitle": "Enter the 6-digit code sent to your email",

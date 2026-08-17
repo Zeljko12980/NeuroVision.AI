@@ -18,6 +18,11 @@
     "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
     "loginFailed": "Anmeldung fehlgeschlagen"
   },
+  "dashboard": {
+    "title": "Systemüberwachung",
+    "description": "Systemmetriken und Protokolle",
+    "openGrafana": "In Grafana öffnen"
+  },
   "twoFA": {
     "title": "Zwei-Faktor-Authentifizierung",
     "subtitle": "Geben Sie den 6-stelligen Code ein, der an Ihre E-Mail gesendet wurde",

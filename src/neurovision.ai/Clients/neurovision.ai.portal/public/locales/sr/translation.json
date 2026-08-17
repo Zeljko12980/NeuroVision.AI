@@ -18,6 +18,11 @@
     "invalidEmail": "Unesite validnu email adresu",
     "loginFailed": "Prijava neuspešna"
   },
+  "dashboard": {
+    "title": "Nadzor sistema",
+    "description": "Sistemske metrike i logovi",
+    "openGrafana": "Otvori u Grafani"
+  },
   "twoFA": {
     "title": "Dvofaktorska autentifikacija",
     "subtitle": "Unesite 6-cifreni kod poslat na vaš email",
