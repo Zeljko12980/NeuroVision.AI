@@ -32,6 +32,7 @@ var grafana = builder.AddContainer("grafana", "grafana/grafana")
 
 //SERVICES
 
+
 var identityService = builder.AddProject<Projects.IdentityService_API>("identityservice-api")
        .WaitFor(rabbitmq)
        .WithReference(rabbitmq)
@@ -45,6 +46,7 @@ var identityService = builder.AddProject<Projects.IdentityService_API>("identity
 //GATEWAY
 
 var gateway = builder.AddProject<Projects.Gateway_API>("gateway-api")
+    .WaitFor(identityService)
     .WithReference(identityService);
 
 //FRONTEND

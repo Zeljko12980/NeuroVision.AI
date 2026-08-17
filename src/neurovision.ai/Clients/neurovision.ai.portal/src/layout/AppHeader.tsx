@@ -6,6 +6,7 @@ import { ThemeToggleButton } from "../components/common/ThemeToggleButton";
 import NotificationDropdown from "../components/header/NotificationDropdown";
 import UserDropdown from "../components/header/UserDropdown";
 import LanguageToggler from "../components/common/LanguageToggler";
+import BrandLogo from "../components/common/BrandLogo";
 
 const AppHeader: React.FC = () => {
   const [isApplicationMenuOpen, setApplicationMenuOpen] = useState(false);
@@ -85,16 +86,7 @@ const AppHeader: React.FC = () => {
           </button>
 
           <Link to="/" className="lg:hidden">
-            <img
-              className="dark:hidden"
-              src="./images/logo/neurovision-light-horizontal.svg"
-              alt="Logo"
-            />
-            <img
-              className="hidden dark:block"
-              src="./images/logo/neurovision-dark-horizontal.svg"
-              alt="Logo"
-            />
+            <BrandLogo className="h-8 w-auto" />
           </Link>
 
           <button

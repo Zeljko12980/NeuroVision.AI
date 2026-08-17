@@ -47,14 +47,18 @@ builder.Services
 
 
 var frontendUrl = builder.Configuration["AppSettings:FrontendUrl"];
-
+if (string.IsNullOrWhiteSpace(frontendUrl))
+{
+    throw new InvalidOperationException(
+        "AppSettings:FrontendUrl is not configured. Set it to the portal origin (e.g. http://localhost:5173).");
+}
 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
         policy
-            .WithOrigins(frontendUrl!)
+            .WithOrigins(frontendUrl)
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials();
