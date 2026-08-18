@@ -5,6 +5,7 @@ public sealed class User
     public Guid Id { get; private set; }
     public string UserName { get; private set; } = default!;
     public string Email { get; private set; } = default!;
+    public string? PhoneNumber { get; private set; }
     public bool EmailConfirmed { get; private set; }
     public bool TwoFactorEnabled { get; private set; }
     public DateTime CreatedAtUtc { get; private set; }
@@ -36,13 +37,15 @@ public sealed class User
         bool emailConfirmed,
         bool twoFactorEnabled,
         DateTime createdAtUtc,
-        DateTime? updatedAtUtc)
+        DateTime? updatedAtUtc,
+        string? phoneNumber = null)
     {
         return new User
         {
             Id = id,
             UserName = userName,
             Email = email,
+            PhoneNumber = phoneNumber,
             EmailConfirmed = emailConfirmed,
             TwoFactorEnabled = twoFactorEnabled,
             CreatedAtUtc = createdAtUtc,

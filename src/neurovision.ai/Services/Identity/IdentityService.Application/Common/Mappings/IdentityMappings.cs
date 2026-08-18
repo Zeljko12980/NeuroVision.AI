@@ -7,7 +7,9 @@ public static class IdentityMappings
         {
             Id = user.Id,
             UserName = user.UserName,
-            Email = user.Email
+            Email = user.Email,
+            PhoneNumber = user.PhoneNumber,
+            EmailConfirmed = user.EmailConfirmed
         };
 
     public static RoleResponse ToResponse(this Role role)

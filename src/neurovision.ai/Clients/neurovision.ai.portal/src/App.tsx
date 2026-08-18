@@ -25,6 +25,8 @@ import LineChart from "./pages/Charts/LineChart";
 import BarChart from "./pages/Charts/BarChart";
 import ConfirmEmailPage from "./pages/Auth/ConfirmEmail";
 import CreateRolePage from "./pages/CreateRolePage";
+import UsersTable from "./pages/Tables/UsersTable";
+import CreateAdministratorPage from "./pages/CreateAdministratorPage";
 import CreateDoctorPage from "./pages/Doctor/CreateDoctorPage";
 import SetPasswordPage from "./pages/Auth/SetPasswordPage";
 import ResetPasswordPage from "./pages/Auth/ResetPasswordPage";
@@ -135,6 +137,9 @@ export default function App() {
                         >
                             <Route path="/admin/roles" element={<RolesTable />} />
                             <Route path="/admin/roles/create" element={<CreateRolePage />} />
+                            <Route path="/admin/roles/assign" element={<UsersTable />} />
+                            <Route path="/admin/users" element={<UsersTable />} />
+                            <Route path="/admin/users/create" element={<CreateAdministratorPage />} />
                             <Route path="/admin/doctors" element={<DoctorsTable />} />
                             <Route path="/admin/doctors/add" element={<CreateDoctorPage />} />
                             <Route path="/admin/pdfs" element={<PdfTable />} />

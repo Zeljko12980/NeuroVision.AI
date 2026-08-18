@@ -6,10 +6,13 @@ import { Dropdown } from "../ui/dropdown/Dropdown";
 import { DropdownItem } from "../ui/dropdown/DropdownItem";
 import { selectUserClaims } from "../../selectors/authSelectors";
 import { getUserInfoFromClaims } from "../../utils/claims";
+import ProfileAvatar from "../UserProfile/ProfileAvatar";
+import { useTranslation } from "react-i18next";
 
 export default function UserDropdown() {
     const [isOpen, setIsOpen] = useState(false);
     const dispatch = useAppDispatch();
+    const { t } = useTranslation();
 
     const claims = useAppSelector(selectUserClaims);
     const { name: userName, email: userEmail, role: userRole } =
@@ -32,7 +35,7 @@ export default function UserDropdown() {
                 className="flex items-center text-gray-700 dropdown-toggle dark:text-gray-400"
             >
                 <span className="mr-3 overflow-hidden rounded-full h-11 w-11">
-                    <img src="/images/user/doctor.png" alt="User" />
+                    <ProfileAvatar alt={userName} className="h-full w-full object-cover" />
                 </span>
 
                 <span className="block mr-1 font-medium text-theme-sm">
@@ -83,7 +86,7 @@ export default function UserDropdown() {
                             to="/profile"
                             className="flex items-center gap-3 px-3 py-2 font-medium text-gray-700 rounded-lg text-theme-sm hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-white/5"
                         >
-                            Edit profile
+                            {t("profile.edit")}
                         </DropdownItem>
                     </li>
 

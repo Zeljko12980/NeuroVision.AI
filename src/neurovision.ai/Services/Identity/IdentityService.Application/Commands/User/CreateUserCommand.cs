@@ -12,9 +12,6 @@ public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
 {
     public CreateUserCommandValidator()
     {
-        RuleFor(x => x.Id)
-            .NotEmpty().WithMessage("ID is required.");
-
         RuleFor(x => x.UserName)
             .NotEmpty().MinimumLength(3);
 
@@ -22,7 +19,10 @@ public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
             .NotEmpty().EmailAddress();
 
         RuleFor(x => x.Roles)
-            .NotNull();
+            .NotEmpty().WithMessage("At least one role is required.")
+            .Must(roles => roles is null || roles.All(role =>
+                !string.Equals(role, RoleNames.SuperAdministrator, StringComparison.OrdinalIgnoreCase)))
+            .WithMessage("SuperAdministrator cannot be assigned through this endpoint.");
     }
 }
 
@@ -53,6 +53,9 @@ public class CreateUserCommandHandler
         CreateUserCommand command,
         CancellationToken cancellationToken)
     {
+        if (command.Id == Guid.Empty)
+            command.Id = Guid.NewGuid();
+
         _logger.LogInformation("Create user started. UserId={UserId}, Email={Email}", command.Id, command.Email);
 
         var userResult = await _userService.CreateAsync(

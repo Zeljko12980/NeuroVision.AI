@@ -1,10 +1,11 @@
-﻿namespace IdentityService.Application.Common.Requests
+﻿namespace IdentityService.Application.Common.Requests;
+
+public class Confirm2FARequest
 {
-    public class Confirm2FARequest
-    {
-        [EmailAddress]
-        public string Email { get; set; }
-        [Required]
-        public string Code { get; set; }
-    }
+    [Required(ErrorMessage = "Email is required.")]
+    [EmailAddress(ErrorMessage = "Invalid email address.")]
+    public string Email { get; set; }
+
+    [Required(ErrorMessage = "Code is required.")]
+    public string Code { get; set; }
 }

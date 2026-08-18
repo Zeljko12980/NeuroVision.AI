@@ -14,6 +14,9 @@ public class IdentityMappingsTests
         response.Id.Should().Be(user.Id);
         response.UserName.Should().Be(user.UserName);
         response.Email.Should().Be(user.Email);
+        response.PhoneNumber.Should().BeNull();
+        response.EmailConfirmed.Should().BeFalse();
+        response.Roles.Should().BeEmpty();
     }
 
     [Fact]

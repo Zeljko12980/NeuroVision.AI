@@ -64,6 +64,8 @@ public class AspNetIdentityService : IIdentityService
             user,
             TokenOptions.DefaultEmailProvider);
 
+        _logger.LogInformation(@"2FA code generated. Code={Code}, Email={Email}", code, email);
+
         _logger.LogInformation("2FA code generated. Email={Email}", email);
         return code;
     }

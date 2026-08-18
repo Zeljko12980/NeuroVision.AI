@@ -1,4 +1,4 @@
-import { post,get } from "../../api/api";
+import { post, get, put } from "../../api/api";
 
 interface LoginDto {
     email: string;
@@ -81,6 +81,26 @@ export const changePasswordRequest = async (data: {
     newPassword: string;
 }): Promise<void> => {
     await post("/authentication/change-password", data);
+};
+
+export interface ProfileDto {
+    id: string;
+    userName: string;
+    email: string;
+    phoneNumber?: string | null;
+    emailConfirmed: boolean;
+    roles: string[];
+}
+
+export const getMeRequest = async (): Promise<ProfileDto> => {
+    return await get("/authentication/me");
+};
+
+export const updateProfileRequest = async (data: {
+    userName: string;
+    phoneNumber?: string | null;
+}): Promise<ProfileDto> => {
+    return await put("/authentication/me", data);
 };
 
 export const loginRequest = async (

@@ -25,6 +25,7 @@ import localCommunityCoverageReducer from "../features/location/localCommunityCo
 import legalSuccessorReducer from "../features/location/legalSuccessor/legalSuccessor.slice";
 import governmentHistoryReducer from "../features/location/governmentHistory/governmentHistory.slice";
 import tumorDetectionReducer from "../features/tumorDetection/tumorDetection.slice";
+import usersReducer from "../features/user/userSlice";
 
 export const store = configureStore({
     reducer: {
@@ -53,6 +54,7 @@ export const store = configureStore({
         legalSuccessors: legalSuccessorReducer,
         governmentHistories: governmentHistoryReducer,
         tumorDetection: tumorDetectionReducer,
+        users: usersReducer,
     },
 });
 

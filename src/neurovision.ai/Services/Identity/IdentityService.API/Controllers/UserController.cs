@@ -28,4 +28,25 @@ public class UserController : ControllerBase
         return result.ToActionResult();
     }
 
+    [HttpGet]
+    public async Task<IActionResult> Get([FromQuery] GetAllUsersRequest request, CancellationToken cancellationToken)
+    {
+        var result = await _sender.Send(new GetUsersQuery(request), cancellationToken);
+        return result.ToActionResult();
+    }
+
+    [HttpPost("{id:guid}/unlock")]
+    public async Task<IActionResult> Unlock(Guid id, CancellationToken cancellationToken)
+    {
+        var result = await _sender.Send(new UnlockUserCommand(id), cancellationToken);
+        return result.ToActionResult();
+    }
+
+    [HttpPost("{id:guid}/lock")]
+    public async Task<IActionResult> Lock(Guid id, CancellationToken cancellationToken)
+    {
+        var result = await _sender.Send(new LockUserCommand(id), cancellationToken);
+        return result.ToActionResult();
+    }
+
 }

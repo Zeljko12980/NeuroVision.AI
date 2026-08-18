@@ -68,6 +68,26 @@
             return result.ToActionResult();
         }
 
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpGet("me")]
+        public async Task<IActionResult> GetMe(CancellationToken cancellationToken)
+        {
+            var result = await _sender.Send(new GetCurrentUserQuery(), cancellationToken);
+            return result.ToActionResult();
+        }
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpPut("me")]
+        public async Task<IActionResult> UpdateProfile(
+            [FromBody] UpdateProfileRequest request,
+            CancellationToken cancellationToken)
+        {
+            var result = await _sender.Send(
+                new UpdateProfileCommand(request.UserName, request.PhoneNumber),
+                cancellationToken);
+            return result.ToActionResult();
+        }
+
         [HttpGet("confirm-email")]
         public async Task<IActionResult> ConfirmEmail([FromQuery] ConfirmEmailRequest request, CancellationToken cancellationToken)
         {

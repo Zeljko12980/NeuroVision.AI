@@ -307,7 +307,12 @@ const superAdminNavItems: NavItem[] = [
             {
                 nameKey: "sidebar.assignRoles",
                 icon: <GroupIcon />,
-                path: "/admin/roles/assign"
+                path: "/admin/users"
+            },
+            {
+                nameKey: "sidebar.createAdministrator",
+                icon: <DocsIcon />,
+                path: "/admin/users/create"
             }
 
 

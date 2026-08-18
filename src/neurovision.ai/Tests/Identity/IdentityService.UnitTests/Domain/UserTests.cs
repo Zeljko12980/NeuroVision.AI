@@ -55,12 +55,21 @@ public class UserTests
         var created = DateTime.UtcNow.AddDays(-2);
         var updated = DateTime.UtcNow.AddHours(-1);
 
-        var user = User.Restore(id, "superadmin", "admin@neurovision.ai", true, true, created, updated);
+        var user = User.Restore(
+            id,
+            "superadmin",
+            "admin@neurovision.ai",
+            true,
+            true,
+            created,
+            updated,
+            "+38761111222");
 
         user.Id.Should().Be(id);
         user.EmailConfirmed.Should().BeTrue();
         user.TwoFactorEnabled.Should().BeTrue();
         user.CreatedAtUtc.Should().Be(created);
         user.UpdatedAtUtc.Should().Be(updated);
+        user.PhoneNumber.Should().Be("+38761111222");
     }
 }

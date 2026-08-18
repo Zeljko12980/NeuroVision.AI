@@ -21,8 +21,11 @@ public class AspIdentityUser : IdentityUser<Guid>
         => new(user.Id, user.UserName, user.Email)
         {
             TwoFactorEnabled = user.TwoFactorEnabled,
-            EmailConfirmed = user.EmailConfirmed
+            EmailConfirmed = user.EmailConfirmed,
+            PhoneNumber = user.PhoneNumber
         };
+
+    public void MarkUpdated() => UpdatedAtUtc = DateTime.UtcNow;
 
     public User ToDomain()
         => User.Restore(
@@ -32,5 +35,6 @@ public class AspIdentityUser : IdentityUser<Guid>
             EmailConfirmed,
             TwoFactorEnabled,
             CreatedAtUtc,
-            UpdatedAtUtc);
+            UpdatedAtUtc,
+            PhoneNumber);
 }
