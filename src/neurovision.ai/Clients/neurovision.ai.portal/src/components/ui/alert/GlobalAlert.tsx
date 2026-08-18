@@ -1,42 +1,64 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+import { useTranslation } from "react-i18next";
+
 import { useAppDispatch, useAppSelector } from "../../../store/store";
 import { hideAlert } from "../../../features/ui/uiSlice";
+import Alert from "./Alert";
 
-const variantClasses = {
-    success: "border-green-500 bg-green-50 text-green-700",
-    error: "border-red-500 bg-red-50 text-red-700",
-    warning: "border-yellow-500 bg-yellow-50 text-yellow-700",
-    info: "border-blue-500 bg-blue-50 text-blue-700",
-};
+function getToastRoot(): HTMLElement {
+    let root = document.getElementById("toast-root");
+    if (!root) {
+        root = document.createElement("div");
+        root.id = "toast-root";
+        document.documentElement.appendChild(root);
+    }
+
+    root.style.cssText = [
+        "position:fixed",
+        "top:16px",
+        "right:16px",
+        "left:auto",
+        "bottom:auto",
+        "z-index:2147483647",
+        "width:min(360px, calc(100vw - 32px))",
+        "margin:0",
+        "pointer-events:auto",
+    ].join(";");
+
+    return root;
+}
 
 const GlobalAlert = () => {
+    const { t } = useTranslation();
     const dispatch = useAppDispatch();
     const { message, type, visible } = useAppSelector((s) => s.ui);
+    const [root, setRoot] = useState<HTMLElement | null>(null);
+
+    useEffect(() => {
+        setRoot(getToastRoot());
+    }, []);
 
     useEffect(() => {
         if (!visible) return;
 
-        const timer = setTimeout(() => {
+        const timer = window.setTimeout(() => {
             dispatch(hideAlert());
-        }, 3000);
+        }, 5000);
 
-        return () => clearTimeout(timer);
-    }, [visible]);
+        return () => window.clearTimeout(timer);
+    }, [visible, message, type, dispatch]);
 
-    if (!visible || !type) return null;
+    if (!root || !visible || !type) return null;
 
-    return (
-        <div className="fixed top-4 right-4 z-[99999] w-[320px] animate-fade-in">
-            <div className={`relative rounded-xl border p-4 shadow-lg ${variantClasses[type]}`}>
-                <button
-                    onClick={() => dispatch(hideAlert())}
-                    className="absolute top-2 right-2"
-                >
-                    ✕
-                </button>
-                <p className="text-sm font-medium">{message}</p>
-            </div>
-        </div>
+    return createPortal(
+        <Alert
+            variant={type}
+            title={type === "success" ? t("alerts.success") : t("alerts.error")}
+            message={message}
+            onClose={() => dispatch(hideAlert())}
+        />,
+        root
     );
 };
 

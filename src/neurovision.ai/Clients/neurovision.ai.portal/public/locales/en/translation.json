@@ -18,6 +18,27 @@
     "invalidEmail": "Please enter a valid email address",
     "loginFailed": "Login failed"
   },
+  "forgotPassword": {
+    "title": "Reset password",
+    "subtitle": "Enter your email and we will send a reset link if an account exists.",
+    "submit": "Send reset link",
+    "sending": "Sending...",
+    "sent": "If an account exists for this email, a password reset link has been sent.",
+    "backToSignIn": "Back to sign in"
+  },
+  "changePassword": {
+    "title": "Change password",
+    "current": "Current password",
+    "new": "New password",
+    "confirm": "Confirm new password",
+    "submit": "Update password",
+    "saving": "Updating...",
+    "success": "Password changed successfully.",
+    "error": "Failed to change password.",
+    "tooShort": "Password must be at least 8 characters.",
+    "mismatch": "Passwords do not match.",
+    "sameAsCurrent": "New password must be different from the current password."
+  },
   "dashboard": {
     "title": "System Monitoring",
     "description": "System metrics and logs",

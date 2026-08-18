@@ -47,6 +47,27 @@
             return result.ToActionResult();
         }
 
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgotPassword(
+            [FromBody] ForgotPasswordRequest request,
+            CancellationToken cancellationToken)
+        {
+            var result = await _sender.Send(new ForgotPasswordCommand(request.Email), cancellationToken);
+            return result.ToActionResult();
+        }
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpPost("change-password")]
+        public async Task<IActionResult> ChangePassword(
+            [FromBody] ChangePasswordRequest request,
+            CancellationToken cancellationToken)
+        {
+            var result = await _sender.Send(
+                new ChangePasswordCommand(request.CurrentPassword, request.NewPassword),
+                cancellationToken);
+            return result.ToActionResult();
+        }
+
         [HttpGet("confirm-email")]
         public async Task<IActionResult> ConfirmEmail([FromQuery] ConfirmEmailRequest request, CancellationToken cancellationToken)
         {

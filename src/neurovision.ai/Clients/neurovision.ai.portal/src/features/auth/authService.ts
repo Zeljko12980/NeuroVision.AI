@@ -70,6 +70,19 @@ export const setPasswordRequest = async (
     return await post("/authentication/set-password", data);
 };
 
+export const forgotPasswordRequest = async (
+    email: string
+): Promise<{ message: string }> => {
+    return await post("/authentication/forgot-password", { email });
+};
+
+export const changePasswordRequest = async (data: {
+    currentPassword: string;
+    newPassword: string;
+}): Promise<void> => {
+    await post("/authentication/change-password", data);
+};
+
 export const loginRequest = async (
     data: LoginDto
 ): Promise<LoginResponse> => {

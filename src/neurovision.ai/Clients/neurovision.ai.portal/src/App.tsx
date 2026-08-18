@@ -27,6 +27,7 @@ import ConfirmEmailPage from "./pages/Auth/ConfirmEmail";
 import CreateRolePage from "./pages/CreateRolePage";
 import CreateDoctorPage from "./pages/Doctor/CreateDoctorPage";
 import SetPasswordPage from "./pages/Auth/SetPasswordPage";
+import ResetPasswordPage from "./pages/Auth/ResetPasswordPage";
 
 import AppLayout from "./layout/AppLayout";
 import PrivateRoute from "./components/common/PrivateRoute";
@@ -100,6 +101,7 @@ export default function App() {
                     <Route path="/confirm-2fa" element={<TwoFA />} />
                     <Route path="/confirm-email" element={<ConfirmEmailPage />} />
                     <Route path="/set-password" element={<SetPasswordPage />} />
+                    <Route path="/reset-password" element={<ResetPasswordPage />} />
                     <Route path="*" element={<NotFound />} />
 
                     <Route

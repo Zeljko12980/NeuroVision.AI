@@ -18,6 +18,27 @@
     "invalidEmail": "Unesite validnu email adresu",
     "loginFailed": "Prijava neuspešna"
   },
+  "forgotPassword": {
+    "title": "Reset lozinke",
+    "subtitle": "Unesite email. Ako nalog postoji, poslat ćemo link za reset.",
+    "submit": "Pošalji link",
+    "sending": "Slanje...",
+    "sent": "Ako nalog postoji za ovaj email, poslat je link za reset lozinke.",
+    "backToSignIn": "Nazad na prijavu"
+  },
+  "changePassword": {
+    "title": "Promjena lozinke",
+    "current": "Trenutna lozinka",
+    "new": "Nova lozinka",
+    "confirm": "Potvrdi novu lozinku",
+    "submit": "Ažuriraj lozinku",
+    "saving": "Ažuriranje...",
+    "success": "Lozinka je uspješno promijenjena.",
+    "error": "Promjena lozinke nije uspjela.",
+    "tooShort": "Lozinka mora imati najmanje 8 karaktera.",
+    "mismatch": "Lozinke se ne poklapaju.",
+    "sameAsCurrent": "Nova lozinka mora biti različita od trenutne."
+  },
   "dashboard": {
     "title": "Nadzor sistema",
     "description": "Sistemske metrike i logovi",

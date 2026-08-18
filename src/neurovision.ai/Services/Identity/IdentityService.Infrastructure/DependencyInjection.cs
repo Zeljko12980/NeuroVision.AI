@@ -61,7 +61,11 @@ public static class DependencyInjection
             .AddDefaultTokenProviders();
 
         services.Configure<IdentityOptions>(configuration.GetSection("Identity"));
+        services.Configure<DataProtectionTokenProviderOptions>(options =>
+            options.TokenLifespan = TimeSpan.FromHours(2));
 
+        services.AddHttpContextAccessor();
+        services.AddScoped<ICurrentUser, CurrentUser>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IRoleService, RoleService>();
         services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();

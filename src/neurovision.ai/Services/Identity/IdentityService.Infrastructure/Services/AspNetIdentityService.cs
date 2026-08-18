@@ -180,6 +180,37 @@ public class AspNetIdentityService : IIdentityService
         return true;
     }
 
+    public async Task<Result> ChangePasswordAsync(
+        Guid userId,
+        string currentPassword,
+        string newPassword,
+        CancellationToken cancellationToken = default)
+    {
+        var user = await _userManager.FindByIdAsync(userId.ToString());
+        if (user == null)
+        {
+            _logger.LogWarning("Change password failed. User not found. UserId={UserId}", userId);
+            return Result.Fail("Unauthorized.", HttpStatusCode.Unauthorized);
+        }
+
+        var result = await _userManager.ChangePasswordAsync(user, currentPassword, newPassword);
+        if (!result.Succeeded)
+        {
+            if (result.Errors.Any(e => e.Code == "PasswordMismatch"))
+            {
+                _logger.LogWarning("Change password failed. Invalid current password. UserId={UserId}", userId);
+                return Result.Fail("Invalid current password.");
+            }
+
+            var error = string.Join(", ", result.Errors.Select(e => e.Description));
+            _logger.LogWarning("Change password failed. UserId={UserId}, Errors={Errors}", userId, error);
+            return Result.Fail(error);
+        }
+
+        _logger.LogInformation("Password changed. UserId={UserId}", userId);
+        return Result.Ok();
+    }
+
     public async Task<string?> GetUserNameByEmailAsync(string email, CancellationToken cancellationToken = default)
     {
         var user = await _userManager.FindByEmailAsync(email);

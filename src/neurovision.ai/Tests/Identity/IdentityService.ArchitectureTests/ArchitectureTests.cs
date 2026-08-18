@@ -121,6 +121,8 @@ public class NamingConventionTests
             .ImplementInterface(typeof(IJwtTokenGenerator))
             .Or()
             .ImplementInterface(typeof(IFrontendLinkService))
+            .Or()
+            .ImplementInterface(typeof(ICurrentUser))
             .Should()
             .ResideInNamespace("IdentityService.Infrastructure.Services")
             .GetResult()
