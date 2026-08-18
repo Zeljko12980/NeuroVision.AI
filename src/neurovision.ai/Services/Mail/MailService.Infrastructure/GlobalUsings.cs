@@ -1,0 +1,10 @@
+global using BuildingBlocks.Results;
+global using MailService.Application.Common.Interfaces;
+global using MailService.Domain.ValueObjects;
+global using MailService.Infrastructure.Configuration;
+global using MailService.Infrastructure.Services;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Logging;
+global using Microsoft.Extensions.Options;
+global using System.Net;

@@ -286,27 +286,27 @@ const superAdminNavItems: NavItem[] = [
     {
         nameKey: "sidebar.roleManagement",
         icon: <GroupIcon />,
-
         subItems: [
-
-
             {
                 nameKey: "sidebar.roles",
                 icon: <TableIcon />,
                 path: "/admin/roles"
             },
-
-
             {
                 nameKey: "sidebar.createRole",
                 icon: <DocsIcon />,
                 path: "/admin/roles/create"
-            },
+            }
+        ]
+    },
 
-
+    {
+        nameKey: "sidebar.userManagement",
+        icon: <GroupIcon />,
+        subItems: [
             {
-                nameKey: "sidebar.assignRoles",
-                icon: <GroupIcon />,
+                nameKey: "sidebar.users",
+                icon: <TableIcon />,
                 path: "/admin/users"
             },
             {
@@ -314,8 +314,6 @@ const superAdminNavItems: NavItem[] = [
                 icon: <DocsIcon />,
                 path: "/admin/users/create"
             }
-
-
         ]
     },
 
