@@ -14,6 +14,7 @@ builder.Services.AddRouting(options =>
 builder.Services.AddGrpc();
 
 builder.Services.AddControllers();
+builder.Services.AddOpenApi();
 
 builder.Services
     .AddInfrastructure(builder.Configuration)
@@ -39,6 +40,17 @@ app.MapDefaultEndpoints();
 app.UseSerilogRequestLogging();
 
 app.UseRouting();
+
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
+    app.MapScalarApiReference(options =>
+    {
+        options
+            .WithTitle("PDF Service API")
+            .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
+    });
+}
 
 app.UseCors("AllowFrontend");
 

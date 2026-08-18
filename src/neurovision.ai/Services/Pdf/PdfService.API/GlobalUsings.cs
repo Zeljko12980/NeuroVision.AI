@@ -2,6 +2,7 @@
 global using BuildingBlocks.Results;
 global using MediatR;
 global using Microsoft.AspNetCore.Mvc;
+global using Scalar.AspNetCore;
 global using PdfService.Application.Commands.Certificates;
 global using PdfService.Application.Queries.Certificates;
 global using PdfService.Application.Common.Requests;
