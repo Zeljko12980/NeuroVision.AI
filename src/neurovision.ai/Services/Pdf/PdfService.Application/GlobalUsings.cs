@@ -1,0 +1,17 @@
+global using BuildingBlocks.Behaviors;
+global using BuildingBlocks.CQRS;
+global using BuildingBlocks.Pagination;
+global using BuildingBlocks.Persistence;
+global using BuildingBlocks.Results;
+global using FluentValidation;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Logging;
+global using PdfService.Application.Common.Interfaces;
+global using PdfService.Application.Common.Mappings;
+global using PdfService.Application.Common.Models;
+global using PdfService.Application.Common.Requests;
+global using PdfService.Application.Common.Responses;
+global using PdfService.Domain.Entities;
+global using System.Net;
+global using System.Reflection;

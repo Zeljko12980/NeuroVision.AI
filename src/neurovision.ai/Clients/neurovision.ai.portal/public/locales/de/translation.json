@@ -191,7 +191,9 @@
       "deleteSuccess": "Vorlage erfolgreich gelöscht.",
       "deleteError": "Vorlage konnte nicht gelöscht werden.",
       "updateSuccess": "Vorlage erfolgreich aktualisiert.",
-      "updateError": "Vorlage konnte nicht aktualisiert werden."
+      "updateError": "Vorlage konnte nicht aktualisiert werden.",
+      "createSuccess": "Vorlage erfolgreich erstellt.",
+      "createError": "Vorlage konnte nicht erstellt werden."
     },
     "dialogs": {
       "deleteTitle": "PDF-Vorlage löschen",
@@ -210,7 +212,10 @@
         "code": "Vorlagencode",
         "version": "Version",
         "status": "Status",
-        "activeTemplate": "Aktive Vorlage"
+        "activeTemplate": "Aktive Vorlage",
+        "requiresSignature": "Signatur erforderlich",
+        "requiresSignatureLabel": "Digital signiertes Dokument",
+        "signaturePage": "Signaturseite"
       }
     },
     "previewModal": {

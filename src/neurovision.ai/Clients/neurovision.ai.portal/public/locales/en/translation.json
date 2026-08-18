@@ -191,7 +191,9 @@
       "deleteSuccess": "Template deleted successfully.",
       "deleteError": "Failed to delete template.",
       "updateSuccess": "Template updated successfully.",
-      "updateError": "Failed to update template."
+      "updateError": "Failed to update template.",
+      "createSuccess": "Template created successfully.",
+      "createError": "Failed to create template."
     },
     "dialogs": {
       "deleteTitle": "Delete PDF Template",
@@ -210,7 +212,10 @@
         "code": "Template Code",
         "version": "Version",
         "status": "Status",
-        "activeTemplate": "Active Template"
+        "activeTemplate": "Active Template",
+        "requiresSignature": "Requires Signature",
+        "requiresSignatureLabel": "Digitally signed document",
+        "signaturePage": "Signature Page"
       }
     },
     "previewModal": {

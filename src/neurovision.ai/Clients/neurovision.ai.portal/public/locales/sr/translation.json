@@ -191,7 +191,9 @@
       "deleteSuccess": "Šablon je uspešno obrisan.",
       "deleteError": "Greška prilikom brisanja šablona.",
       "updateSuccess": "Šablon je uspešno ažuriran.",
-      "updateError": "Greška prilikom ažuriranja šablona."
+      "updateError": "Greška prilikom ažuriranja šablona.",
+      "createSuccess": "Šablon je uspešno kreiran.",
+      "createError": "Greška prilikom kreiranja šablona."
     },
     "dialogs": {
       "deleteTitle": "Obriši PDF šablon",
@@ -210,7 +212,10 @@
         "code": "Kod šablona",
         "version": "Verzija",
         "status": "Status",
-        "activeTemplate": "Aktivan šablon"
+        "activeTemplate": "Aktivan šablon",
+        "requiresSignature": "Zahtijeva potpis",
+        "requiresSignatureLabel": "Digitalno potpisan dokument",
+        "signaturePage": "Stranica potpisa"
       }
     },
     "previewModal": {
