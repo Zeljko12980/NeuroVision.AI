@@ -47,6 +47,8 @@ import {
     getUserInfoFromClaims
 } from "../utils/claims";
 
+import BrandLogo from "../components/common/BrandLogo";
+
 
 
 type NavItem = {
@@ -305,7 +307,12 @@ const superAdminNavItems: NavItem[] = [
             {
                 nameKey: "sidebar.assignRoles",
                 icon: <GroupIcon />,
-                path: "/admin/roles/assign"
+                path: "/admin/users"
+            },
+            {
+                nameKey: "sidebar.createAdministrator",
+                icon: <DocsIcon />,
+                path: "/admin/users/create"
             }
 
 
@@ -1483,46 +1490,12 @@ const AppSidebar = () => {
             `}
             >
 
-                <Link to="/">
-
-                    {
-                        isExpanded ||
-                            isHovered ||
-                            isMobileOpen
-
-                            ?
-
-                            <>
-
-                                <img
-                                    className="dark:hidden"
-                                    src="/images/logo/neurovision-light-horizontal.svg"
-                                    width={300}
-                                    alt="Logo"
-                                />
-
-
-                                <img
-                                    className="hidden dark:block"
-                                    src="/images/logo/neurovision-dark-horizontal.svg"
-                                    width={300}
-                                    alt="Logo"
-                                />
-
-                            </>
-
-
-                            :
-
-                            <img
-                                src="/images/logo/neurovision-icon-light.svg"
-                                width={32}
-                                alt="Logo"
-                            />
-
-                    }
-
-
+                <Link to="/" className="flex items-center">
+                    {isExpanded || isHovered || isMobileOpen ? (
+                        <BrandLogo className="h-9 w-auto max-w-[200px]" />
+                    ) : (
+                        <BrandLogo variant="icon" className="h-8 w-8" />
+                    )}
                 </Link>
 
 

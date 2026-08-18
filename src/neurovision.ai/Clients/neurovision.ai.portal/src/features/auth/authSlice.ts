@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { loginRequest, confirm2FARequest, resend2FARequest, confirmEmailRequest, setPasswordRequest } from "./authService";
+import { loginRequest, confirm2FARequest, resend2FARequest, confirmEmailRequest, setPasswordRequest, forgotPasswordRequest, changePasswordRequest } from "./authService";
 interface AuthState {
     token: string | null;
     email: string | null;
@@ -15,6 +15,9 @@ interface AuthState {
 
     setPasswordLoading: boolean;
     setPasswordSuccess: boolean;
+    forgotPasswordLoading: boolean;
+    forgotPasswordSuccess: boolean;
+    changePasswordLoading: boolean;
 }
 
 const initialState: AuthState = {
@@ -31,6 +34,9 @@ const initialState: AuthState = {
     confirmEmailSuccess: false,
     setPasswordLoading: false,
     setPasswordSuccess: false,
+    forgotPasswordLoading: false,
+    forgotPasswordSuccess: false,
+    changePasswordLoading: false,
 };
 
 export const setPassword = createAsyncThunk<
@@ -133,10 +139,34 @@ export const confirmEmail = createAsyncThunk<
         } catch (error: any) {
             const data = error.response?.data;
             if (data?.detail) return thunkAPI.rejectWithValue(data.detail);
-            return thunkAPI.rejectWithValue("Failed to confirm email.");
+            return thunkAPI.rejectWithValue(error.message || "Failed to confirm email.");
         }
     }
 );
+
+export const forgotPassword = createAsyncThunk<
+    { message: string },
+    { email: string },
+    { rejectValue: string }
+>("auth/forgotPassword", async ({ email }, thunkAPI) => {
+    try {
+        return await forgotPasswordRequest(email);
+    } catch (error: any) {
+        return thunkAPI.rejectWithValue(error.message || "Failed to send reset link.");
+    }
+});
+
+export const changePassword = createAsyncThunk<
+    void,
+    { currentPassword: string; newPassword: string },
+    { rejectValue: string }
+>("auth/changePassword", async (data, thunkAPI) => {
+    try {
+        await changePasswordRequest(data);
+    } catch (error: any) {
+        return thunkAPI.rejectWithValue(error.message || "Failed to change password.");
+    }
+});
 
 
 
@@ -150,6 +180,7 @@ const authSlice = createSlice({
             state.requires2FA = false;
             state.error = null;
             state.resendMessage = null;
+            state.forgotPasswordSuccess = false;
 
             localStorage.removeItem("token");
             window.location.href = "/signin";
@@ -233,6 +264,33 @@ const authSlice = createSlice({
             state.setPasswordLoading = false;
             state.error = action.payload;
             state.setPasswordSuccess = false;
+        });
+
+        builder.addCase(forgotPassword.pending, (state) => {
+            state.forgotPasswordLoading = true;
+            state.error = null;
+            state.forgotPasswordSuccess = false;
+        });
+        builder.addCase(forgotPassword.fulfilled, (state) => {
+            state.forgotPasswordLoading = false;
+            state.forgotPasswordSuccess = true;
+        });
+        builder.addCase(forgotPassword.rejected, (state, action: any) => {
+            state.forgotPasswordLoading = false;
+            state.error = action.payload;
+            state.forgotPasswordSuccess = false;
+        });
+
+        builder.addCase(changePassword.pending, (state) => {
+            state.changePasswordLoading = true;
+            state.error = null;
+        });
+        builder.addCase(changePassword.fulfilled, (state) => {
+            state.changePasswordLoading = false;
+        });
+        builder.addCase(changePassword.rejected, (state, action: any) => {
+            state.changePasswordLoading = false;
+            state.error = action.payload;
         });
     },
 });

@@ -1,4 +1,4 @@
-import { post,get } from "../../api/api";
+import { post, get, put } from "../../api/api";
 
 interface LoginDto {
     email: string;
@@ -45,7 +45,7 @@ export const confirmEmailRequest = async (
     token: string
 ): Promise<ConfirmEmailResponse> => {
     return await get(
-        `/user/confirm-email?Email=${encodeURIComponent(email)}&Token=${encodeURIComponent(token)}`
+        `/authentication/confirm-email?Email=${encodeURIComponent(email)}&Token=${encodeURIComponent(token)}`
     );
 };
                                        
@@ -68,6 +68,39 @@ export const setPasswordRequest = async (
     data: SetPasswordDto
 ): Promise<SetPasswordResponse> => {
     return await post("/authentication/set-password", data);
+};
+
+export const forgotPasswordRequest = async (
+    email: string
+): Promise<{ message: string }> => {
+    return await post("/authentication/forgot-password", { email });
+};
+
+export const changePasswordRequest = async (data: {
+    currentPassword: string;
+    newPassword: string;
+}): Promise<void> => {
+    await post("/authentication/change-password", data);
+};
+
+export interface ProfileDto {
+    id: string;
+    userName: string;
+    email: string;
+    phoneNumber?: string | null;
+    emailConfirmed: boolean;
+    roles: string[];
+}
+
+export const getMeRequest = async (): Promise<ProfileDto> => {
+    return await get("/authentication/me");
+};
+
+export const updateProfileRequest = async (data: {
+    userName: string;
+    phoneNumber?: string | null;
+}): Promise<ProfileDto> => {
+    return await put("/authentication/me", data);
 };
 
 export const loginRequest = async (

@@ -190,6 +190,18 @@ layer(base);
   }
 }
 
+#toast-root {
+  position: fixed !important;
+  top: 16px !important;
+  right: 16px !important;
+  left: auto !important;
+  bottom: auto !important;
+  z-index: 2147483647 !important;
+  width: min(360px, calc(100vw - 32px)) !important;
+  margin: 0 !important;
+  pointer-events: auto !important;
+}
+
 @utility menu-item {
   @apply relative flex items-center w-full gap-3 px-3 py-2 font-medium rounded-lg text-theme-sm;
 }

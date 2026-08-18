@@ -5,7 +5,6 @@ import { useAppDispatch, useAppSelector } from "../../store/store";
 import Label from "../../components/form/Label";
 import Input from "../../components/form/input/InputField";
 import Button from "../../components/ui/button/Button";
-import Alert from "../../components/ui/alert/Alert";
 
 import { setPassword } from "../../features/auth/authSlice";
 import { showAlert, hideAlert } from "../../features/ui/uiSlice";
@@ -24,10 +23,8 @@ export default function SetPasswordForm() {
 
     const [passwordValue, setPasswordValue] = useState("");
     const [confirm, setConfirm] = useState("");
-    const [localError, setLocalError] = useState<string>("");
 
     const { setPasswordLoading, error, setPasswordSuccess } = useAppSelector((state) => state.auth);
-    const { message, type, visible } = useAppSelector((state) => state.ui);
 
     // redirect after success
     useEffect(() => {
@@ -54,21 +51,19 @@ export default function SetPasswordForm() {
         e.preventDefault();
 
         if (!email || !token) {
-            setLocalError(t("errors.invalidLink") || "Invalid or expired link");
+            dispatch(showAlert({ message: t("errors.invalidLink") || "Invalid or expired link", type: "error" }));
             return;
         }
 
         if (passwordValue.length < 8) {
-            setLocalError("Password must be at least 8 characters");
+            dispatch(showAlert({ message: "Password must be at least 8 characters", type: "error" }));
             return;
         }
 
         if (passwordValue !== confirm) {
-            setLocalError("Passwords do not match");
+            dispatch(showAlert({ message: "Passwords do not match", type: "error" }));
             return;
         }
-
-        setLocalError("");
 
         dispatch(
             setPassword({
@@ -78,6 +73,12 @@ export default function SetPasswordForm() {
             })
         );
     };
+
+    useEffect(() => {
+        if (error) {
+            dispatch(showAlert({ message: error, type: "error" }));
+        }
+    }, [error, dispatch]);
 
     return (
         <div className="flex flex-col flex-1">
@@ -91,26 +92,6 @@ export default function SetPasswordForm() {
                         {t("setPassword.subtitle") || "Create a secure password for your account"}
                     </p>
                 </div>
-
-                {/* GLOBAL ALERT */}
-                {visible && type && (
-                    <div className="fixed top-4 right-4 z-50">
-                        <Alert
-                            variant={type}
-                            title={type === "success" ? "Success" : "Error"}
-                            message={message}
-                        />
-                    </div>
-                )}
-
-                {/* ERROR */}
-                {(localError || error) && (
-                    <Alert
-                        variant="error"
-                        title="Error"
-                        message={localError || error || ""}
-                    />
-                )}
 
                 <form onSubmit={handleSubmit}>
                     <div className="space-y-6">

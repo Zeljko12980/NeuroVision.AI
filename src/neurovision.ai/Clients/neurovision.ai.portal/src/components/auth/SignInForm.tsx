@@ -4,7 +4,6 @@ import { EyeCloseIcon, EyeIcon } from "../../icons";
 import Label from "../form/Label";
 import Input from "../form/input/InputField";
 import Button from "../ui/button/Button";
-import Alert from "../ui/alert/Alert";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { login } from "../../features/auth/authSlice";
 import { showAlert, hideAlert } from "../../features/ui/uiSlice";
@@ -22,7 +21,6 @@ export default function SignInForm() {
     const navigate = useNavigate();
 
     const { requires2FA, error, loading } = useAppSelector((state) => state.auth);
-    const { message, type, visible } = useAppSelector((state) => state.ui);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -73,16 +71,6 @@ export default function SignInForm() {
                             {t("signin.subtitle")}
                         </p>
                     </div>
-
-                    {visible && type && (
-                        <div className="fixed top-4 right-4 z-50">
-                            <Alert
-                                variant={type}
-                                title={type === "success" ? t("alerts.success") : t("alerts.error")}
-                                message={message}
-                            />
-                        </div>
-                    )}
 
                     <form onSubmit={handleSubmit}>
                         <div className="space-y-6">

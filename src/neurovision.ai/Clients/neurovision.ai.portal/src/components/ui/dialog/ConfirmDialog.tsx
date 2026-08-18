@@ -8,6 +8,8 @@ interface ConfirmDialogProps {
     onConfirm: () => void;
     onCancel: () => void;
     loading?: boolean;
+    confirmLabel?: string;
+    confirmClassName?: string;
 }
 
 const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
@@ -17,6 +19,8 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
     onConfirm,
     onCancel,
     loading,
+    confirmLabel,
+    confirmClassName = "bg-red-500 hover:bg-red-600 text-white",
 }) => {
     return (
         <Modal isOpen={isOpen} onClose={onCancel} className="max-w-md">
@@ -37,11 +41,12 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
                     </Button>
 
                     <Button
+                        type="button"
                         onClick={onConfirm}
                         disabled={loading}
-                        className="bg-red-500 hover:bg-red-600 text-white"
+                        className={confirmClassName}
                     >
-                        {loading ? "Deleting..." : "Delete"}
+                        {loading ? "..." : confirmLabel || "Delete"}
                     </Button>
                 </div>
             </div>

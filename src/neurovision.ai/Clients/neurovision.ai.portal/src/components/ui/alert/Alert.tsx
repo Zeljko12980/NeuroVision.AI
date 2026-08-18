@@ -1,14 +1,13 @@
 import { Link } from "react-router";
-import { useAppDispatch } from "../../../store/store";
-import { hideAlert } from "../../../features/ui/uiSlice";
 
 interface AlertProps {
-    variant: "success" | "error" | "warning" | "info"; 
-    title: string; 
-    message: string; 
-    showLink?: boolean; 
-    linkHref?: string; 
+    variant: "success" | "error" | "warning" | "info";
+    title: string;
+    message: string;
+    showLink?: boolean;
+    linkHref?: string;
     linkText?: string;
+    onClose?: () => void;
 }
 
 const Alert: React.FC<AlertProps> = ({
@@ -18,12 +17,8 @@ const Alert: React.FC<AlertProps> = ({
     showLink = false,
     linkHref = "#",
     linkText = "Learn more",
+    onClose,
 }) => {
-    const dispatch = useAppDispatch();
-
-    const handleClose = () => {
-        dispatch(hideAlert());
-    };
     const variantClasses = {
         success: {
             container:
@@ -133,13 +128,21 @@ const Alert: React.FC<AlertProps> = ({
         <div
             className={`relative rounded-xl border p-4 ${variantClasses[variant].container}`}
         >
-            <button
-                onClick={handleClose}
-                className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
-            >
-                {icons["close"]}
-            </button>
-            <div className="flex items-start gap-3">
+            {onClose && (
+                <button
+                    type="button"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        onClose();
+                    }}
+                    aria-label="Close"
+                    className="absolute top-2 right-2 z-10 flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 hover:bg-black/5 hover:text-gray-700 dark:hover:bg-white/10 dark:hover:text-gray-200"
+                >
+                    {icons["close"]}
+                </button>
+            )}
+            <div className={`flex items-start gap-3 ${onClose ? "pr-8" : ""}`}>
                 <div className={`-mt-0.5 ${variantClasses[variant].icon}`}>
                     {icons[variant]}
                 </div>

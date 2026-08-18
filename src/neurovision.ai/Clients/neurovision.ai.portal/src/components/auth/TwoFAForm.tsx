@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import Label from "../../components/form/Label";
 import Input from "../../components/form/input/InputField";
 import Button from "../../components/ui/button/Button";
-import Alert from "../../components/ui/alert/Alert";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { verify2FA, resend2FA } from "../../features/auth/authSlice";
 import { showAlert, hideAlert } from "../../features/ui/uiSlice";
@@ -27,8 +26,6 @@ export default function TwoFAForm() {
         resendLoading,
         resendMessage,
     } = useAppSelector((state) => state.auth);
-
-    const { message, type, visible } = useAppSelector((state) => state.ui);
 
     useEffect(() => {
         if (!email) {
@@ -121,16 +118,6 @@ export default function TwoFAForm() {
                         </p>
                     </div>
 
-                    {visible && type && (
-                        <div className="fixed top-4 right-4 z-50">
-                            <Alert
-                                variant={type}
-                                title={type === "success" ? t("alerts.success") : t("alerts.error")}
-                                message={message}
-                            />
-                        </div>
-                    )}
-
                     <form onSubmit={handleSubmit}>
                         <div className="space-y-6">
                             <div>
@@ -158,6 +145,7 @@ export default function TwoFAForm() {
 
                             <div>
                                 <Button
+                                    type="submit"
                                     className="w-full"
                                     size="sm"
                                     disabled={isButtonDisabled}

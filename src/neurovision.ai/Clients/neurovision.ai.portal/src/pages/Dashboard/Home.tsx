@@ -1,17 +1,20 @@
+import { useTranslation } from "react-i18next";
+
 import PageMeta from "../../components/common/PageMeta";
+import PageBreadcrumb from "../../components/common/PageBreadCrumb";
+import GrafanaDashboardEmbed from "../../components/monitoring/GrafanaDashboardEmbed";
 
 export default function Home() {
+    const { t } = useTranslation();
+
     return (
         <>
             <PageMeta
-                title="NeuroVision.AI"
-                description="NeuroVision.AI"
+                title={t("dashboard.title")}
+                description={t("dashboard.description")}
             />
-            <div className="grid grid-cols-12 gap-4 md:gap-6">
-               
-            <h1>FFF</h1>
-               
-            </div>
+            <PageBreadcrumb pageTitle={t("dashboard.title")} />
+            <GrafanaDashboardEmbed openInGrafanaLabel={t("dashboard.openGrafana")} />
         </>
     );
 }

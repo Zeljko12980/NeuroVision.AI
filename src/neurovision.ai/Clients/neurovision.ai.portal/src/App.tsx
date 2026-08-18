@@ -25,8 +25,11 @@ import LineChart from "./pages/Charts/LineChart";
 import BarChart from "./pages/Charts/BarChart";
 import ConfirmEmailPage from "./pages/Auth/ConfirmEmail";
 import CreateRolePage from "./pages/CreateRolePage";
+import UsersTable from "./pages/Tables/UsersTable";
+import CreateAdministratorPage from "./pages/CreateAdministratorPage";
 import CreateDoctorPage from "./pages/Doctor/CreateDoctorPage";
 import SetPasswordPage from "./pages/Auth/SetPasswordPage";
+import ResetPasswordPage from "./pages/Auth/ResetPasswordPage";
 
 import AppLayout from "./layout/AppLayout";
 import PrivateRoute from "./components/common/PrivateRoute";
@@ -100,6 +103,7 @@ export default function App() {
                     <Route path="/confirm-2fa" element={<TwoFA />} />
                     <Route path="/confirm-email" element={<ConfirmEmailPage />} />
                     <Route path="/set-password" element={<SetPasswordPage />} />
+                    <Route path="/reset-password" element={<ResetPasswordPage />} />
                     <Route path="*" element={<NotFound />} />
 
                     <Route
@@ -133,6 +137,9 @@ export default function App() {
                         >
                             <Route path="/admin/roles" element={<RolesTable />} />
                             <Route path="/admin/roles/create" element={<CreateRolePage />} />
+                            <Route path="/admin/roles/assign" element={<UsersTable />} />
+                            <Route path="/admin/users" element={<UsersTable />} />
+                            <Route path="/admin/users/create" element={<CreateAdministratorPage />} />
                             <Route path="/admin/doctors" element={<DoctorsTable />} />
                             <Route path="/admin/doctors/add" element={<CreateDoctorPage />} />
                             <Route path="/admin/pdfs" element={<PdfTable />} />
