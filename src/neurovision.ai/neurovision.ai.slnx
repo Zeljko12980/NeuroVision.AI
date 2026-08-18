@@ -13,24 +13,24 @@
     <Project Path="Gateway/Gateway.API/Gateway.API.csproj" />
   </Folder>
   <Folder Name="/Services/" />
-  <Folder Name="/Services/Identity/" Id="357a7c97-5ae1-023f-1442-0d9f9af22a31">
+  <Folder Name="/Services/Identity/">
     <Project Path="Services/Identity/IdentityService.API/IdentityService.API.csproj" />
     <Project Path="Services/Identity/IdentityService.Application/IdentityService.Application.csproj" />
     <Project Path="Services/Identity/IdentityService.Domain/IdentityService.Domain.csproj" />
     <Project Path="Services/Identity/IdentityService.Infrastructure/IdentityService.Infrastructure.csproj" />
   </Folder>
-  <Folder Name="/Services/Mail/">
+  <Folder Name="/Services/Mail/" Id="4d9e9a99-4fd5-ee2b-06e9-cdf7c50a30db">
     <Project Path="Services/Mail/MailService.API/MailService.API.csproj" />
     <Project Path="Services/Mail/MailService.Application/MailService.Application.csproj" Id="df7621e5-6f99-4148-a255-65a3b549edf0" />
     <Project Path="Services/Mail/MailService.Domain/MailService.Domain.csproj" Id="8cd4e093-cbb5-44bb-b59b-8716d86e0bf0" />
     <Project Path="Services/Mail/MailService.Infrastructure/MailService.Infrastructure.csproj" Id="5e63e121-db8a-4775-a4f8-638dc5b0ebab" />
   </Folder>
   <Folder Name="/Tests/" />
-  <Folder Name="/Tests/Identity/" Id="391ce2f5-ae47-7a9a-f474-4847be99435e">
+  <Folder Name="/Tests/Identity/">
     <Project Path="tests/Identity/IdentityService.ArchitectureTests/IdentityService.ArchitectureTests.csproj" />
     <Project Path="tests/Identity/IdentityService.UnitTests/IdentityService.UnitTests.csproj" />
   </Folder>
-  <Folder Name="/Tests/Mail/">
+  <Folder Name="/Tests/Mail/" Id="3ffa0b1a-82fd-4197-a8cb-4acc20613d4e">
     <Project Path="Tests/Mail/MailService.ArchitectureTests/MailService.ArchitectureTests.csproj" />
     <Project Path="Tests/Mail/MailService.UnitTests/MailService.UnitTests.csproj" />
   </Folder>
