@@ -12,7 +12,7 @@
       "id": 1,
       "type": "stat",
       "title": "Identity scrape",
-      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 0 },
+      "gridPos": { "h": 4, "w": 4, "x": 0, "y": 0 },
       "datasource": { "type": "prometheus", "uid": "prometheus" },
       "targets": [
         { "refId": "A", "expr": "up{job=\"identity\"}" }
@@ -31,10 +31,29 @@
       "id": 2,
       "type": "stat",
       "title": "Gateway scrape",
-      "gridPos": { "h": 4, "w": 6, "x": 6, "y": 0 },
+      "gridPos": { "h": 4, "w": 4, "x": 4, "y": 0 },
       "datasource": { "type": "prometheus", "uid": "prometheus" },
       "targets": [
         { "refId": "A", "expr": "up{job=\"gateway\"}" }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            { "type": "value", "options": { "0": { "text": "DOWN", "color": "red" }, "1": { "text": "UP", "color": "green" } } }
+          ],
+          "thresholds": { "mode": "absolute", "steps": [{ "color": "red", "value": null }, { "color": "green", "value": 1 }] }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 8,
+      "type": "stat",
+      "title": "Mail scrape",
+      "gridPos": { "h": 4, "w": 4, "x": 8, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "targets": [
+        { "refId": "A", "expr": "up{job=\"mail\"}" }
       ],
       "fieldConfig": {
         "defaults": {
@@ -106,6 +125,16 @@
       "datasource": { "type": "loki", "uid": "loki" },
       "targets": [
         { "refId": "A", "expr": "{service=\"identityservice-api\"}" }
+      ]
+    },
+    {
+      "id": 9,
+      "type": "logs",
+      "title": "Mail logs",
+      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 22 },
+      "datasource": { "type": "loki", "uid": "loki" },
+      "targets": [
+        { "refId": "A", "expr": "{service=~\"MailService|mailservice-api\"}" }
       ]
     }
   ]

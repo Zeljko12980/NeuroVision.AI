@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Constants\" />
+    <Folder Include="Templates\" />
+    <Folder Include="ValueObjects\" />
+  </ItemGroup>
+
 </Project>

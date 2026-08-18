@@ -69,6 +69,14 @@ var identityService = builder.AddProject<Projects.IdentityService_API>("identity
        .WithEnvironment("Observability__ServiceName", "identityservice-api")
        .WithEnvironment("Observability__LokiUrl", loki.GetEndpoint("http"));
 
+builder.AddProject<Projects.MailService_API>("mailservice-api")
+       .WaitFor(rabbitmq)
+       .WithReference(rabbitmq)
+       .WaitFor(loki)
+       .WaitFor(prometheus)
+       .WithEnvironment("Observability__ServiceName", "mailservice-api")
+       .WithEnvironment("Observability__LokiUrl", loki.GetEndpoint("http"));
+
 
 //GATEWAY
 

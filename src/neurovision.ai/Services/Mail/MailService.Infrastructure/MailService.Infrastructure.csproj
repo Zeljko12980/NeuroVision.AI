@@ -6,4 +6,24 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MailKit" Version="4.16.0" />
+    <PackageReference Include="Grpc.Net.ClientFactory" Version="2.66.0" />
+    <PackageReference Include="Google.Protobuf" Version="3.28.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.66.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="Protos/pdf.proto" GrpcServices="Client" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MailService.Application\MailService.Application.csproj" />
+    <ProjectReference Include="..\MailService.Domain\MailService.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

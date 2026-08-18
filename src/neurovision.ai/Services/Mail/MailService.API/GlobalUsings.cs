@@ -1,11 +1,4 @@
-﻿global using BuildingBlocks.Messaging.Events;
-global using BuildingBlocks.Messaging.MassTransit;
-global using iText.Html2pdf;
-global using MailService.API.Models;
-global using MailService.API.Services;
-global using MailService.API.Services.Interfaces;
-global using MassTransit;
-global using Microsoft.Extensions.Options;
-global using System.Net;
-global using System.Net.Mail;
-global using System.Reflection;
+﻿global using BuildingBlocks.Logging;
+global using MailService.Application;
+global using MailService.Infrastructure;
+global using Serilog;

@@ -1,39 +1,23 @@
-
-
-using PdfService.Grpc;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
+builder.Host.AddSerilogObservability();
+builder.Services.AddObservabilityTelemetry(builder.Configuration);
 
-builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
-builder.Services.AddScoped<IEmailService, EmailService>();
-builder.Services.AddGrpcClient<PdfGenerator.PdfGeneratorClient>(options =>
-{
-    options.Address = new Uri(builder.Configuration["PdfService:GrpcUrl"]!);
-});
-
-builder.Services.AddScoped<IPdfServiceClient, PdfServiceClient>();
-builder.Services.AddMessageBroker(builder.Configuration, Assembly.GetExecutingAssembly());
-
-builder.Services.AddControllers();
-builder.Services.AddOpenApi();
+builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddApplicationServices(builder.Configuration);
 
 var app = builder.Build();
 
+app.UseSerilogRequestLogging();
 app.MapDefaultEndpoints();
-
 
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
 app.Run();
+
+public partial class Program;
