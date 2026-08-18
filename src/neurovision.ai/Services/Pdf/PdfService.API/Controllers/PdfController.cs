@@ -96,7 +96,7 @@ public class PdfController : ControllerBase
         CancellationToken cancellationToken)
     {
         var result = await _sender.Send(
-            new GeneratePdfCommand(request.TemplateCode, request.Data, request.CertificateId),
+            new GeneratePdfCommand(request.TemplateCode, request.Data, request.CertificateId, request.UserId),
             cancellationToken);
 
         return result.ToActionResult();

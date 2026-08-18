@@ -45,10 +45,13 @@ public class CreateCertificateCommandValidatorTests
     public void Validate_WhenValidPfx_Succeeds()
     {
         var result = _validator.Validate(new CreateCertificateCommand(
+            Guid.NewGuid(),
             "Doctor cert",
             "secret",
             [1, 2, 3],
-            "doctor.pfx"));
+            "doctor.pfx",
+            [9, 9],
+            "sign.png"));
 
         result.IsValid.Should().BeTrue();
     }
@@ -57,10 +60,13 @@ public class CreateCertificateCommandValidatorTests
     public void Validate_WhenExtensionNotAllowed_Fails()
     {
         var result = _validator.Validate(new CreateCertificateCommand(
+            Guid.NewGuid(),
             "Doctor cert",
             "secret",
             [1, 2, 3],
-            "doctor.txt"));
+            "doctor.txt",
+            [9, 9],
+            "sign.png"));
 
         result.IsValid.Should().BeFalse();
     }
@@ -69,10 +75,13 @@ public class CreateCertificateCommandValidatorTests
     public void Validate_WhenFileEmpty_Fails()
     {
         var result = _validator.Validate(new CreateCertificateCommand(
+            Guid.NewGuid(),
             "Doctor cert",
             "secret",
             [],
-            "doctor.pfx"));
+            "doctor.pfx",
+            [9, 9],
+            "sign.png"));
 
         result.IsValid.Should().BeFalse();
     }
@@ -81,10 +90,43 @@ public class CreateCertificateCommandValidatorTests
     public void Validate_WhenNameMissing_Fails()
     {
         var result = _validator.Validate(new CreateCertificateCommand(
+            Guid.NewGuid(),
             "",
             "secret",
             [1, 2, 3],
-            "doctor.pfx"));
+            "doctor.pfx",
+            [9, 9],
+            "sign.png"));
+
+        result.IsValid.Should().BeFalse();
+    }
+
+    [Fact]
+    public void Validate_WhenUserIdMissing_Fails()
+    {
+        var result = _validator.Validate(new CreateCertificateCommand(
+            Guid.Empty,
+            "Doctor cert",
+            "secret",
+            [1, 2, 3],
+            "doctor.pfx",
+            [9, 9],
+            "sign.png"));
+
+        result.IsValid.Should().BeFalse();
+    }
+
+    [Fact]
+    public void Validate_WhenSignatureImageMissing_Fails()
+    {
+        var result = _validator.Validate(new CreateCertificateCommand(
+            Guid.NewGuid(),
+            "Doctor cert",
+            "secret",
+            [1, 2, 3],
+            "doctor.pfx",
+            [],
+            "sign.png"));
 
         result.IsValid.Should().BeFalse();
     }

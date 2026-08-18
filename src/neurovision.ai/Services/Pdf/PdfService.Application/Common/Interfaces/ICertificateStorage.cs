@@ -7,6 +7,11 @@ public interface ICertificateStorage
         string fileName,
         CancellationToken cancellationToken = default);
 
+    Task<string> SaveSignatureImageAsync(
+        byte[] content,
+        string fileName,
+        CancellationToken cancellationToken = default);
+
     Task<byte[]> ReadAsync(
         string relativePath,
         CancellationToken cancellationToken = default);

@@ -38,6 +38,9 @@ public sealed class DeleteCertificateCommandHandler
         if (!string.IsNullOrWhiteSpace(certificate.FilePath))
             await _storage.DeleteAsync(certificate.FilePath, cancellationToken);
 
+        if (!string.IsNullOrWhiteSpace(certificate.SignatureImagePath))
+            await _storage.DeleteAsync(certificate.SignatureImagePath, cancellationToken);
+
         _repository.Delete(certificate);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 

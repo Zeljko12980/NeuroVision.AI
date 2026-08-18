@@ -50,6 +50,21 @@ public class DeleteCertificateCommandHandlerTests
     }
 
     [Fact]
+    public async Task Handle_WhenSignatureImagePresent_DeletesSignatureFile()
+    {
+        var certificate = CertificateFactory.Create(
+            "certificates/doctor.pfx",
+            signatureImagePath: "signatures/sign.png");
+        _repository.GetByIdAsync(certificate.Id, Arg.Any<CancellationToken>()).Returns(certificate);
+
+        var result = await _handler.Handle(new DeleteCertificateCommand(certificate.Id), CancellationToken.None);
+
+        result.IsSuccess.Should().BeTrue();
+        await _storage.Received(1).DeleteAsync("certificates/doctor.pfx", Arg.Any<CancellationToken>());
+        await _storage.Received(1).DeleteAsync("signatures/sign.png", Arg.Any<CancellationToken>());
+    }
+
+    [Fact]
     public async Task Handle_WhenFilePathEmpty_SkipsStorageDelete()
     {
         var certificate = CertificateFactory.Create(filePath: " ");

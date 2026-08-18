@@ -3,7 +3,8 @@ namespace PdfService.Application.Commands.Templates;
 public sealed record GeneratePdfCommand(
     string TemplateCode,
     Dictionary<string, string> Data,
-    Guid? CertificateId) : ICommand<Result<GeneratePdfResponse>>;
+    Guid? CertificateId,
+    Guid? UserId = null) : ICommand<Result<GeneratePdfResponse>>;
 
 public sealed class GeneratePdfCommandValidator : AbstractValidator<GeneratePdfCommand>
 {
@@ -17,11 +18,12 @@ public sealed class GeneratePdfCommandValidator : AbstractValidator<GeneratePdfC
 public sealed class GeneratePdfCommandHandler
     : ICommandHandler<GeneratePdfCommand, Result<GeneratePdfResponse>>
 {
-    private const string SignatureImageFileName = "signature.png";
+    private const string FallbackSignatureImageFileName = "signature.png";
     private const string DefaultSignReason = "Medical document approval";
     private const string DefaultSignLocation = "NeuroVisionAI";
 
     private readonly IPdfTemplateReadStore _readStore;
+    private readonly ICertificateReadStore _certificateReadStore;
     private readonly IPdfGenerator _pdfGenerator;
     private readonly IPdfSigningService _pdfSigningService;
     private readonly ICertificateStorage _storage;
@@ -29,12 +31,14 @@ public sealed class GeneratePdfCommandHandler
 
     public GeneratePdfCommandHandler(
         IPdfTemplateReadStore readStore,
+        ICertificateReadStore certificateReadStore,
         IPdfGenerator pdfGenerator,
         IPdfSigningService pdfSigningService,
         ICertificateStorage storage,
         ILogger<GeneratePdfCommandHandler> logger)
     {
         _readStore = readStore;
+        _certificateReadStore = certificateReadStore;
         _pdfGenerator = pdfGenerator;
         _pdfSigningService = pdfSigningService;
         _storage = storage;
@@ -46,8 +50,9 @@ public sealed class GeneratePdfCommandHandler
         CancellationToken cancellationToken)
     {
         _logger.LogInformation(
-            "Generating PDF. Template={TemplateCode}",
-            command.TemplateCode);
+            "Generating PDF. Template={TemplateCode}, UserId={UserId}",
+            command.TemplateCode,
+            command.UserId);
 
         var template = await _readStore.GetByCodeAsync(command.TemplateCode, cancellationToken);
 
@@ -60,11 +65,16 @@ public sealed class GeneratePdfCommandHandler
 
         await _readStore.LoadFieldsAsync(template, cancellationToken);
 
-        if (template.RequiresSignature && command.CertificateId is null)
+        Certificate? signingCertificate = null;
+        if (template.RequiresSignature)
         {
-            return Result<GeneratePdfResponse>.Fail(
-                "Certificate is required for signing this document.",
-                HttpStatusCode.BadRequest);
+            signingCertificate = await ResolveSigningCertificateAsync(command, cancellationToken);
+            if (signingCertificate is null)
+            {
+                return Result<GeneratePdfResponse>.Fail(
+                    "No signing certificate found for this user.",
+                    HttpStatusCode.BadRequest);
+            }
         }
 
         try
@@ -72,8 +82,10 @@ public sealed class GeneratePdfCommandHandler
             byte[]? signatureImage = null;
             if (template.RequiresSignature)
             {
+                var signatureFile = signingCertificate!.SignatureImagePath
+                    ?? FallbackSignatureImageFileName;
                 signatureImage = await _storage.TryReadSignatureImageAsync(
-                    SignatureImageFileName,
+                    signatureFile,
                     cancellationToken);
             }
 
@@ -95,7 +107,7 @@ public sealed class GeneratePdfCommandHandler
                 var position = _pdfSigningService.ResolvePosition(pdfBytes, template);
                 var signedResult = await _pdfSigningService.SignPdfAsync(
                     pdfBytes,
-                    command.CertificateId!.Value,
+                    signingCertificate!.Id,
                     position,
                     DefaultSignReason,
                     DefaultSignLocation,
@@ -117,7 +129,7 @@ public sealed class GeneratePdfCommandHandler
                 {
                     PdfBytes = pdfBytes,
                     IsSigned = isSigned,
-                    CertificateId = command.CertificateId,
+                    CertificateId = signingCertificate?.Id,
                     SignatureReason = isSigned ? DefaultSignReason : null,
                     SignatureLocation = isSigned ? DefaultSignLocation : null
                 });
@@ -133,5 +145,22 @@ public sealed class GeneratePdfCommandHandler
                 "PDF generation failed.",
                 HttpStatusCode.InternalServerError);
         }
+    }
+
+    private async Task<Certificate?> ResolveSigningCertificateAsync(
+        GeneratePdfCommand command,
+        CancellationToken cancellationToken)
+    {
+        if (command.UserId is { } userId && userId != Guid.Empty)
+        {
+            var byUser = await _certificateReadStore.GetByUserIdAsync(userId, cancellationToken);
+            if (byUser is not null)
+                return byUser;
+        }
+
+        if (command.CertificateId is { } certificateId && certificateId != Guid.Empty)
+            return await _certificateReadStore.GetByIdAsync(certificateId, cancellationToken);
+
+        return null;
     }
 }

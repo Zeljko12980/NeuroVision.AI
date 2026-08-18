@@ -23,7 +23,31 @@ public class CertificateTests
         certificate.Id.Should().NotBe(Guid.Empty);
         certificate.Name.Should().Be("Doctor cert");
         certificate.Thumbprint.Should().Be("ABC123");
-        certificate.IsExpired().Should().BeFalse();
+        certificate.UserId.Should().BeNull();
+        certificate.SignatureImagePath.Should().BeNull();
+    }
+
+    [Fact]
+    public void Create_WithUserAndSignature_PersistsAssignment()
+    {
+        var userId = Guid.NewGuid();
+
+        var certificate = Certificate.Create(
+            "Doctor cert",
+            "CN=Doctor",
+            "CN=CA",
+            "ABC123",
+            "1",
+            DateTime.UtcNow.AddDays(-1),
+            DateTime.UtcNow.AddYears(1),
+            "doctor.pfx",
+            "certificates/doctor.pfx",
+            "protected-secret",
+            userId: userId,
+            signatureImagePath: "signatures/sign.png");
+
+        certificate.UserId.Should().Be(userId);
+        certificate.SignatureImagePath.Should().Be("signatures/sign.png");
     }
 
     [Theory]

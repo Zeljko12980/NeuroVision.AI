@@ -38,6 +38,8 @@ import { ScrollToTop } from "./components/common/ScrollToTop";
 import DoctorsTable from "./pages/Tables/DoctorsTable";
 import PdfTable from "./pages/Pdf/PdfTable";
 import CreatePdfTemplatePage from "./pages/Pdf/CreatePdfTemplatePage";
+import CertificateTable from "./pages/Certificate/CertificateTable";
+import CreateCertificatePage from "./pages/Certificate/CreateCertificatePage";
 
 import CountriesTable from "./pages/Location/country/CountriesTable";
 import CreateCountryPage from "./pages/Location/country/CreateCountryPage";
@@ -144,6 +146,8 @@ export default function App() {
                             <Route path="/admin/doctors/add" element={<CreateDoctorPage />} />
                             <Route path="/admin/pdfs" element={<PdfTable />} />
                             <Route path="/admin/pdfs/create" element={<CreatePdfTemplatePage />} />
+                            <Route path="/admin/certificates" element={<CertificateTable />} />
+                            <Route path="/admin/certificates/create" element={<CreateCertificatePage />} />
 
                             <Route path="/admin/location/countries" element={<CountriesTable />} />
                             <Route path="/admin/location/countries/create" element={<CreateCountryPage />} />

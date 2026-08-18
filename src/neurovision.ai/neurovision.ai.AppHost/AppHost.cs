@@ -76,9 +76,12 @@ var pdfService = builder.AddProject<Projects.PdfService_API>("pdfservice-api")
        .WaitFor(loki)
        .WaitFor(prometheus)
        .WaitFor(grafana)
-       .WithHttpEndpoint(port: 6102, name: "grpc")
+       .WithHttpEndpoint(name: "http", port: 6002, isProxied: false)
+       .WithHttpEndpoint(name: "grpc", port: 6102, isProxied: false)
        .WithEnvironment("Observability__ServiceName", "pdfservice-api")
-       .WithEnvironment("Observability__LokiUrl", loki.GetEndpoint("http"));
+       .WithEnvironment("Observability__LokiUrl", loki.GetEndpoint("http"))
+       .WithEnvironment("Kestrel__Endpoints__http__Protocols", "Http1")
+       .WithEnvironment("Kestrel__Endpoints__grpc__Protocols", "Http2");
 
 builder.AddProject<Projects.MailService_API>("mailservice-api")
        .WaitFor(rabbitmq)

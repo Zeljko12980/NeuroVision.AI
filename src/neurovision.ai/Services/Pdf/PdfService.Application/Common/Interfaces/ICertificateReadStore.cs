@@ -6,4 +6,16 @@ public interface ICertificateReadStore
         int pageIndex,
         int pageSize,
         CancellationToken cancellationToken = default);
+
+    Task<Certificate?> GetByIdAsync(
+        Guid id,
+        CancellationToken cancellationToken = default);
+
+    Task<Certificate?> GetByUserIdAsync(
+        Guid userId,
+        CancellationToken cancellationToken = default);
+
+    Task<bool> ExistsForUserAsync(
+        Guid userId,
+        CancellationToken cancellationToken = default);
 }

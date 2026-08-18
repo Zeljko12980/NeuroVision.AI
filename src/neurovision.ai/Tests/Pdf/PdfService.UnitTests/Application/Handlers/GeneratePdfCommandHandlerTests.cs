@@ -12,6 +12,7 @@ namespace PdfService.UnitTests.Application.Handlers;
 public class GeneratePdfCommandHandlerTests
 {
     private readonly IPdfTemplateReadStore _readStore = Substitute.For<IPdfTemplateReadStore>();
+    private readonly ICertificateReadStore _certificateReadStore = Substitute.For<ICertificateReadStore>();
     private readonly IPdfGenerator _pdfGenerator = Substitute.For<IPdfGenerator>();
     private readonly IPdfSigningService _signingService = Substitute.For<IPdfSigningService>();
     private readonly ICertificateStorage _storage = Substitute.For<ICertificateStorage>();
@@ -21,6 +22,7 @@ public class GeneratePdfCommandHandlerTests
     {
         _handler = new GeneratePdfCommandHandler(
             _readStore,
+            _certificateReadStore,
             _pdfGenerator,
             _signingService,
             _storage,
@@ -87,6 +89,18 @@ public class GeneratePdfCommandHandlerTests
     public async Task Handle_WhenSignatureRequired_SignsGeneratedPdf()
     {
         var certificateId = Guid.NewGuid();
+        var signingCertificate = Certificate.Create(
+            "Doctor cert",
+            "CN=Doctor",
+            "CN=CA",
+            "ABC123",
+            "1",
+            DateTime.UtcNow.AddDays(-1),
+            DateTime.UtcNow.AddYears(1),
+            "doctor.pfx",
+            "certificates/doctor.pfx",
+            "protected-secret",
+            id: certificateId);
         var template = PdfTemplate.Create(
             "SIGNED",
             "Signed",
@@ -95,6 +109,8 @@ public class GeneratePdfCommandHandlerTests
         var position = new SignaturePosition { Page = 1, X = 10, Y = 20, Width = 100, Height = 50 };
 
         _readStore.GetByCodeAsync("SIGNED", Arg.Any<CancellationToken>()).Returns(template);
+        _certificateReadStore.GetByIdAsync(certificateId, Arg.Any<CancellationToken>())
+            .Returns(signingCertificate);
         _storage.TryReadSignatureImageAsync("signature.png", Arg.Any<CancellationToken>())
             .Returns(Task.FromResult<byte[]?>([9, 9]));
         _pdfGenerator.GenerateFromHtmlAsync(Arg.Any<string>(), Arg.Any<CancellationToken>())
@@ -117,6 +133,59 @@ public class GeneratePdfCommandHandlerTests
         result.Value.IsSigned.Should().BeTrue();
         result.Value.PdfBytes.Should().Equal(4, 5, 6);
         result.Value.CertificateId.Should().Be(certificateId);
+    }
+
+    [Fact]
+    public async Task Handle_WhenUserIdProvided_SignsWithUserCertificate()
+    {
+        var userId = Guid.NewGuid();
+        var certificateId = Guid.NewGuid();
+        var signingCertificate = Certificate.Create(
+            "Doctor cert",
+            "CN=Doctor",
+            "CN=CA",
+            "ABC123",
+            "1",
+            DateTime.UtcNow.AddDays(-1),
+            DateTime.UtcNow.AddYears(1),
+            "doctor.pfx",
+            "certificates/doctor.pfx",
+            "protected-secret",
+            userId: userId,
+            signatureImagePath: "signatures/doctor.png",
+            id: certificateId);
+        var template = PdfTemplate.Create(
+            "SIGNED",
+            "Signed",
+            "<div>{{Signature}}</div>",
+            requiresSignature: true);
+        var position = new SignaturePosition { Page = 1, X = 10, Y = 20, Width = 100, Height = 50 };
+
+        _readStore.GetByCodeAsync("SIGNED", Arg.Any<CancellationToken>()).Returns(template);
+        _certificateReadStore.GetByUserIdAsync(userId, Arg.Any<CancellationToken>())
+            .Returns(signingCertificate);
+        _storage.TryReadSignatureImageAsync("signatures/doctor.png", Arg.Any<CancellationToken>())
+            .Returns(Task.FromResult<byte[]?>([9, 9]));
+        _pdfGenerator.GenerateFromHtmlAsync(Arg.Any<string>(), Arg.Any<CancellationToken>())
+            .Returns(Result<byte[]>.Ok([1, 2, 3]));
+        _signingService.ResolvePosition(Arg.Any<byte[]>(), template).Returns(position);
+        _signingService.SignPdfAsync(
+                Arg.Any<byte[]>(),
+                certificateId,
+                position,
+                Arg.Any<string?>(),
+                Arg.Any<string?>(),
+                Arg.Any<CancellationToken>())
+            .Returns(Result<byte[]>.Ok([4, 5, 6]));
+
+        var result = await _handler.Handle(
+            new GeneratePdfCommand("SIGNED", [], Guid.NewGuid(), userId),
+            CancellationToken.None);
+
+        result.IsSuccess.Should().BeTrue();
+        result.Value.IsSigned.Should().BeTrue();
+        result.Value.CertificateId.Should().Be(certificateId);
+        await _certificateReadStore.DidNotReceive().GetByIdAsync(Arg.Any<Guid>(), Arg.Any<CancellationToken>());
     }
 
     [Fact]
@@ -147,6 +216,18 @@ public class GeneratePdfCommandHandlerTests
     public async Task Handle_WhenSigningFails_ReturnsFailure()
     {
         var certificateId = Guid.NewGuid();
+        var signingCertificate = Certificate.Create(
+            "Doctor cert",
+            "CN=Doctor",
+            "CN=CA",
+            "ABC123",
+            "1",
+            DateTime.UtcNow.AddDays(-1),
+            DateTime.UtcNow.AddYears(1),
+            "doctor.pfx",
+            "certificates/doctor.pfx",
+            "protected-secret",
+            id: certificateId);
         var template = PdfTemplate.Create(
             "SIGNED",
             "Signed",
@@ -155,6 +236,8 @@ public class GeneratePdfCommandHandlerTests
         var position = new SignaturePosition { Page = 1, X = 10, Y = 20, Width = 100, Height = 50 };
 
         _readStore.GetByCodeAsync("SIGNED", Arg.Any<CancellationToken>()).Returns(template);
+        _certificateReadStore.GetByIdAsync(certificateId, Arg.Any<CancellationToken>())
+            .Returns(signingCertificate);
         _pdfGenerator.GenerateFromHtmlAsync(Arg.Any<string>(), Arg.Any<CancellationToken>())
             .Returns(Result<byte[]>.Ok([1, 2, 3]));
         _signingService.ResolvePosition(Arg.Any<byte[]>(), template).Returns(position);
@@ -248,6 +331,7 @@ public class CreateCertificateCommandHandlerTests
     private readonly ICertificateFileParser _parser = Substitute.For<ICertificateFileParser>();
     private readonly ICertificateStorage _storage = Substitute.For<ICertificateStorage>();
     private readonly ICertificatePasswordProtector _protector = Substitute.For<ICertificatePasswordProtector>();
+    private readonly ICertificateReadStore _readStore = Substitute.For<ICertificateReadStore>();
     private readonly IRepository<Certificate, Guid> _repository = Substitute.For<IRepository<Certificate, Guid>>();
     private readonly IUnitOfWork _unitOfWork = Substitute.For<IUnitOfWork>();
     private readonly CreateCertificateCommandHandler _handler;
@@ -258,6 +342,7 @@ public class CreateCertificateCommandHandlerTests
             _parser,
             _storage,
             _protector,
+            _readStore,
             _repository,
             _unitOfWork,
             NullLogger<CreateCertificateCommandHandler>.Instance);
@@ -311,14 +396,31 @@ public class CreateCertificateCommandHandlerTests
             }));
         _storage.SaveAsync(Arg.Any<byte[]>(), "doctor.pfx", Arg.Any<CancellationToken>())
             .Returns("certificates/abc.pfx");
+        _storage.SaveSignatureImageAsync(Arg.Any<byte[]>(), "sign.png", Arg.Any<CancellationToken>())
+            .Returns("signatures/sign.png");
         _protector.Protect(Arg.Any<string>()).Returns("protected");
 
         var result = await _handler.Handle(ValidCommand(), CancellationToken.None);
 
         result.IsSuccess.Should().BeTrue();
         result.Value.Thumbprint.Should().Be("ABC");
+        result.Value.HasSignatureImage.Should().BeTrue();
+        result.Value.UserId.Should().NotBeNull();
         await _repository.Received(1).AddAsync(Arg.Any<Certificate>(), Arg.Any<CancellationToken>());
         await _unitOfWork.Received(1).SaveChangesAsync(Arg.Any<CancellationToken>());
+    }
+
+    [Fact]
+    public async Task Handle_WhenUserAlreadyHasCertificate_ReturnsConflict()
+    {
+        _readStore.ExistsForUserAsync(Arg.Any<Guid>(), Arg.Any<CancellationToken>()).Returns(true);
+
+        var result = await _handler.Handle(ValidCommand(), CancellationToken.None);
+
+        result.IsSuccess.Should().BeFalse();
+        result.StatusCode.Should().Be(HttpStatusCode.Conflict);
+        result.Error.Should().Be("A signing certificate already exists for this user.");
+        await _storage.DidNotReceive().SaveAsync(Arg.Any<byte[]>(), Arg.Any<string>(), Arg.Any<CancellationToken>());
     }
 
     [Fact]
@@ -351,6 +453,8 @@ public class CreateCertificateCommandHandlerTests
             }));
         _storage.SaveAsync(Arg.Any<byte[]>(), "doctor.pfx", Arg.Any<CancellationToken>())
             .Returns("certificates/abc.pfx");
+        _storage.SaveSignatureImageAsync(Arg.Any<byte[]>(), "sign.png", Arg.Any<CancellationToken>())
+            .Returns("signatures/sign.png");
         _protector.Protect(Arg.Any<string>()).Returns("protected");
 
         var result = await _handler.Handle(ValidCommand(), CancellationToken.None);
@@ -358,6 +462,7 @@ public class CreateCertificateCommandHandlerTests
         result.IsSuccess.Should().BeFalse();
         result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         await _storage.Received(1).DeleteAsync("certificates/abc.pfx", Arg.Any<CancellationToken>());
+        await _storage.Received(1).DeleteAsync("signatures/sign.png", Arg.Any<CancellationToken>());
         await _repository.DidNotReceive().AddAsync(Arg.Any<Certificate>(), Arg.Any<CancellationToken>());
     }
 
@@ -368,6 +473,8 @@ public class CreateCertificateCommandHandlerTests
             .Returns(Result<ParsedCertificate>.Ok(ValidParsed()));
         _storage.SaveAsync(Arg.Any<byte[]>(), "doctor.pfx", Arg.Any<CancellationToken>())
             .Returns("certificates/abc.pfx");
+        _storage.SaveSignatureImageAsync(Arg.Any<byte[]>(), "sign.png", Arg.Any<CancellationToken>())
+            .Returns("signatures/sign.png");
         _protector.Protect(Arg.Any<string>()).Returns("protected");
         _unitOfWork.SaveChangesAsync(Arg.Any<CancellationToken>())
             .Returns<int>(_ => throw new InvalidOperationException("db down"));
@@ -377,6 +484,7 @@ public class CreateCertificateCommandHandlerTests
         result.IsSuccess.Should().BeFalse();
         result.Error.Should().Be("Failed to save the certificate record.");
         await _storage.Received(1).DeleteAsync("certificates/abc.pfx", Arg.Any<CancellationToken>());
+        await _storage.Received(1).DeleteAsync("signatures/sign.png", Arg.Any<CancellationToken>());
     }
 
     private static ParsedCertificate ValidParsed() =>
@@ -391,5 +499,5 @@ public class CreateCertificateCommandHandlerTests
         };
 
     private static CreateCertificateCommand ValidCommand() =>
-        new("Doctor cert", "secret", [1, 2, 3], "doctor.pfx");
+        new(Guid.NewGuid(), "Doctor cert", "secret", [1, 2, 3], "doctor.pfx", [9, 9], "sign.png");
 }

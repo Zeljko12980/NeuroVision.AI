@@ -36,6 +36,7 @@ public static class PdfMappings
         {
             Id = certificate.Id,
             Name = certificate.Name,
+            UserId = certificate.UserId,
             Subject = certificate.Subject,
             Issuer = certificate.Issuer,
             Thumbprint = certificate.Thumbprint,
@@ -44,6 +45,7 @@ public static class PdfMappings
             ValidTo = certificate.ValidTo,
             FileName = certificate.FileName,
             FilePath = certificate.FilePath,
+            SignatureImagePath = certificate.SignatureImagePath,
             IsDefault = certificate.IsDefault
         };
 }

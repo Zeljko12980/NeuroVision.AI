@@ -187,6 +187,7 @@ export default function AnalysisDetailPage({
         try {
             const updated = await generateAnalysisReport(analysisId, {
                 doctorName: name || undefined,
+                userId: userId || undefined,
             });
             setAnalysis(updated);
             dispatch(showAlert({ type: "success", message: t(`${baseKey}.messages.reportGenerated`) }));

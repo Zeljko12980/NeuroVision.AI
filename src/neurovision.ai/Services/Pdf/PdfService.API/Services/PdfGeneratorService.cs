@@ -35,11 +35,28 @@ public class PdfGeneratorService : PdfService.Grpc.PdfGenerator.PdfGeneratorBase
             certificateId = parsedId;
         }
 
+        Guid? userId = null;
+        if (!string.IsNullOrWhiteSpace(request.UserId))
+        {
+            if (!Guid.TryParse(request.UserId, out var parsedUserId))
+            {
+                return new GrpcGeneratePdfResponse
+                {
+                    Success = false,
+                    Message = "Invalid user ID.",
+                    Pdf = Google.Protobuf.ByteString.Empty
+                };
+            }
+
+            userId = parsedUserId;
+        }
+
         var result = await _sender.Send(
             new GeneratePdfCommand(
                 request.TemplateCode,
                 request.Placeholders.ToDictionary(x => x.Key, x => x.Value),
-                certificateId),
+                certificateId,
+                userId),
             context.CancellationToken);
 
         if (!result.IsSuccess)

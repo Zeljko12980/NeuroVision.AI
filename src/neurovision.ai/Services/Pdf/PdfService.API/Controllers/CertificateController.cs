@@ -29,16 +29,34 @@ public class CertificateController : ControllerBase
 
     [HttpPost]
     public async Task<IActionResult> Upload(
+        [FromForm] Guid userId,
         [FromForm] string name,
         [FromForm] string? password,
         IFormFile file,
+        IFormFile signatureImage,
         CancellationToken cancellationToken)
     {
-        await using var stream = new MemoryStream();
-        await file.CopyToAsync(stream, cancellationToken);
+        if (file is null || file.Length == 0)
+            return BadRequest("The certificate file is required.");
+
+        if (signatureImage is null || signatureImage.Length == 0)
+            return BadRequest("The signature image is required.");
+
+        await using var certificateStream = new MemoryStream();
+        await file.CopyToAsync(certificateStream, cancellationToken);
+
+        await using var signatureStream = new MemoryStream();
+        await signatureImage.CopyToAsync(signatureStream, cancellationToken);
 
         var result = await _sender.Send(
-            new CreateCertificateCommand(name, password, stream.ToArray(), file.FileName),
+            new CreateCertificateCommand(
+                userId,
+                name,
+                password,
+                certificateStream.ToArray(),
+                file.FileName,
+                signatureStream.ToArray(),
+                signatureImage.FileName),
             cancellationToken);
 
         return result.ToActionResult();

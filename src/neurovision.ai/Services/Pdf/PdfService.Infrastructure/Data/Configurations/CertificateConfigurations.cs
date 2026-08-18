@@ -31,6 +31,14 @@ internal sealed class CertificateConfiguration : IEntityTypeConfiguration<Certif
         builder.HasIndex(x => x.Thumbprint)
             .IsUnique();
 
+        builder.Property(x => x.UserId);
+
+        builder.HasIndex(x => x.UserId)
+            .IsUnique();
+
+        builder.Property(x => x.SignatureImagePath)
+            .HasMaxLength(500);
+
         builder.Property(x => x.SerialNumber)
             .IsRequired()
             .HasMaxLength(100);

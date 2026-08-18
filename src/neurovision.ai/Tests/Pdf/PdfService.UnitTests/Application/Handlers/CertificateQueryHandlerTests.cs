@@ -91,7 +91,9 @@ internal static class CertificateFactory
 {
     public static Certificate Create(
         string filePath = "certificates/doctor.pfx",
-        DateTime? validTo = null) =>
+        DateTime? validTo = null,
+        Guid? userId = null,
+        string? signatureImagePath = null) =>
         Certificate.Create(
             "Doctor cert",
             "CN=Doctor",
@@ -102,5 +104,7 @@ internal static class CertificateFactory
             validTo ?? DateTime.UtcNow.AddYears(1),
             "doctor.pfx",
             filePath,
-            "protected-secret");
+            "protected-secret",
+            userId: userId,
+            signatureImagePath: signatureImagePath);
 }

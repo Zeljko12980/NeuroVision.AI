@@ -4,6 +4,7 @@
     {
         public Guid Id { get; private set; }
         public string Name { get; private set; } = string.Empty;
+        public Guid? UserId { get; private set; }
         public string Subject { get; private set; } = string.Empty;
         public string Issuer { get; private set; } = string.Empty;
         public string Thumbprint { get; private set; } = string.Empty;
@@ -12,6 +13,7 @@
         public DateTime ValidTo { get; private set; }
         public string FileName { get; private set; } = string.Empty;
         public string FilePath { get; private set; } = string.Empty;
+        public string? SignatureImagePath { get; private set; }
         public bool IsDefault { get; private set; }
 
         public string ProtectedPassword { get; private set; } = string.Empty;
@@ -30,6 +32,8 @@
             string filePath,
             string protectedPassword,
             bool isDefault = false,
+            Guid? userId = null,
+            string? signatureImagePath = null,
             Guid? id = null)
         {
             if (string.IsNullOrWhiteSpace(name))
@@ -48,6 +52,7 @@
             {
                 Id = id ?? Guid.NewGuid(),
                 Name = name,
+                UserId = userId,
                 Subject = subject,
                 Issuer = issuer,
                 Thumbprint = thumbprint,
@@ -56,6 +61,9 @@
                 ValidTo = validTo,
                 FileName = fileName,
                 FilePath = filePath,
+                SignatureImagePath = string.IsNullOrWhiteSpace(signatureImagePath)
+                    ? null
+                    : signatureImagePath,
                 ProtectedPassword = protectedPassword,
                 IsDefault = isDefault
             };
@@ -73,11 +81,14 @@
             string fileName,
             string filePath,
             string protectedPassword,
-            bool isDefault)
+            bool isDefault,
+            Guid? userId = null,
+            string? signatureImagePath = null)
             => new()
             {
                 Id = id,
                 Name = name,
+                UserId = userId,
                 Subject = subject,
                 Issuer = issuer,
                 Thumbprint = thumbprint,
@@ -86,6 +97,7 @@
                 ValidTo = validTo,
                 FileName = fileName,
                 FilePath = filePath,
+                SignatureImagePath = signatureImagePath,
                 ProtectedPassword = protectedPassword,
                 IsDefault = isDefault
             };
@@ -112,6 +124,11 @@
             if (!string.IsNullOrWhiteSpace(fileName))
                 FileName = fileName;
         }
+
+        public void UpdateSignatureImagePath(string? signatureImagePath) =>
+            SignatureImagePath = string.IsNullOrWhiteSpace(signatureImagePath)
+                ? null
+                : signatureImagePath;
 
         public void UpdateProtectedPassword(string protectedPassword)
         {

@@ -15,33 +15,23 @@ public sealed class CertificateStorage : ICertificateStorage
         _environment = environment ?? throw new ArgumentNullException(nameof(environment));
     }
 
-    public async Task<string> SaveAsync(
+    public Task<string> SaveAsync(
         byte[] content,
         string fileName,
-        CancellationToken cancellationToken = default)
-    {
-        if (content is null || content.Length == 0)
-            throw new ArgumentException("The file is empty or was not provided.", nameof(content));
+        CancellationToken cancellationToken = default) =>
+        SaveToFolderAsync(content, fileName, CertificatesFolder, cancellationToken);
 
-        var extension = Path.GetExtension(fileName);
-        if (string.IsNullOrWhiteSpace(extension))
-            throw new InvalidOperationException("The file must have an extension.");
-
-        var folder = GetCertificatesFolderPath();
-        Directory.CreateDirectory(folder);
-
-        var storedFileName = $"{Guid.NewGuid():N}{extension}";
-        var fullPath = Path.Combine(folder, storedFileName);
-
-        await File.WriteAllBytesAsync(fullPath, content, cancellationToken);
-        return $"{CertificatesFolder}/{storedFileName}";
-    }
+    public Task<string> SaveSignatureImageAsync(
+        byte[] content,
+        string fileName,
+        CancellationToken cancellationToken = default) =>
+        SaveToFolderAsync(content, fileName, SignaturesFolder, cancellationToken);
 
     public async Task<byte[]> ReadAsync(
         string relativePath,
         CancellationToken cancellationToken = default)
     {
-        var fullPath = GetAbsolutePath(relativePath, GetCertificatesFolderPath());
+        var fullPath = GetAbsolutePath(relativePath);
         return await File.ReadAllBytesAsync(fullPath, cancellationToken);
     }
 
@@ -50,7 +40,7 @@ public sealed class CertificateStorage : ICertificateStorage
         if (string.IsNullOrWhiteSpace(relativePath))
             return Task.CompletedTask;
 
-        var fullPath = GetAbsolutePath(relativePath, GetCertificatesFolderPath());
+        var fullPath = GetAbsolutePath(relativePath);
         if (File.Exists(fullPath))
             File.Delete(fullPath);
 
@@ -61,16 +51,42 @@ public sealed class CertificateStorage : ICertificateStorage
         string fileName,
         CancellationToken cancellationToken = default)
     {
-        var fullPath = GetAbsolutePath(fileName, GetSignaturesFolderPath());
+        if (string.IsNullOrWhiteSpace(fileName))
+            return null;
+
+        var relativePath = fileName.Replace('\\', '/').Contains('/')
+            ? fileName
+            : $"{SignaturesFolder}/{fileName}";
+
+        var fullPath = GetAbsolutePath(relativePath);
         if (!File.Exists(fullPath))
             return null;
 
         return await File.ReadAllBytesAsync(fullPath, cancellationToken);
     }
 
-    private string GetCertificatesFolderPath() => GetWebRootFolder(CertificatesFolder);
+    private async Task<string> SaveToFolderAsync(
+        byte[] content,
+        string fileName,
+        string folderName,
+        CancellationToken cancellationToken)
+    {
+        if (content is null || content.Length == 0)
+            throw new ArgumentException("The file is empty or was not provided.", nameof(content));
 
-    private string GetSignaturesFolderPath() => GetWebRootFolder(SignaturesFolder);
+        var extension = Path.GetExtension(fileName);
+        if (string.IsNullOrWhiteSpace(extension))
+            throw new InvalidOperationException("The file must have an extension.");
+
+        var folder = GetWebRootFolder(folderName);
+        Directory.CreateDirectory(folder);
+
+        var storedFileName = $"{Guid.NewGuid():N}{extension}";
+        var fullPath = Path.Combine(folder, storedFileName);
+
+        await File.WriteAllBytesAsync(fullPath, content, cancellationToken);
+        return $"{folderName}/{storedFileName}";
+    }
 
     private string GetWebRootFolder(string folderName)
     {
@@ -81,12 +97,18 @@ public sealed class CertificateStorage : ICertificateStorage
         return Path.GetFullPath(Path.Combine(webRoot, folderName));
     }
 
-    private static string GetAbsolutePath(string relativePath, string rootFolder)
+    private string GetAbsolutePath(string relativePath)
     {
         if (string.IsNullOrWhiteSpace(relativePath))
             throw new ArgumentException("The relative path was not provided.", nameof(relativePath));
 
-        var fileName = Path.GetFileName(relativePath.Replace('\\', '/'));
+        var normalized = relativePath.Replace('\\', '/').TrimStart('/');
+        var folderName = normalized.StartsWith($"{SignaturesFolder}/", StringComparison.OrdinalIgnoreCase)
+            ? SignaturesFolder
+            : CertificatesFolder;
+
+        var rootFolder = GetWebRootFolder(folderName);
+        var fileName = Path.GetFileName(normalized);
         var fullPath = Path.GetFullPath(Path.Combine(rootFolder, fileName));
 
         if (!fullPath.StartsWith(rootFolder, StringComparison.OrdinalIgnoreCase))

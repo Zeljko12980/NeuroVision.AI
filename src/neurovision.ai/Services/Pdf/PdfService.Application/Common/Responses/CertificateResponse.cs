@@ -6,6 +6,8 @@ public class CertificateResponse
 
     public required string Name { get; init; }
 
+    public Guid? UserId { get; init; }
+
     public required string Subject { get; init; }
 
     public required string Issuer { get; init; }
@@ -21,6 +23,10 @@ public class CertificateResponse
     public required string FileName { get; init; }
 
     public required string FilePath { get; init; }
+
+    public string? SignatureImagePath { get; init; }
+
+    public bool HasSignatureImage => !string.IsNullOrWhiteSpace(SignatureImagePath);
 
     public bool IsDefault { get; init; }
 
