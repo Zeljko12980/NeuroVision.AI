@@ -1,3 +1,5 @@
+using System.Net;
+using System.Net.Http;
 using PdfService.Grpc;
 
 namespace MailService.Infrastructure;
@@ -14,9 +16,14 @@ public static class DependencyInjection
             ?? throw new InvalidOperationException("PdfService:GrpcUrl is not configured.");
 
         services.AddGrpcClient<PdfGenerator.PdfGeneratorClient>(options =>
-        {
-            options.Address = new Uri(pdfUrl);
-        });
+            {
+                options.Address = new Uri(pdfUrl);
+            })
+            .ConfigureChannel(options =>
+            {
+                options.HttpVersion = HttpVersion.Version20;
+                options.HttpVersionPolicy = HttpVersionPolicy.RequestVersionExact;
+            });
 
         services.AddScoped<IEmailSender, SmtpEmailSender>();
         services.AddScoped<IDocumentGenerator, PdfDocumentGenerator>();

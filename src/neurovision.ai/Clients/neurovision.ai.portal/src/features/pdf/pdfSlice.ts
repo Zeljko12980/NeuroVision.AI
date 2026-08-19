@@ -5,9 +5,8 @@ import {
     getPdfTemplateById,
     getPdfTemplates,
     updatePdfTemplate,
-    PdfTemplateRequest,
-    PdfTemplateResponse,
-} from "./pdfService";
+} from "./pdf.service";
+import { PdfTemplateResponse, PdfTemplateRequest } from "./pdf.types";
 
 interface PdfTemplateState {
     templates: PdfTemplateResponse[];

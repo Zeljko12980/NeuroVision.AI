@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+option csharp_namespace = "PdfService.Grpc";
+
+package pdf;
+
+service PdfGenerator {
+
+    rpc GeneratePdf(GeneratePdfRequest)
+        returns (GeneratePdfResponse);
+}
+
+message GeneratePdfRequest {
+
+    string templateCode = 1;
+
+    map<string, string> placeholders = 2;
+
+    string certificateId = 3;
+
+    string userId = 4;
+}
+
+message GeneratePdfResponse {
+
+    bytes pdf = 1;
+
+    bool success = 2;
+
+    string message = 3;
+
+    bool isSigned = 4;
+
+    string certificateId = 5;
+
+    string generatedAt = 6;
+
+    string signatureReason = 7;
+
+    string signatureLocation = 8;
+}

@@ -191,7 +191,9 @@
       "deleteSuccess": "Vorlage erfolgreich gelöscht.",
       "deleteError": "Vorlage konnte nicht gelöscht werden.",
       "updateSuccess": "Vorlage erfolgreich aktualisiert.",
-      "updateError": "Vorlage konnte nicht aktualisiert werden."
+      "updateError": "Vorlage konnte nicht aktualisiert werden.",
+      "createSuccess": "Vorlage erfolgreich erstellt.",
+      "createError": "Vorlage konnte nicht erstellt werden."
     },
     "dialogs": {
       "deleteTitle": "PDF-Vorlage löschen",
@@ -210,7 +212,10 @@
         "code": "Vorlagencode",
         "version": "Version",
         "status": "Status",
-        "activeTemplate": "Aktive Vorlage"
+        "activeTemplate": "Aktive Vorlage",
+        "requiresSignature": "Signatur erforderlich",
+        "requiresSignatureLabel": "Digital signiertes Dokument",
+        "signaturePage": "Signaturseite"
       }
     },
     "previewModal": {
@@ -224,6 +229,66 @@
       "htmlTemplate": "HTML-Vorlage",
       "livePreview": "Vorschau",
       "create": "Vorlage erstellen"
+    }
+  },
+  "certificate": {
+    "pageTitle": "Zertifikate",
+    "pageDescription": "Signaturzertifikate verwalten",
+    "title": "Zertifikate",
+    "columns": {
+      "name": "Name",
+      "user": "Arzt",
+      "subject": "Betreff",
+      "issuer": "Aussteller",
+      "thumbprint": "Fingerabdruck",
+      "validFrom": "Gültig von",
+      "validTo": "Gültig bis",
+      "signature": "Unterschrift",
+      "status": "Status",
+      "actions": "Aktionen"
+    },
+    "status": {
+      "default": "Standard",
+      "expired": "Abgelaufen",
+      "valid": "Gültig",
+      "unassigned": "Nicht zugewiesen"
+    },
+    "actions": {
+      "view": "Anzeigen",
+      "delete": "Löschen"
+    },
+    "messages": {
+      "empty": "Keine Zertifikate gefunden.",
+      "deleteSuccess": "Zertifikat erfolgreich gelöscht.",
+      "deleteError": "Zertifikat konnte nicht gelöscht werden.",
+      "createSuccess": "Zertifikat erfolgreich hochgeladen.",
+      "createError": "Zertifikat konnte nicht hochgeladen werden.",
+      "requiredError": "Arzt, Name, Zertifikatsdatei und Unterschriftsbild sind erforderlich.",
+      "loadDoctorsError": "Ärzte konnten nicht geladen werden.",
+      "loadError": "Zertifikate konnten nicht geladen werden."
+    },
+    "dialogs": {
+      "deleteTitle": "Zertifikat löschen",
+      "deleteDescription": "Möchten Sie dieses Zertifikat wirklich löschen?"
+    },
+    "detailsModal": {
+      "title": "Zertifikatdetails",
+      "fileName": "Dateiname",
+      "serialNumber": "Seriennummer"
+    },
+    "create": {
+      "pageTitle": "Zertifikat hochladen",
+      "pageDescription": "Weisen Sie einem Arzt ein Signaturzertifikat und ein Unterschriftsbild zu.",
+      "doctor": "Arzt",
+      "doctorPlaceholder": "Arzt auswählen",
+      "name": "Zertifikatsname",
+      "password": "Passwort",
+      "passwordHint": "Erforderlich für PFX/P12-Dateien.",
+      "file": "Zertifikatsdatei",
+      "fileHint": "Erlaubte Typen: .pfx, .p12, .cer, .crt, .der",
+      "signatureImage": "Unterschriftsbild",
+      "signatureHint": "Erforderlich. Erlaubte Typen: .png, .jpg, .jpeg, .webp (max. 2 MB)",
+      "create": "Zertifikat hochladen"
     }
   },
   "health": {
@@ -1217,7 +1282,13 @@
     "loading": "Wird geladen...",
     "creating": "Wird erstellt...",
     "delete": "Löschen",
-    "edit": "Bearbeiten"
+    "edit": "Bearbeiten",
+    "yes": "Ja",
+    "no": "Nein",
+    "pagination": {
+      "pageOf": "Seite {{current}} von {{total}}",
+      "perPage": "{{size}} / Seite"
+    }
   },
   "sidebar": {
     "menu": "Menü",
@@ -1248,6 +1319,9 @@
     "pdfManagement": "PDF-Verwaltung",
     "pdfTemplates": "PDF-Vorlagen",
     "createPdfTemplate": "PDF-Vorlage erstellen",
+    "certificateManagement": "Zertifikatsverwaltung",
+    "certificates": "Zertifikate",
+    "createCertificate": "Zertifikat erstellen",
     "territorialOrganization": "Territoriale Organisation",
     "countries": "Länder",
     "countriesTable": "Länder-Tabelle",

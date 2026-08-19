@@ -398,6 +398,30 @@ const superAdminNavItems: NavItem[] = [
         ]
     },
 
+    {
+        nameKey: "sidebar.certificateManagement",
+        icon: <DocsIcon />,
+
+        subItems: [
+
+
+            {
+                nameKey: "sidebar.certificates",
+                icon: <TableIcon />,
+                path: "/admin/certificates"
+            },
+
+
+            {
+                nameKey: "sidebar.createCertificate",
+                icon: <DocsIcon />,
+                path: "/admin/certificates/create"
+            }
+
+
+        ]
+    },
+
 
 
 

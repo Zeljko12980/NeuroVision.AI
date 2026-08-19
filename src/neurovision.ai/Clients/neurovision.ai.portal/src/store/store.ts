@@ -6,6 +6,7 @@ import languageReducer from "../features/language/languageSlice";
 import roleReducer from "../features/role/roleSlice";
 import doctorReducer from "../features/doctor/doctorSlice";
 import pdfReducer from "../features/pdf/pdfSlice";
+import certificateReducer from "../features/certificate/certificateSlice";
 import countryReducer from "../features/location/country/country.slice";
 import settlementReducer from "../features/location/settlement/settlement.slice";
 import capitalReducer from "../features/location/capital/capital.slice";
@@ -35,6 +36,7 @@ export const store = configureStore({
         roles: roleReducer,
         doctor: doctorReducer,
         pdfTemplate: pdfReducer,
+        certificate: certificateReducer,
         countries: countryReducer,
         settlements: settlementReducer,
         capitals: capitalReducer,

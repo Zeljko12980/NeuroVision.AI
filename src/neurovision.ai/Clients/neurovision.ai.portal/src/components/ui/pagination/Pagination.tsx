@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import Button from "../button/Button";
 import { Dropdown } from "../dropdown/Dropdown";
 
@@ -19,6 +20,7 @@ const Pagination: React.FC<PaginationProps> = ({
     onPageChange,
     onPageSizeChange,
 }) => {
+    const { t } = useTranslation();
     const [open, setOpen] = useState(false);
 
     const getPages = () => {
@@ -44,7 +46,7 @@ const Pagination: React.FC<PaginationProps> = ({
 
             <div className="flex items-center gap-3 justify-self-start">
                 <span className="text-sm text-gray-500 whitespace-nowrap">
-                    Page {currentPage} of {totalPages}
+                    {t("common.pagination.pageOf", { current: currentPage, total: totalPages })}
                 </span>
 
                 <div className="relative z-50">
@@ -54,7 +56,7 @@ const Pagination: React.FC<PaginationProps> = ({
                         className="h-8 px-3 text-xs"
                         onClick={() => setOpen(!open)}
                     >
-                        {pageSize} / page
+                        {t("common.pagination.perPage", { size: pageSize })}
                     </Button>
 
                     <Dropdown
@@ -72,7 +74,7 @@ const Pagination: React.FC<PaginationProps> = ({
                                             : "text-gray-500"
                                         }`}
                                 >
-                                    {size} / page
+                                    {t("common.pagination.perPage", { size })}
                                 </button>
                             ))}
                         </div>

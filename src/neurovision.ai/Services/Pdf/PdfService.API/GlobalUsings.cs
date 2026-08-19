@@ -1,0 +1,16 @@
+﻿global using BuildingBlocks.Pagination;
+global using BuildingBlocks.Results;
+global using MediatR;
+global using Microsoft.AspNetCore.Mvc;
+global using Scalar.AspNetCore;
+global using PdfService.Application.Commands.Certificates;
+global using PdfService.Application.Queries.Certificates;
+global using PdfService.Application.Common.Requests;
+global using PdfService.Application.Commands.Templates;
+global using PdfService.Application.Queries.Templates;
+global using BuildingBlocks.Logging;
+global using PdfService.Application;
+global using PdfService.Infrastructure;
+global using PdfService.Infrastructure.Data;
+global using Serilog;
+global using PdfService.API.Services;
