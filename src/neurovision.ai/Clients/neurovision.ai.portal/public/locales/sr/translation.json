@@ -191,7 +191,9 @@
       "deleteSuccess": "Šablon je uspešno obrisan.",
       "deleteError": "Greška prilikom brisanja šablona.",
       "updateSuccess": "Šablon je uspešno ažuriran.",
-      "updateError": "Greška prilikom ažuriranja šablona."
+      "updateError": "Greška prilikom ažuriranja šablona.",
+      "createSuccess": "Šablon je uspešno kreiran.",
+      "createError": "Greška prilikom kreiranja šablona."
     },
     "dialogs": {
       "deleteTitle": "Obriši PDF šablon",
@@ -210,7 +212,10 @@
         "code": "Kod šablona",
         "version": "Verzija",
         "status": "Status",
-        "activeTemplate": "Aktivan šablon"
+        "activeTemplate": "Aktivan šablon",
+        "requiresSignature": "Zahtijeva potpis",
+        "requiresSignatureLabel": "Digitalno potpisan dokument",
+        "signaturePage": "Stranica potpisa"
       }
     },
     "previewModal": {
@@ -224,6 +229,66 @@
       "htmlTemplate": "HTML šablon",
       "livePreview": "Pregled uživo",
       "create": "Kreiraj šablon"
+    }
+  },
+  "certificate": {
+    "pageTitle": "Sertifikati",
+    "pageDescription": "Upravljanje sertifikatima za potpisivanje",
+    "title": "Sertifikati",
+    "columns": {
+      "name": "Naziv",
+      "user": "Doktor",
+      "subject": "Subjekt",
+      "issuer": "Izdavalac",
+      "thumbprint": "Otisak",
+      "validFrom": "Važi od",
+      "validTo": "Važi do",
+      "signature": "Potpis",
+      "status": "Status",
+      "actions": "Akcije"
+    },
+    "status": {
+      "default": "Podrazumijevani",
+      "expired": "Istekao",
+      "valid": "Važeći",
+      "unassigned": "Nije dodijeljen"
+    },
+    "actions": {
+      "view": "Pregled",
+      "delete": "Obriši"
+    },
+    "messages": {
+      "empty": "Nema pronađenih sertifikata.",
+      "deleteSuccess": "Sertifikat je uspješno obrisan.",
+      "deleteError": "Greška prilikom brisanja sertifikata.",
+      "createSuccess": "Sertifikat je uspješno postavljen.",
+      "createError": "Greška prilikom postavljanja sertifikata.",
+      "requiredError": "Doktor, naziv, fajl sertifikata i slika potpisa su obavezni.",
+      "loadDoctorsError": "Greška prilikom učitavanja doktora.",
+      "loadError": "Greška prilikom učitavanja sertifikata."
+    },
+    "dialogs": {
+      "deleteTitle": "Obriši sertifikat",
+      "deleteDescription": "Da li ste sigurni da želite da obrišete ovaj sertifikat?"
+    },
+    "detailsModal": {
+      "title": "Detalji sertifikata",
+      "fileName": "Naziv fajla",
+      "serialNumber": "Serijski broj"
+    },
+    "create": {
+      "pageTitle": "Postavi sertifikat",
+      "pageDescription": "Dodijelite doktoru sertifikat i sliku potpisa za PDF dokumente.",
+      "doctor": "Doktor",
+      "doctorPlaceholder": "Izaberite doktora",
+      "name": "Naziv sertifikata",
+      "password": "Lozinka",
+      "passwordHint": "Obavezna za PFX/P12 fajlove.",
+      "file": "Fajl sertifikata",
+      "fileHint": "Dozvoljeni tipovi: .pfx, .p12, .cer, .crt, .der",
+      "signatureImage": "Slika potpisa",
+      "signatureHint": "Obavezno. Dozvoljeni tipovi: .png, .jpg, .jpeg, .webp (maks. 2 MB)",
+      "create": "Postavi sertifikat"
     }
   },
   "health": {
@@ -1255,7 +1320,13 @@
     "loading": "Učitavanje...",
     "creating": "Kreiranje...",
     "delete": "Obriši",
-    "edit": "Izmijeni"
+    "edit": "Izmijeni",
+    "yes": "Da",
+    "no": "Ne",
+    "pagination": {
+      "pageOf": "Stranica {{current}} od {{total}}",
+      "perPage": "{{size}} / stranica"
+    }
   },
   "sidebar": {
     "menu": "Meni",
@@ -1286,6 +1357,9 @@
     "pdfManagement": "PDF upravljanje",
     "pdfTemplates": "PDF šabloni",
     "createPdfTemplate": "Kreiraj PDF šablon",
+    "certificateManagement": "Upravljanje sertifikatima",
+    "certificates": "Sertifikati",
+    "createCertificate": "Kreiraj sertifikat",
     "territorialOrganization": "Teritorijalna organizacija",
     "countries": "Države",
     "countriesTable": "Tabela država",

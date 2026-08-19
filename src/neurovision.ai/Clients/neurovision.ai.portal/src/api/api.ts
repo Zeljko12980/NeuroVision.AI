@@ -1,5 +1,19 @@
 const BASE_URL = import.meta.env.VITE_API_URL;
 
+const firstValidationError = (errors: unknown): string | undefined => {
+    if (!errors || typeof errors !== "object") return undefined;
+
+    const values = Object.values(errors as Record<string, unknown>);
+    for (const value of values) {
+        if (typeof value === "string" && value.trim()) return value;
+        if (Array.isArray(value) && typeof value[0] === "string" && value[0].trim()) {
+            return value[0];
+        }
+    }
+
+    return undefined;
+};
+
 
 
 const handleResponse = async (response: Response) => {
@@ -20,7 +34,12 @@ const handleResponse = async (response: Response) => {
 
         try {
             const parsed = JSON.parse(errorText);
-            message = parsed.detail || parsed.title || message;
+            message =
+                parsed.detail ||
+                parsed.title ||
+                parsed.error ||
+                firstValidationError(parsed.errors) ||
+                message;
         } catch {
             // plain text error
         }

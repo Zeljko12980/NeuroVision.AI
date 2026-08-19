@@ -17,6 +17,8 @@ message GeneratePdfRequest {
     map<string, string> placeholders = 2;
 
     string certificateId = 3;
+
+    string userId = 4;
 }
 
 message GeneratePdfResponse {

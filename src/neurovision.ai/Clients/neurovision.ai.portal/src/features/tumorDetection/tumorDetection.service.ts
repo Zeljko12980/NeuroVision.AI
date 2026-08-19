@@ -118,7 +118,7 @@ export const applyManualCorrection = async (
 
 export const generateAnalysisReport = async (
     analysisId: string,
-    payload?: { doctorName?: string; certificateId?: string }
+    payload?: { doctorName?: string; certificateId?: string; userId?: string }
 ): Promise<AnalysisResponse> =>
     post(`${base}/analyses/${analysisId}/report`, payload ?? {});
 

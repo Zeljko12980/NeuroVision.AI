@@ -427,3 +427,4 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+/src/neurovision.ai/Services/Pdf/PdfService.API/wwwroot/signatures

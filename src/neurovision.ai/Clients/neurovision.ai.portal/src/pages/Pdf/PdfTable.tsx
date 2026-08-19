@@ -35,7 +35,7 @@ import PdfTemplatePreviewDialog from "../../components/ui/dialog/PdfTemplatePrev
 import PdfTemplateTableSkeleton from "./PdfTableSkeleton";
 
 export default function PdfTable() {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
 
     const dispatch = useAppDispatch();
 
@@ -339,7 +339,7 @@ export default function PdfTable() {
 
                                                     {new Date(
                                                         template.createdAt
-                                                    ).toLocaleDateString()}
+                                                    ).toLocaleDateString(i18n.language)}
 
                                                 </TableCell>
 
@@ -434,8 +434,8 @@ export default function PdfTable() {
 
             <ConfirmDialog
                 isOpen={confirmOpen}
-                title="Delete PDF Template"
-                description="Are you sure you want to delete this PDF template?"
+                title={t("pdf.dialogs.deleteTitle")}
+                description={t("pdf.dialogs.deleteDescription")}
                 onConfirm={handleConfirmDelete}
                 onCancel={() => {
                     setConfirmOpen(false);

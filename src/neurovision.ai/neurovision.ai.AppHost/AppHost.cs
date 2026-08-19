@@ -9,6 +9,7 @@ var postgres = builder.AddPostgres("postgres")
 
 
 var identityDb = postgres.AddDatabase("identitydb");
+var pdfDb = postgres.AddDatabase("pdfdb");
 
 
 //MESSAGING
@@ -69,20 +70,38 @@ var identityService = builder.AddProject<Projects.IdentityService_API>("identity
        .WithEnvironment("Observability__ServiceName", "identityservice-api")
        .WithEnvironment("Observability__LokiUrl", loki.GetEndpoint("http"));
 
+var pdfService = builder.AddProject<Projects.PdfService_API>("pdfservice-api")
+       .WaitFor(pdfDb)
+       .WithReference(pdfDb)
+       .WaitFor(loki)
+       .WaitFor(prometheus)
+       .WaitFor(grafana)
+       .WithHttpEndpoint(name: "http", port: 6002, isProxied: false)
+       .WithHttpEndpoint(name: "grpc", port: 6102, isProxied: false)
+       .WithEnvironment("Observability__ServiceName", "pdfservice-api")
+       .WithEnvironment("Observability__LokiUrl", loki.GetEndpoint("http"))
+       .WithEnvironment("Kestrel__Endpoints__http__Protocols", "Http1")
+       .WithEnvironment("Kestrel__Endpoints__grpc__Protocols", "Http2");
+
 builder.AddProject<Projects.MailService_API>("mailservice-api")
        .WaitFor(rabbitmq)
        .WithReference(rabbitmq)
+       .WaitFor(pdfService)
+       .WithReference(pdfService)
        .WaitFor(loki)
        .WaitFor(prometheus)
        .WithEnvironment("Observability__ServiceName", "mailservice-api")
-       .WithEnvironment("Observability__LokiUrl", loki.GetEndpoint("http"));
+       .WithEnvironment("Observability__LokiUrl", loki.GetEndpoint("http"))
+       .WithEnvironment("PdfService__GrpcUrl", pdfService.GetEndpoint("grpc"));
 
 
 //GATEWAY
 
 var gateway = builder.AddProject<Projects.Gateway_API>("gateway-api")
     .WaitFor(identityService)
-    .WithReference(identityService);
+    .WithReference(identityService)
+    .WaitFor(pdfService)
+    .WithReference(pdfService);
 
 //FRONTEND
 

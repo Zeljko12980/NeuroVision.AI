@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import Button from "../button/Button";
 import { Modal } from "../modal/index";
 
@@ -22,6 +23,8 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
     confirmLabel,
     confirmClassName = "bg-red-500 hover:bg-red-600 text-white",
 }) => {
+    const { t } = useTranslation();
+
     return (
         <Modal isOpen={isOpen} onClose={onCancel} className="max-w-md">
             <div className="p-6">
@@ -37,7 +40,7 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
 
                 <div className="mt-6 flex justify-end gap-2">
                     <Button variant="outline" onClick={onCancel} disabled={loading}>
-                        Cancel
+                        {t("common.cancel")}
                     </Button>
 
                     <Button
@@ -46,7 +49,7 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
                         disabled={loading}
                         className={confirmClassName}
                     >
-                        {loading ? "..." : confirmLabel || "Delete"}
+                        {loading ? "..." : confirmLabel || t("common.delete")}
                     </Button>
                 </div>
             </div>
