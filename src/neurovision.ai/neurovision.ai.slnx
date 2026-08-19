@@ -40,6 +40,10 @@
     <Project Path="Tests/Mail/MailService.ArchitectureTests/MailService.ArchitectureTests.csproj" />
     <Project Path="Tests/Mail/MailService.UnitTests/MailService.UnitTests.csproj" />
   </Folder>
+  <Folder Name="/Tests/Pdf/">
+    <Project Path="Tests/Pdf/PdfService.ArchitectureTests/PdfService.ArchitectureTests.csproj" />
+    <Project Path="Tests/Pdf/PdfService.UnitTests/PdfService.UnitTests.csproj" />
+  </Folder>
   <Project Path="neurovision.ai.AppHost/neurovision.ai.AppHost.csproj" Id="cffd2ebe-982b-42ad-b022-6bcb9aa24004" />
   <Project Path="neurovision.ai.ServiceDefaults/neurovision.ai.ServiceDefaults.csproj" />
 </Solution>
