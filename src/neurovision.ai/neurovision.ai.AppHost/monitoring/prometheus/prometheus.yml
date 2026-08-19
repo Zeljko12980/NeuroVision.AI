@@ -34,3 +34,10 @@ scrape_configs:
       - targets: ["host.docker.internal:6002"]
         labels:
           service: pdfservice-api
+
+  - job_name: location
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["host.docker.internal:6003"]
+        labels:
+          service: locationservice-api

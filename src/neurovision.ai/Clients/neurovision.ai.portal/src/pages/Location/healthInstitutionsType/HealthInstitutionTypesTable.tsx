@@ -127,7 +127,7 @@ export default function HealthInstitutionTypesTable() {
             dispatch(
                 showAlert({
                     type: "success",
-                    message: "Saved successfully"
+                    message: t("location.healthInstitutionTypes.messages.saved")
                 })
             );
 
@@ -144,7 +144,7 @@ export default function HealthInstitutionTypesTable() {
             dispatch(
                 showAlert({
                     type: "error",
-                    message: "Save failed"
+                    message: t("location.healthInstitutionTypes.messages.saveFailed")
                 })
             );
 
@@ -397,7 +397,7 @@ export default function HealthInstitutionTypesTable() {
 
 
             <div className="space-y-6">
-                <ComponentCard title={t("location.healthInstitutions.title")}>
+                <ComponentCard title={t("location.healthInstitutionTypes.title")}>
                     <div className="flex justify-end mb-3 gap-2">
 
                         <button
@@ -430,7 +430,7 @@ export default function HealthInstitutionTypesTable() {
 
                                         <TableCell isHeader>
 
-                                            Code
+                                            {t("location.healthInstitutionTypes.table.code")}
 
                                         </TableCell>
 
@@ -438,7 +438,7 @@ export default function HealthInstitutionTypesTable() {
 
                                         <TableCell isHeader>
 
-                                            Name
+                                            {t("location.healthInstitutionTypes.table.name")}
 
                                         </TableCell>
 
@@ -446,7 +446,7 @@ export default function HealthInstitutionTypesTable() {
 
                                         <TableCell isHeader>
 
-                                            Actions
+                                            {t("location.healthInstitutionTypes.table.actions")}
 
                                         </TableCell>
 
@@ -499,14 +499,14 @@ export default function HealthInstitutionTypesTable() {
                                                                 }}
                                                                 className="px-4 py-2 text-left hover:bg-gray-100"
                                                             >
-                                                                {t("location.healthInstitutions.actions.edit")}
+                                                                {t("location.healthInstitutionTypes.actions.edit")}
                                                             </button>
 
                                                             <button
                                                                 onClick={() => handleDeleteClick(item.code)}
                                                                 className="px-4 py-2 text-left text-red-500 hover:bg-gray-100"
                                                             >
-                                                                {t("location.healthInstitutions.actions.delete")}
+                                                                {t("location.healthInstitutionTypes.actions.delete")}
                                                             </button>
                                                         </div>
                                                     </Dropdown>

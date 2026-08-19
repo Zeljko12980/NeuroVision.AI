@@ -1,0 +1,16 @@
+global using BuildingBlocks.Behaviors;
+global using BuildingBlocks.CQRS;
+global using BuildingBlocks.Pagination;
+global using BuildingBlocks.Persistence;
+global using BuildingBlocks.Results;
+global using FluentValidation;
+global using LocationService.Application.Common.Interfaces;
+global using LocationService.Application.Common.Mappings;
+global using LocationService.Application.Common.Request;
+global using LocationService.Application.Common.Response;
+global using LocationService.Domain.Entities;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Logging;
+global using System.Net;
+global using System.Reflection;

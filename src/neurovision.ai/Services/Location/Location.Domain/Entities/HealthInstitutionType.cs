@@ -1,0 +1,30 @@
+﻿namespace LocationService.Domain.Entities;
+
+public class HealthInstitutionType
+{
+    public string Code { get; private set; } = null!;
+    public string Name { get; private set; } = null!;
+    public string? Description { get; private set; }
+
+    public ICollection<HealthInstitution> HealthInstitutions { get; private set; } = new List<HealthInstitution>();
+
+    private HealthInstitutionType()
+    {
+    }
+
+    public static HealthInstitutionType Create(string code, string name, string? description = null)
+    {
+        return new HealthInstitutionType
+        {
+            Code = Guard.NotEmpty(code, nameof(code)),
+            Name = Guard.NotEmpty(name, nameof(name)),
+            Description = description
+        };
+    }
+
+    public void Update(string name, string? description)
+    {
+        Name = Guard.NotEmpty(name, nameof(name));
+        Description = description;
+    }
+}

@@ -10,6 +10,7 @@ var postgres = builder.AddPostgres("postgres")
 
 var identityDb = postgres.AddDatabase("identitydb");
 var pdfDb = postgres.AddDatabase("pdfdb");
+var locationDb = postgres.AddDatabase("locationdb");
 
 
 //MESSAGING
@@ -83,6 +84,16 @@ var pdfService = builder.AddProject<Projects.PdfService_API>("pdfservice-api")
        .WithEnvironment("Kestrel__Endpoints__http__Protocols", "Http1")
        .WithEnvironment("Kestrel__Endpoints__grpc__Protocols", "Http2");
 
+var locationService = builder.AddProject<Projects.LocationService_API>("locationservice-api")
+       .WaitFor(locationDb)
+       .WithReference(locationDb)
+       .WaitFor(loki)
+       .WaitFor(prometheus)
+       .WaitFor(grafana)
+       .WithHttpEndpoint(name: "http", port: 6003, isProxied: false)
+       .WithEnvironment("Observability__ServiceName", "locationservice-api")
+       .WithEnvironment("Observability__LokiUrl", loki.GetEndpoint("http"));
+
 builder.AddProject<Projects.MailService_API>("mailservice-api")
        .WaitFor(rabbitmq)
        .WithReference(rabbitmq)
@@ -101,7 +112,9 @@ var gateway = builder.AddProject<Projects.Gateway_API>("gateway-api")
     .WaitFor(identityService)
     .WithReference(identityService)
     .WaitFor(pdfService)
-    .WithReference(pdfService);
+    .WithReference(pdfService)
+    .WaitFor(locationService)
+    .WithReference(locationService);
 
 //FRONTEND
 

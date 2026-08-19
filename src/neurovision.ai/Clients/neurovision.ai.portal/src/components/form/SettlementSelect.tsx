@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { Dropdown } from "../ui/dropdown/Dropdown";
 
@@ -29,13 +30,16 @@ export default function SettlementSelect({
 
     settlements,
 
-    placeholder = "Select settlement",
+    placeholder,
 
     value,
 
     onChange
 
 }: SettlementSelectProps) {
+
+    const { t } = useTranslation();
+    const resolvedPlaceholder = placeholder ?? t("location.settlements.placeholders.select");
 
 
 
@@ -93,7 +97,7 @@ export default function SettlementSelect({
                         :
 
                         <span className="text-gray-400">
-                            {placeholder}
+                            {resolvedPlaceholder}
                         </span>
 
                 }

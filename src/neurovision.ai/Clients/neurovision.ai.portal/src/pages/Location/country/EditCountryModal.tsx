@@ -496,7 +496,7 @@ export default function EditCountryModal({
 
                                                 <img
                                                     src={`data:image/webp;base64,${country.flag}`}
-                                                    alt="Flag"
+                                                    alt={t("location.countries.fields.flag")}
                                                     className="
                                                         mb-3
                                                         h-32
@@ -541,7 +541,7 @@ export default function EditCountryModal({
 
                                                 <img
                                                     src={`data:image/png;base64,${country.coatOfArms}`}
-                                                    alt="Coat of arms"
+                                                    alt={t("location.countries.fields.coatOfArms")}
                                                     className="
                                                         mb-3
                                                         h-32
