@@ -1,23 +1,31 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Pagination;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.Municipality.Query.GetAll;
 
-namespace LocationService.Application.Feature.Municipality.Query.GetAll
+public sealed class GetAllMunicipalitiesQueryHandler
+    : IQueryHandler<GetAllMunicipalitiesQuery, Result<PaginatedResult<MunicipalityResponse>>>
 {
-    public sealed class GetAllMunicipalitiesQueryHandler : IQueryHandler<GetAllMunicipalitiesQuery, Result<PaginatedResult<MunicipalityResponse>>>
+    private readonly ILocationReadStore<MunicipalityResponse> reads;
+
+    public GetAllMunicipalitiesQueryHandler(ILocationReadStore<MunicipalityResponse> reads)
     {
-        private readonly IMunicipalityService _service;
+        this.reads = reads;
+    }
 
-        public GetAllMunicipalitiesQueryHandler(IMunicipalityService service)
-        {
-            _service = service;
-        }
+    public async Task<Result<PaginatedResult<MunicipalityResponse>>> Handle(
+        GetAllMunicipalitiesQuery query,
+        CancellationToken cancellationToken)
+    {
+        var request = query.Request;
+        var pageIndex = Math.Max(request.PageIndex, 0);
+        var total = await reads.CountAsync(new { request.Search }, cancellationToken);
+        var items = await reads.GetPagedAsync(
+            new { request.Search, request.PageSize, Offset = request.PageIndex * request.PageSize },
+            cancellationToken);
 
-        public async Task<Result<PaginatedResult<MunicipalityResponse>>> Handle(GetAllMunicipalitiesQuery query, CancellationToken cancellationToken)
-        {
-            return await _service.GetAllAsync(query.Request, cancellationToken);
-        }
+        return Result<PaginatedResult<MunicipalityResponse>>.Ok(
+            new PaginatedResult<MunicipalityResponse>(
+                pageIndex,
+                request.PageSize,
+                total,
+                items));
     }
 }

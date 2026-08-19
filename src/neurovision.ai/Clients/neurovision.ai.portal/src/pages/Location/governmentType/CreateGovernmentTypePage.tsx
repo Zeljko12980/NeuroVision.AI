@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import ComponentCard from "../../../components/common/ComponentCard";
 import PageBreadcrumb from "../../../components/common/PageBreadCrumb";
@@ -26,6 +27,7 @@ export default function CreateGovernmentTypePage() {
 
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+    const { t } = useTranslation();
 
 
     const [loading, setLoading] =
@@ -66,8 +68,7 @@ export default function CreateGovernmentTypePage() {
 
             dispatch(
                 showAlert({
-                    message:
-                        "Government type code and name are required",
+                    message: t("location.governmentTypes.messages.required"),
                     type: "error"
                 })
             );
@@ -96,8 +97,7 @@ export default function CreateGovernmentTypePage() {
 
             dispatch(
                 showAlert({
-                    message:
-                        "Government type created successfully",
+                    message: t("location.governmentTypes.messages.createSuccess"),
                     type: "success"
                 })
             );
@@ -115,7 +115,7 @@ export default function CreateGovernmentTypePage() {
                 showAlert({
                     message:
                         error?.message ??
-                        "Failed to create government type",
+                        t("location.governmentTypes.messages.createError"),
                     type: "error"
                 })
             );
@@ -135,20 +135,20 @@ export default function CreateGovernmentTypePage() {
         <>
 
             <PageMeta
-                title="Create Government Type | NeuroVision.AI"
-                description="Create government type"
+                title={`${t("location.governmentTypes.createTitle")} | NeuroVision.AI`}
+                description={t("location.governmentTypes.pageDescription")}
             />
 
 
             <PageBreadcrumb
-                pageTitle="Create Government Type"
+                pageTitle={t("location.governmentTypes.createTitle")}
             />
 
 
 
             <div className="max-w-3xl mx-auto">
 
-                <ComponentCard title="New Government Type">
+                <ComponentCard title={t("location.governmentTypes.createTitle")}>
 
 
                     <div className="space-y-5">
@@ -157,12 +157,12 @@ export default function CreateGovernmentTypePage() {
                         <div>
 
                             <Label>
-                                Code *
+                                {t("location.governmentTypes.fields.code")} *
                             </Label>
 
                             <Input
                                 value={form.code}
-                                placeholder="REP"
+                                placeholder={t("location.governmentTypes.placeholders.code")}
                                 onChange={e =>
                                     handleChange(
                                         "code",
@@ -178,12 +178,12 @@ export default function CreateGovernmentTypePage() {
                         <div>
 
                             <Label>
-                                Name *
+                                {t("location.governmentTypes.fields.name")} *
                             </Label>
 
                             <Input
                                 value={form.name}
-                                placeholder="Republic"
+                                placeholder={t("location.governmentTypes.placeholders.name")}
                                 onChange={e =>
                                     handleChange(
                                         "name",
@@ -217,7 +217,7 @@ export default function CreateGovernmentTypePage() {
                                 )
                             }
                         >
-                            Cancel
+                            {t("common.cancel")}
                         </Button>
 
 
@@ -236,9 +236,9 @@ export default function CreateGovernmentTypePage() {
                             {
                                 loading
                                     ?
-                                    "Creating..."
+                                    t("common.creating")
                                     :
-                                    "Create Government Type"
+                                    t("location.governmentTypes.createButton")
                             }
 
                         </Button>

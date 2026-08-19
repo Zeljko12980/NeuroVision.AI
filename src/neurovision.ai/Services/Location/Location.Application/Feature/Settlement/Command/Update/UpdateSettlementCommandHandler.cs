@@ -1,22 +1,39 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.Settlement.Command.Update;
 
-namespace LocationService.Application.Feature.Settlement.Command.Update
+public sealed class UpdateSettlementCommandHandler
+    : ICommandHandler<UpdateSettlementCommand, Result<SettlementResponse>>
 {
-    public sealed class UpdateSettlementCommandHandler : ICommandHandler<UpdateSettlementCommand, Result<SettlementResponse>>
+    private readonly ILocationWriteStore writes;
+    private readonly IUnitOfWork unitOfWork;
+
+    public UpdateSettlementCommandHandler(
+        ILocationWriteStore writes,
+        IUnitOfWork unitOfWork)
     {
-        private readonly ISettlementService _service;
+        this.writes = writes;
+        this.unitOfWork = unitOfWork;
+    }
 
-        public UpdateSettlementCommandHandler(ISettlementService service)
+    public async Task<Result<SettlementResponse>> Handle(
+        UpdateSettlementCommand command,
+        CancellationToken cancellationToken)
+    {
+        var entity = await writes.FindAsync<global::LocationService.Domain.Entities.Settlement>(
+            new object[] { command.CountryCode, command.Code },
+            cancellationToken);
+
+        if (entity is null)
         {
-            _service = service;
+            return Result<SettlementResponse>.Fail(
+                "Settlement not found.",
+                HttpStatusCode.NotFound);
         }
 
-        public async Task<Result<SettlementResponse>> Handle(UpdateSettlementCommand command, CancellationToken cancellationToken)
-        {
-            return await _service.UpdateAsync(command.CountryCode, command.Code, command.Request, cancellationToken);
-        }
+        var request = command.Request;
+        entity.Update(request.Name, request.PostalCode);
+        writes.Update(entity);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result<SettlementResponse>.Ok(entity.ToResponse());
     }
 }

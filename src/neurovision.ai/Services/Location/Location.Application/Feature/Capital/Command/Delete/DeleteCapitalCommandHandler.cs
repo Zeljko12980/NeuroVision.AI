@@ -1,21 +1,37 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
+namespace LocationService.Application.Feature.Capital.Command.Delete;
 
-namespace LocationService.Application.Feature.Capital.Command.Delete
+public sealed class DeleteCapitalCommandHandler
+    : ICommandHandler<DeleteCapitalCommand, Result<bool>>
 {
-    public sealed class DeleteCapitalCommandHandler : ICommandHandler<DeleteCapitalCommand, Result<bool>>
+    private readonly ILocationWriteStore writes;
+    private readonly IUnitOfWork unitOfWork;
+
+    public DeleteCapitalCommandHandler(
+        ILocationWriteStore writes,
+        IUnitOfWork unitOfWork)
     {
-        private readonly ICapitalService _service;
+        this.writes = writes;
+        this.unitOfWork = unitOfWork;
+    }
 
-        public DeleteCapitalCommandHandler(ICapitalService service)
+    public async Task<Result<bool>> Handle(
+        DeleteCapitalCommand command,
+        CancellationToken cancellationToken)
+    {
+        var entity = await writes.FindAsync<global::LocationService.Domain.Entities.Capital>(
+            new object[] { command.CountryCode, command.SettlementCode, command.SequenceNumber },
+            cancellationToken);
+
+        if (entity is null)
         {
-            _service = service;
+            return Result<bool>.Fail(
+                "Capital not found.",
+                HttpStatusCode.NotFound);
         }
 
-        public async Task<Result<bool>> Handle(DeleteCapitalCommand command, CancellationToken cancellationToken)
-        {
-            return await _service.DeleteAsync(command.CountryCode, command.SettlementCode, command.SequenceNumber, cancellationToken);
-        }
+        writes.Remove(entity);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result<bool>.Ok(true);
     }
 }

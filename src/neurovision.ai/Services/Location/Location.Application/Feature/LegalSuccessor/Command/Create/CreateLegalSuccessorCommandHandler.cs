@@ -1,22 +1,40 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.LegalSuccessor.Command.Create;
 
-namespace LocationService.Application.Feature.LegalSuccessor.Command.Create
+public sealed class CreateLegalSuccessorCommandHandler
+    : ICommandHandler<CreateLegalSuccessorCommand, Result<LegalSuccessorResponse>>
 {
-    public sealed class CreateLegalSuccessorCommandHandler : ICommandHandler<CreateLegalSuccessorCommand, Result<LegalSuccessorResponse>>
+    private readonly ILocationReadStore<LegalSuccessorResponse> reads;
+    private readonly ILocationWriteStore writes;
+    private readonly IUnitOfWork unitOfWork;
+
+    public CreateLegalSuccessorCommandHandler(
+        ILocationReadStore<LegalSuccessorResponse> reads,
+        ILocationWriteStore writes,
+        IUnitOfWork unitOfWork)
     {
-        private readonly ILegalSuccessorService _service;
+        this.reads = reads;
+        this.writes = writes;
+        this.unitOfWork = unitOfWork;
+    }
 
-        public CreateLegalSuccessorCommandHandler(ILegalSuccessorService service)
+    public async Task<Result<LegalSuccessorResponse>> Handle(
+        CreateLegalSuccessorCommand command,
+        CancellationToken cancellationToken)
+    {
+        var request = command.Request;
+
+        if (await reads.ExistsAsync(new { request.SuccessorCountryCode, request.PredecessorCountryCode }, cancellationToken))
         {
-            _service = service;
+            return Result<LegalSuccessorResponse>.Fail(
+                "LegalSuccessor already exists.",
+                HttpStatusCode.Conflict);
         }
 
-        public async Task<Result<LegalSuccessorResponse>> Handle(CreateLegalSuccessorCommand command, CancellationToken cancellationToken)
-        {
-            return await _service.AddAsync(command.Request, cancellationToken);
-        }
+        var entity = global::LocationService.Domain.Entities.LegalSuccessor.Create(request.SuccessorCountryCode, request.PredecessorCountryCode);
+
+        await writes.AddAsync(entity, cancellationToken);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result<LegalSuccessorResponse>.Created(entity.ToResponse());
     }
 }

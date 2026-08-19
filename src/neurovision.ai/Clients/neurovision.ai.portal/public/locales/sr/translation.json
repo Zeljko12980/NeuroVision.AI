@@ -360,7 +360,21 @@
         "deleteSuccess": "Država je uspješno obrisana.",
         "deleteError": "Brisanje države nije uspjelo.",
         "updateSuccess": "Država je uspješno ažurirana.",
-        "updateError": "Ažuriranje države nije uspjelo."
+        "updateError": "Ažuriranje države nije uspjelo.",
+        "required": "Kod, naziv i datum osnivanja su obavezni.",
+        "createSuccess": "Država je uspješno kreirana.",
+        "createError": "Kreiranje države nije uspjelo."
+      },
+      "createButton": "Kreiraj državu",
+      "createTabs": {
+        "general": "Opšte",
+        "administrative": "Administrativno",
+        "media": "Mediji"
+      },
+      "placeholders": {
+        "governmentType": "Izaberi tip vlasti",
+        "capital": "Izaberi glavni grad",
+        "name": "Bosna i Hercegovina"
       }
     },
     "settlements": {
@@ -373,7 +387,12 @@
         "countryCode": "Država",
         "code": "Kod",
         "name": "Naziv",
-        "postalCode": "Poštanski broj"
+        "postalCode": "Poštanski broj",
+        "country": "Država",
+        "actions": "Akcije"
+      },
+      "placeholders": {
+        "select": "Izaberi naselje"
       },
       "actions": {
         "edit": "Izmijeni",
@@ -383,7 +402,11 @@
         "deleteTitle": "Obriši naselje",
         "deleteDescription": "Da li ste sigurni da želite obrisati ovo naselje?",
         "deleteSuccess": "Naselje je uspješno obrisano.",
-        "deleteError": "Brisanje naselja nije uspjelo."
+        "deleteError": "Brisanje naselja nije uspjelo.",
+        "createSuccess": "Naselje je uspješno kreirano.",
+        "createError": "Kreiranje naselja nije uspjelo.",
+        "updateSuccess": "Naselje je uspješno ažurirano.",
+        "updateError": "Ažuriranje naselja nije uspjelo."
       }
     },
     "capitals": {
@@ -414,8 +437,10 @@
         "updateSuccess": "Uspješno ažurirano.",
         "updateError": "Ažuriranje nije uspjelo.",
         "createSuccess": "Uspješno kreirano.",
-        "createError": "Kreiranje nije uspjelo."
-      }
+        "createError": "Kreiranje nije uspjelo.",
+        "required": "Država i naselje su obavezni."
+      },
+      "createButton": "Kreiraj glavni grad"
     },
     "municipalities": {
       "pageTitle": "Opštine",
@@ -449,8 +474,10 @@
         "updateSuccess": "Uspješno ažurirano.",
         "updateError": "Ažuriranje nije uspjelo.",
         "createSuccess": "Uspješno kreirano.",
-        "createError": "Kreiranje nije uspjelo."
-      }
+        "createError": "Kreiranje nije uspjelo.",
+        "required": "Sva obavezna polja moraju biti popunjena."
+      },
+      "createButton": "Kreiraj opštinu"
     },
     "regions": {
       "pageTitle": "Regije",
@@ -488,8 +515,10 @@
         "updateSuccess": "Uspješno ažurirano.",
         "updateError": "Ažuriranje nije uspjelo.",
         "createSuccess": "Uspješno kreirano.",
-        "createError": "Kreiranje nije uspjelo."
-      }
+        "createError": "Kreiranje nije uspjelo.",
+        "required": "Sva obavezna polja moraju biti popunjena."
+      },
+      "createButton": "Kreiraj regiju"
     },
     "governmentTypes": {
       "pageTitle": "Tipovi vlasti",
@@ -515,7 +544,12 @@
         "updateSuccess": "Tip vlasti je uspješno ažuriran.",
         "updateError": "Ažuriranje tipa vlasti nije uspjelo.",
         "createSuccess": "Tip vlasti je uspješno kreiran.",
-        "createError": "Kreiranje tipa vlasti nije uspjelo."
+        "createError": "Kreiranje tipa vlasti nije uspjelo.",
+        "required": "Kod i naziv su obavezni."
+      },
+      "placeholders": {
+        "code": "REP",
+        "name": "Republika"
       }
     },
     "healthInstitutions": {
@@ -546,6 +580,7 @@
         "delete": "Obriši"
       },
       "messages": {
+        "required": "Naziv, tip, država i naselje su obavezni.",
         "deleteTitle": "Brisanje zdravstvene ustanove",
         "deleteDescription": "Da li ste sigurni da želite obrisati ovu zdravstvenu ustanovu?",
         "deleteSuccess": "Zdravstvena ustanova je uspješno obrisana.",
@@ -554,6 +589,13 @@
         "createError": "Kreiranje zdravstvene ustanove nije uspjelo.",
         "updateSuccess": "Zdravstvena ustanova je uspješno ažurirana.",
         "updateError": "Ažuriranje zdravstvene ustanove nije uspjelo."
+      },
+      "placeholders": {
+        "name": "Opšta bolnica",
+        "type": "Izaberi tip",
+        "country": "Izaberi državu",
+        "settlement": "Izaberi naselje",
+        "address": "Glavna ulica 25"
       }
     },
     "healthInstitutionTypes": {
@@ -623,8 +665,10 @@
         "updateSuccess": "Uspješno ažurirano.",
         "updateError": "Ažuriranje nije uspjelo.",
         "createSuccess": "Uspješno kreirano.",
-        "createError": "Kreiranje nije uspjelo."
-      }
+        "createError": "Kreiranje nije uspjelo.",
+        "required": "Kod i naziv su obavezni."
+      },
+      "createButton": "Kreiraj tip regije"
     },
     "localCommunities": {
       "pageTitle": "Lokalne zajednice",
@@ -660,8 +704,10 @@
         "updateSuccess": "Uspješno ažurirano.",
         "updateError": "Ažuriranje nije uspjelo.",
         "createSuccess": "Uspješno kreirano.",
-        "createError": "Kreiranje nije uspjelo."
-      }
+        "createError": "Kreiranje nije uspjelo.",
+        "required": "Sva obavezna polja moraju biti popunjena."
+      },
+      "createButton": "Kreiraj lokalnu zajednicu"
     },
     "countryCompositions": {
       "pageTitle": "Sastav država",
@@ -697,8 +743,10 @@
         "updateSuccess": "Uspješno ažurirano.",
         "updateError": "Ažuriranje nije uspjelo.",
         "createSuccess": "Uspješno kreirano.",
-        "createError": "Kreiranje nije uspjelo."
-      }
+        "createError": "Kreiranje nije uspjelo.",
+        "required": "Sva obavezna polja moraju biti popunjena."
+      },
+      "createButton": "Kreiraj sastav"
     },
     "regionCompositions": {
       "pageTitle": "Sastav regija",
@@ -732,8 +780,10 @@
         "updateSuccess": "Uspješno ažurirano.",
         "updateError": "Ažuriranje nije uspjelo.",
         "createSuccess": "Uspješno kreirano.",
-        "createError": "Kreiranje nije uspjelo."
-      }
+        "createError": "Kreiranje nije uspjelo.",
+        "required": "Sva obavezna polja moraju biti popunjena."
+      },
+      "createButton": "Kreiraj sastav regije"
     },
     "regionSettlementCoverages": {
       "pageTitle": "Pokrivenost regija",
@@ -767,8 +817,10 @@
         "updateSuccess": "Uspješno ažurirano.",
         "updateError": "Ažuriranje nije uspjelo.",
         "createSuccess": "Uspješno kreirano.",
-        "createError": "Kreiranje nije uspjelo."
-      }
+        "createError": "Kreiranje nije uspjelo.",
+        "required": "Sva obavezna polja moraju biti popunjena."
+      },
+      "createButton": "Kreiraj pokrivenost"
     },
     "municipalitySettlementCoverages": {
       "pageTitle": "Pokrivenost opština",
@@ -800,8 +852,10 @@
         "updateSuccess": "Uspješno ažurirano.",
         "updateError": "Ažuriranje nije uspjelo.",
         "createSuccess": "Uspješno kreirano.",
-        "createError": "Kreiranje nije uspjelo."
-      }
+        "createError": "Kreiranje nije uspjelo.",
+        "required": "Sva obavezna polja moraju biti popunjena."
+      },
+      "createButton": "Kreiraj pokrivenost"
     },
     "localCommunityCoverages": {
       "pageTitle": "Pokrivenost lokalnih zajednica",
@@ -835,8 +889,10 @@
         "updateSuccess": "Uspješno ažurirano.",
         "updateError": "Ažuriranje nije uspjelo.",
         "createSuccess": "Uspješno kreirano.",
-        "createError": "Kreiranje nije uspjelo."
-      }
+        "createError": "Kreiranje nije uspjelo.",
+        "required": "Sva obavezna polja moraju biti popunjena."
+      },
+      "createButton": "Kreiraj pokrivenost"
     },
     "legalSuccessors": {
       "pageTitle": "Pravni sljedbenici",
@@ -866,8 +922,10 @@
         "updateSuccess": "Uspješno ažurirano.",
         "updateError": "Ažuriranje nije uspjelo.",
         "createSuccess": "Uspješno kreirano.",
-        "createError": "Kreiranje nije uspjelo."
-      }
+        "createError": "Kreiranje nije uspjelo.",
+        "required": "Sva obavezna polja moraju biti popunjena."
+      },
+      "createButton": "Kreiraj pravnog sledbenika"
     },
     "governmentHistories": {
       "pageTitle": "Historija vlasti",
@@ -903,8 +961,10 @@
         "updateSuccess": "Uspješno ažurirano.",
         "updateError": "Ažuriranje nije uspjelo.",
         "createSuccess": "Uspješno kreirano.",
-        "createError": "Kreiranje nije uspjelo."
-      }
+        "createError": "Kreiranje nije uspjelo.",
+        "required": "Sva obavezna polja moraju biti popunjena."
+      },
+      "createButton": "Kreiraj istoriju vlasti"
     }
   },
   "tumor": {

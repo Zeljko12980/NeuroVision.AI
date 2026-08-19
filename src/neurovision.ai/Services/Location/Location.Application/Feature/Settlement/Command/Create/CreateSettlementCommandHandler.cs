@@ -1,22 +1,40 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.Settlement.Command.Create;
 
-namespace LocationService.Application.Feature.Settlement.Command.Create
+public sealed class CreateSettlementCommandHandler
+    : ICommandHandler<CreateSettlementCommand, Result<SettlementResponse>>
 {
-    public sealed class CreateSettlementCommandHandler : ICommandHandler<CreateSettlementCommand, Result<SettlementResponse>>
+    private readonly ILocationReadStore<SettlementResponse> reads;
+    private readonly ILocationWriteStore writes;
+    private readonly IUnitOfWork unitOfWork;
+
+    public CreateSettlementCommandHandler(
+        ILocationReadStore<SettlementResponse> reads,
+        ILocationWriteStore writes,
+        IUnitOfWork unitOfWork)
     {
-        private readonly ISettlementService _service;
+        this.reads = reads;
+        this.writes = writes;
+        this.unitOfWork = unitOfWork;
+    }
 
-        public CreateSettlementCommandHandler(ISettlementService service)
+    public async Task<Result<SettlementResponse>> Handle(
+        CreateSettlementCommand command,
+        CancellationToken cancellationToken)
+    {
+        var request = command.Request;
+
+        if (await reads.ExistsAsync(new { request.CountryCode, request.Code }, cancellationToken))
         {
-            _service = service;
+            return Result<SettlementResponse>.Fail(
+                "Settlement already exists.",
+                HttpStatusCode.Conflict);
         }
 
-        public async Task<Result<SettlementResponse>> Handle(CreateSettlementCommand command, CancellationToken cancellationToken)
-        {
-            return await _service.AddAsync(command.Request, cancellationToken);
-        }
+        var entity = global::LocationService.Domain.Entities.Settlement.Create(request.CountryCode, request.Code, request.Name, request.PostalCode);
+
+        await writes.AddAsync(entity, cancellationToken);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result<SettlementResponse>.Created(entity.ToResponse());
     }
 }

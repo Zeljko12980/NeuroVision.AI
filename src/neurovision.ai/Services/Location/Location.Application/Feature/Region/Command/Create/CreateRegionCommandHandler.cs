@@ -1,22 +1,40 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.Region.Command.Create;
 
-namespace LocationService.Application.Feature.Region.Command.Create
+public sealed class CreateRegionCommandHandler
+    : ICommandHandler<CreateRegionCommand, Result<RegionResponse>>
 {
-    public sealed class CreateRegionCommandHandler : ICommandHandler<CreateRegionCommand, Result<RegionResponse>>
+    private readonly ILocationReadStore<RegionResponse> reads;
+    private readonly ILocationWriteStore writes;
+    private readonly IUnitOfWork unitOfWork;
+
+    public CreateRegionCommandHandler(
+        ILocationReadStore<RegionResponse> reads,
+        ILocationWriteStore writes,
+        IUnitOfWork unitOfWork)
     {
-        private readonly IRegionService _service;
+        this.reads = reads;
+        this.writes = writes;
+        this.unitOfWork = unitOfWork;
+    }
 
-        public CreateRegionCommandHandler(IRegionService service)
+    public async Task<Result<RegionResponse>> Handle(
+        CreateRegionCommand command,
+        CancellationToken cancellationToken)
+    {
+        var request = command.Request;
+
+        if (await reads.ExistsAsync(new { request.TypeCode, request.Code }, cancellationToken))
         {
-            _service = service;
+            return Result<RegionResponse>.Fail(
+                "Region already exists.",
+                HttpStatusCode.Conflict);
         }
 
-        public async Task<Result<RegionResponse>> Handle(CreateRegionCommand command, CancellationToken cancellationToken)
-        {
-            return await _service.AddAsync(command.Request, cancellationToken);
-        }
+        var entity = global::LocationService.Domain.Entities.Region.Create(request.TypeCode, request.Code, request.Name, request.BelongsToCountryCode, request.HeadquartersCountryCode, request.AdministrativeSeatSettlementCode);
+
+        await writes.AddAsync(entity, cancellationToken);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result<RegionResponse>.Created(entity.ToResponse());
     }
 }

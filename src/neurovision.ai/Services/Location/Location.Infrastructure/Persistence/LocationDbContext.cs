@@ -1,10 +1,9 @@
-using LocationService.Application.Common.Interfaces;
 using LocationService.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace LocationService.Infrastructure.Persistence;
 
-public class LocationDbContext : DbContext, ILocationDbContext
+public class LocationDbContext : DbContext
 {
     public LocationDbContext(DbContextOptions<LocationDbContext> options) : base(options)
     {

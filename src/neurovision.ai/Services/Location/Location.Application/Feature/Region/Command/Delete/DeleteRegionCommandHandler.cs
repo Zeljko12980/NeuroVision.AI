@@ -1,21 +1,37 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
+namespace LocationService.Application.Feature.Region.Command.Delete;
 
-namespace LocationService.Application.Feature.Region.Command.Delete
+public sealed class DeleteRegionCommandHandler
+    : ICommandHandler<DeleteRegionCommand, Result<bool>>
 {
-    public sealed class DeleteRegionCommandHandler : ICommandHandler<DeleteRegionCommand, Result<bool>>
+    private readonly ILocationWriteStore writes;
+    private readonly IUnitOfWork unitOfWork;
+
+    public DeleteRegionCommandHandler(
+        ILocationWriteStore writes,
+        IUnitOfWork unitOfWork)
     {
-        private readonly IRegionService _service;
+        this.writes = writes;
+        this.unitOfWork = unitOfWork;
+    }
 
-        public DeleteRegionCommandHandler(IRegionService service)
+    public async Task<Result<bool>> Handle(
+        DeleteRegionCommand command,
+        CancellationToken cancellationToken)
+    {
+        var entity = await writes.FindAsync<global::LocationService.Domain.Entities.Region>(
+            new object[] { command.TypeCode, command.Code },
+            cancellationToken);
+
+        if (entity is null)
         {
-            _service = service;
+            return Result<bool>.Fail(
+                "Region not found.",
+                HttpStatusCode.NotFound);
         }
 
-        public async Task<Result<bool>> Handle(DeleteRegionCommand command, CancellationToken cancellationToken)
-        {
-            return await _service.DeleteAsync(command.TypeCode, command.Code, cancellationToken);
-        }
+        writes.Remove(entity);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result<bool>.Ok(true);
     }
 }

@@ -1,23 +1,31 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Pagination;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.HealthInstitution.Query.GetAll;
 
-namespace LocationService.Application.Feature.HealthInstitution.Query.GetAll
+public sealed class GetAllHealthInstitutionsQueryHandler
+    : IQueryHandler<GetAllHealthInstitutionsQuery, Result<PaginatedResult<HealthInstitutionResponse>>>
 {
-    public sealed class GetAllHealthInstitutionsQueryHandler : IQueryHandler<GetAllHealthInstitutionsQuery, Result<PaginatedResult<HealthInstitutionResponse>>>
+    private readonly ILocationReadStore<HealthInstitutionResponse> reads;
+
+    public GetAllHealthInstitutionsQueryHandler(ILocationReadStore<HealthInstitutionResponse> reads)
     {
-        private readonly IHealthInstitutionService _service;
+        this.reads = reads;
+    }
 
-        public GetAllHealthInstitutionsQueryHandler(IHealthInstitutionService service)
-        {
-            _service = service;
-        }
+    public async Task<Result<PaginatedResult<HealthInstitutionResponse>>> Handle(
+        GetAllHealthInstitutionsQuery query,
+        CancellationToken cancellationToken)
+    {
+        var request = query.Request;
+        var pageIndex = Math.Max(request.PageIndex, 0);
+        var total = await reads.CountAsync(new { request.Search }, cancellationToken);
+        var items = await reads.GetPagedAsync(
+            new { request.Search, request.PageSize, Offset = request.PageIndex * request.PageSize },
+            cancellationToken);
 
-        public async Task<Result<PaginatedResult<HealthInstitutionResponse>>> Handle(GetAllHealthInstitutionsQuery query, CancellationToken cancellationToken)
-        {
-            return await _service.GetAllAsync(query.Request, cancellationToken);
-        }
+        return Result<PaginatedResult<HealthInstitutionResponse>>.Ok(
+            new PaginatedResult<HealthInstitutionResponse>(
+                pageIndex,
+                request.PageSize,
+                total,
+                items));
     }
 }

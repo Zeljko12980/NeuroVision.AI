@@ -1,22 +1,28 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.RegionType.Query.GetByKey;
 
-namespace LocationService.Application.Feature.RegionType.Query.GetByKey
+public sealed class GetRegionTypeByKeyQueryHandler
+    : IQueryHandler<GetRegionTypeByKeyQuery, Result<RegionTypeResponse>>
 {
-    public sealed class GetRegionTypeByKeyQueryHandler : IQueryHandler<GetRegionTypeByKeyQuery, Result<RegionTypeResponse>>
+    private readonly ILocationReadStore<RegionTypeResponse> reads;
+
+    public GetRegionTypeByKeyQueryHandler(ILocationReadStore<RegionTypeResponse> reads)
     {
-        private readonly IRegionTypeService _service;
+        this.reads = reads;
+    }
 
-        public GetRegionTypeByKeyQueryHandler(IRegionTypeService service)
+    public async Task<Result<RegionTypeResponse>> Handle(
+        GetRegionTypeByKeyQuery query,
+        CancellationToken cancellationToken)
+    {
+        var item = await reads.GetByKeyAsync(new { query.Code }, cancellationToken);
+
+        if (item is null)
         {
-            _service = service;
+            return Result<RegionTypeResponse>.Fail(
+                "RegionType not found.",
+                HttpStatusCode.NotFound);
         }
 
-        public async Task<Result<RegionTypeResponse>> Handle(GetRegionTypeByKeyQuery query, CancellationToken cancellationToken)
-        {
-            return await _service.GetByKeyAsync(query.Code, cancellationToken);
-        }
+        return Result<RegionTypeResponse>.Ok(item);
     }
 }

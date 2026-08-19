@@ -1,21 +1,37 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
+namespace LocationService.Application.Feature.LocalCommunity.Command.Delete;
 
-namespace LocationService.Application.Feature.LocalCommunity.Command.Delete
+public sealed class DeleteLocalCommunityCommandHandler
+    : ICommandHandler<DeleteLocalCommunityCommand, Result<bool>>
 {
-    public sealed class DeleteLocalCommunityCommandHandler : ICommandHandler<DeleteLocalCommunityCommand, Result<bool>>
+    private readonly ILocationWriteStore writes;
+    private readonly IUnitOfWork unitOfWork;
+
+    public DeleteLocalCommunityCommandHandler(
+        ILocationWriteStore writes,
+        IUnitOfWork unitOfWork)
     {
-        private readonly ILocalCommunityService _service;
+        this.writes = writes;
+        this.unitOfWork = unitOfWork;
+    }
 
-        public DeleteLocalCommunityCommandHandler(ILocalCommunityService service)
+    public async Task<Result<bool>> Handle(
+        DeleteLocalCommunityCommand command,
+        CancellationToken cancellationToken)
+    {
+        var entity = await writes.FindAsync<global::LocationService.Domain.Entities.LocalCommunity>(
+            new object[] { command.CountryCode, command.MunicipalityCode, command.Identifier },
+            cancellationToken);
+
+        if (entity is null)
         {
-            _service = service;
+            return Result<bool>.Fail(
+                "LocalCommunity not found.",
+                HttpStatusCode.NotFound);
         }
 
-        public async Task<Result<bool>> Handle(DeleteLocalCommunityCommand command, CancellationToken cancellationToken)
-        {
-            return await _service.DeleteAsync(command.CountryCode, command.MunicipalityCode, command.Identifier, cancellationToken);
-        }
+        writes.Remove(entity);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result<bool>.Ok(true);
     }
 }

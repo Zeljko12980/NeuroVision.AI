@@ -1,22 +1,28 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.MunicipalitySettlementCoverage.Query.GetByKey;
 
-namespace LocationService.Application.Feature.MunicipalitySettlementCoverage.Query.GetByKey
+public sealed class GetMunicipalitySettlementCoverageByKeyQueryHandler
+    : IQueryHandler<GetMunicipalitySettlementCoverageByKeyQuery, Result<MunicipalitySettlementCoverageResponse>>
 {
-    public sealed class GetMunicipalitySettlementCoverageByKeyQueryHandler : IQueryHandler<GetMunicipalitySettlementCoverageByKeyQuery, Result<MunicipalitySettlementCoverageResponse>>
+    private readonly ILocationReadStore<MunicipalitySettlementCoverageResponse> reads;
+
+    public GetMunicipalitySettlementCoverageByKeyQueryHandler(ILocationReadStore<MunicipalitySettlementCoverageResponse> reads)
     {
-        private readonly IMunicipalitySettlementCoverageService _service;
+        this.reads = reads;
+    }
 
-        public GetMunicipalitySettlementCoverageByKeyQueryHandler(IMunicipalitySettlementCoverageService service)
+    public async Task<Result<MunicipalitySettlementCoverageResponse>> Handle(
+        GetMunicipalitySettlementCoverageByKeyQuery query,
+        CancellationToken cancellationToken)
+    {
+        var item = await reads.GetByKeyAsync(new { query.CountryCode, query.MunicipalityCode, query.SettlementCode }, cancellationToken);
+
+        if (item is null)
         {
-            _service = service;
+            return Result<MunicipalitySettlementCoverageResponse>.Fail(
+                "MunicipalitySettlementCoverage not found.",
+                HttpStatusCode.NotFound);
         }
 
-        public async Task<Result<MunicipalitySettlementCoverageResponse>> Handle(GetMunicipalitySettlementCoverageByKeyQuery query, CancellationToken cancellationToken)
-        {
-            return await _service.GetByKeyAsync(query.CountryCode, query.MunicipalityCode, query.SettlementCode, cancellationToken);
-        }
+        return Result<MunicipalitySettlementCoverageResponse>.Ok(item);
     }
 }

@@ -1,22 +1,28 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.HealthInstitutionType.Query.GetByKey;
 
-namespace LocationService.Application.Feature.HealthInstitutionType.Query.GetByKey
+public sealed class GetHealthInstitutionTypeByKeyQueryHandler
+    : IQueryHandler<GetHealthInstitutionTypeByKeyQuery, Result<HealthInstitutionTypeResponse>>
 {
-    public sealed class GetHealthInstitutionTypeByKeyQueryHandler : IQueryHandler<GetHealthInstitutionTypeByKeyQuery, Result<HealthInstitutionTypeResponse>>
+    private readonly ILocationReadStore<HealthInstitutionTypeResponse> reads;
+
+    public GetHealthInstitutionTypeByKeyQueryHandler(ILocationReadStore<HealthInstitutionTypeResponse> reads)
     {
-        private readonly IHealthInstitutionTypeService _service;
+        this.reads = reads;
+    }
 
-        public GetHealthInstitutionTypeByKeyQueryHandler(IHealthInstitutionTypeService service)
+    public async Task<Result<HealthInstitutionTypeResponse>> Handle(
+        GetHealthInstitutionTypeByKeyQuery query,
+        CancellationToken cancellationToken)
+    {
+        var item = await reads.GetByKeyAsync(new { query.Code }, cancellationToken);
+
+        if (item is null)
         {
-            _service = service;
+            return Result<HealthInstitutionTypeResponse>.Fail(
+                "HealthInstitutionType not found.",
+                HttpStatusCode.NotFound);
         }
 
-        public async Task<Result<HealthInstitutionTypeResponse>> Handle(GetHealthInstitutionTypeByKeyQuery query, CancellationToken cancellationToken)
-        {
-            return await _service.GetByKeyAsync(query.Code, cancellationToken);
-        }
+        return Result<HealthInstitutionTypeResponse>.Ok(item);
     }
 }

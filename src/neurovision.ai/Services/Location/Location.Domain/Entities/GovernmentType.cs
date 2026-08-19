@@ -2,10 +2,30 @@ namespace LocationService.Domain.Entities;
 
 public class GovernmentType
 {
-    public string Code { get; set; } = null!;  
-    public string Name { get; set; } = null!; 
-    public string? Description { get; set; }   
+    public string Code { get; private set; } = null!;
+    public string Name { get; private set; } = null!;
+    public string? Description { get; private set; }
 
-    public ICollection<Country> Countries { get; set; } = new List<Country>();
-    public ICollection<GovernmentHistory> History { get; set; } = new List<GovernmentHistory>();
+    public ICollection<Country> Countries { get; private set; } = new List<Country>();
+    public ICollection<GovernmentHistory> History { get; private set; } = new List<GovernmentHistory>();
+
+    private GovernmentType()
+    {
+    }
+
+    public static GovernmentType Create(string code, string name, string? description = null)
+    {
+        return new GovernmentType
+        {
+            Code = Guard.NotEmpty(code, nameof(code)),
+            Name = Guard.NotEmpty(name, nameof(name)),
+            Description = description
+        };
+    }
+
+    public void Update(string name, string? description)
+    {
+        Name = Guard.NotEmpty(name, nameof(name));
+        Description = description;
+    }
 }

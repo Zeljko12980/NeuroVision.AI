@@ -331,6 +331,9 @@
         "postalCode": "Postal Code",
         "actions": "Actions"
       },
+      "placeholders": {
+        "select": "Select settlement"
+      },
       "actions": {
         "edit": "Edit",
         "delete": "Delete"
@@ -374,8 +377,10 @@
         "updateSuccess": "Updated successfully.",
         "updateError": "Update failed.",
         "createSuccess": "Created successfully.",
-        "createError": "Create failed."
-      }
+        "createError": "Create failed.",
+        "required": "Country and settlement are required."
+      },
+      "createButton": "Create Capital"
     },
     "municipalities": {
       "pageTitle": "Municipalities",
@@ -409,8 +414,10 @@
         "updateSuccess": "Updated successfully.",
         "updateError": "Update failed.",
         "createSuccess": "Created successfully.",
-        "createError": "Create failed."
-      }
+        "createError": "Create failed.",
+        "required": "All required fields must be filled."
+      },
+      "createButton": "Create Municipality"
     },
     "regions": {
       "pageTitle": "Regions",
@@ -448,8 +455,10 @@
         "updateSuccess": "Updated successfully.",
         "updateError": "Update failed.",
         "createSuccess": "Created successfully.",
-        "createError": "Create failed."
-      }
+        "createError": "Create failed.",
+        "required": "All required fields must be filled."
+      },
+      "createButton": "Create Region"
     },
     "governmentTypes": {
       "pageTitle": "Government Types",
@@ -475,7 +484,12 @@
         "updateSuccess": "Government type updated successfully.",
         "updateError": "Failed to update government type.",
         "createSuccess": "Government type created successfully.",
-        "createError": "Failed to create government type."
+        "createError": "Failed to create government type.",
+        "required": "Code and name are required."
+      },
+      "placeholders": {
+        "code": "REP",
+        "name": "Republic"
       }
     },
     "healthInstitutions": {
@@ -506,6 +520,7 @@
         "delete": "Delete"
       },
       "messages": {
+        "required": "Name, type, country and settlement are required.",
         "deleteTitle": "Delete Health Institution",
         "deleteDescription": "Are you sure you want to delete this health institution?",
         "deleteSuccess": "Health institution deleted successfully.",
@@ -514,6 +529,13 @@
         "createError": "Failed to create health institution.",
         "updateSuccess": "Health institution updated successfully.",
         "updateError": "Failed to update health institution."
+      },
+      "placeholders": {
+        "name": "General Hospital",
+        "type": "Select type",
+        "country": "Select country",
+        "settlement": "Select settlement",
+        "address": "Main Street 25"
       }
     },
     "healthInstitutionTypes": {
@@ -583,8 +605,10 @@
         "updateSuccess": "Updated successfully.",
         "updateError": "Update failed.",
         "createSuccess": "Created successfully.",
-        "createError": "Create failed."
-      }
+        "createError": "Create failed.",
+        "required": "Code and name are required."
+      },
+      "createButton": "Create Region Type"
     },
     "localCommunities": {
       "pageTitle": "Local Communities",
@@ -620,8 +644,10 @@
         "updateSuccess": "Updated successfully.",
         "updateError": "Update failed.",
         "createSuccess": "Created successfully.",
-        "createError": "Create failed."
-      }
+        "createError": "Create failed.",
+        "required": "All required fields must be filled."
+      },
+      "createButton": "Create Local Community"
     },
     "countryCompositions": {
       "pageTitle": "Country Compositions",
@@ -657,8 +683,10 @@
         "updateSuccess": "Updated successfully.",
         "updateError": "Update failed.",
         "createSuccess": "Created successfully.",
-        "createError": "Create failed."
-      }
+        "createError": "Create failed.",
+        "required": "All required fields must be filled."
+      },
+      "createButton": "Create Composition"
     },
     "regionCompositions": {
       "pageTitle": "Region Compositions",
@@ -692,8 +720,10 @@
         "updateSuccess": "Updated successfully.",
         "updateError": "Update failed.",
         "createSuccess": "Created successfully.",
-        "createError": "Create failed."
-      }
+        "createError": "Create failed.",
+        "required": "All required fields must be filled."
+      },
+      "createButton": "Create Region Composition"
     },
     "regionSettlementCoverages": {
       "pageTitle": "Region Settlement Coverages",
@@ -727,8 +757,10 @@
         "updateSuccess": "Updated successfully.",
         "updateError": "Update failed.",
         "createSuccess": "Created successfully.",
-        "createError": "Create failed."
-      }
+        "createError": "Create failed.",
+        "required": "All required fields must be filled."
+      },
+      "createButton": "Create Coverage"
     },
     "municipalitySettlementCoverages": {
       "pageTitle": "Municipality Settlement Coverages",
@@ -760,8 +792,10 @@
         "updateSuccess": "Updated successfully.",
         "updateError": "Update failed.",
         "createSuccess": "Created successfully.",
-        "createError": "Create failed."
-      }
+        "createError": "Create failed.",
+        "required": "All required fields must be filled."
+      },
+      "createButton": "Create Coverage"
     },
     "localCommunityCoverages": {
       "pageTitle": "Local Community Coverages",
@@ -795,8 +829,10 @@
         "updateSuccess": "Updated successfully.",
         "updateError": "Update failed.",
         "createSuccess": "Created successfully.",
-        "createError": "Create failed."
-      }
+        "createError": "Create failed.",
+        "required": "All required fields must be filled."
+      },
+      "createButton": "Create Coverage"
     },
     "legalSuccessors": {
       "pageTitle": "Legal Successors",
@@ -826,8 +862,10 @@
         "updateSuccess": "Updated successfully.",
         "updateError": "Update failed.",
         "createSuccess": "Created successfully.",
-        "createError": "Create failed."
-      }
+        "createError": "Create failed.",
+        "required": "All required fields must be filled."
+      },
+      "createButton": "Create Legal Successor"
     },
     "governmentHistories": {
       "pageTitle": "Government Histories",
@@ -863,7 +901,68 @@
         "updateSuccess": "Updated successfully.",
         "updateError": "Update failed.",
         "createSuccess": "Created successfully.",
-        "createError": "Create failed."
+        "createError": "Create failed.",
+        "required": "All required fields must be filled."
+      },
+      "createButton": "Create Government History"
+    },
+    "countries": {
+      "pageTitle": "Countries",
+      "pageDescription": "Manage countries and their information",
+      "title": "Countries",
+      "createTitle": "Create Country",
+      "editTitle": "Edit Country",
+      "editDescription": "Update country information.",
+      "createButton": "Create Country",
+      "createTabs": {
+        "general": "General",
+        "administrative": "Administrative",
+        "media": "Media"
+      },
+      "editModal": {
+        "tabs": {
+          "general": "General",
+          "government": "Government",
+          "assets": "Assets"
+        }
+      },
+      "columns": {
+        "code": "Code",
+        "name": "Name",
+        "founding": "Founding Date",
+        "calling": "Calling Code",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "fields": {
+        "code": "Country Code",
+        "name": "Country Name",
+        "foundingDate": "Founding Date",
+        "callingCode": "Calling Code",
+        "capitalSettlementCode": "Capital Settlement",
+        "governmentTypeCode": "Government Type",
+        "anthem": "National Anthem",
+        "coatOfArms": "Coat of Arms",
+        "flag": "Flag"
+      },
+      "placeholders": {
+        "governmentType": "Select government type",
+        "capital": "Select capital settlement",
+        "name": "Bosnia and Herzegovina"
+      },
+      "messages": {
+        "required": "Country code, name and founding date are required.",
+        "deleteTitle": "Delete Country",
+        "deleteDescription": "Are you sure you want to delete this country?",
+        "deleteSuccess": "Country deleted successfully.",
+        "deleteError": "Failed to delete country.",
+        "updateSuccess": "Country updated successfully.",
+        "updateError": "Failed to update country.",
+        "createSuccess": "Country created successfully.",
+        "createError": "Failed to create country."
       }
     }
   },

@@ -1,22 +1,40 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.MunicipalitySettlementCoverage.Command.Create;
 
-namespace LocationService.Application.Feature.MunicipalitySettlementCoverage.Command.Create
+public sealed class CreateMunicipalitySettlementCoverageCommandHandler
+    : ICommandHandler<CreateMunicipalitySettlementCoverageCommand, Result<MunicipalitySettlementCoverageResponse>>
 {
-    public sealed class CreateMunicipalitySettlementCoverageCommandHandler : ICommandHandler<CreateMunicipalitySettlementCoverageCommand, Result<MunicipalitySettlementCoverageResponse>>
+    private readonly ILocationReadStore<MunicipalitySettlementCoverageResponse> reads;
+    private readonly ILocationWriteStore writes;
+    private readonly IUnitOfWork unitOfWork;
+
+    public CreateMunicipalitySettlementCoverageCommandHandler(
+        ILocationReadStore<MunicipalitySettlementCoverageResponse> reads,
+        ILocationWriteStore writes,
+        IUnitOfWork unitOfWork)
     {
-        private readonly IMunicipalitySettlementCoverageService _service;
+        this.reads = reads;
+        this.writes = writes;
+        this.unitOfWork = unitOfWork;
+    }
 
-        public CreateMunicipalitySettlementCoverageCommandHandler(IMunicipalitySettlementCoverageService service)
+    public async Task<Result<MunicipalitySettlementCoverageResponse>> Handle(
+        CreateMunicipalitySettlementCoverageCommand command,
+        CancellationToken cancellationToken)
+    {
+        var request = command.Request;
+
+        if (await reads.ExistsAsync(new { request.CountryCode, request.MunicipalityCode, request.SettlementCode }, cancellationToken))
         {
-            _service = service;
+            return Result<MunicipalitySettlementCoverageResponse>.Fail(
+                "MunicipalitySettlementCoverage already exists.",
+                HttpStatusCode.Conflict);
         }
 
-        public async Task<Result<MunicipalitySettlementCoverageResponse>> Handle(CreateMunicipalitySettlementCoverageCommand command, CancellationToken cancellationToken)
-        {
-            return await _service.AddAsync(command.Request, cancellationToken);
-        }
+        var entity = global::LocationService.Domain.Entities.MunicipalitySettlementCoverage.Create(request.CountryCode, request.MunicipalityCode, request.SettlementCode);
+
+        await writes.AddAsync(entity, cancellationToken);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result<MunicipalitySettlementCoverageResponse>.Created(entity.ToResponse());
     }
 }

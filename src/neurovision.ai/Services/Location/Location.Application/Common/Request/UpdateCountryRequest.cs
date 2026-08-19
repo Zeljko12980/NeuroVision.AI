@@ -1,7 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Http;
-
-namespace LocationService.Application.Common.Request
+﻿namespace LocationService.Application.Common.Request
 {
     public class UpdateCountryRequest
     {
@@ -15,10 +12,10 @@ namespace LocationService.Application.Common.Request
 
         public int? CallingCode { get; set; }
 
-        public IFormFile? Anthem { get; set; }
+        public byte[]? Anthem { get; set; }
 
-        public IFormFile? CoatOfArms { get; set; }
+        public byte[]? CoatOfArms { get; set; }
 
-        public IFormFile? Flag { get; set; }
+        public byte[]? Flag { get; set; }
     }
 }

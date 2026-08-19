@@ -1,22 +1,40 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.Capital.Command.Create;
 
-namespace LocationService.Application.Feature.Capital.Command.Create
+public sealed class CreateCapitalCommandHandler
+    : ICommandHandler<CreateCapitalCommand, Result<CapitalResponse>>
 {
-    public sealed class CreateCapitalCommandHandler : ICommandHandler<CreateCapitalCommand, Result<CapitalResponse>>
+    private readonly ILocationReadStore<CapitalResponse> reads;
+    private readonly ILocationWriteStore writes;
+    private readonly IUnitOfWork unitOfWork;
+
+    public CreateCapitalCommandHandler(
+        ILocationReadStore<CapitalResponse> reads,
+        ILocationWriteStore writes,
+        IUnitOfWork unitOfWork)
     {
-        private readonly ICapitalService _service;
+        this.reads = reads;
+        this.writes = writes;
+        this.unitOfWork = unitOfWork;
+    }
 
-        public CreateCapitalCommandHandler(ICapitalService service)
+    public async Task<Result<CapitalResponse>> Handle(
+        CreateCapitalCommand command,
+        CancellationToken cancellationToken)
+    {
+        var request = command.Request;
+
+        if (await reads.ExistsAsync(new { request.CountryCode, request.SettlementCode, request.SequenceNumber }, cancellationToken))
         {
-            _service = service;
+            return Result<CapitalResponse>.Fail(
+                "Capital already exists.",
+                HttpStatusCode.Conflict);
         }
 
-        public async Task<Result<CapitalResponse>> Handle(CreateCapitalCommand command, CancellationToken cancellationToken)
-        {
-            return await _service.AddAsync(command.Request, cancellationToken);
-        }
+        var entity = global::LocationService.Domain.Entities.Capital.Create(request.CountryCode, request.SettlementCode, request.SequenceNumber, request.From, request.To);
+
+        await writes.AddAsync(entity, cancellationToken);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result<CapitalResponse>.Created(entity.ToResponse());
     }
 }

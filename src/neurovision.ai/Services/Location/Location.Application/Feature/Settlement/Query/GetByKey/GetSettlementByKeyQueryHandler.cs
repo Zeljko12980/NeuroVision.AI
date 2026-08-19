@@ -1,22 +1,28 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.Settlement.Query.GetByKey;
 
-namespace LocationService.Application.Feature.Settlement.Query.GetByKey
+public sealed class GetSettlementByKeyQueryHandler
+    : IQueryHandler<GetSettlementByKeyQuery, Result<SettlementResponse>>
 {
-    public sealed class GetSettlementByKeyQueryHandler : IQueryHandler<GetSettlementByKeyQuery, Result<SettlementResponse>>
+    private readonly ILocationReadStore<SettlementResponse> reads;
+
+    public GetSettlementByKeyQueryHandler(ILocationReadStore<SettlementResponse> reads)
     {
-        private readonly ISettlementService _service;
+        this.reads = reads;
+    }
 
-        public GetSettlementByKeyQueryHandler(ISettlementService service)
+    public async Task<Result<SettlementResponse>> Handle(
+        GetSettlementByKeyQuery query,
+        CancellationToken cancellationToken)
+    {
+        var item = await reads.GetByKeyAsync(new { query.CountryCode, query.Code }, cancellationToken);
+
+        if (item is null)
         {
-            _service = service;
+            return Result<SettlementResponse>.Fail(
+                "Settlement not found.",
+                HttpStatusCode.NotFound);
         }
 
-        public async Task<Result<SettlementResponse>> Handle(GetSettlementByKeyQuery query, CancellationToken cancellationToken)
-        {
-            return await _service.GetByKeyAsync(query.CountryCode, query.Code, cancellationToken);
-        }
+        return Result<SettlementResponse>.Ok(item);
     }
 }

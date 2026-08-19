@@ -1,20 +1,28 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.Country.Query.GetByCode;
 
-namespace LocationService.Application.Feature.Country.Query.GetByCode
+public sealed class GetByCodeQueryHandler
+    : IQueryHandler<GetByCodeQuery, Result<CountryResponse>>
 {
-    public sealed class GetByCodeQueryHandler:IQueryHandler<GetByCodeQuery, Result<CountryResponse>>
+    private readonly ILocationReadStore<CountryResponse> reads;
+
+    public GetByCodeQueryHandler(ILocationReadStore<CountryResponse> reads)
     {
-        private readonly ICountryService _countryService;
-        public GetByCodeQueryHandler(ICountryService countryService)
+        this.reads = reads;
+    }
+
+    public async Task<Result<CountryResponse>> Handle(
+        GetByCodeQuery query,
+        CancellationToken cancellationToken)
+    {
+        var item = await reads.GetByKeyAsync(new { query.Code }, cancellationToken);
+
+        if (item is null)
         {
-            _countryService = countryService;
+            return Result<CountryResponse>.Fail(
+                "Country not found.",
+                HttpStatusCode.NotFound);
         }
-        public async Task<Result<CountryResponse>> Handle(GetByCodeQuery query, CancellationToken cancellationToken)
-        {
-            return await _countryService.GetByCodeAsync(query.Code, cancellationToken);
-        }
+
+        return Result<CountryResponse>.Ok(item);
     }
 }

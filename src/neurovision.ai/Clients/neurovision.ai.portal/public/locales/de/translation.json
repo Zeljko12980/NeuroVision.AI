@@ -335,7 +335,12 @@
         "code": "Code",
         "name": "Name",
         "foundingDate": "Gründungsdatum",
-        "callingCode": "Telefonvorwahl"
+        "callingCode": "Telefonvorwahl",
+        "capitalSettlementCode": "Hauptstadt",
+        "governmentTypeCode": "Regierungsform",
+        "anthem": "Nationalhymne",
+        "coatOfArms": "Wappen",
+        "flag": "Flagge"
       },
       "actions": {
         "edit": "Bearbeiten",
@@ -347,7 +352,29 @@
         "deleteSuccess": "Land erfolgreich gelöscht",
         "deleteError": "Fehler beim Löschen des Landes",
         "updateSuccess": "Land erfolgreich aktualisiert",
-        "updateError": "Fehler beim Aktualisieren des Landes"
+        "updateError": "Fehler beim Aktualisieren des Landes",
+        "required": "Ländercode, Name und Gründungsdatum sind erforderlich.",
+        "createSuccess": "Land erfolgreich erstellt.",
+        "createError": "Fehler beim Erstellen des Landes."
+      },
+      "editDescription": "Länderinformationen aktualisieren.",
+      "createButton": "Land erstellen",
+      "createTabs": {
+        "general": "Allgemein",
+        "administrative": "Verwaltung",
+        "media": "Medien"
+      },
+      "editModal": {
+        "tabs": {
+          "general": "Allgemein",
+          "government": "Regierung",
+          "assets": "Ressourcen"
+        }
+      },
+      "placeholders": {
+        "governmentType": "Regierungsform auswählen",
+        "capital": "Hauptstadt auswählen",
+        "name": "Bosnien und Herzegowina"
       }
     },
     "governmentTypes": {
@@ -372,7 +399,14 @@
         "deleteSuccess": "Regierungsform erfolgreich gelöscht",
         "deleteError": "Fehler beim Löschen der Regierungsform",
         "updateSuccess": "Regierungsform erfolgreich aktualisiert",
-        "updateError": "Fehler beim Aktualisieren der Regierungsform"
+        "updateError": "Fehler beim Aktualisieren der Regierungsform",
+        "required": "Code und Name sind erforderlich.",
+        "createSuccess": "Regierungsform erfolgreich erstellt.",
+        "createError": "Fehler beim Erstellen der Regierungsform."
+      },
+      "placeholders": {
+        "code": "REP",
+        "name": "Republik"
       }
     },
     "healthInstitutions": {
@@ -403,6 +437,7 @@
         "delete": "Löschen"
       },
       "messages": {
+        "required": "Name, Typ, Land und Siedlung sind erforderlich.",
         "deleteTitle": "Gesundheitseinrichtung löschen",
         "deleteDescription": "Möchten Sie diese Gesundheitseinrichtung wirklich löschen?",
         "deleteSuccess": "Gesundheitseinrichtung erfolgreich gelöscht",
@@ -411,6 +446,13 @@
         "updateError": "Fehler beim Aktualisieren der Gesundheitseinrichtung",
         "createSuccess": "Gesundheitseinrichtung erfolgreich erstellt",
         "createError": "Fehler beim Erstellen der Gesundheitseinrichtung"
+      },
+      "placeholders": {
+        "name": "Allgemeines Krankenhaus",
+        "type": "Typ auswählen",
+        "country": "Land auswählen",
+        "settlement": "Siedlung auswählen",
+        "address": "Hauptstraße 25"
       }
     },
     "healthInstitutionTypes": {
@@ -488,8 +530,10 @@
         "updateSuccess": "Erfolgreich aktualisiert.",
         "updateError": "Aktualisierung fehlgeschlagen.",
         "createSuccess": "Erfolgreich erstellt.",
-        "createError": "Erstellen fehlgeschlagen."
-      }
+        "createError": "Erstellen fehlgeschlagen.",
+        "required": "Alle Pflichtfelder müssen ausgefüllt sein."
+      },
+      "createButton": "Region erstellen"
     },
     "municipalities": {
       "pageTitle": "Gemeinden",
@@ -523,8 +567,10 @@
         "updateSuccess": "Erfolgreich aktualisiert.",
         "updateError": "Aktualisierung fehlgeschlagen.",
         "createSuccess": "Erfolgreich erstellt.",
-        "createError": "Erstellen fehlgeschlagen."
-      }
+        "createError": "Erstellen fehlgeschlagen.",
+        "required": "Alle Pflichtfelder müssen ausgefüllt sein."
+      },
+      "createButton": "Gemeinde erstellen"
     },
     "capitals": {
       "pageTitle": "Hauptstädte",
@@ -554,8 +600,10 @@
         "updateSuccess": "Erfolgreich aktualisiert.",
         "updateError": "Aktualisierung fehlgeschlagen.",
         "createSuccess": "Erfolgreich erstellt.",
-        "createError": "Erstellen fehlgeschlagen."
-      }
+        "createError": "Erstellen fehlgeschlagen.",
+        "required": "Land und Siedlung sind erforderlich."
+      },
+      "createButton": "Hauptstadt erstellen"
     },
     "regionTypes": {
       "pageTitle": "Regionstypen",
@@ -585,8 +633,10 @@
         "updateSuccess": "Erfolgreich aktualisiert.",
         "updateError": "Aktualisierung fehlgeschlagen.",
         "createSuccess": "Erfolgreich erstellt.",
-        "createError": "Erstellen fehlgeschlagen."
-      }
+        "createError": "Erstellen fehlgeschlagen.",
+        "required": "Code und Name sind erforderlich."
+      },
+      "createButton": "Regionstyp erstellen"
     },
     "localCommunities": {
       "pageTitle": "Lokale Gemeinschaften",
@@ -622,8 +672,10 @@
         "updateSuccess": "Erfolgreich aktualisiert.",
         "updateError": "Aktualisierung fehlgeschlagen.",
         "createSuccess": "Erfolgreich erstellt.",
-        "createError": "Erstellen fehlgeschlagen."
-      }
+        "createError": "Erstellen fehlgeschlagen.",
+        "required": "Alle Pflichtfelder müssen ausgefüllt sein."
+      },
+      "createButton": "Lokalgemeinde erstellen"
     },
     "countryCompositions": {
       "pageTitle": "Länderzusammensetzungen",
@@ -659,8 +711,10 @@
         "updateSuccess": "Erfolgreich aktualisiert.",
         "updateError": "Aktualisierung fehlgeschlagen.",
         "createSuccess": "Erfolgreich erstellt.",
-        "createError": "Erstellen fehlgeschlagen."
-      }
+        "createError": "Erstellen fehlgeschlagen.",
+        "required": "Alle Pflichtfelder müssen ausgefüllt sein."
+      },
+      "createButton": "Zusammensetzung erstellen"
     },
     "regionCompositions": {
       "pageTitle": "Regionszusammensetzungen",
@@ -694,8 +748,10 @@
         "updateSuccess": "Erfolgreich aktualisiert.",
         "updateError": "Aktualisierung fehlgeschlagen.",
         "createSuccess": "Erfolgreich erstellt.",
-        "createError": "Erstellen fehlgeschlagen."
-      }
+        "createError": "Erstellen fehlgeschlagen.",
+        "required": "Alle Pflichtfelder müssen ausgefüllt sein."
+      },
+      "createButton": "Regionszusammensetzung erstellen"
     },
     "regionSettlementCoverages": {
       "pageTitle": "Regionsabdeckungen",
@@ -729,8 +785,10 @@
         "updateSuccess": "Erfolgreich aktualisiert.",
         "updateError": "Aktualisierung fehlgeschlagen.",
         "createSuccess": "Erfolgreich erstellt.",
-        "createError": "Erstellen fehlgeschlagen."
-      }
+        "createError": "Erstellen fehlgeschlagen.",
+        "required": "Alle Pflichtfelder müssen ausgefüllt sein."
+      },
+      "createButton": "Abdeckung erstellen"
     },
     "municipalitySettlementCoverages": {
       "pageTitle": "Gemeindeabdeckungen",
@@ -762,8 +820,10 @@
         "updateSuccess": "Erfolgreich aktualisiert.",
         "updateError": "Aktualisierung fehlgeschlagen.",
         "createSuccess": "Erfolgreich erstellt.",
-        "createError": "Erstellen fehlgeschlagen."
-      }
+        "createError": "Erstellen fehlgeschlagen.",
+        "required": "Alle Pflichtfelder müssen ausgefüllt sein."
+      },
+      "createButton": "Abdeckung erstellen"
     },
     "localCommunityCoverages": {
       "pageTitle": "Lokalgemeinschaftsabdeckungen",
@@ -797,8 +857,10 @@
         "updateSuccess": "Erfolgreich aktualisiert.",
         "updateError": "Aktualisierung fehlgeschlagen.",
         "createSuccess": "Erfolgreich erstellt.",
-        "createError": "Erstellen fehlgeschlagen."
-      }
+        "createError": "Erstellen fehlgeschlagen.",
+        "required": "Alle Pflichtfelder müssen ausgefüllt sein."
+      },
+      "createButton": "Abdeckung erstellen"
     },
     "legalSuccessors": {
       "pageTitle": "Rechtsnachfolger",
@@ -828,8 +890,10 @@
         "updateSuccess": "Erfolgreich aktualisiert.",
         "updateError": "Aktualisierung fehlgeschlagen.",
         "createSuccess": "Erfolgreich erstellt.",
-        "createError": "Erstellen fehlgeschlagen."
-      }
+        "createError": "Erstellen fehlgeschlagen.",
+        "required": "Alle Pflichtfelder müssen ausgefüllt sein."
+      },
+      "createButton": "Rechtsnachfolger erstellen"
     },
     "governmentHistories": {
       "pageTitle": "Regierungshistorie",
@@ -865,7 +929,41 @@
         "updateSuccess": "Erfolgreich aktualisiert.",
         "updateError": "Aktualisierung fehlgeschlagen.",
         "createSuccess": "Erfolgreich erstellt.",
-        "createError": "Erstellen fehlgeschlagen."
+        "createError": "Erstellen fehlgeschlagen.",
+        "required": "Alle Pflichtfelder müssen ausgefüllt sein."
+      },
+      "createButton": "Regierungshistorie erstellen"
+    },
+    "settlements": {
+      "pageTitle": "Siedlungen",
+      "pageDescription": "Siedlungen verwalten",
+      "title": "Siedlungen",
+      "createTitle": "Siedlung erstellen",
+      "editTitle": "Siedlung bearbeiten",
+      "fields": {
+        "country": "Land",
+        "countryCode": "Land",
+        "code": "Code",
+        "name": "Name",
+        "postalCode": "Postleitzahl",
+        "actions": "Aktionen"
+      },
+      "placeholders": {
+        "select": "Siedlung auswählen"
+      },
+      "actions": {
+        "edit": "Bearbeiten",
+        "delete": "Löschen"
+      },
+      "messages": {
+        "deleteTitle": "Siedlung löschen",
+        "deleteDescription": "Möchten Sie diese Siedlung wirklich löschen?",
+        "deleteSuccess": "Siedlung erfolgreich gelöscht.",
+        "deleteError": "Fehler beim Löschen der Siedlung.",
+        "createSuccess": "Siedlung erfolgreich erstellt.",
+        "createError": "Fehler beim Erstellen der Siedlung.",
+        "updateSuccess": "Siedlung erfolgreich aktualisiert.",
+        "updateError": "Fehler beim Aktualisieren der Siedlung."
       }
     }
   },

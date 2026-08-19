@@ -1,22 +1,40 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.HealthInstitutionType.Command.Create;
 
-namespace LocationService.Application.Feature.HealthInstitutionType.Command.Create
+public sealed class CreateHealthInstitutionTypeCommandHandler
+    : ICommandHandler<CreateHealthInstitutionTypeCommand, Result<HealthInstitutionTypeResponse>>
 {
-    public sealed class CreateHealthInstitutionTypeCommandHandler : ICommandHandler<CreateHealthInstitutionTypeCommand, Result<HealthInstitutionTypeResponse>>
+    private readonly ILocationReadStore<HealthInstitutionTypeResponse> reads;
+    private readonly ILocationWriteStore writes;
+    private readonly IUnitOfWork unitOfWork;
+
+    public CreateHealthInstitutionTypeCommandHandler(
+        ILocationReadStore<HealthInstitutionTypeResponse> reads,
+        ILocationWriteStore writes,
+        IUnitOfWork unitOfWork)
     {
-        private readonly IHealthInstitutionTypeService _service;
+        this.reads = reads;
+        this.writes = writes;
+        this.unitOfWork = unitOfWork;
+    }
 
-        public CreateHealthInstitutionTypeCommandHandler(IHealthInstitutionTypeService service)
+    public async Task<Result<HealthInstitutionTypeResponse>> Handle(
+        CreateHealthInstitutionTypeCommand command,
+        CancellationToken cancellationToken)
+    {
+        var request = command.Request;
+
+        if (await reads.ExistsAsync(new { request.Code }, cancellationToken))
         {
-            _service = service;
+            return Result<HealthInstitutionTypeResponse>.Fail(
+                "HealthInstitutionType already exists.",
+                HttpStatusCode.Conflict);
         }
 
-        public async Task<Result<HealthInstitutionTypeResponse>> Handle(CreateHealthInstitutionTypeCommand command, CancellationToken cancellationToken)
-        {
-            return await _service.AddAsync(command.Request, cancellationToken);
-        }
+        var entity = global::LocationService.Domain.Entities.HealthInstitutionType.Create(request.Code, request.Name, request.Description);
+
+        await writes.AddAsync(entity, cancellationToken);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result<HealthInstitutionTypeResponse>.Created(entity.ToResponse());
     }
 }

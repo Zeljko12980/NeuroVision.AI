@@ -1,22 +1,28 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.Capital.Query.GetByKey;
 
-namespace LocationService.Application.Feature.Capital.Query.GetByKey
+public sealed class GetCapitalByKeyQueryHandler
+    : IQueryHandler<GetCapitalByKeyQuery, Result<CapitalResponse>>
 {
-    public sealed class GetCapitalByKeyQueryHandler : IQueryHandler<GetCapitalByKeyQuery, Result<CapitalResponse>>
+    private readonly ILocationReadStore<CapitalResponse> reads;
+
+    public GetCapitalByKeyQueryHandler(ILocationReadStore<CapitalResponse> reads)
     {
-        private readonly ICapitalService _service;
+        this.reads = reads;
+    }
 
-        public GetCapitalByKeyQueryHandler(ICapitalService service)
+    public async Task<Result<CapitalResponse>> Handle(
+        GetCapitalByKeyQuery query,
+        CancellationToken cancellationToken)
+    {
+        var item = await reads.GetByKeyAsync(new { query.CountryCode, query.SettlementCode, query.SequenceNumber }, cancellationToken);
+
+        if (item is null)
         {
-            _service = service;
+            return Result<CapitalResponse>.Fail(
+                "Capital not found.",
+                HttpStatusCode.NotFound);
         }
 
-        public async Task<Result<CapitalResponse>> Handle(GetCapitalByKeyQuery query, CancellationToken cancellationToken)
-        {
-            return await _service.GetByKeyAsync(query.CountryCode, query.SettlementCode, query.SequenceNumber, cancellationToken);
-        }
+        return Result<CapitalResponse>.Ok(item);
     }
 }

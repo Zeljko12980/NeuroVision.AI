@@ -6,4 +6,12 @@ using LocationService.Application.Common.Response;
 namespace LocationService.Application.Feature.CountryComposition.Command.Update
 {
     public sealed record UpdateCountryCompositionCommand(UpdateCountryCompositionRequest Request, string UnionCountryCode, string MemberCountryCode, int SequenceNumber) : ICommand<Result<CountryCompositionResponse>>;
+
+public sealed class UpdateCountryCompositionCommandValidator : AbstractValidator<UpdateCountryCompositionCommand>
+{
+    public UpdateCountryCompositionCommandValidator()
+    {
+        RuleFor(x => x.UnionCountryCode).NotEmpty();
+    }
+}
 }

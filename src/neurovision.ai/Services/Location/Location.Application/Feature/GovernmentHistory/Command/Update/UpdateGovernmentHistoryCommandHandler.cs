@@ -1,22 +1,39 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.GovernmentHistory.Command.Update;
 
-namespace LocationService.Application.Feature.GovernmentHistory.Command.Update
+public sealed class UpdateGovernmentHistoryCommandHandler
+    : ICommandHandler<UpdateGovernmentHistoryCommand, Result<GovernmentHistoryResponse>>
 {
-    public sealed class UpdateGovernmentHistoryCommandHandler : ICommandHandler<UpdateGovernmentHistoryCommand, Result<GovernmentHistoryResponse>>
+    private readonly ILocationWriteStore writes;
+    private readonly IUnitOfWork unitOfWork;
+
+    public UpdateGovernmentHistoryCommandHandler(
+        ILocationWriteStore writes,
+        IUnitOfWork unitOfWork)
     {
-        private readonly IGovernmentHistoryService _service;
+        this.writes = writes;
+        this.unitOfWork = unitOfWork;
+    }
 
-        public UpdateGovernmentHistoryCommandHandler(IGovernmentHistoryService service)
+    public async Task<Result<GovernmentHistoryResponse>> Handle(
+        UpdateGovernmentHistoryCommand command,
+        CancellationToken cancellationToken)
+    {
+        var entity = await writes.FindAsync<global::LocationService.Domain.Entities.GovernmentHistory>(
+            new object[] { command.CountryCode, command.SequenceNumber },
+            cancellationToken);
+
+        if (entity is null)
         {
-            _service = service;
+            return Result<GovernmentHistoryResponse>.Fail(
+                "GovernmentHistory not found.",
+                HttpStatusCode.NotFound);
         }
 
-        public async Task<Result<GovernmentHistoryResponse>> Handle(UpdateGovernmentHistoryCommand command, CancellationToken cancellationToken)
-        {
-            return await _service.UpdateAsync(command.CountryCode, command.SequenceNumber, command.Request, cancellationToken);
-        }
+        var request = command.Request;
+        entity.Update(request.GovernmentTypeCode, request.From, request.To);
+        writes.Update(entity);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result<GovernmentHistoryResponse>.Ok(entity.ToResponse());
     }
 }

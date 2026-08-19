@@ -1,4 +1,5 @@
 ﻿using BuildingBlocks.Results;
+using LocationService.API.Contracts;
 using LocationService.Application.Common.Request;
 using LocationService.Application.Feature.Country.Command.Create;
 using LocationService.Application.Feature.Country.Command.Delete;
@@ -8,66 +9,87 @@ using LocationService.Application.Feature.Country.Query.GetByCode;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LocationService.API.Controllers
+namespace LocationService.API.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class CountryController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class CountryController : ControllerBase
+    private readonly ISender _sender;
+
+    public CountryController(ISender sender)
     {
-        private readonly ISender _sender;
+        _sender = sender;
+    }
 
-        public CountryController(ISender sender)
+    [HttpGet]
+    public async Task<IActionResult> GetAll(
+        [FromQuery] GetCountriesRequest request,
+        CancellationToken cancellationToken)
+    {
+        var result = await _sender.Send(new GetAllCountriesQuery(request), cancellationToken);
+        return result.ToActionResult();
+    }
+
+    [HttpGet("{code}")]
+    public async Task<IActionResult> GetByCode(
+        [FromRoute] string code,
+        CancellationToken cancellationToken)
+    {
+        var result = await _sender.Send(new GetByCodeQuery(code), cancellationToken);
+        return result.ToActionResult();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create(
+        [FromForm] CreateCountryForm form,
+        CancellationToken cancellationToken)
+    {
+        var request = new CreateCountryRequest
         {
-            _sender = sender;
-        }
+            Code = form.Code,
+            Name = form.Name,
+            FoundingDate = form.FoundingDate,
+            CapitalSettlementCode = form.CapitalSettlementCode,
+            GovernmentTypeCode = form.GovernmentTypeCode,
+            CallingCode = form.CallingCode,
+            Anthem = await form.Anthem.ToBytesAsync(cancellationToken),
+            CoatOfArms = await form.CoatOfArms.ToBytesAsync(cancellationToken),
+            Flag = await form.Flag.ToBytesAsync(cancellationToken)
+        };
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] GetCountriesRequest request, CancellationToken cancellationToken)
+        var result = await _sender.Send(new CreateCountryCommand(request), cancellationToken);
+        return result.ToActionResult();
+    }
+
+    [HttpDelete("{code}")]
+    public async Task<IActionResult> Delete(
+        [FromRoute] string code,
+        CancellationToken cancellationToken)
+    {
+        var result = await _sender.Send(new DeleteCountryCommand(code), cancellationToken);
+        return result.ToActionResult();
+    }
+
+    [HttpPut("{code}")]
+    public async Task<IActionResult> Update(
+        [FromRoute] string code,
+        [FromForm] UpdateCountryForm form,
+        CancellationToken cancellationToken)
+    {
+        var request = new UpdateCountryRequest
         {
-            var query = new GetAllCountriesQuery(request);
+            Name = form.Name,
+            FoundingDate = form.FoundingDate,
+            CapitalSettlementCode = form.CapitalSettlementCode,
+            GovernmentTypeCode = form.GovernmentTypeCode,
+            CallingCode = form.CallingCode,
+            Anthem = await form.Anthem.ToBytesAsync(cancellationToken),
+            CoatOfArms = await form.CoatOfArms.ToBytesAsync(cancellationToken),
+            Flag = await form.Flag.ToBytesAsync(cancellationToken)
+        };
 
-            var result = await _sender.Send(query, cancellationToken);
-            
-
-            return result.ToActionResult();
-        }
-
-        [HttpGet("{code}")]
-        public async Task<IActionResult> GetByCode([FromRoute] string code, CancellationToken cancellationToken)
-        {
-            var query = new GetByCodeQuery(code);
-
-            var result = await _sender.Send(query, cancellationToken);
-
-            return result.ToActionResult();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create([FromForm] CreateCountryRequest request, CancellationToken cancellationToken)
-        {
-            var command = new CreateCountryCommand(request);
-
-            var result = await _sender.Send(command, cancellationToken);
-
-            return result.ToActionResult();
-        }
-
-        [HttpDelete("{code}")]
-        public async Task<IActionResult> Delete([FromRoute] string code, CancellationToken cancellationToken)
-        {
-            var command = new DeleteCountryCommand(code);
-
-            var result = await _sender.Send(command, cancellationToken);
-
-            return result.ToActionResult();
-        }
-
-        [HttpPut("{code}")]
-        public async Task<IActionResult> Update([FromRoute] string code, [FromForm] UpdateCountryRequest request, CancellationToken cancellationToken)
-        {
-            var command = new UpdateCountryCommand(request, code);
-            var result = await _sender.Send(command, cancellationToken);
-            return result.ToActionResult();
-        }
+        var result = await _sender.Send(new UpdateCountryCommand(request, code), cancellationToken);
+        return result.ToActionResult();
     }
 }

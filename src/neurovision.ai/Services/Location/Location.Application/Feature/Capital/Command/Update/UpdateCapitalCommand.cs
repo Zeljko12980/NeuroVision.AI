@@ -6,4 +6,12 @@ using LocationService.Application.Common.Response;
 namespace LocationService.Application.Feature.Capital.Command.Update
 {
     public sealed record UpdateCapitalCommand(UpdateCapitalRequest Request, string CountryCode, int SettlementCode, int SequenceNumber) : ICommand<Result<CapitalResponse>>;
+
+public sealed class UpdateCapitalCommandValidator : AbstractValidator<UpdateCapitalCommand>
+{
+    public UpdateCapitalCommandValidator()
+    {
+        RuleFor(x => x.CountryCode).NotEmpty();
+    }
+}
 }

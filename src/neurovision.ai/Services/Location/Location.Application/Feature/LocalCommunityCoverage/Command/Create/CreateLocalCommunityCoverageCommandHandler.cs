@@ -1,22 +1,40 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.LocalCommunityCoverage.Command.Create;
 
-namespace LocationService.Application.Feature.LocalCommunityCoverage.Command.Create
+public sealed class CreateLocalCommunityCoverageCommandHandler
+    : ICommandHandler<CreateLocalCommunityCoverageCommand, Result<LocalCommunityCoverageResponse>>
 {
-    public sealed class CreateLocalCommunityCoverageCommandHandler : ICommandHandler<CreateLocalCommunityCoverageCommand, Result<LocalCommunityCoverageResponse>>
+    private readonly ILocationReadStore<LocalCommunityCoverageResponse> reads;
+    private readonly ILocationWriteStore writes;
+    private readonly IUnitOfWork unitOfWork;
+
+    public CreateLocalCommunityCoverageCommandHandler(
+        ILocationReadStore<LocalCommunityCoverageResponse> reads,
+        ILocationWriteStore writes,
+        IUnitOfWork unitOfWork)
     {
-        private readonly ILocalCommunityCoverageService _service;
+        this.reads = reads;
+        this.writes = writes;
+        this.unitOfWork = unitOfWork;
+    }
 
-        public CreateLocalCommunityCoverageCommandHandler(ILocalCommunityCoverageService service)
+    public async Task<Result<LocalCommunityCoverageResponse>> Handle(
+        CreateLocalCommunityCoverageCommand command,
+        CancellationToken cancellationToken)
+    {
+        var request = command.Request;
+
+        if (await reads.ExistsAsync(new { request.CountryCode, request.MunicipalityCode, request.LocalCommunityIdentifier, request.SettlementCode }, cancellationToken))
         {
-            _service = service;
+            return Result<LocalCommunityCoverageResponse>.Fail(
+                "LocalCommunityCoverage already exists.",
+                HttpStatusCode.Conflict);
         }
 
-        public async Task<Result<LocalCommunityCoverageResponse>> Handle(CreateLocalCommunityCoverageCommand command, CancellationToken cancellationToken)
-        {
-            return await _service.AddAsync(command.Request, cancellationToken);
-        }
+        var entity = global::LocationService.Domain.Entities.LocalCommunityCoverage.Create(request.CountryCode, request.MunicipalityCode, request.LocalCommunityIdentifier, request.SettlementCode);
+
+        await writes.AddAsync(entity, cancellationToken);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result<LocalCommunityCoverageResponse>.Created(entity.ToResponse());
     }
 }

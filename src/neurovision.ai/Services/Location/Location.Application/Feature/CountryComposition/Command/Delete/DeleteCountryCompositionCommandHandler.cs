@@ -1,21 +1,37 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
+namespace LocationService.Application.Feature.CountryComposition.Command.Delete;
 
-namespace LocationService.Application.Feature.CountryComposition.Command.Delete
+public sealed class DeleteCountryCompositionCommandHandler
+    : ICommandHandler<DeleteCountryCompositionCommand, Result<bool>>
 {
-    public sealed class DeleteCountryCompositionCommandHandler : ICommandHandler<DeleteCountryCompositionCommand, Result<bool>>
+    private readonly ILocationWriteStore writes;
+    private readonly IUnitOfWork unitOfWork;
+
+    public DeleteCountryCompositionCommandHandler(
+        ILocationWriteStore writes,
+        IUnitOfWork unitOfWork)
     {
-        private readonly ICountryCompositionService _service;
+        this.writes = writes;
+        this.unitOfWork = unitOfWork;
+    }
 
-        public DeleteCountryCompositionCommandHandler(ICountryCompositionService service)
+    public async Task<Result<bool>> Handle(
+        DeleteCountryCompositionCommand command,
+        CancellationToken cancellationToken)
+    {
+        var entity = await writes.FindAsync<global::LocationService.Domain.Entities.CountryComposition>(
+            new object[] { command.MemberCountryCode, command.UnionCountryCode, command.SequenceNumber },
+            cancellationToken);
+
+        if (entity is null)
         {
-            _service = service;
+            return Result<bool>.Fail(
+                "CountryComposition not found.",
+                HttpStatusCode.NotFound);
         }
 
-        public async Task<Result<bool>> Handle(DeleteCountryCompositionCommand command, CancellationToken cancellationToken)
-        {
-            return await _service.DeleteAsync(command.UnionCountryCode, command.MemberCountryCode, command.SequenceNumber, cancellationToken);
-        }
+        writes.Remove(entity);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result<bool>.Ok(true);
     }
 }

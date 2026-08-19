@@ -1,22 +1,28 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.Municipality.Query.GetByKey;
 
-namespace LocationService.Application.Feature.Municipality.Query.GetByKey
+public sealed class GetMunicipalityByKeyQueryHandler
+    : IQueryHandler<GetMunicipalityByKeyQuery, Result<MunicipalityResponse>>
 {
-    public sealed class GetMunicipalityByKeyQueryHandler : IQueryHandler<GetMunicipalityByKeyQuery, Result<MunicipalityResponse>>
+    private readonly ILocationReadStore<MunicipalityResponse> reads;
+
+    public GetMunicipalityByKeyQueryHandler(ILocationReadStore<MunicipalityResponse> reads)
     {
-        private readonly IMunicipalityService _service;
+        this.reads = reads;
+    }
 
-        public GetMunicipalityByKeyQueryHandler(IMunicipalityService service)
+    public async Task<Result<MunicipalityResponse>> Handle(
+        GetMunicipalityByKeyQuery query,
+        CancellationToken cancellationToken)
+    {
+        var item = await reads.GetByKeyAsync(new { query.CountryCode, query.Code }, cancellationToken);
+
+        if (item is null)
         {
-            _service = service;
+            return Result<MunicipalityResponse>.Fail(
+                "Municipality not found.",
+                HttpStatusCode.NotFound);
         }
 
-        public async Task<Result<MunicipalityResponse>> Handle(GetMunicipalityByKeyQuery query, CancellationToken cancellationToken)
-        {
-            return await _service.GetByKeyAsync(query.CountryCode, query.Code, cancellationToken);
-        }
+        return Result<MunicipalityResponse>.Ok(item);
     }
 }

@@ -1,21 +1,37 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
+namespace LocationService.Application.Feature.RegionComposition.Command.Delete;
 
-namespace LocationService.Application.Feature.RegionComposition.Command.Delete
+public sealed class DeleteRegionCompositionCommandHandler
+    : ICommandHandler<DeleteRegionCompositionCommand, Result<bool>>
 {
-    public sealed class DeleteRegionCompositionCommandHandler : ICommandHandler<DeleteRegionCompositionCommand, Result<bool>>
+    private readonly ILocationWriteStore writes;
+    private readonly IUnitOfWork unitOfWork;
+
+    public DeleteRegionCompositionCommandHandler(
+        ILocationWriteStore writes,
+        IUnitOfWork unitOfWork)
     {
-        private readonly IRegionCompositionService _service;
+        this.writes = writes;
+        this.unitOfWork = unitOfWork;
+    }
 
-        public DeleteRegionCompositionCommandHandler(IRegionCompositionService service)
+    public async Task<Result<bool>> Handle(
+        DeleteRegionCompositionCommand command,
+        CancellationToken cancellationToken)
+    {
+        var entity = await writes.FindAsync<global::LocationService.Domain.Entities.RegionComposition>(
+            new object[] { command.ParentRegionTypeCode, command.ParentRegionCode, command.MemberRegionTypeCode, command.MemberRegionCode },
+            cancellationToken);
+
+        if (entity is null)
         {
-            _service = service;
+            return Result<bool>.Fail(
+                "RegionComposition not found.",
+                HttpStatusCode.NotFound);
         }
 
-        public async Task<Result<bool>> Handle(DeleteRegionCompositionCommand command, CancellationToken cancellationToken)
-        {
-            return await _service.DeleteAsync(command.ParentRegionTypeCode, command.ParentRegionCode, command.MemberRegionTypeCode, command.MemberRegionCode, cancellationToken);
-        }
+        writes.Remove(entity);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result<bool>.Ok(true);
     }
 }

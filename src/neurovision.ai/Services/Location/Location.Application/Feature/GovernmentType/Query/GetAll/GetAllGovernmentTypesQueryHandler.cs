@@ -1,23 +1,31 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Pagination;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.GovernmentType.Query.GetAll;
 
-namespace LocationService.Application.Feature.GovernmentType.Query.GetAll
+public sealed class GetAllGovernmentTypesQueryHandler
+    : IQueryHandler<GetAllGovernmentTypesQuery, Result<PaginatedResult<GovernmentTypeResponse>>>
 {
-    public sealed class GetAllGovernmentTypesQueryHandler : IQueryHandler<GetAllGovernmentTypesQuery, Result<PaginatedResult<GovernmentTypeResponse>>>
+    private readonly ILocationReadStore<GovernmentTypeResponse> reads;
+
+    public GetAllGovernmentTypesQueryHandler(ILocationReadStore<GovernmentTypeResponse> reads)
     {
-        private readonly IGovernmentTypeService _service;
+        this.reads = reads;
+    }
 
-        public GetAllGovernmentTypesQueryHandler(IGovernmentTypeService service)
-        {
-            _service = service;
-        }
+    public async Task<Result<PaginatedResult<GovernmentTypeResponse>>> Handle(
+        GetAllGovernmentTypesQuery query,
+        CancellationToken cancellationToken)
+    {
+        var request = query.Request;
+        var pageIndex = Math.Max(request.PageIndex, 0);
+        var total = await reads.CountAsync(new { request.Search }, cancellationToken);
+        var items = await reads.GetPagedAsync(
+            new { request.Search, request.PageSize, Offset = request.PageIndex * request.PageSize },
+            cancellationToken);
 
-        public async Task<Result<PaginatedResult<GovernmentTypeResponse>>> Handle(GetAllGovernmentTypesQuery query, CancellationToken cancellationToken)
-        {
-            return await _service.GetAllAsync(query.Request, cancellationToken);
-        }
+        return Result<PaginatedResult<GovernmentTypeResponse>>.Ok(
+            new PaginatedResult<GovernmentTypeResponse>(
+                pageIndex,
+                request.PageSize,
+                total,
+                items));
     }
 }

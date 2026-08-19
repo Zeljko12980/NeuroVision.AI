@@ -1,22 +1,40 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.LocalCommunity.Command.Create;
 
-namespace LocationService.Application.Feature.LocalCommunity.Command.Create
+public sealed class CreateLocalCommunityCommandHandler
+    : ICommandHandler<CreateLocalCommunityCommand, Result<LocalCommunityResponse>>
 {
-    public sealed class CreateLocalCommunityCommandHandler : ICommandHandler<CreateLocalCommunityCommand, Result<LocalCommunityResponse>>
+    private readonly ILocationReadStore<LocalCommunityResponse> reads;
+    private readonly ILocationWriteStore writes;
+    private readonly IUnitOfWork unitOfWork;
+
+    public CreateLocalCommunityCommandHandler(
+        ILocationReadStore<LocalCommunityResponse> reads,
+        ILocationWriteStore writes,
+        IUnitOfWork unitOfWork)
     {
-        private readonly ILocalCommunityService _service;
+        this.reads = reads;
+        this.writes = writes;
+        this.unitOfWork = unitOfWork;
+    }
 
-        public CreateLocalCommunityCommandHandler(ILocalCommunityService service)
+    public async Task<Result<LocalCommunityResponse>> Handle(
+        CreateLocalCommunityCommand command,
+        CancellationToken cancellationToken)
+    {
+        var request = command.Request;
+
+        if (await reads.ExistsAsync(new { request.CountryCode, request.MunicipalityCode, request.Identifier }, cancellationToken))
         {
-            _service = service;
+            return Result<LocalCommunityResponse>.Fail(
+                "LocalCommunity already exists.",
+                HttpStatusCode.Conflict);
         }
 
-        public async Task<Result<LocalCommunityResponse>> Handle(CreateLocalCommunityCommand command, CancellationToken cancellationToken)
-        {
-            return await _service.AddAsync(command.Request, cancellationToken);
-        }
+        var entity = global::LocationService.Domain.Entities.LocalCommunity.Create(request.CountryCode, request.MunicipalityCode, request.Identifier, request.Name, request.OfficeSettlementCode);
+
+        await writes.AddAsync(entity, cancellationToken);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result<LocalCommunityResponse>.Created(entity.ToResponse());
     }
 }

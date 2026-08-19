@@ -1,22 +1,28 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.CountryComposition.Query.GetByKey;
 
-namespace LocationService.Application.Feature.CountryComposition.Query.GetByKey
+public sealed class GetCountryCompositionByKeyQueryHandler
+    : IQueryHandler<GetCountryCompositionByKeyQuery, Result<CountryCompositionResponse>>
 {
-    public sealed class GetCountryCompositionByKeyQueryHandler : IQueryHandler<GetCountryCompositionByKeyQuery, Result<CountryCompositionResponse>>
+    private readonly ILocationReadStore<CountryCompositionResponse> reads;
+
+    public GetCountryCompositionByKeyQueryHandler(ILocationReadStore<CountryCompositionResponse> reads)
     {
-        private readonly ICountryCompositionService _service;
+        this.reads = reads;
+    }
 
-        public GetCountryCompositionByKeyQueryHandler(ICountryCompositionService service)
+    public async Task<Result<CountryCompositionResponse>> Handle(
+        GetCountryCompositionByKeyQuery query,
+        CancellationToken cancellationToken)
+    {
+        var item = await reads.GetByKeyAsync(new { query.UnionCountryCode, query.MemberCountryCode, query.SequenceNumber }, cancellationToken);
+
+        if (item is null)
         {
-            _service = service;
+            return Result<CountryCompositionResponse>.Fail(
+                "CountryComposition not found.",
+                HttpStatusCode.NotFound);
         }
 
-        public async Task<Result<CountryCompositionResponse>> Handle(GetCountryCompositionByKeyQuery query, CancellationToken cancellationToken)
-        {
-            return await _service.GetByKeyAsync(query.UnionCountryCode, query.MemberCountryCode, query.SequenceNumber, cancellationToken);
-        }
+        return Result<CountryCompositionResponse>.Ok(item);
     }
 }

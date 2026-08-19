@@ -1,22 +1,40 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.CountryComposition.Command.Create;
 
-namespace LocationService.Application.Feature.CountryComposition.Command.Create
+public sealed class CreateCountryCompositionCommandHandler
+    : ICommandHandler<CreateCountryCompositionCommand, Result<CountryCompositionResponse>>
 {
-    public sealed class CreateCountryCompositionCommandHandler : ICommandHandler<CreateCountryCompositionCommand, Result<CountryCompositionResponse>>
+    private readonly ILocationReadStore<CountryCompositionResponse> reads;
+    private readonly ILocationWriteStore writes;
+    private readonly IUnitOfWork unitOfWork;
+
+    public CreateCountryCompositionCommandHandler(
+        ILocationReadStore<CountryCompositionResponse> reads,
+        ILocationWriteStore writes,
+        IUnitOfWork unitOfWork)
     {
-        private readonly ICountryCompositionService _service;
+        this.reads = reads;
+        this.writes = writes;
+        this.unitOfWork = unitOfWork;
+    }
 
-        public CreateCountryCompositionCommandHandler(ICountryCompositionService service)
+    public async Task<Result<CountryCompositionResponse>> Handle(
+        CreateCountryCompositionCommand command,
+        CancellationToken cancellationToken)
+    {
+        var request = command.Request;
+
+        if (await reads.ExistsAsync(new { request.UnionCountryCode, request.MemberCountryCode, request.SequenceNumber }, cancellationToken))
         {
-            _service = service;
+            return Result<CountryCompositionResponse>.Fail(
+                "CountryComposition already exists.",
+                HttpStatusCode.Conflict);
         }
 
-        public async Task<Result<CountryCompositionResponse>> Handle(CreateCountryCompositionCommand command, CancellationToken cancellationToken)
-        {
-            return await _service.AddAsync(command.Request, cancellationToken);
-        }
+        var entity = global::LocationService.Domain.Entities.CountryComposition.Create(request.UnionCountryCode, request.MemberCountryCode, request.SequenceNumber, request.From, request.To);
+
+        await writes.AddAsync(entity, cancellationToken);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result<CountryCompositionResponse>.Created(entity.ToResponse());
     }
 }

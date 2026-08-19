@@ -1,22 +1,39 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.CountryComposition.Command.Update;
 
-namespace LocationService.Application.Feature.CountryComposition.Command.Update
+public sealed class UpdateCountryCompositionCommandHandler
+    : ICommandHandler<UpdateCountryCompositionCommand, Result<CountryCompositionResponse>>
 {
-    public sealed class UpdateCountryCompositionCommandHandler : ICommandHandler<UpdateCountryCompositionCommand, Result<CountryCompositionResponse>>
+    private readonly ILocationWriteStore writes;
+    private readonly IUnitOfWork unitOfWork;
+
+    public UpdateCountryCompositionCommandHandler(
+        ILocationWriteStore writes,
+        IUnitOfWork unitOfWork)
     {
-        private readonly ICountryCompositionService _service;
+        this.writes = writes;
+        this.unitOfWork = unitOfWork;
+    }
 
-        public UpdateCountryCompositionCommandHandler(ICountryCompositionService service)
+    public async Task<Result<CountryCompositionResponse>> Handle(
+        UpdateCountryCompositionCommand command,
+        CancellationToken cancellationToken)
+    {
+        var entity = await writes.FindAsync<global::LocationService.Domain.Entities.CountryComposition>(
+            new object[] { command.MemberCountryCode, command.UnionCountryCode, command.SequenceNumber },
+            cancellationToken);
+
+        if (entity is null)
         {
-            _service = service;
+            return Result<CountryCompositionResponse>.Fail(
+                "CountryComposition not found.",
+                HttpStatusCode.NotFound);
         }
 
-        public async Task<Result<CountryCompositionResponse>> Handle(UpdateCountryCompositionCommand command, CancellationToken cancellationToken)
-        {
-            return await _service.UpdateAsync(command.UnionCountryCode, command.MemberCountryCode, command.SequenceNumber, command.Request, cancellationToken);
-        }
+        var request = command.Request;
+        entity.Update(request.From, request.To);
+        writes.Update(entity);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result<CountryCompositionResponse>.Ok(entity.ToResponse());
     }
 }

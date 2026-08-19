@@ -1,22 +1,40 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.Municipality.Command.Create;
 
-namespace LocationService.Application.Feature.Municipality.Command.Create
+public sealed class CreateMunicipalityCommandHandler
+    : ICommandHandler<CreateMunicipalityCommand, Result<MunicipalityResponse>>
 {
-    public sealed class CreateMunicipalityCommandHandler : ICommandHandler<CreateMunicipalityCommand, Result<MunicipalityResponse>>
+    private readonly ILocationReadStore<MunicipalityResponse> reads;
+    private readonly ILocationWriteStore writes;
+    private readonly IUnitOfWork unitOfWork;
+
+    public CreateMunicipalityCommandHandler(
+        ILocationReadStore<MunicipalityResponse> reads,
+        ILocationWriteStore writes,
+        IUnitOfWork unitOfWork)
     {
-        private readonly IMunicipalityService _service;
+        this.reads = reads;
+        this.writes = writes;
+        this.unitOfWork = unitOfWork;
+    }
 
-        public CreateMunicipalityCommandHandler(IMunicipalityService service)
+    public async Task<Result<MunicipalityResponse>> Handle(
+        CreateMunicipalityCommand command,
+        CancellationToken cancellationToken)
+    {
+        var request = command.Request;
+
+        if (await reads.ExistsAsync(new { request.CountryCode, request.Code }, cancellationToken))
         {
-            _service = service;
+            return Result<MunicipalityResponse>.Fail(
+                "Municipality already exists.",
+                HttpStatusCode.Conflict);
         }
 
-        public async Task<Result<MunicipalityResponse>> Handle(CreateMunicipalityCommand command, CancellationToken cancellationToken)
-        {
-            return await _service.AddAsync(command.Request, cancellationToken);
-        }
+        var entity = global::LocationService.Domain.Entities.Municipality.Create(request.CountryCode, request.Code, request.Name, request.SeatSettlementCode);
+
+        await writes.AddAsync(entity, cancellationToken);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result<MunicipalityResponse>.Created(entity.ToResponse());
     }
 }

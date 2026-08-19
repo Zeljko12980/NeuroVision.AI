@@ -1,23 +1,31 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Pagination;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.CountryComposition.Query.GetAll;
 
-namespace LocationService.Application.Feature.CountryComposition.Query.GetAll
+public sealed class GetAllCountryCompositionsQueryHandler
+    : IQueryHandler<GetAllCountryCompositionsQuery, Result<PaginatedResult<CountryCompositionResponse>>>
 {
-    public sealed class GetAllCountryCompositionsQueryHandler : IQueryHandler<GetAllCountryCompositionsQuery, Result<PaginatedResult<CountryCompositionResponse>>>
+    private readonly ILocationReadStore<CountryCompositionResponse> reads;
+
+    public GetAllCountryCompositionsQueryHandler(ILocationReadStore<CountryCompositionResponse> reads)
     {
-        private readonly ICountryCompositionService _service;
+        this.reads = reads;
+    }
 
-        public GetAllCountryCompositionsQueryHandler(ICountryCompositionService service)
-        {
-            _service = service;
-        }
+    public async Task<Result<PaginatedResult<CountryCompositionResponse>>> Handle(
+        GetAllCountryCompositionsQuery query,
+        CancellationToken cancellationToken)
+    {
+        var request = query.Request;
+        var pageIndex = Math.Max(request.PageIndex, 0);
+        var total = await reads.CountAsync(cancellationToken: cancellationToken);
+        var items = await reads.GetPagedAsync(
+            new { request.PageSize, Offset = request.PageIndex * request.PageSize },
+            cancellationToken);
 
-        public async Task<Result<PaginatedResult<CountryCompositionResponse>>> Handle(GetAllCountryCompositionsQuery query, CancellationToken cancellationToken)
-        {
-            return await _service.GetAllAsync(query.Request, cancellationToken);
-        }
+        return Result<PaginatedResult<CountryCompositionResponse>>.Ok(
+            new PaginatedResult<CountryCompositionResponse>(
+                pageIndex,
+                request.PageSize,
+                total,
+                items));
     }
 }

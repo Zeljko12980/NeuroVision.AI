@@ -1,22 +1,28 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.LocalCommunityCoverage.Query.GetByKey;
 
-namespace LocationService.Application.Feature.LocalCommunityCoverage.Query.GetByKey
+public sealed class GetLocalCommunityCoverageByKeyQueryHandler
+    : IQueryHandler<GetLocalCommunityCoverageByKeyQuery, Result<LocalCommunityCoverageResponse>>
 {
-    public sealed class GetLocalCommunityCoverageByKeyQueryHandler : IQueryHandler<GetLocalCommunityCoverageByKeyQuery, Result<LocalCommunityCoverageResponse>>
+    private readonly ILocationReadStore<LocalCommunityCoverageResponse> reads;
+
+    public GetLocalCommunityCoverageByKeyQueryHandler(ILocationReadStore<LocalCommunityCoverageResponse> reads)
     {
-        private readonly ILocalCommunityCoverageService _service;
+        this.reads = reads;
+    }
 
-        public GetLocalCommunityCoverageByKeyQueryHandler(ILocalCommunityCoverageService service)
+    public async Task<Result<LocalCommunityCoverageResponse>> Handle(
+        GetLocalCommunityCoverageByKeyQuery query,
+        CancellationToken cancellationToken)
+    {
+        var item = await reads.GetByKeyAsync(new { query.CountryCode, query.MunicipalityCode, query.LocalCommunityIdentifier, query.SettlementCode }, cancellationToken);
+
+        if (item is null)
         {
-            _service = service;
+            return Result<LocalCommunityCoverageResponse>.Fail(
+                "LocalCommunityCoverage not found.",
+                HttpStatusCode.NotFound);
         }
 
-        public async Task<Result<LocalCommunityCoverageResponse>> Handle(GetLocalCommunityCoverageByKeyQuery query, CancellationToken cancellationToken)
-        {
-            return await _service.GetByKeyAsync(query.CountryCode, query.MunicipalityCode, query.LocalCommunityIdentifier, query.SettlementCode, cancellationToken);
-        }
+        return Result<LocalCommunityCoverageResponse>.Ok(item);
     }
 }

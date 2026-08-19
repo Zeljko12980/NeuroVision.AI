@@ -1,22 +1,28 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.LegalSuccessor.Query.GetByKey;
 
-namespace LocationService.Application.Feature.LegalSuccessor.Query.GetByKey
+public sealed class GetLegalSuccessorByKeyQueryHandler
+    : IQueryHandler<GetLegalSuccessorByKeyQuery, Result<LegalSuccessorResponse>>
 {
-    public sealed class GetLegalSuccessorByKeyQueryHandler : IQueryHandler<GetLegalSuccessorByKeyQuery, Result<LegalSuccessorResponse>>
+    private readonly ILocationReadStore<LegalSuccessorResponse> reads;
+
+    public GetLegalSuccessorByKeyQueryHandler(ILocationReadStore<LegalSuccessorResponse> reads)
     {
-        private readonly ILegalSuccessorService _service;
+        this.reads = reads;
+    }
 
-        public GetLegalSuccessorByKeyQueryHandler(ILegalSuccessorService service)
+    public async Task<Result<LegalSuccessorResponse>> Handle(
+        GetLegalSuccessorByKeyQuery query,
+        CancellationToken cancellationToken)
+    {
+        var item = await reads.GetByKeyAsync(new { query.SuccessorCountryCode, query.PredecessorCountryCode }, cancellationToken);
+
+        if (item is null)
         {
-            _service = service;
+            return Result<LegalSuccessorResponse>.Fail(
+                "LegalSuccessor not found.",
+                HttpStatusCode.NotFound);
         }
 
-        public async Task<Result<LegalSuccessorResponse>> Handle(GetLegalSuccessorByKeyQuery query, CancellationToken cancellationToken)
-        {
-            return await _service.GetByKeyAsync(query.SuccessorCountryCode, query.PredecessorCountryCode, cancellationToken);
-        }
+        return Result<LegalSuccessorResponse>.Ok(item);
     }
 }

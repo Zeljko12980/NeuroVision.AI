@@ -1,21 +1,37 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
+namespace LocationService.Application.Feature.HealthInstitutionType.Command.Delete;
 
-namespace LocationService.Application.Feature.HealthInstitutionType.Command.Delete
+public sealed class DeleteHealthInstitutionTypeCommandHandler
+    : ICommandHandler<DeleteHealthInstitutionTypeCommand, Result<bool>>
 {
-    public sealed class DeleteHealthInstitutionTypeCommandHandler : ICommandHandler<DeleteHealthInstitutionTypeCommand, Result<bool>>
+    private readonly ILocationWriteStore writes;
+    private readonly IUnitOfWork unitOfWork;
+
+    public DeleteHealthInstitutionTypeCommandHandler(
+        ILocationWriteStore writes,
+        IUnitOfWork unitOfWork)
     {
-        private readonly IHealthInstitutionTypeService _service;
+        this.writes = writes;
+        this.unitOfWork = unitOfWork;
+    }
 
-        public DeleteHealthInstitutionTypeCommandHandler(IHealthInstitutionTypeService service)
+    public async Task<Result<bool>> Handle(
+        DeleteHealthInstitutionTypeCommand command,
+        CancellationToken cancellationToken)
+    {
+        var entity = await writes.FindAsync<global::LocationService.Domain.Entities.HealthInstitutionType>(
+            new object[] { command.Code },
+            cancellationToken);
+
+        if (entity is null)
         {
-            _service = service;
+            return Result<bool>.Fail(
+                "HealthInstitutionType not found.",
+                HttpStatusCode.NotFound);
         }
 
-        public async Task<Result<bool>> Handle(DeleteHealthInstitutionTypeCommand command, CancellationToken cancellationToken)
-        {
-            return await _service.DeleteAsync(command.Code, cancellationToken);
-        }
+        writes.Remove(entity);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result<bool>.Ok(true);
     }
 }

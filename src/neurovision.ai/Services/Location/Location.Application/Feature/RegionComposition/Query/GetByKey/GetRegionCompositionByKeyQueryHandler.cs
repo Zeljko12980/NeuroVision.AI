@@ -1,22 +1,28 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.RegionComposition.Query.GetByKey;
 
-namespace LocationService.Application.Feature.RegionComposition.Query.GetByKey
+public sealed class GetRegionCompositionByKeyQueryHandler
+    : IQueryHandler<GetRegionCompositionByKeyQuery, Result<RegionCompositionResponse>>
 {
-    public sealed class GetRegionCompositionByKeyQueryHandler : IQueryHandler<GetRegionCompositionByKeyQuery, Result<RegionCompositionResponse>>
+    private readonly ILocationReadStore<RegionCompositionResponse> reads;
+
+    public GetRegionCompositionByKeyQueryHandler(ILocationReadStore<RegionCompositionResponse> reads)
     {
-        private readonly IRegionCompositionService _service;
+        this.reads = reads;
+    }
 
-        public GetRegionCompositionByKeyQueryHandler(IRegionCompositionService service)
+    public async Task<Result<RegionCompositionResponse>> Handle(
+        GetRegionCompositionByKeyQuery query,
+        CancellationToken cancellationToken)
+    {
+        var item = await reads.GetByKeyAsync(new { query.ParentRegionTypeCode, query.ParentRegionCode, query.MemberRegionTypeCode, query.MemberRegionCode }, cancellationToken);
+
+        if (item is null)
         {
-            _service = service;
+            return Result<RegionCompositionResponse>.Fail(
+                "RegionComposition not found.",
+                HttpStatusCode.NotFound);
         }
 
-        public async Task<Result<RegionCompositionResponse>> Handle(GetRegionCompositionByKeyQuery query, CancellationToken cancellationToken)
-        {
-            return await _service.GetByKeyAsync(query.ParentRegionTypeCode, query.ParentRegionCode, query.MemberRegionTypeCode, query.MemberRegionCode, cancellationToken);
-        }
+        return Result<RegionCompositionResponse>.Ok(item);
     }
 }

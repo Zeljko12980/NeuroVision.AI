@@ -1,22 +1,39 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.HealthInstitutionType.Command.Update;
 
-namespace LocationService.Application.Feature.HealthInstitutionType.Command.Update
+public sealed class UpdateHealthInstitutionTypeCommandHandler
+    : ICommandHandler<UpdateHealthInstitutionTypeCommand, Result<HealthInstitutionTypeResponse>>
 {
-    public sealed class UpdateHealthInstitutionTypeCommandHandler : ICommandHandler<UpdateHealthInstitutionTypeCommand, Result<HealthInstitutionTypeResponse>>
+    private readonly ILocationWriteStore writes;
+    private readonly IUnitOfWork unitOfWork;
+
+    public UpdateHealthInstitutionTypeCommandHandler(
+        ILocationWriteStore writes,
+        IUnitOfWork unitOfWork)
     {
-        private readonly IHealthInstitutionTypeService _service;
+        this.writes = writes;
+        this.unitOfWork = unitOfWork;
+    }
 
-        public UpdateHealthInstitutionTypeCommandHandler(IHealthInstitutionTypeService service)
+    public async Task<Result<HealthInstitutionTypeResponse>> Handle(
+        UpdateHealthInstitutionTypeCommand command,
+        CancellationToken cancellationToken)
+    {
+        var entity = await writes.FindAsync<global::LocationService.Domain.Entities.HealthInstitutionType>(
+            new object[] { command.Code },
+            cancellationToken);
+
+        if (entity is null)
         {
-            _service = service;
+            return Result<HealthInstitutionTypeResponse>.Fail(
+                "HealthInstitutionType not found.",
+                HttpStatusCode.NotFound);
         }
 
-        public async Task<Result<HealthInstitutionTypeResponse>> Handle(UpdateHealthInstitutionTypeCommand command, CancellationToken cancellationToken)
-        {
-            return await _service.UpdateAsync(command.Code, command.Request, cancellationToken);
-        }
+        var request = command.Request;
+        entity.Update(request.Name, request.Description);
+        writes.Update(entity);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result<HealthInstitutionTypeResponse>.Ok(entity.ToResponse());
     }
 }

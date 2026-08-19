@@ -1,22 +1,39 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.HealthInstitution.Command.Update;
 
-namespace LocationService.Application.Feature.HealthInstitution.Command.Update
+public sealed class UpdateHealthInstitutionCommandHandler
+    : ICommandHandler<UpdateHealthInstitutionCommand, Result<HealthInstitutionResponse>>
 {
-    public sealed class UpdateHealthInstitutionCommandHandler : ICommandHandler<UpdateHealthInstitutionCommand, Result<HealthInstitutionResponse>>
+    private readonly ILocationWriteStore writes;
+    private readonly IUnitOfWork unitOfWork;
+
+    public UpdateHealthInstitutionCommandHandler(
+        ILocationWriteStore writes,
+        IUnitOfWork unitOfWork)
     {
-        private readonly IHealthInstitutionService _service;
+        this.writes = writes;
+        this.unitOfWork = unitOfWork;
+    }
 
-        public UpdateHealthInstitutionCommandHandler(IHealthInstitutionService service)
+    public async Task<Result<HealthInstitutionResponse>> Handle(
+        UpdateHealthInstitutionCommand command,
+        CancellationToken cancellationToken)
+    {
+        var entity = await writes.FindAsync<global::LocationService.Domain.Entities.HealthInstitution>(
+            new object[] { command.Id },
+            cancellationToken);
+
+        if (entity is null)
         {
-            _service = service;
+            return Result<HealthInstitutionResponse>.Fail(
+                "HealthInstitution not found.",
+                HttpStatusCode.NotFound);
         }
 
-        public async Task<Result<HealthInstitutionResponse>> Handle(UpdateHealthInstitutionCommand command, CancellationToken cancellationToken)
-        {
-            return await _service.UpdateAsync(command.Id, command.Request, cancellationToken);
-        }
+        var request = command.Request;
+        entity.Update(request.Name, request.TypeCode, request.CountryCode, request.SettlementCode, request.Address, request.BedCount, request.FoundingDate, request.Phone);
+        writes.Update(entity);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result<HealthInstitutionResponse>.Ok(entity.ToResponse());
     }
 }

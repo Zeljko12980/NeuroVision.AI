@@ -1,21 +1,37 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
+namespace LocationService.Application.Feature.LegalSuccessor.Command.Delete;
 
-namespace LocationService.Application.Feature.LegalSuccessor.Command.Delete
+public sealed class DeleteLegalSuccessorCommandHandler
+    : ICommandHandler<DeleteLegalSuccessorCommand, Result<bool>>
 {
-    public sealed class DeleteLegalSuccessorCommandHandler : ICommandHandler<DeleteLegalSuccessorCommand, Result<bool>>
+    private readonly ILocationWriteStore writes;
+    private readonly IUnitOfWork unitOfWork;
+
+    public DeleteLegalSuccessorCommandHandler(
+        ILocationWriteStore writes,
+        IUnitOfWork unitOfWork)
     {
-        private readonly ILegalSuccessorService _service;
+        this.writes = writes;
+        this.unitOfWork = unitOfWork;
+    }
 
-        public DeleteLegalSuccessorCommandHandler(ILegalSuccessorService service)
+    public async Task<Result<bool>> Handle(
+        DeleteLegalSuccessorCommand command,
+        CancellationToken cancellationToken)
+    {
+        var entity = await writes.FindAsync<global::LocationService.Domain.Entities.LegalSuccessor>(
+            new object[] { command.PredecessorCountryCode, command.SuccessorCountryCode },
+            cancellationToken);
+
+        if (entity is null)
         {
-            _service = service;
+            return Result<bool>.Fail(
+                "LegalSuccessor not found.",
+                HttpStatusCode.NotFound);
         }
 
-        public async Task<Result<bool>> Handle(DeleteLegalSuccessorCommand command, CancellationToken cancellationToken)
-        {
-            return await _service.DeleteAsync(command.SuccessorCountryCode, command.PredecessorCountryCode, cancellationToken);
-        }
+        writes.Remove(entity);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result<bool>.Ok(true);
     }
 }

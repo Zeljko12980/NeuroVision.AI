@@ -1,21 +1,37 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
+namespace LocationService.Application.Feature.Country.Command.Delete;
 
-namespace LocationService.Application.Feature.Country.Command.Delete
+public sealed class DeleteCountryCommandHandler
+    : ICommandHandler<DeleteCountryCommand, Result<bool>>
 {
-    public sealed class DeleteCountryCommandHandler : ICommandHandler<DeleteCountryCommand, Result<bool>>
-    {
-        private readonly ICountryService _countryService;
+    private readonly ILocationWriteStore writes;
+    private readonly IUnitOfWork unitOfWork;
 
-        public DeleteCountryCommandHandler(ICountryService countryService)
+    public DeleteCountryCommandHandler(
+        ILocationWriteStore writes,
+        IUnitOfWork unitOfWork)
+    {
+        this.writes = writes;
+        this.unitOfWork = unitOfWork;
+    }
+
+    public async Task<Result<bool>> Handle(
+        DeleteCountryCommand command,
+        CancellationToken cancellationToken)
+    {
+        var entity = await writes.FindAsync<global::LocationService.Domain.Entities.Country>(
+            new object[] { command.Code },
+            cancellationToken);
+
+        if (entity is null)
         {
-            _countryService = countryService;
+            return Result<bool>.Fail(
+                "Country not found.",
+                HttpStatusCode.NotFound);
         }
-    
-        public async Task<Result<bool>> Handle(DeleteCountryCommand command, CancellationToken cancellationToken)
-        {
-            return await _countryService.DeleteAsync(command.Code, cancellationToken);
-        }
+
+        writes.Remove(entity);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result<bool>.Ok(true);
     }
 }

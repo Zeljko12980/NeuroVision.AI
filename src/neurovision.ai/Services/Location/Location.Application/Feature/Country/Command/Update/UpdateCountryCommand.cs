@@ -8,4 +8,13 @@ namespace LocationService.Application.Feature.Country.Command.Update
 {
     public sealed record UpdateCountryCommand(UpdateCountryRequest Request, string Code) : ICommand<Result<CountryResponse>>;
 
+
+public sealed class UpdateCountryCommandValidator : AbstractValidator<UpdateCountryCommand>
+{
+    public UpdateCountryCommandValidator()
+    {
+        RuleFor(x => x.Code).NotEmpty();
+        RuleFor(x => x.Request.Name).NotEmpty().MaximumLength(120);
+    }
+}
 }

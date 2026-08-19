@@ -1,21 +1,37 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
+namespace LocationService.Application.Feature.RegionSettlementCoverage.Command.Delete;
 
-namespace LocationService.Application.Feature.RegionSettlementCoverage.Command.Delete
+public sealed class DeleteRegionSettlementCoverageCommandHandler
+    : ICommandHandler<DeleteRegionSettlementCoverageCommand, Result<bool>>
 {
-    public sealed class DeleteRegionSettlementCoverageCommandHandler : ICommandHandler<DeleteRegionSettlementCoverageCommand, Result<bool>>
+    private readonly ILocationWriteStore writes;
+    private readonly IUnitOfWork unitOfWork;
+
+    public DeleteRegionSettlementCoverageCommandHandler(
+        ILocationWriteStore writes,
+        IUnitOfWork unitOfWork)
     {
-        private readonly IRegionSettlementCoverageService _service;
+        this.writes = writes;
+        this.unitOfWork = unitOfWork;
+    }
 
-        public DeleteRegionSettlementCoverageCommandHandler(IRegionSettlementCoverageService service)
+    public async Task<Result<bool>> Handle(
+        DeleteRegionSettlementCoverageCommand command,
+        CancellationToken cancellationToken)
+    {
+        var entity = await writes.FindAsync<global::LocationService.Domain.Entities.RegionSettlementCoverage>(
+            new object[] { command.CountryCode, command.SettlementCode, command.RegionTypeCode, command.RegionCode },
+            cancellationToken);
+
+        if (entity is null)
         {
-            _service = service;
+            return Result<bool>.Fail(
+                "RegionSettlementCoverage not found.",
+                HttpStatusCode.NotFound);
         }
 
-        public async Task<Result<bool>> Handle(DeleteRegionSettlementCoverageCommand command, CancellationToken cancellationToken)
-        {
-            return await _service.DeleteAsync(command.RegionTypeCode, command.RegionCode, command.CountryCode, command.SettlementCode, cancellationToken);
-        }
+        writes.Remove(entity);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result<bool>.Ok(true);
     }
 }

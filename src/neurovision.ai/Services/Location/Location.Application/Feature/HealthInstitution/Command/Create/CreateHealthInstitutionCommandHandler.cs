@@ -1,22 +1,33 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.HealthInstitution.Command.Create;
 
-namespace LocationService.Application.Feature.HealthInstitution.Command.Create
+public sealed class CreateHealthInstitutionCommandHandler
+    : ICommandHandler<CreateHealthInstitutionCommand, Result<HealthInstitutionResponse>>
 {
-    public sealed class CreateHealthInstitutionCommandHandler : ICommandHandler<CreateHealthInstitutionCommand, Result<HealthInstitutionResponse>>
+    private readonly ILocationReadStore<HealthInstitutionResponse> reads;
+    private readonly ILocationWriteStore writes;
+    private readonly IUnitOfWork unitOfWork;
+
+    public CreateHealthInstitutionCommandHandler(
+        ILocationReadStore<HealthInstitutionResponse> reads,
+        ILocationWriteStore writes,
+        IUnitOfWork unitOfWork)
     {
-        private readonly IHealthInstitutionService _service;
+        this.reads = reads;
+        this.writes = writes;
+        this.unitOfWork = unitOfWork;
+    }
 
-        public CreateHealthInstitutionCommandHandler(IHealthInstitutionService service)
-        {
-            _service = service;
-        }
+    public async Task<Result<HealthInstitutionResponse>> Handle(
+        CreateHealthInstitutionCommand command,
+        CancellationToken cancellationToken)
+    {
+        var request = command.Request;
 
-        public async Task<Result<HealthInstitutionResponse>> Handle(CreateHealthInstitutionCommand command, CancellationToken cancellationToken)
-        {
-            return await _service.AddAsync(command.Request, cancellationToken);
-        }
+        var entity = global::LocationService.Domain.Entities.HealthInstitution.Create(request.Name, request.TypeCode, request.CountryCode, request.SettlementCode, request.Address, request.BedCount, request.FoundingDate, request.Phone);
+
+        await writes.AddAsync(entity, cancellationToken);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result<HealthInstitutionResponse>.Created(entity.ToResponse());
     }
 }

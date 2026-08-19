@@ -1,23 +1,31 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Pagination;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.Capital.Query.GetAll;
 
-namespace LocationService.Application.Feature.Capital.Query.GetAll
+public sealed class GetAllCapitalsQueryHandler
+    : IQueryHandler<GetAllCapitalsQuery, Result<PaginatedResult<CapitalResponse>>>
 {
-    public sealed class GetAllCapitalsQueryHandler : IQueryHandler<GetAllCapitalsQuery, Result<PaginatedResult<CapitalResponse>>>
+    private readonly ILocationReadStore<CapitalResponse> reads;
+
+    public GetAllCapitalsQueryHandler(ILocationReadStore<CapitalResponse> reads)
     {
-        private readonly ICapitalService _service;
+        this.reads = reads;
+    }
 
-        public GetAllCapitalsQueryHandler(ICapitalService service)
-        {
-            _service = service;
-        }
+    public async Task<Result<PaginatedResult<CapitalResponse>>> Handle(
+        GetAllCapitalsQuery query,
+        CancellationToken cancellationToken)
+    {
+        var request = query.Request;
+        var pageIndex = Math.Max(request.PageIndex, 0);
+        var total = await reads.CountAsync(cancellationToken: cancellationToken);
+        var items = await reads.GetPagedAsync(
+            new { request.PageSize, Offset = request.PageIndex * request.PageSize },
+            cancellationToken);
 
-        public async Task<Result<PaginatedResult<CapitalResponse>>> Handle(GetAllCapitalsQuery query, CancellationToken cancellationToken)
-        {
-            return await _service.GetAllAsync(query.Request, cancellationToken);
-        }
+        return Result<PaginatedResult<CapitalResponse>>.Ok(
+            new PaginatedResult<CapitalResponse>(
+                pageIndex,
+                request.PageSize,
+                total,
+                items));
     }
 }

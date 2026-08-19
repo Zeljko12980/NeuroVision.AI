@@ -1,22 +1,28 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.GovernmentType.Query.GetByKey;
 
-namespace LocationService.Application.Feature.GovernmentType.Query.GetByKey
+public sealed class GetGovernmentTypeByKeyQueryHandler
+    : IQueryHandler<GetGovernmentTypeByKeyQuery, Result<GovernmentTypeResponse>>
 {
-    public sealed class GetGovernmentTypeByKeyQueryHandler : IQueryHandler<GetGovernmentTypeByKeyQuery, Result<GovernmentTypeResponse>>
+    private readonly ILocationReadStore<GovernmentTypeResponse> reads;
+
+    public GetGovernmentTypeByKeyQueryHandler(ILocationReadStore<GovernmentTypeResponse> reads)
     {
-        private readonly IGovernmentTypeService _service;
+        this.reads = reads;
+    }
 
-        public GetGovernmentTypeByKeyQueryHandler(IGovernmentTypeService service)
+    public async Task<Result<GovernmentTypeResponse>> Handle(
+        GetGovernmentTypeByKeyQuery query,
+        CancellationToken cancellationToken)
+    {
+        var item = await reads.GetByKeyAsync(new { query.Code }, cancellationToken);
+
+        if (item is null)
         {
-            _service = service;
+            return Result<GovernmentTypeResponse>.Fail(
+                "GovernmentType not found.",
+                HttpStatusCode.NotFound);
         }
 
-        public async Task<Result<GovernmentTypeResponse>> Handle(GetGovernmentTypeByKeyQuery query, CancellationToken cancellationToken)
-        {
-            return await _service.GetByKeyAsync(query.Code, cancellationToken);
-        }
+        return Result<GovernmentTypeResponse>.Ok(item);
     }
 }

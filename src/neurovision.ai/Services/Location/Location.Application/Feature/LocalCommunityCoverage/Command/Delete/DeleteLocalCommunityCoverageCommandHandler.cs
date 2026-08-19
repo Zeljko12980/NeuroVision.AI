@@ -1,21 +1,37 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
+namespace LocationService.Application.Feature.LocalCommunityCoverage.Command.Delete;
 
-namespace LocationService.Application.Feature.LocalCommunityCoverage.Command.Delete
+public sealed class DeleteLocalCommunityCoverageCommandHandler
+    : ICommandHandler<DeleteLocalCommunityCoverageCommand, Result<bool>>
 {
-    public sealed class DeleteLocalCommunityCoverageCommandHandler : ICommandHandler<DeleteLocalCommunityCoverageCommand, Result<bool>>
+    private readonly ILocationWriteStore writes;
+    private readonly IUnitOfWork unitOfWork;
+
+    public DeleteLocalCommunityCoverageCommandHandler(
+        ILocationWriteStore writes,
+        IUnitOfWork unitOfWork)
     {
-        private readonly ILocalCommunityCoverageService _service;
+        this.writes = writes;
+        this.unitOfWork = unitOfWork;
+    }
 
-        public DeleteLocalCommunityCoverageCommandHandler(ILocalCommunityCoverageService service)
+    public async Task<Result<bool>> Handle(
+        DeleteLocalCommunityCoverageCommand command,
+        CancellationToken cancellationToken)
+    {
+        var entity = await writes.FindAsync<global::LocationService.Domain.Entities.LocalCommunityCoverage>(
+            new object[] { command.MunicipalityCode, command.LocalCommunityIdentifier, command.CountryCode, command.SettlementCode },
+            cancellationToken);
+
+        if (entity is null)
         {
-            _service = service;
+            return Result<bool>.Fail(
+                "LocalCommunityCoverage not found.",
+                HttpStatusCode.NotFound);
         }
 
-        public async Task<Result<bool>> Handle(DeleteLocalCommunityCoverageCommand command, CancellationToken cancellationToken)
-        {
-            return await _service.DeleteAsync(command.CountryCode, command.MunicipalityCode, command.LocalCommunityIdentifier, command.SettlementCode, cancellationToken);
-        }
+        writes.Remove(entity);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result<bool>.Ok(true);
     }
 }

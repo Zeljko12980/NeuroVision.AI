@@ -1,22 +1,28 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.LocalCommunity.Query.GetByKey;
 
-namespace LocationService.Application.Feature.LocalCommunity.Query.GetByKey
+public sealed class GetLocalCommunityByKeyQueryHandler
+    : IQueryHandler<GetLocalCommunityByKeyQuery, Result<LocalCommunityResponse>>
 {
-    public sealed class GetLocalCommunityByKeyQueryHandler : IQueryHandler<GetLocalCommunityByKeyQuery, Result<LocalCommunityResponse>>
+    private readonly ILocationReadStore<LocalCommunityResponse> reads;
+
+    public GetLocalCommunityByKeyQueryHandler(ILocationReadStore<LocalCommunityResponse> reads)
     {
-        private readonly ILocalCommunityService _service;
+        this.reads = reads;
+    }
 
-        public GetLocalCommunityByKeyQueryHandler(ILocalCommunityService service)
+    public async Task<Result<LocalCommunityResponse>> Handle(
+        GetLocalCommunityByKeyQuery query,
+        CancellationToken cancellationToken)
+    {
+        var item = await reads.GetByKeyAsync(new { query.CountryCode, query.MunicipalityCode, query.Identifier }, cancellationToken);
+
+        if (item is null)
         {
-            _service = service;
+            return Result<LocalCommunityResponse>.Fail(
+                "LocalCommunity not found.",
+                HttpStatusCode.NotFound);
         }
 
-        public async Task<Result<LocalCommunityResponse>> Handle(GetLocalCommunityByKeyQuery query, CancellationToken cancellationToken)
-        {
-            return await _service.GetByKeyAsync(query.CountryCode, query.MunicipalityCode, query.Identifier, cancellationToken);
-        }
+        return Result<LocalCommunityResponse>.Ok(item);
     }
 }

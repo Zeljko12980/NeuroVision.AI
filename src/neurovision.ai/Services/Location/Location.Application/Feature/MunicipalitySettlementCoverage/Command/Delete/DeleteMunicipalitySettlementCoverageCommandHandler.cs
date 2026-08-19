@@ -1,21 +1,37 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
+namespace LocationService.Application.Feature.MunicipalitySettlementCoverage.Command.Delete;
 
-namespace LocationService.Application.Feature.MunicipalitySettlementCoverage.Command.Delete
+public sealed class DeleteMunicipalitySettlementCoverageCommandHandler
+    : ICommandHandler<DeleteMunicipalitySettlementCoverageCommand, Result<bool>>
 {
-    public sealed class DeleteMunicipalitySettlementCoverageCommandHandler : ICommandHandler<DeleteMunicipalitySettlementCoverageCommand, Result<bool>>
+    private readonly ILocationWriteStore writes;
+    private readonly IUnitOfWork unitOfWork;
+
+    public DeleteMunicipalitySettlementCoverageCommandHandler(
+        ILocationWriteStore writes,
+        IUnitOfWork unitOfWork)
     {
-        private readonly IMunicipalitySettlementCoverageService _service;
+        this.writes = writes;
+        this.unitOfWork = unitOfWork;
+    }
 
-        public DeleteMunicipalitySettlementCoverageCommandHandler(IMunicipalitySettlementCoverageService service)
+    public async Task<Result<bool>> Handle(
+        DeleteMunicipalitySettlementCoverageCommand command,
+        CancellationToken cancellationToken)
+    {
+        var entity = await writes.FindAsync<global::LocationService.Domain.Entities.MunicipalitySettlementCoverage>(
+            new object[] { command.MunicipalityCode, command.CountryCode, command.SettlementCode },
+            cancellationToken);
+
+        if (entity is null)
         {
-            _service = service;
+            return Result<bool>.Fail(
+                "MunicipalitySettlementCoverage not found.",
+                HttpStatusCode.NotFound);
         }
 
-        public async Task<Result<bool>> Handle(DeleteMunicipalitySettlementCoverageCommand command, CancellationToken cancellationToken)
-        {
-            return await _service.DeleteAsync(command.CountryCode, command.MunicipalityCode, command.SettlementCode, cancellationToken);
-        }
+        writes.Remove(entity);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result<bool>.Ok(true);
     }
 }

@@ -1,22 +1,39 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.RegionType.Command.Update;
 
-namespace LocationService.Application.Feature.RegionType.Command.Update
+public sealed class UpdateRegionTypeCommandHandler
+    : ICommandHandler<UpdateRegionTypeCommand, Result<RegionTypeResponse>>
 {
-    public sealed class UpdateRegionTypeCommandHandler : ICommandHandler<UpdateRegionTypeCommand, Result<RegionTypeResponse>>
+    private readonly ILocationWriteStore writes;
+    private readonly IUnitOfWork unitOfWork;
+
+    public UpdateRegionTypeCommandHandler(
+        ILocationWriteStore writes,
+        IUnitOfWork unitOfWork)
     {
-        private readonly IRegionTypeService _service;
+        this.writes = writes;
+        this.unitOfWork = unitOfWork;
+    }
 
-        public UpdateRegionTypeCommandHandler(IRegionTypeService service)
+    public async Task<Result<RegionTypeResponse>> Handle(
+        UpdateRegionTypeCommand command,
+        CancellationToken cancellationToken)
+    {
+        var entity = await writes.FindAsync<global::LocationService.Domain.Entities.RegionType>(
+            new object[] { command.Code },
+            cancellationToken);
+
+        if (entity is null)
         {
-            _service = service;
+            return Result<RegionTypeResponse>.Fail(
+                "RegionType not found.",
+                HttpStatusCode.NotFound);
         }
 
-        public async Task<Result<RegionTypeResponse>> Handle(UpdateRegionTypeCommand command, CancellationToken cancellationToken)
-        {
-            return await _service.UpdateAsync(command.Code, command.Request, cancellationToken);
-        }
+        var request = command.Request;
+        entity.Update(request.Name, request.Description);
+        writes.Update(entity);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result<RegionTypeResponse>.Ok(entity.ToResponse());
     }
 }

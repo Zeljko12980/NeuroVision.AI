@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import ComponentCard from "../../../components/common/ComponentCard";
 import PageBreadcrumb from "../../../components/common/PageBreadCrumb";
@@ -43,6 +44,7 @@ export default function CreateHealthInstitutionPage() {
     const navigate = useNavigate();
 
     const dispatch = useAppDispatch();
+    const { t } = useTranslation();
 
 
 
@@ -198,8 +200,7 @@ export default function CreateHealthInstitutionPage() {
             dispatch(
                 showAlert({
                     type: "error",
-                    message:
-                        "Name, type, country and settlement are required"
+                    message: t("location.healthInstitutions.messages.required")
                 })
             );
 
@@ -259,8 +260,7 @@ export default function CreateHealthInstitutionPage() {
 
                     type: "success",
 
-                    message:
-                        "Health institution created successfully"
+                    message: t("location.healthInstitutions.messages.createSuccess")
 
                 })
             );
@@ -284,7 +284,7 @@ export default function CreateHealthInstitutionPage() {
 
                     message:
                         error?.message ??
-                        "Failed to create health institution"
+                        t("location.healthInstitutions.messages.createError")
 
                 })
             );
@@ -310,13 +310,13 @@ export default function CreateHealthInstitutionPage() {
 
 
             <PageMeta
-                title="Create Health Institution | NeuroVision.AI"
-                description="Create health institution"
+                title={`${t("location.healthInstitutions.createTitle")} | NeuroVision.AI`}
+                description={t("location.healthInstitutions.pageDescription")}
             />
 
 
             <PageBreadcrumb
-                pageTitle="Create Health Institution"
+                pageTitle={t("location.healthInstitutions.createTitle")}
             />
 
 
@@ -324,7 +324,7 @@ export default function CreateHealthInstitutionPage() {
             <div className="max-w-3xl mx-auto">
 
 
-                <ComponentCard title="New Health Institution">
+                <ComponentCard title={t("location.healthInstitutions.createTitle")}>
 
 
                     <div className="space-y-5">
@@ -334,14 +334,14 @@ export default function CreateHealthInstitutionPage() {
                         <div>
 
                             <Label>
-                                Name *
+                                {t("location.healthInstitutions.fields.name")} *
                             </Label>
 
                             <Input
 
                                 value={form.name}
 
-                                placeholder="General Hospital"
+                                placeholder={t("location.healthInstitutions.placeholders.name")}
 
                                 onChange={
                                     e =>
@@ -362,7 +362,7 @@ export default function CreateHealthInstitutionPage() {
                         <div>
 
                             <Label>
-                                Type *
+                                {t("location.healthInstitutions.fields.typeCode")} *
                             </Label>
 
 
@@ -372,7 +372,7 @@ export default function CreateHealthInstitutionPage() {
 
                                 value={form.typeCode}
 
-                                placeholder="Select type"
+                                placeholder={t("location.healthInstitutions.placeholders.type")}
 
                                 onChange={
                                     value =>
@@ -395,7 +395,7 @@ export default function CreateHealthInstitutionPage() {
                         <div>
 
                             <Label>
-                                Country *
+                                {t("location.healthInstitutions.fields.countryCode")} *
                             </Label>
 
 
@@ -405,7 +405,7 @@ export default function CreateHealthInstitutionPage() {
 
                                 value={form.countryCode}
 
-                                placeholder="Select country"
+                                placeholder={t("location.healthInstitutions.placeholders.country")}
 
                                 onChange={
                                     value =>
@@ -427,7 +427,7 @@ export default function CreateHealthInstitutionPage() {
                         <div>
 
                             <Label>
-                                Settlement *
+                                {t("location.healthInstitutions.fields.settlementCode")} *
                             </Label>
 
 
@@ -442,6 +442,8 @@ export default function CreateHealthInstitutionPage() {
                                 value={
                                     form.settlement
                                 }
+
+                                placeholder={t("location.healthInstitutions.placeholders.settlement")}
 
 
                                 onChange={
@@ -473,7 +475,7 @@ export default function CreateHealthInstitutionPage() {
                         <div>
 
                             <Label>
-                                Address
+                                {t("location.healthInstitutions.fields.address")}
                             </Label>
 
 
@@ -481,7 +483,7 @@ export default function CreateHealthInstitutionPage() {
 
                                 value={form.address}
 
-                                placeholder="Main Street 25, Building A"
+                                placeholder={t("location.healthInstitutions.placeholders.address")}
 
                                 onChange={
                                     e =>
@@ -503,7 +505,7 @@ export default function CreateHealthInstitutionPage() {
                         <div>
 
                             <Label>
-                                Phone
+                                {t("location.healthInstitutions.fields.phone")}
                             </Label>
 
 
@@ -533,7 +535,7 @@ export default function CreateHealthInstitutionPage() {
                         <div>
 
                             <Label>
-                                Bed Count
+                                {t("location.healthInstitutions.fields.bedCount")}
                             </Label>
 
 
@@ -572,7 +574,7 @@ export default function CreateHealthInstitutionPage() {
                         <div>
 
                             <Label>
-                                Founding Date
+                                {t("location.healthInstitutions.fields.foundingDate")}
                             </Label>
 
 
@@ -624,7 +626,7 @@ export default function CreateHealthInstitutionPage() {
                             }
 
                         >
-                            Cancel
+                            {t("common.cancel")}
 
                         </Button>
 
@@ -644,9 +646,9 @@ export default function CreateHealthInstitutionPage() {
                             {
                                 loading
                                     ?
-                                    "Creating..."
+                                    t("common.creating")
                                     :
-                                    "Create Health Institution"
+                                    t("location.healthInstitutions.createButton")
                             }
 
 

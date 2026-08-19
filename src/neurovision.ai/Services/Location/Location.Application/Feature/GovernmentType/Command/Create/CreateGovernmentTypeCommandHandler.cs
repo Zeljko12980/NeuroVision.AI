@@ -1,22 +1,40 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.GovernmentType.Command.Create;
 
-namespace LocationService.Application.Feature.GovernmentType.Command.Create
+public sealed class CreateGovernmentTypeCommandHandler
+    : ICommandHandler<CreateGovernmentTypeCommand, Result<GovernmentTypeResponse>>
 {
-    public sealed class CreateGovernmentTypeCommandHandler : ICommandHandler<CreateGovernmentTypeCommand, Result<GovernmentTypeResponse>>
+    private readonly ILocationReadStore<GovernmentTypeResponse> reads;
+    private readonly ILocationWriteStore writes;
+    private readonly IUnitOfWork unitOfWork;
+
+    public CreateGovernmentTypeCommandHandler(
+        ILocationReadStore<GovernmentTypeResponse> reads,
+        ILocationWriteStore writes,
+        IUnitOfWork unitOfWork)
     {
-        private readonly IGovernmentTypeService _service;
+        this.reads = reads;
+        this.writes = writes;
+        this.unitOfWork = unitOfWork;
+    }
 
-        public CreateGovernmentTypeCommandHandler(IGovernmentTypeService service)
+    public async Task<Result<GovernmentTypeResponse>> Handle(
+        CreateGovernmentTypeCommand command,
+        CancellationToken cancellationToken)
+    {
+        var request = command.Request;
+
+        if (await reads.ExistsAsync(new { request.Code }, cancellationToken))
         {
-            _service = service;
+            return Result<GovernmentTypeResponse>.Fail(
+                "GovernmentType already exists.",
+                HttpStatusCode.Conflict);
         }
 
-        public async Task<Result<GovernmentTypeResponse>> Handle(CreateGovernmentTypeCommand command, CancellationToken cancellationToken)
-        {
-            return await _service.AddAsync(command.Request, cancellationToken);
-        }
+        var entity = global::LocationService.Domain.Entities.GovernmentType.Create(request.Code, request.Name, request.Description);
+
+        await writes.AddAsync(entity, cancellationToken);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result<GovernmentTypeResponse>.Created(entity.ToResponse());
     }
 }

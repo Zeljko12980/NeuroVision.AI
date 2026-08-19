@@ -1,23 +1,31 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Pagination;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.RegionSettlementCoverage.Query.GetAll;
 
-namespace LocationService.Application.Feature.RegionSettlementCoverage.Query.GetAll
+public sealed class GetAllRegionSettlementCoveragesQueryHandler
+    : IQueryHandler<GetAllRegionSettlementCoveragesQuery, Result<PaginatedResult<RegionSettlementCoverageResponse>>>
 {
-    public sealed class GetAllRegionSettlementCoveragesQueryHandler : IQueryHandler<GetAllRegionSettlementCoveragesQuery, Result<PaginatedResult<RegionSettlementCoverageResponse>>>
+    private readonly ILocationReadStore<RegionSettlementCoverageResponse> reads;
+
+    public GetAllRegionSettlementCoveragesQueryHandler(ILocationReadStore<RegionSettlementCoverageResponse> reads)
     {
-        private readonly IRegionSettlementCoverageService _service;
+        this.reads = reads;
+    }
 
-        public GetAllRegionSettlementCoveragesQueryHandler(IRegionSettlementCoverageService service)
-        {
-            _service = service;
-        }
+    public async Task<Result<PaginatedResult<RegionSettlementCoverageResponse>>> Handle(
+        GetAllRegionSettlementCoveragesQuery query,
+        CancellationToken cancellationToken)
+    {
+        var request = query.Request;
+        var pageIndex = Math.Max(request.PageIndex, 0);
+        var total = await reads.CountAsync(cancellationToken: cancellationToken);
+        var items = await reads.GetPagedAsync(
+            new { request.PageSize, Offset = request.PageIndex * request.PageSize },
+            cancellationToken);
 
-        public async Task<Result<PaginatedResult<RegionSettlementCoverageResponse>>> Handle(GetAllRegionSettlementCoveragesQuery query, CancellationToken cancellationToken)
-        {
-            return await _service.GetAllAsync(query.Request, cancellationToken);
-        }
+        return Result<PaginatedResult<RegionSettlementCoverageResponse>>.Ok(
+            new PaginatedResult<RegionSettlementCoverageResponse>(
+                pageIndex,
+                request.PageSize,
+                total,
+                items));
     }
 }

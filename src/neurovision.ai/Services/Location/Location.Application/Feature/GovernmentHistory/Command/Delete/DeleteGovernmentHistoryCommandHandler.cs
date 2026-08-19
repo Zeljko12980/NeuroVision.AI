@@ -1,21 +1,37 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
+namespace LocationService.Application.Feature.GovernmentHistory.Command.Delete;
 
-namespace LocationService.Application.Feature.GovernmentHistory.Command.Delete
+public sealed class DeleteGovernmentHistoryCommandHandler
+    : ICommandHandler<DeleteGovernmentHistoryCommand, Result<bool>>
 {
-    public sealed class DeleteGovernmentHistoryCommandHandler : ICommandHandler<DeleteGovernmentHistoryCommand, Result<bool>>
+    private readonly ILocationWriteStore writes;
+    private readonly IUnitOfWork unitOfWork;
+
+    public DeleteGovernmentHistoryCommandHandler(
+        ILocationWriteStore writes,
+        IUnitOfWork unitOfWork)
     {
-        private readonly IGovernmentHistoryService _service;
+        this.writes = writes;
+        this.unitOfWork = unitOfWork;
+    }
 
-        public DeleteGovernmentHistoryCommandHandler(IGovernmentHistoryService service)
+    public async Task<Result<bool>> Handle(
+        DeleteGovernmentHistoryCommand command,
+        CancellationToken cancellationToken)
+    {
+        var entity = await writes.FindAsync<global::LocationService.Domain.Entities.GovernmentHistory>(
+            new object[] { command.CountryCode, command.SequenceNumber },
+            cancellationToken);
+
+        if (entity is null)
         {
-            _service = service;
+            return Result<bool>.Fail(
+                "GovernmentHistory not found.",
+                HttpStatusCode.NotFound);
         }
 
-        public async Task<Result<bool>> Handle(DeleteGovernmentHistoryCommand command, CancellationToken cancellationToken)
-        {
-            return await _service.DeleteAsync(command.CountryCode, command.SequenceNumber, cancellationToken);
-        }
+        writes.Remove(entity);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result<bool>.Ok(true);
     }
 }

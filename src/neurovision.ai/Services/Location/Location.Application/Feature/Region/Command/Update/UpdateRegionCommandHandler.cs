@@ -1,22 +1,39 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.Region.Command.Update;
 
-namespace LocationService.Application.Feature.Region.Command.Update
+public sealed class UpdateRegionCommandHandler
+    : ICommandHandler<UpdateRegionCommand, Result<RegionResponse>>
 {
-    public sealed class UpdateRegionCommandHandler : ICommandHandler<UpdateRegionCommand, Result<RegionResponse>>
+    private readonly ILocationWriteStore writes;
+    private readonly IUnitOfWork unitOfWork;
+
+    public UpdateRegionCommandHandler(
+        ILocationWriteStore writes,
+        IUnitOfWork unitOfWork)
     {
-        private readonly IRegionService _service;
+        this.writes = writes;
+        this.unitOfWork = unitOfWork;
+    }
 
-        public UpdateRegionCommandHandler(IRegionService service)
+    public async Task<Result<RegionResponse>> Handle(
+        UpdateRegionCommand command,
+        CancellationToken cancellationToken)
+    {
+        var entity = await writes.FindAsync<global::LocationService.Domain.Entities.Region>(
+            new object[] { command.TypeCode, command.Code },
+            cancellationToken);
+
+        if (entity is null)
         {
-            _service = service;
+            return Result<RegionResponse>.Fail(
+                "Region not found.",
+                HttpStatusCode.NotFound);
         }
 
-        public async Task<Result<RegionResponse>> Handle(UpdateRegionCommand command, CancellationToken cancellationToken)
-        {
-            return await _service.UpdateAsync(command.TypeCode, command.Code, command.Request, cancellationToken);
-        }
+        var request = command.Request;
+        entity.Update(request.Name, request.BelongsToCountryCode, request.HeadquartersCountryCode, request.AdministrativeSeatSettlementCode);
+        writes.Update(entity);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result<RegionResponse>.Ok(entity.ToResponse());
     }
 }

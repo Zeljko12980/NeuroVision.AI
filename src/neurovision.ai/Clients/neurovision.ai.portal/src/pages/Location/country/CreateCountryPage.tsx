@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import ComponentCard from "../../../components/common/ComponentCard";
 import PageBreadcrumb from "../../../components/common/PageBreadCrumb";
@@ -43,6 +44,7 @@ export default function CreateCountryPage() {
 
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+    const { t } = useTranslation();
 
 
     const settlements =
@@ -139,7 +141,6 @@ export default function CreateCountryPage() {
 
 
 
-
     const handleSubmit = async () => {
 
 
@@ -147,8 +148,7 @@ export default function CreateCountryPage() {
 
             dispatch(
                 showAlert({
-                    message:
-                        "Country code, name and founding date are required",
+                    message: t("location.countries.messages.required"),
                     type: "error"
                 })
             );
@@ -202,8 +202,7 @@ export default function CreateCountryPage() {
 
             dispatch(
                 showAlert({
-                    message:
-                        "Country created successfully",
+                    message: t("location.countries.messages.createSuccess"),
                     type: "success"
                 })
             );
@@ -221,7 +220,7 @@ export default function CreateCountryPage() {
                 showAlert({
                     message:
                         error?.message ??
-                        "Failed to create country",
+                        t("location.countries.messages.createError"),
                     type: "error"
                 })
             );
@@ -237,24 +236,31 @@ export default function CreateCountryPage() {
 
 
 
+    const tabs: { key: Tab; label: string }[] = [
+        { key: "general", label: t("location.countries.createTabs.general") },
+        { key: "administrative", label: t("location.countries.createTabs.administrative") },
+        { key: "media", label: t("location.countries.createTabs.media") },
+    ];
+
+
     return (
         <>
 
             <PageMeta
-                title="Create Country | NeuroVision.AI"
-                description="Create country"
+                title={`${t("location.countries.createTitle")} | NeuroVision.AI`}
+                description={t("location.countries.pageDescription")}
             />
 
 
             <PageBreadcrumb
-                pageTitle="Create Country"
+                pageTitle={t("location.countries.createTitle")}
             />
 
 
 
             <div className="max-w-3xl mx-auto">
 
-                <ComponentCard title="New Country">
+                <ComponentCard title={t("location.countries.createTitle")}>
 
 
                     <div className="
@@ -265,27 +271,13 @@ export default function CreateCountryPage() {
                     ">
 
                         {
-                            [
-                                {
-                                    key: "general",
-                                    label: "General"
-                                },
-                                {
-                                    key: "administrative",
-                                    label: "Administrative"
-                                },
-                                {
-                                    key: "media",
-                                    label: "Media"
-                                }
-                            ]
-                                .map(tab => (
+                            tabs.map(tab => (
 
                                     <button
                                         key={tab.key}
                                         onClick={() =>
                                             setActiveTab(
-                                                tab.key as Tab
+                                                tab.key
                                             )
                                         }
                                         className={`
@@ -325,7 +317,7 @@ export default function CreateCountryPage() {
                                 <div>
 
                                     <Label>
-                                        Country Code *
+                                        {t("location.countries.fields.code")} *
                                     </Label>
 
                                     <Input
@@ -346,12 +338,12 @@ export default function CreateCountryPage() {
                                 <div>
 
                                     <Label>
-                                        Country Name *
+                                        {t("location.countries.fields.name")} *
                                     </Label>
 
                                     <Input
                                         value={form.name}
-                                        placeholder="Bosnia and Herzegovina"
+                                        placeholder={t("location.countries.placeholders.name")}
                                         onChange={e =>
                                             handleChange(
                                                 "name",
@@ -367,7 +359,7 @@ export default function CreateCountryPage() {
                                 <div>
 
                                     <Label>
-                                        Founding Date *
+                                        {t("location.countries.fields.foundingDate")} *
                                     </Label>
 
                                     <Input
@@ -390,7 +382,6 @@ export default function CreateCountryPage() {
 
 
 
-
                         {
                             activeTab === "administrative" &&
 
@@ -400,7 +391,7 @@ export default function CreateCountryPage() {
                                 <div>
 
                                     <Label>
-                                        Government Type
+                                        {t("location.countries.fields.governmentTypeCode")}
                                     </Label>
 
                                     <CustomSelect
@@ -413,7 +404,7 @@ export default function CreateCountryPage() {
                                             form.governmentTypeCode
                                         }
 
-                                        placeholder="Select government type"
+                                        placeholder={t("location.countries.placeholders.governmentType")}
 
                                         onChange={value =>
                                             handleChange(
@@ -431,7 +422,7 @@ export default function CreateCountryPage() {
                                 <div>
 
                                     <Label>
-                                        Capital Settlement
+                                        {t("location.countries.fields.capitalSettlementCode")}
                                     </Label>
 
 
@@ -441,7 +432,7 @@ export default function CreateCountryPage() {
                                             settlements
                                         }
 
-                                        placeholder="Select capital settlement"
+                                        placeholder={t("location.countries.placeholders.capital")}
 
                                         onChange={
                                             (_, settlement) => {
@@ -464,7 +455,7 @@ export default function CreateCountryPage() {
                                 <div>
 
                                     <Label>
-                                        Calling Code
+                                        {t("location.countries.fields.callingCode")}
                                     </Label>
 
                                     <Input
@@ -503,7 +494,7 @@ export default function CreateCountryPage() {
                                 <div>
 
                                     <Label>
-                                        Flag
+                                        {t("location.countries.fields.flag")}
                                     </Label>
 
 
@@ -530,7 +521,7 @@ export default function CreateCountryPage() {
                                                     )
                                                 }
 
-                                                alt="Flag preview"
+                                                alt={t("location.countries.fields.flag")}
 
                                                 className="
                             mt-3
@@ -556,7 +547,7 @@ export default function CreateCountryPage() {
                                 <div>
 
                                     <Label>
-                                        Coat Of Arms
+                                        {t("location.countries.fields.coatOfArms")}
                                     </Label>
 
 
@@ -583,7 +574,7 @@ export default function CreateCountryPage() {
                                                     )
                                                 }
 
-                                                alt="Coat of arms preview"
+                                                alt={t("location.countries.fields.coatOfArms")}
 
                                                 className="
                             mt-3
@@ -609,7 +600,7 @@ export default function CreateCountryPage() {
                                 <div>
 
                                     <Label>
-                                        Anthem
+                                        {t("location.countries.fields.anthem")}
                                     </Label>
 
 
@@ -678,7 +669,7 @@ export default function CreateCountryPage() {
                                 )
                             }
                         >
-                            Cancel
+                            {t("common.cancel")}
                         </Button>
 
 
@@ -697,9 +688,9 @@ export default function CreateCountryPage() {
                             {
                                 loading
                                     ?
-                                    "Creating..."
+                                    t("common.creating")
                                     :
-                                    "Create Country"
+                                    t("location.countries.createButton")
                             }
 
                         </Button>

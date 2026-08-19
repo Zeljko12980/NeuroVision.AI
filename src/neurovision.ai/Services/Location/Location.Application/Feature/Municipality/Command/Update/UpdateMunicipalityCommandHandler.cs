@@ -1,22 +1,39 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.Municipality.Command.Update;
 
-namespace LocationService.Application.Feature.Municipality.Command.Update
+public sealed class UpdateMunicipalityCommandHandler
+    : ICommandHandler<UpdateMunicipalityCommand, Result<MunicipalityResponse>>
 {
-    public sealed class UpdateMunicipalityCommandHandler : ICommandHandler<UpdateMunicipalityCommand, Result<MunicipalityResponse>>
+    private readonly ILocationWriteStore writes;
+    private readonly IUnitOfWork unitOfWork;
+
+    public UpdateMunicipalityCommandHandler(
+        ILocationWriteStore writes,
+        IUnitOfWork unitOfWork)
     {
-        private readonly IMunicipalityService _service;
+        this.writes = writes;
+        this.unitOfWork = unitOfWork;
+    }
 
-        public UpdateMunicipalityCommandHandler(IMunicipalityService service)
+    public async Task<Result<MunicipalityResponse>> Handle(
+        UpdateMunicipalityCommand command,
+        CancellationToken cancellationToken)
+    {
+        var entity = await writes.FindAsync<global::LocationService.Domain.Entities.Municipality>(
+            new object[] { command.CountryCode, command.Code },
+            cancellationToken);
+
+        if (entity is null)
         {
-            _service = service;
+            return Result<MunicipalityResponse>.Fail(
+                "Municipality not found.",
+                HttpStatusCode.NotFound);
         }
 
-        public async Task<Result<MunicipalityResponse>> Handle(UpdateMunicipalityCommand command, CancellationToken cancellationToken)
-        {
-            return await _service.UpdateAsync(command.CountryCode, command.Code, command.Request, cancellationToken);
-        }
+        var request = command.Request;
+        entity.Update(request.Name, request.SeatSettlementCode);
+        writes.Update(entity);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result<MunicipalityResponse>.Ok(entity.ToResponse());
     }
 }

@@ -1,22 +1,28 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.RegionSettlementCoverage.Query.GetByKey;
 
-namespace LocationService.Application.Feature.RegionSettlementCoverage.Query.GetByKey
+public sealed class GetRegionSettlementCoverageByKeyQueryHandler
+    : IQueryHandler<GetRegionSettlementCoverageByKeyQuery, Result<RegionSettlementCoverageResponse>>
 {
-    public sealed class GetRegionSettlementCoverageByKeyQueryHandler : IQueryHandler<GetRegionSettlementCoverageByKeyQuery, Result<RegionSettlementCoverageResponse>>
+    private readonly ILocationReadStore<RegionSettlementCoverageResponse> reads;
+
+    public GetRegionSettlementCoverageByKeyQueryHandler(ILocationReadStore<RegionSettlementCoverageResponse> reads)
     {
-        private readonly IRegionSettlementCoverageService _service;
+        this.reads = reads;
+    }
 
-        public GetRegionSettlementCoverageByKeyQueryHandler(IRegionSettlementCoverageService service)
+    public async Task<Result<RegionSettlementCoverageResponse>> Handle(
+        GetRegionSettlementCoverageByKeyQuery query,
+        CancellationToken cancellationToken)
+    {
+        var item = await reads.GetByKeyAsync(new { query.RegionTypeCode, query.RegionCode, query.CountryCode, query.SettlementCode }, cancellationToken);
+
+        if (item is null)
         {
-            _service = service;
+            return Result<RegionSettlementCoverageResponse>.Fail(
+                "RegionSettlementCoverage not found.",
+                HttpStatusCode.NotFound);
         }
 
-        public async Task<Result<RegionSettlementCoverageResponse>> Handle(GetRegionSettlementCoverageByKeyQuery query, CancellationToken cancellationToken)
-        {
-            return await _service.GetByKeyAsync(query.RegionTypeCode, query.RegionCode, query.CountryCode, query.SettlementCode, cancellationToken);
-        }
+        return Result<RegionSettlementCoverageResponse>.Ok(item);
     }
 }

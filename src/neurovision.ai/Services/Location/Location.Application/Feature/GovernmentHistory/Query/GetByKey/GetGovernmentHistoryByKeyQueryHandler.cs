@@ -1,22 +1,28 @@
-﻿using BuildingBlocks.CQRS;
-using BuildingBlocks.Results;
-using LocationService.Application.Common.Interfaces;
-using LocationService.Application.Common.Response;
+namespace LocationService.Application.Feature.GovernmentHistory.Query.GetByKey;
 
-namespace LocationService.Application.Feature.GovernmentHistory.Query.GetByKey
+public sealed class GetGovernmentHistoryByKeyQueryHandler
+    : IQueryHandler<GetGovernmentHistoryByKeyQuery, Result<GovernmentHistoryResponse>>
 {
-    public sealed class GetGovernmentHistoryByKeyQueryHandler : IQueryHandler<GetGovernmentHistoryByKeyQuery, Result<GovernmentHistoryResponse>>
+    private readonly ILocationReadStore<GovernmentHistoryResponse> reads;
+
+    public GetGovernmentHistoryByKeyQueryHandler(ILocationReadStore<GovernmentHistoryResponse> reads)
     {
-        private readonly IGovernmentHistoryService _service;
+        this.reads = reads;
+    }
 
-        public GetGovernmentHistoryByKeyQueryHandler(IGovernmentHistoryService service)
+    public async Task<Result<GovernmentHistoryResponse>> Handle(
+        GetGovernmentHistoryByKeyQuery query,
+        CancellationToken cancellationToken)
+    {
+        var item = await reads.GetByKeyAsync(new { query.CountryCode, query.SequenceNumber }, cancellationToken);
+
+        if (item is null)
         {
-            _service = service;
+            return Result<GovernmentHistoryResponse>.Fail(
+                "GovernmentHistory not found.",
+                HttpStatusCode.NotFound);
         }
 
-        public async Task<Result<GovernmentHistoryResponse>> Handle(GetGovernmentHistoryByKeyQuery query, CancellationToken cancellationToken)
-        {
-            return await _service.GetByKeyAsync(query.CountryCode, query.SequenceNumber, cancellationToken);
-        }
+        return Result<GovernmentHistoryResponse>.Ok(item);
     }
 }
