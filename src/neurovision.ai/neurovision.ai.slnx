@@ -19,13 +19,14 @@
     <Project Path="Services/Identity/IdentityService.Domain/IdentityService.Domain.csproj" />
     <Project Path="Services/Identity/IdentityService.Infrastructure/IdentityService.Infrastructure.csproj" />
   </Folder>
-  <Folder Name="/Services/Mail/" Id="4d9e9a99-4fd5-ee2b-06e9-cdf7c50a30db">
+  <Folder Name="/Services/Location/" />
+  <Folder Name="/Services/Mail/">
     <Project Path="Services/Mail/MailService.API/MailService.API.csproj" />
     <Project Path="Services/Mail/MailService.Application/MailService.Application.csproj" Id="df7621e5-6f99-4148-a255-65a3b549edf0" />
     <Project Path="Services/Mail/MailService.Domain/MailService.Domain.csproj" Id="8cd4e093-cbb5-44bb-b59b-8716d86e0bf0" />
     <Project Path="Services/Mail/MailService.Infrastructure/MailService.Infrastructure.csproj" Id="5e63e121-db8a-4775-a4f8-638dc5b0ebab" />
   </Folder>
-  <Folder Name="/Services/Pdf/">
+  <Folder Name="/Services/Pdf/" Id="e1c197f7-9edc-746b-01d5-eab0eec7dd46">
     <Project Path="Services/Pdf/PdfService.API/PdfService.API.csproj" />
     <Project Path="Services/Pdf/PdfService.Application/PdfService.Application.csproj" />
     <Project Path="Services/Pdf/PdfService.Domain/PdfService.Domain.csproj" />
@@ -36,11 +37,11 @@
     <Project Path="tests/Identity/IdentityService.ArchitectureTests/IdentityService.ArchitectureTests.csproj" />
     <Project Path="tests/Identity/IdentityService.UnitTests/IdentityService.UnitTests.csproj" />
   </Folder>
-  <Folder Name="/Tests/Mail/" Id="3ffa0b1a-82fd-4197-a8cb-4acc20613d4e">
+  <Folder Name="/Tests/Mail/">
     <Project Path="Tests/Mail/MailService.ArchitectureTests/MailService.ArchitectureTests.csproj" />
     <Project Path="Tests/Mail/MailService.UnitTests/MailService.UnitTests.csproj" />
   </Folder>
-  <Folder Name="/Tests/Pdf/">
+  <Folder Name="/Tests/Pdf/" Id="45050b14-fc90-5194-31e7-9e375e959c9c">
     <Project Path="Tests/Pdf/PdfService.ArchitectureTests/PdfService.ArchitectureTests.csproj" />
     <Project Path="Tests/Pdf/PdfService.UnitTests/PdfService.UnitTests.csproj" />
   </Folder>
