@@ -19,7 +19,12 @@
     <Project Path="Services/Identity/IdentityService.Domain/IdentityService.Domain.csproj" />
     <Project Path="Services/Identity/IdentityService.Infrastructure/IdentityService.Infrastructure.csproj" />
   </Folder>
-  <Folder Name="/Services/Location/" />
+  <Folder Name="/Services/Location/">
+    <Project Path="Services/Location/Location.API/LocationService.API.csproj" />
+    <Project Path="Services/Location/Location.Application/LocationService.Application.csproj" />
+    <Project Path="Services/Location/Location.Domain/LocationService.Domain.csproj" />
+    <Project Path="Services/Location/Location.Infrastructure/LocationService.Infrastructure.csproj" />
+  </Folder>
   <Folder Name="/Services/Mail/">
     <Project Path="Services/Mail/MailService.API/MailService.API.csproj" />
     <Project Path="Services/Mail/MailService.Application/MailService.Application.csproj" Id="df7621e5-6f99-4148-a255-65a3b549edf0" />

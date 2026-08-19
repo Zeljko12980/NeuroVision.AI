@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>bfdbf868-9f0d-4934-bf85-7ce0cf134169</UserSecretsId>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.10" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.10">
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="Scalar.AspNetCore" Version="2.16.16" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj" />
+		<ProjectReference Include="..\..\..\neurovision.ai.ServiceDefaults\neurovision.ai.ServiceDefaults.csproj" />
+		<ProjectReference Include="..\Location.Application\LocationService.Application.csproj" />
+		<ProjectReference Include="..\Location.Infrastructure\LocationService.Infrastructure.csproj" />
+	</ItemGroup>
+
+</Project>
