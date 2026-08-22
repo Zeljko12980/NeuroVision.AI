@@ -15,13 +15,11 @@ import Button from "../../components/ui/button/Button";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { createCertificate } from "../../features/certificate/certificateSlice";
 import { showAlert } from "../../features/ui/uiSlice";
-import { AdminUserDto, getUsersRequest } from "../../features/user/userService";
+import { getDoctors } from "../../features/doctor/doctorService";
+import { DoctorResponse } from "../../features/doctor/doctor.types";
 
 const ALLOWED_EXTENSIONS = [".pfx", ".p12", ".cer", ".crt", ".der"];
 const ALLOWED_SIGNATURE_EXTENSIONS = [".png", ".jpg", ".jpeg", ".webp"];
-
-const isDoctor = (user: AdminUserDto) =>
-    user.roles.some((role) => role.toLowerCase().includes("doctor"));
 
 const resolveErrorMessage = (err: unknown, fallback: string) => {
     if (typeof err === "string" && err.trim()) return err;
@@ -39,7 +37,7 @@ export default function CreateCertificatePage() {
     const dispatch = useAppDispatch();
     const { loading } = useAppSelector((state) => state.certificate);
 
-    const [doctors, setDoctors] = useState<AdminUserDto[]>([]);
+    const [doctors, setDoctors] = useState<DoctorResponse[]>([]);
     const [userId, setUserId] = useState("");
     const [name, setName] = useState("");
     const [autoNameFrom, setAutoNameFrom] = useState("");
@@ -50,8 +48,8 @@ export default function CreateCertificatePage() {
     useEffect(() => {
         const loadDoctors = async () => {
             try {
-                const response = await getUsersRequest(0, 200);
-                setDoctors(response.data.filter(isDoctor));
+                const response = await getDoctors(0, 200);
+                setDoctors(response.data ?? []);
             } catch {
                 dispatch(
                     showAlert({
@@ -69,9 +67,7 @@ export default function CreateCertificatePage() {
         () =>
             doctors.map((doctor) => ({
                 value: doctor.id,
-                label: doctor.email
-                    ? `${doctor.userName} (${doctor.email})`
-                    : doctor.userName,
+                label: `${doctor.firstName} ${doctor.lastName} (${doctor.email})`,
             })),
         [doctors]
     );
@@ -81,7 +77,9 @@ export default function CreateCertificatePage() {
         setUserId(value);
 
         if (!name.trim() || name === autoNameFrom) {
-            const nextName = doctor?.userName ?? "";
+            const nextName = doctor
+                ? `${doctor.firstName} ${doctor.lastName}`
+                : "";
             setName(nextName);
             setAutoNameFrom(nextName);
         }

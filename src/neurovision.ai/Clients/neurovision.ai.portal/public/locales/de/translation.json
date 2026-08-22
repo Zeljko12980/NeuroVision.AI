@@ -66,7 +66,9 @@
   "dashboard": {
     "title": "Systemüberwachung",
     "description": "Systemmetriken und Protokolle",
-    "openGrafana": "In Grafana öffnen"
+    "openGrafana": "In Grafana öffnen",
+    "welcomeTitle": "Willkommen",
+    "welcomeDescription": "Nutzen Sie die Seitenleiste, um Ihren Arbeitsbereich zu öffnen."
   },
   "twoFA": {
     "title": "Zwei-Faktor-Authentifizierung",
@@ -148,6 +150,8 @@
     "firstName": "Vorname",
     "lastName": "Nachname",
     "licenseNumber": "Lizenznummer",
+    "licenseAuthority": "Lizenzbehörde",
+    "licenseAuthorityPlaceholder": "Lizenzbehörde auswählen",
     "specialization": "Spezialisierung",
     "email": "E-Mail",
     "phoneNumber": "Telefon",
@@ -162,7 +166,49 @@
     "creating": "Wird erstellt...",
     "requiredError": "Alle Felder sind erforderlich",
     "success": "Arzt erfolgreich erstellt",
-    "error": "Fehler beim Erstellen des Arztes"
+    "error": "Fehler beim Erstellen des Arztes",
+    "catalogsLoadError": "Kataloge konnten nicht geladen werden",
+    "specializationPlaceholder": "Spezialisierung auswählen",
+    "languagesPlaceholder": "Sprachen auswählen",
+    "hospitalPlaceholder": "Krankenhaus auswählen",
+    "degreesPlaceholder": "Abschlüsse auswählen"
+  },
+  "doctors": {
+    "pageTitle": "Ärzte",
+    "pageDescription": "Arztprofile verwalten",
+    "title": "Ärzte",
+    "searchPlaceholder": "Ärzte suchen...",
+    "empty": "Keine Ärzte gefunden",
+    "add": "Arzt hinzufügen",
+    "columns": {
+      "name": "Name",
+      "email": "E-Mail",
+      "specialization": "Spezialisierung",
+      "hospital": "Einrichtung",
+      "status": "Status",
+      "availability": "Verfügbarkeit",
+      "actions": "Aktionen"
+    },
+    "status": {
+      "ACT": "Aktiv",
+      "PEND": "Ausstehend",
+      "SUSP": "Gesperrt",
+      "DEACT": "Deaktiviert"
+    },
+    "availability": {
+      "available": "Verfügbar",
+      "unavailable": "Nicht verfügbar"
+    },
+    "actions": {
+      "delete": "Löschen"
+    },
+    "messages": {
+      "deleteTitle": "Arzt löschen",
+      "deleteDescription": "Dadurch werden das Arztprofil und das verknüpfte Benutzerkonto entfernt.",
+      "deleteSuccess": "Arzt gelöscht",
+      "deleteError": "Arzt konnte nicht gelöscht werden",
+      "loadError": "Ärzte konnten nicht geladen werden"
+    }
   },
   "pdf": {
     "pageTitle": "PDF-Vorlagen",

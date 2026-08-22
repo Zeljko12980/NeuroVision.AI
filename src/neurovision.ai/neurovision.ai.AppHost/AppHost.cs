@@ -12,6 +12,8 @@ var identityDb = postgres.AddDatabase("identitydb");
 var pdfDb = postgres.AddDatabase("pdfdb");
 var locationDb = postgres.AddDatabase("locationdb");
 
+var doctorDb = postgres.AddDatabase("doctordb");
+
 
 //MESSAGING
 var rabbitmq = builder.AddRabbitMQ("rabbitmq")
@@ -68,8 +70,7 @@ var identityService = builder.AddProject<Projects.IdentityService_API>("identity
        .WaitFor(loki)
        .WaitFor(prometheus)
        .WaitFor(grafana)
-       .WithEnvironment("Observability__ServiceName", "identityservice-api")
-       .WithEnvironment("Observability__LokiUrl", loki.GetEndpoint("http"));
+       .WithEnvironment("Observability__ServiceName", "identityservice-api");
 
 var pdfService = builder.AddProject<Projects.PdfService_API>("pdfservice-api")
        .WaitFor(pdfDb)
@@ -105,6 +106,18 @@ builder.AddProject<Projects.MailService_API>("mailservice-api")
        .WithEnvironment("Observability__LokiUrl", loki.GetEndpoint("http"))
        .WithEnvironment("PdfService__GrpcUrl", pdfService.GetEndpoint("grpc"));
 
+var doctorService = builder.AddProject<Projects.DoctorService_API>("doctorservice-api")
+       .WaitFor(rabbitmq)
+       .WithReference(rabbitmq)
+       .WaitFor(doctorDb)
+       .WithReference(doctorDb)
+       .WaitFor(loki)
+       .WaitFor(prometheus)
+       .WaitFor(grafana)
+       .WithHttpEndpoint(name: "http", port: 6004, isProxied: false)
+       .WithEnvironment("Observability__ServiceName", "doctorservice-api")
+       .WithEnvironment("Observability__LokiUrl", loki.GetEndpoint("http"));
+
 
 //GATEWAY
 
@@ -114,13 +127,14 @@ var gateway = builder.AddProject<Projects.Gateway_API>("gateway-api")
     .WaitFor(pdfService)
     .WithReference(pdfService)
     .WaitFor(locationService)
-    .WithReference(locationService);
+    .WithReference(locationService)
+    .WaitFor(doctorService)
+    .WithReference(doctorService);
 
 //FRONTEND
 
 builder.AddJavaScriptApp("portal", "../Clients/neurovision.ai.portal")
-    .WaitFor(gateway)
-    .WithEnvironment("VITE_GRAFANA_URL", "http://localhost:3000");
+    .WaitFor(gateway);
 
 
 builder.Build().Run();

@@ -25,10 +25,13 @@ export const getUserInfoFromClaims = (claims: JwtPayload) => {
         name: toStringValue(
             claims["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]
         ),
-        email: toStringValue(claims.email),
+        email: toStringValue(claims.email) ||
+            toStringValue(
+                claims["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"]
+            ),
         role: toStringValue(
             claims["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]
-        ) || "User",
+        ) || toStringValue(claims.role) || "User",
         userId,
     };
 };

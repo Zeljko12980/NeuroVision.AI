@@ -41,3 +41,10 @@ scrape_configs:
       - targets: ["host.docker.internal:6003"]
         labels:
           service: locationservice-api
+
+  - job_name: doctor
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["host.docker.internal:6004"]
+        labels:
+          service: doctorservice-api

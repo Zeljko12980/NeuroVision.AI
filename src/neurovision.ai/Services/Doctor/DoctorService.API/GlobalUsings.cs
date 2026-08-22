@@ -1,0 +1,9 @@
+﻿global using BuildingBlocks.Exceptions.Handler;
+global using BuildingBlocks.Logging;
+global using DoctorService.API.Middleware;
+global using DoctorService.Application;
+global using DoctorService.Infrastructure;
+global using DoctorService.Infrastructure.Persistence;
+global using DoctorService.Infrastructure.Seeding;
+global using Microsoft.EntityFrameworkCore;
+global using Serilog;

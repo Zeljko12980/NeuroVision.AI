@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const DEFAULT_USER_AVATAR = "/images/user/default-user.svg";
 
@@ -15,6 +15,10 @@ export default function ProfileAvatar({
 }: ProfileAvatarProps) {
     const [failed, setFailed] = useState(false);
     const imageSrc = !src || failed ? DEFAULT_USER_AVATAR : src;
+
+    useEffect(() => {
+        setFailed(false);
+    }, [src]);
 
     return (
         <img

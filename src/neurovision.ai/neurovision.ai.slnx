@@ -13,6 +13,12 @@
     <Project Path="Gateway/Gateway.API/Gateway.API.csproj" />
   </Folder>
   <Folder Name="/Services/" />
+  <Folder Name="/Services/Doctor/">
+    <Project Path="Services/Doctor/DoctorService.API/DoctorService.API.csproj" />
+    <Project Path="Services/Doctor/DoctorService.Application/DoctorService.Application.csproj" />
+    <Project Path="Services/Doctor/DoctorService.Domain/DoctorService.Domain.csproj" />
+    <Project Path="Services/Doctor/DoctorService.Infrastructure/DoctorService.Infrastructure.csproj" />
+  </Folder>
   <Folder Name="/Services/Identity/">
     <Project Path="Services/Identity/IdentityService.API/IdentityService.API.csproj" />
     <Project Path="Services/Identity/IdentityService.Application/IdentityService.Application.csproj" />

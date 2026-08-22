@@ -66,7 +66,9 @@
   "dashboard": {
     "title": "Nadzor sistema",
     "description": "Sistemske metrike i logovi",
-    "openGrafana": "Otvori u Grafani"
+    "openGrafana": "Otvori u Grafani",
+    "welcomeTitle": "Dobrodošli",
+    "welcomeDescription": "Koristite meni sa strane da otvorite svoj radni prostor."
   },
   "twoFA": {
     "title": "Dvofaktorska autentifikacija",
@@ -148,6 +150,8 @@
     "firstName": "Ime",
     "lastName": "Prezime",
     "licenseNumber": "Broj licence",
+    "licenseAuthority": "Izdavalac licence",
+    "licenseAuthorityPlaceholder": "Izaberite izdavaoca licence",
     "specialization": "Specijalizacija",
     "email": "Email",
     "phoneNumber": "Telefon",
@@ -162,7 +166,49 @@
     "creating": "Kreiranje...",
     "requiredError": "Sva polja su obavezna",
     "success": "Doktor je uspešno kreiran",
-    "error": "Greška prilikom kreiranja doktora"
+    "error": "Greška prilikom kreiranja doktora",
+    "catalogsLoadError": "Greška pri učitavanju šifarnika",
+    "specializationPlaceholder": "Izaberite specijalizaciju",
+    "languagesPlaceholder": "Izaberite jezike",
+    "hospitalPlaceholder": "Izaberite bolnicu",
+    "degreesPlaceholder": "Izaberite zvanja"
+  },
+  "doctors": {
+    "pageTitle": "Doktori",
+    "pageDescription": "Upravljanje profilima doktora",
+    "title": "Doktori",
+    "searchPlaceholder": "Pretraži doktore...",
+    "empty": "Nema doktora",
+    "add": "Dodaj doktora",
+    "columns": {
+      "name": "Ime",
+      "email": "Email",
+      "specialization": "Specijalizacija",
+      "hospital": "Ustanova",
+      "status": "Status",
+      "availability": "Dostupnost",
+      "actions": "Akcije"
+    },
+    "status": {
+      "ACT": "Aktivan",
+      "PEND": "Na čekanju",
+      "SUSP": "Suspendovan",
+      "DEACT": "Deaktiviran"
+    },
+    "availability": {
+      "available": "Dostupan",
+      "unavailable": "Nedostupan"
+    },
+    "actions": {
+      "delete": "Obriši"
+    },
+    "messages": {
+      "deleteTitle": "Obriši doktora",
+      "deleteDescription": "Ovo će ukloniti profil doktora i povezani korisnički nalog.",
+      "deleteSuccess": "Doktor je obrisan",
+      "deleteError": "Brisanje doktora nije uspjelo",
+      "loadError": "Učitavanje doktora nije uspjelo"
+    }
   },
   "pdf": {
     "pageTitle": "PDF šabloni",
