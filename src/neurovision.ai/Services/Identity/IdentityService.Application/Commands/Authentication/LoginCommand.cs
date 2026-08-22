@@ -35,7 +35,7 @@ public sealed class LoginCommandHandler : ICommandHandler<LoginCommand, Result<A
         LoginCommand request,
         CancellationToken cancellationToken)
     {
-        var email = request.LoginRequest.Email;
+        var email = request.LoginRequest.Email.Trim();
 
         _logger.LogInformation("Login started. Email={Email}", email);
 

@@ -8,11 +8,13 @@ import { selectUserClaims } from "../../selectors/authSelectors";
 import { getUserInfoFromClaims } from "../../utils/claims";
 import ProfileAvatar from "../UserProfile/ProfileAvatar";
 import { useTranslation } from "react-i18next";
+import useLoggedInDoctorPhoto from "../../features/doctor/useLoggedInDoctorPhoto";
 
 export default function UserDropdown() {
     const [isOpen, setIsOpen] = useState(false);
     const dispatch = useAppDispatch();
     const { t } = useTranslation();
+    const doctorPhotoUrl = useLoggedInDoctorPhoto();
 
     const claims = useAppSelector(selectUserClaims);
     const { name: userName, email: userEmail, role: userRole } =
@@ -35,7 +37,11 @@ export default function UserDropdown() {
                 className="flex items-center text-gray-700 dropdown-toggle dark:text-gray-400"
             >
                 <span className="mr-3 overflow-hidden rounded-full h-11 w-11">
-                    <ProfileAvatar alt={userName} className="h-full w-full object-cover" />
+                    <ProfileAvatar
+                        src={doctorPhotoUrl}
+                        alt={userName}
+                        className="h-full w-full object-cover"
+                    />
                 </span>
 
                 <span className="block mr-1 font-medium text-theme-sm">

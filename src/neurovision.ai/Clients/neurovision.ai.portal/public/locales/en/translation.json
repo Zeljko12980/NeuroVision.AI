@@ -66,7 +66,9 @@
   "dashboard": {
     "title": "System Monitoring",
     "description": "System metrics and logs",
-    "openGrafana": "Open in Grafana"
+    "openGrafana": "Open in Grafana",
+    "welcomeTitle": "Welcome",
+    "welcomeDescription": "Use the sidebar to open your workspace."
   },
   "twoFA": {
     "title": "Two-Factor Authentication",
@@ -148,6 +150,8 @@
     "firstName": "First Name",
     "lastName": "Last Name",
     "licenseNumber": "License Number",
+    "licenseAuthority": "License authority",
+    "licenseAuthorityPlaceholder": "Select license authority",
     "specialization": "Specialization",
     "email": "Email",
     "phoneNumber": "Phone",
@@ -162,7 +166,49 @@
     "creating": "Creating...",
     "requiredError": "All fields are required",
     "success": "Doctor created successfully",
-    "error": "Failed to create doctor"
+    "error": "Failed to create doctor",
+    "catalogsLoadError": "Failed to load doctor catalogs",
+    "specializationPlaceholder": "Select specialization",
+    "languagesPlaceholder": "Select languages",
+    "hospitalPlaceholder": "Select hospital",
+    "degreesPlaceholder": "Select degrees"
+  },
+  "doctors": {
+    "pageTitle": "Doctors",
+    "pageDescription": "Manage doctor profiles",
+    "title": "Doctors",
+    "searchPlaceholder": "Search doctors...",
+    "empty": "No doctors found",
+    "add": "Add doctor",
+    "columns": {
+      "name": "Name",
+      "email": "Email",
+      "specialization": "Specialization",
+      "hospital": "Hospital",
+      "status": "Status",
+      "availability": "Availability",
+      "actions": "Actions"
+    },
+    "status": {
+      "ACT": "Active",
+      "PEND": "Pending",
+      "SUSP": "Suspended",
+      "DEACT": "Deactivated"
+    },
+    "availability": {
+      "available": "Available",
+      "unavailable": "Unavailable"
+    },
+    "actions": {
+      "delete": "Delete"
+    },
+    "messages": {
+      "deleteTitle": "Delete doctor",
+      "deleteDescription": "This will remove the doctor profile and the linked user account.",
+      "deleteSuccess": "Doctor deleted",
+      "deleteError": "Failed to delete doctor",
+      "loadError": "Failed to load doctors"
+    }
   },
   "pdf": {
     "pageTitle": "PDF Templates",
