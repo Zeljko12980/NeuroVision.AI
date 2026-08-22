@@ -10,13 +10,13 @@ import { getMeRequest, ProfileDto } from "../features/auth/authService";
 import { useAppSelector } from "../store/store";
 import { selectUserClaims } from "../selectors/authSelectors";
 import { getUserInfoFromClaims } from "../utils/claims";
-import useLoggedInDoctorPhoto from "../features/doctor/useLoggedInDoctorPhoto";
+import useLoggedInProfilePhoto from "../features/patient/useLoggedInProfilePhoto";
 
 export default function UserProfiles() {
     const { t } = useTranslation();
     const claims = useAppSelector(selectUserClaims);
     const { name, email, role } = getUserInfoFromClaims(claims || {});
-    const doctorPhotoUrl = useLoggedInDoctorPhoto();
+    const profilePhotoUrl = useLoggedInProfilePhoto();
     const [profile, setProfile] = useState<ProfileDto | null>(null);
     const [loading, setLoading] = useState(true);
 
@@ -74,7 +74,7 @@ export default function UserProfiles() {
                             userName={displayName}
                             email={displayEmail}
                             role={displayRole}
-                            photoUrl={doctorPhotoUrl}
+                            photoUrl={profilePhotoUrl}
                         />
                         {profile && (
                             <UserInfoCard

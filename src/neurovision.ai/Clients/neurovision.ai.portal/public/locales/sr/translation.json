@@ -210,6 +210,90 @@
       "loadError": "Učitavanje doktora nije uspjelo"
     }
   },
+  "patient": {
+    "pageTitle": "Kreiraj pacijenta",
+    "pageDescription": "Kreirajte novi profil pacijenta",
+    "title": "Novi pacijent",
+    "firstName": "Ime",
+    "lastName": "Prezime",
+    "email": "Email",
+    "phoneNumber": "Telefon",
+    "dateOfBirth": "Datum rođenja",
+    "gender": "Pol",
+    "genderPlaceholder": "Izaberite pol",
+    "bloodType": "Krvna grupa",
+    "bloodTypePlaceholder": "Izaberite krvnu grupu",
+    "nationalId": "JMBG / ID",
+    "languages": "Jezici",
+    "languagesPlaceholder": "Izaberite jezike",
+    "hospital": "Bolnica",
+    "hospitalPlaceholder": "Izaberite bolnicu",
+    "assignedDoctor": "Dodeljeni doktor",
+    "assignedDoctorPlaceholder": "Izaberite doktora",
+    "allergies": "Alergije",
+    "allergiesPlaceholder": "Izaberite alergije",
+    "conditions": "Dijagnoze",
+    "conditionsPlaceholder": "Izaberite dijagnoze",
+    "insurancePayer": "Osiguranje",
+    "insurancePayerPlaceholder": "Izaberite osiguravača",
+    "insurancePolicy": "Broj police",
+    "address": "Adresa",
+    "heightCm": "Visina (cm)",
+    "weightKg": "Težina (kg)",
+    "emergencyName": "Kontakt u hitnom slučaju",
+    "emergencyPhone": "Telefon kontakta",
+    "emergencyRelationship": "Srodstvo",
+    "emergencyRelationshipPlaceholder": "Izaberite srodstvo",
+    "notes": "Napomene",
+    "profilePicture": "Profilna slika",
+    "removeImage": "Ukloni sliku",
+    "cancel": "Otkaži",
+    "create": "Kreiraj pacijenta",
+    "creating": "Kreiranje...",
+    "requiredError": "Ime, prezime, email, telefon, datum rođenja, pol i jezici su obavezni",
+    "success": "Pacijent je uspešno kreiran",
+    "error": "Greška prilikom kreiranja pacijenta",
+    "catalogsLoadError": "Greška pri učitavanju šifarnika"
+  },
+  "patients": {
+    "pageTitle": "Pacijenti",
+    "pageDescription": "Upravljanje profilima pacijenata",
+    "title": "Pacijenti",
+    "searchPlaceholder": "Pretraži pacijente...",
+    "empty": "Nema pacijenata",
+    "add": "Dodaj pacijenta",
+    "columns": {
+      "name": "Ime",
+      "email": "Email",
+      "gender": "Pol",
+      "hospital": "Ustanova",
+      "status": "Status",
+      "actions": "Akcije"
+    },
+    "status": {
+      "ACT": "Aktivan",
+      "PEND": "Na čekanju",
+      "INAC": "Neaktivan",
+      "DECD": "Preminuo",
+      "ARCH": "Arhiviran"
+    },
+    "gender": {
+      "M": "Muški",
+      "F": "Ženski",
+      "O": "Ostalo",
+      "U": "Nepoznato"
+    },
+    "actions": {
+      "delete": "Obriši"
+    },
+    "messages": {
+      "deleteTitle": "Obriši pacijenta",
+      "deleteDescription": "Ovo će ukloniti profil pacijenta i povezani korisnički nalog.",
+      "deleteSuccess": "Pacijent je obrisan",
+      "deleteError": "Brisanje pacijenta nije uspjelo",
+      "loadError": "Učitavanje pacijenata nije uspjelo"
+    }
+  },
   "pdf": {
     "pageTitle": "PDF šabloni",
     "pageDescription": "Upravljanje PDF šablonima",

@@ -4,7 +4,7 @@
   "tags": ["neurovision"],
   "timezone": "browser",
   "schemaVersion": 39,
-  "version": 2,
+  "version": 4,
   "refresh": "5s",
   "time": { "from": "now-15m", "to": "now" },
   "panels": [
@@ -123,10 +123,29 @@
       }
     },
     {
+      "id": 17,
+      "type": "stat",
+      "title": "Patient scrape",
+      "gridPos": { "h": 4, "w": 2, "x": 12, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "targets": [
+        { "refId": "A", "expr": "up{job=\"patient\"}" }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            { "type": "value", "options": { "0": { "text": "DOWN", "color": "red" }, "1": { "text": "UP", "color": "green" } } }
+          ],
+          "thresholds": { "mode": "absolute", "steps": [{ "color": "red", "value": null }, { "color": "green", "value": 1 }] }
+        },
+        "overrides": []
+      }
+    },
+    {
       "id": 3,
       "type": "stat",
       "title": "Request rate",
-      "gridPos": { "h": 4, "w": 6, "x": 12, "y": 0 },
+      "gridPos": { "h": 4, "w": 5, "x": 14, "y": 0 },
       "datasource": { "type": "prometheus", "uid": "prometheus" },
       "targets": [
         { "refId": "A", "expr": "sum(rate(http_server_request_duration_seconds_count[1m]))" }
@@ -140,7 +159,7 @@
       "id": 4,
       "type": "stat",
       "title": "p95 latency",
-      "gridPos": { "h": 4, "w": 6, "x": 18, "y": 0 },
+      "gridPos": { "h": 4, "w": 5, "x": 19, "y": 0 },
       "datasource": { "type": "prometheus", "uid": "prometheus" },
       "targets": [
         { "refId": "A", "expr": "histogram_quantile(0.95, sum(rate(http_server_request_duration_seconds_bucket[5m])) by (le))" }
@@ -222,6 +241,16 @@
       "datasource": { "type": "loki", "uid": "loki" },
       "targets": [
         { "refId": "A", "expr": "{service=~\"DoctorService|doctorservice-api\"}" }
+      ]
+    },
+    {
+      "id": 18,
+      "type": "logs",
+      "title": "Patient logs",
+      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 62 },
+      "datasource": { "type": "loki", "uid": "loki" },
+      "targets": [
+        { "refId": "A", "expr": "{service=~\"PatientService|patientservice-api\"}" }
       ]
     }
   ]

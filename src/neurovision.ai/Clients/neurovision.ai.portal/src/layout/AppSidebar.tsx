@@ -362,6 +362,13 @@ const superAdminNavItems: NavItem[] = [
                 nameKey: "sidebar.patientList",
                 icon: <TableIcon />,
                 path: "/admin/patients"
+            },
+
+
+            {
+                nameKey: "sidebar.addPatient",
+                icon: <DocsIcon />,
+                path: "/admin/patients/add"
             }
 
 

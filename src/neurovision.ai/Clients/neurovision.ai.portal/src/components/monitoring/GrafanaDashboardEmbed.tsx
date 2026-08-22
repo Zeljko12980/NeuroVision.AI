@@ -45,7 +45,7 @@ export default function GrafanaDashboardEmbed({
             <iframe
                 title="NeuroVision Grafana"
                 src={src}
-                className="h-[calc(100vh-220px)] min-h-[640px] w-full border-0 bg-white dark:bg-gray-900"
+                className="h-[calc(100vh-220px)] min-h-[780px] w-full border-0 bg-white dark:bg-gray-900"
                 allow="fullscreen"
             />
         </div>

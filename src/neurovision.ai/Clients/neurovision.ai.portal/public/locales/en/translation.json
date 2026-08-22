@@ -210,6 +210,90 @@
       "loadError": "Failed to load doctors"
     }
   },
+  "patient": {
+    "pageTitle": "Create Patient",
+    "pageDescription": "Create a new patient profile",
+    "title": "New Patient",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "phoneNumber": "Phone",
+    "dateOfBirth": "Date of birth",
+    "gender": "Gender",
+    "genderPlaceholder": "Select gender",
+    "bloodType": "Blood type",
+    "bloodTypePlaceholder": "Select blood type",
+    "nationalId": "National ID",
+    "languages": "Languages",
+    "languagesPlaceholder": "Select languages",
+    "hospital": "Hospital",
+    "hospitalPlaceholder": "Select hospital",
+    "assignedDoctor": "Assigned doctor",
+    "assignedDoctorPlaceholder": "Select doctor",
+    "allergies": "Allergies",
+    "allergiesPlaceholder": "Select allergies",
+    "conditions": "Conditions",
+    "conditionsPlaceholder": "Select conditions",
+    "insurancePayer": "Insurance",
+    "insurancePayerPlaceholder": "Select insurance payer",
+    "insurancePolicy": "Policy number",
+    "address": "Address",
+    "heightCm": "Height (cm)",
+    "weightKg": "Weight (kg)",
+    "emergencyName": "Emergency contact",
+    "emergencyPhone": "Emergency phone",
+    "emergencyRelationship": "Relationship",
+    "emergencyRelationshipPlaceholder": "Select relationship",
+    "notes": "Notes",
+    "profilePicture": "Profile picture",
+    "removeImage": "Remove image",
+    "cancel": "Cancel",
+    "create": "Create Patient",
+    "creating": "Creating...",
+    "requiredError": "First name, last name, email, phone, date of birth, gender and languages are required",
+    "success": "Patient created successfully",
+    "error": "Failed to create patient",
+    "catalogsLoadError": "Failed to load patient catalogs"
+  },
+  "patients": {
+    "pageTitle": "Patients",
+    "pageDescription": "Manage patient profiles",
+    "title": "Patients",
+    "searchPlaceholder": "Search patients...",
+    "empty": "No patients found",
+    "add": "Add patient",
+    "columns": {
+      "name": "Name",
+      "email": "Email",
+      "gender": "Gender",
+      "hospital": "Hospital",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "status": {
+      "ACT": "Active",
+      "PEND": "Pending",
+      "INAC": "Inactive",
+      "DECD": "Deceased",
+      "ARCH": "Archived"
+    },
+    "gender": {
+      "M": "Male",
+      "F": "Female",
+      "O": "Other",
+      "U": "Unknown"
+    },
+    "actions": {
+      "delete": "Delete"
+    },
+    "messages": {
+      "deleteTitle": "Delete patient",
+      "deleteDescription": "This will remove the patient profile and the linked user account.",
+      "deleteSuccess": "Patient deleted",
+      "deleteError": "Failed to delete patient",
+      "loadError": "Failed to load patients"
+    }
+  },
   "pdf": {
     "pageTitle": "PDF Templates",
     "pageDescription": "Manage PDF templates",

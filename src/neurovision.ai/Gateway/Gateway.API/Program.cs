@@ -3,6 +3,7 @@ using Gateway.API.Common.Interface;
 using Gateway.API.Common.Model;
 using Gateway.API.Service;
 using Microsoft.Extensions.ServiceDiscovery;
+using Scalar.AspNetCore;
 using System.Net;
 using System.Diagnostics;
 
@@ -68,6 +69,7 @@ builder.Services.AddCors(options =>
 
 
 builder.Services.AddHealthChecks();
+builder.Services.AddOpenApi();
 
 
 
@@ -81,7 +83,16 @@ app.UseCors("AllowFrontend");
 
 app.MapDefaultEndpoints();
 
-
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
+    app.MapScalarApiReference(options =>
+    {
+        options
+            .WithTitle("Gateway API")
+            .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
+    });
+}
 
 app.MapReverseProxy();
 

@@ -6,4 +6,5 @@ global using DoctorService.Infrastructure;
 global using DoctorService.Infrastructure.Persistence;
 global using DoctorService.Infrastructure.Seeding;
 global using Microsoft.EntityFrameworkCore;
+global using Scalar.AspNetCore;
 global using Serilog;
