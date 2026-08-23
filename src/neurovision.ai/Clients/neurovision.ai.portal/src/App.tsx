@@ -12,18 +12,8 @@ import NotFound from "./pages/OtherPage/NotFound";
 import Home from "./pages/Dashboard/Home";
 import UserProfiles from "./pages/UserProfiles";
 import Calendar from "./pages/Calendar";
-import Blank from "./pages/Blank";
-import FormElements from "./pages/Forms/FormElements";
-import RolesTable from "./pages/Tables/RolesTable";
-import Videos from "./pages/UiElements/Videos";
-import Images from "./pages/UiElements/Images";
-import Alerts from "./pages/UiElements/Alerts";
-import Badges from "./pages/UiElements/Badges";
-import Avatars from "./pages/UiElements/Avatars";
-import Buttons from "./pages/UiElements/Buttons";
-import LineChart from "./pages/Charts/LineChart";
-import BarChart from "./pages/Charts/BarChart";
 import ConfirmEmailPage from "./pages/Auth/ConfirmEmail";
+import RolesTable from "./pages/Tables/RolesTable";
 import CreateRolePage from "./pages/CreateRolePage";
 import UsersTable from "./pages/Tables/UsersTable";
 import CreateAdministratorPage from "./pages/CreateAdministratorPage";
@@ -205,18 +195,6 @@ export default function App() {
                         <Route path="/profile" element={<UserProfiles />} />
                         <Route path="/notifications" element={<NotificationsPage />} />
                         <Route path="/calendar" element={<Calendar />} />
-                        <Route path="/blank" element={<Blank />} />
-                        <Route path="/form-elements" element={<FormElements />} />
-
-                        <Route path="/alerts" element={<Alerts />} />
-                        <Route path="/avatars" element={<Avatars />} />
-                        <Route path="/badge" element={<Badges />} />
-                        <Route path="/buttons" element={<Buttons />} />
-                        <Route path="/images" element={<Images />} />
-                        <Route path="/videos" element={<Videos />} />
-
-                        <Route path="/line-chart" element={<LineChart />} />
-                        <Route path="/bar-chart" element={<BarChart />} />
                     </Route>
                 </Routes>
             </Router>

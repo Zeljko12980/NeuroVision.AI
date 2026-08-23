@@ -1550,6 +1550,7 @@
   "sidebar": {
     "menu": "Meni",
     "dashboard": "Kontrolna tabla",
+    "calendar": "Kalendar",
     "myScans": "Moji snimci",
     "viewScans": "Pregled snimaka",
     "myAnalysis": "Moje analize",
@@ -1668,5 +1669,26 @@
     "healthMonitoring": "Nadzor zdravlja sistema",
     "logs": "Logovi",
     "settings": "Podešavanja"
+  },
+  "calendar": {
+    "pageTitle": "Kalendar",
+    "pageDescription": "Zakazivanje i upravljanje terminima",
+    "add": "Dodaj termin",
+    "edit": "Izmeni termin",
+    "subtitle": "Kreiraj ili promeni termin u kalendaru",
+    "eventTitle": "Naslov",
+    "type": "Tip",
+    "patient": "Pacijent",
+    "doctor": "Doktor",
+    "selectPatient": "Izaberi pacijenta",
+    "selectDoctor": "Izaberi doktora",
+    "noAssignedDoctor": "Nema dodeljenog doktora. Zatraži dodelu pre zakazivanja.",
+    "start": "Početak",
+    "end": "Kraj",
+    "notes": "Napomena",
+    "close": "Zatvori",
+    "update": "Sačuvaj izmene",
+    "cancelAppointment": "Otkaži termin",
+    "loading": "Učitavanje termina..."
   }
 }

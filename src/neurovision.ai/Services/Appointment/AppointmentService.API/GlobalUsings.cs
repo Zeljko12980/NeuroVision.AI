@@ -1,0 +1,14 @@
+global using BuildingBlocks.Auth;
+global using BuildingBlocks.Exceptions.Handler;
+global using BuildingBlocks.Logging;
+global using Microsoft.AspNetCore.Authentication.JwtBearer;
+global using Microsoft.AspNetCore.Authorization;
+global using AppointmentService.API;
+global using AppointmentService.API.Middleware;
+global using AppointmentService.Application;
+global using AppointmentService.Infrastructure;
+global using AppointmentService.Infrastructure.Persistence;
+global using AppointmentService.Infrastructure.Seeding;
+global using Microsoft.EntityFrameworkCore;
+global using Scalar.AspNetCore;
+global using Serilog;

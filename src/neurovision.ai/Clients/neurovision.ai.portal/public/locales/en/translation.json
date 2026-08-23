@@ -1549,6 +1549,7 @@
   "sidebar": {
     "menu": "Menu",
     "dashboard": "Dashboard",
+    "calendar": "Calendar",
     "myScans": "My Scans",
     "viewScans": "View Scans",
     "myAnalysis": "My Analysis",
@@ -1667,5 +1668,26 @@
     "healthMonitoring": "Health Monitoring",
     "logs": "Logs",
     "settings": "Settings"
+  },
+  "calendar": {
+    "pageTitle": "Calendar",
+    "pageDescription": "Schedule and manage appointments",
+    "add": "Add appointment",
+    "edit": "Edit appointment",
+    "subtitle": "Create or change an appointment on the calendar",
+    "eventTitle": "Title",
+    "type": "Type",
+    "patient": "Patient",
+    "doctor": "Doctor",
+    "selectPatient": "Select patient",
+    "selectDoctor": "Select doctor",
+    "noAssignedDoctor": "No assigned doctor. Ask staff to assign one before booking.",
+    "start": "Start",
+    "end": "End",
+    "notes": "Notes",
+    "close": "Close",
+    "update": "Save changes",
+    "cancelAppointment": "Cancel appointment",
+    "loading": "Loading appointments..."
   }
 }

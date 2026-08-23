@@ -34,7 +34,8 @@ import {
     GroupIcon,
     FolderIcon,
     DocsIcon,
-    GlobeIcon
+    GlobeIcon,
+    CalenderIcon
 } from "../icons";
 
 
@@ -109,6 +110,11 @@ const patientNavItems: NavItem[] = [
         path: "/"
     },
 
+    {
+        nameKey: "sidebar.calendar",
+        icon: <CalenderIcon />,
+        path: "/calendar"
+    },
 
     {
         nameKey: "sidebar.myScans",
@@ -182,8 +188,11 @@ const doctorNavItems: NavItem[] = [
         path: "/"
     },
 
-
-
+    {
+        nameKey: "sidebar.calendar",
+        icon: <CalenderIcon />,
+        path: "/calendar"
+    },
 
     {
         nameKey: "sidebar.patients",
@@ -305,9 +314,11 @@ const superAdminNavItems: NavItem[] = [
         path: "/"
     },
 
-
-
-
+    {
+        nameKey: "sidebar.calendar",
+        icon: <CalenderIcon />,
+        path: "/calendar"
+    },
 
     {
         nameKey: "sidebar.roleManagement",

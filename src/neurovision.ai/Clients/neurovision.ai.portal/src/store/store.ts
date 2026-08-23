@@ -29,6 +29,7 @@ import governmentHistoryReducer from "../features/location/governmentHistory/gov
 import tumorDetectionReducer from "../features/tumorDetection/tumorDetection.slice";
 import usersReducer from "../features/user/userSlice";
 import notificationReducer from "../features/notification/notificationSlice";
+import appointmentReducer from "../features/appointment/appointmentSlice";
 
 export const store = configureStore({
     reducer: {
@@ -61,6 +62,7 @@ export const store = configureStore({
         tumorDetection: tumorDetectionReducer,
         users: usersReducer,
         notification: notificationReducer,
+        appointment: appointmentReducer,
     },
 });
 
