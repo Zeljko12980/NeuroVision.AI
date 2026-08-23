@@ -154,6 +154,22 @@ public sealed class CreatePatientCommandHandler
                 "Patient"),
             cancellationToken);
 
+        if (patient.AssignedDoctorId is Guid assignedDoctorId)
+        {
+            await publishEndpoint.Publish(
+                new CreateNotificationEvent(
+                    assignedDoctorId,
+                    "SYS",
+                    "INFO",
+                    "New patient assigned",
+                    $"{patient.FirstName} {patient.LastName} was assigned to you.",
+                    Guid.NewGuid(),
+                    RelatedEntityType: "Patient",
+                    RelatedEntityId: patient.Id,
+                    HealthInstitutionId: patient.CurrentHealthInstitutionId),
+                cancellationToken);
+        }
+
         logger.LogInformation(
             "Patient created successfully. PatientId={PatientId}, Email={Email}",
             patient.Id,

@@ -1,5 +1,8 @@
-﻿global using BuildingBlocks.Exceptions.Handler;
+﻿global using BuildingBlocks.Auth;
+global using BuildingBlocks.Exceptions.Handler;
 global using BuildingBlocks.Logging;
+global using Microsoft.AspNetCore.Authentication.JwtBearer;
+global using Microsoft.AspNetCore.Authorization;
 global using DoctorService.API.Middleware;
 global using DoctorService.Application;
 global using DoctorService.Infrastructure;

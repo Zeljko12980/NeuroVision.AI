@@ -3,10 +3,12 @@ import { Outlet } from "react-router";
 import AppHeader from "./AppHeader";
 import Backdrop from "./Backdrop";
 import AppSidebar from "./AppSidebar";
+import { useNotificationHub } from "../features/notification/useNotificationHub";
 
 
 const LayoutContent: React.FC = () => {
     const { isExpanded, isHovered, isMobileOpen } = useSidebar();
+    useNotificationHub();
 
     return (
         <div className="min-h-screen xl:flex">

@@ -5,6 +5,7 @@ using LocationService.Application.Feature.Country.Command.Create;
 using LocationService.Domain.Entities;
 using LocationService.Infrastructure;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LocationService.ArchitectureTests;
@@ -170,6 +171,20 @@ public class ControllerConventionTests
             .DoNotHaveName("ControllerBase")
             .Should()
             .ResideInNamespace("LocationService.API.Controllers")
+            .GetResult()
+            .ShouldBeSuccessful();
+    }
+
+    [Fact]
+    public void Controllers_ShouldHave_AuthorizeAttribute()
+    {
+        Types.InAssembly(Api)
+            .That()
+            .Inherit(typeof(ControllerBase))
+            .And()
+            .HaveNameEndingWith("Controller")
+            .Should()
+            .HaveCustomAttribute(typeof(AuthorizeAttribute))
             .GetResult()
             .ShouldBeSuccessful();
     }

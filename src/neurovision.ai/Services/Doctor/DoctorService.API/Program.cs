@@ -13,6 +13,7 @@ builder.Services.AddSingleton<CustomExceptionHandler>();
 builder.Services.AddOpenApi();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplicationServices(builder.Configuration);
+builder.Services.AddJwtAuthentication(builder.Configuration);
 var frontendUrl = builder.Configuration.GetValue<string>("AppSettings:FrontendUrl")
     ?? throw new InvalidOperationException(
         "AppSettings:FrontendUrl is not configured. Set it to the portal origin (e.g. http://localhost:5173).");
@@ -52,6 +53,7 @@ if (app.Environment.IsDevelopment())
     });
 }
 app.UseCors("AllowFrontend");
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 

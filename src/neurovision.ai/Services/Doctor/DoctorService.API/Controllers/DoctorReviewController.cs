@@ -8,7 +8,9 @@ using DoctorService.Application.Feature.DoctorReview.Query.GetAll;
 namespace DoctorService.API.Controllers;
 
 [Route("api/[controller]")]
-[ApiController]
+[ApiController]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+[Authorize(Policy = AuthPolicies.SuperAdmin)]
 public class DoctorReviewController : ControllerBase
 {
     private readonly ISender sender;

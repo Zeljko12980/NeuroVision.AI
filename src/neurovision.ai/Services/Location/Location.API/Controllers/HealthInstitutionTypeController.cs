@@ -1,4 +1,4 @@
-﻿using BuildingBlocks.Results;
+using BuildingBlocks.Results;
 using LocationService.Application.Common.Request;
 using LocationService.Application.Feature.HealthInstitutionType.Command.Create;
 using LocationService.Application.Feature.HealthInstitutionType.Command.Delete;
@@ -11,7 +11,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace LocationService.API.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+    [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(Policy = AuthPolicies.Staff)]
     public class HealthInstitutionTypeController : ControllerBase
     {
         private readonly ISender _sender;
@@ -41,6 +43,7 @@ namespace LocationService.API.Controllers
             return result.ToActionResult();
         }
 
+        [Authorize(Policy = AuthPolicies.SuperAdmin)]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateHealthInstitutionTypeRequest request, CancellationToken cancellationToken)
         {
@@ -51,6 +54,7 @@ namespace LocationService.API.Controllers
             return result.ToActionResult();
         }
 
+        [Authorize(Policy = AuthPolicies.SuperAdmin)]
         [HttpDelete("{code}")]
         public async Task<IActionResult> Delete([FromRoute] string code, CancellationToken cancellationToken)
         {
@@ -61,6 +65,7 @@ namespace LocationService.API.Controllers
             return result.ToActionResult();
         }
 
+        [Authorize(Policy = AuthPolicies.SuperAdmin)]
         [HttpPut("{code}")]
         public async Task<IActionResult> Update([FromRoute] string code, [FromBody] UpdateHealthInstitutionTypeRequest request, CancellationToken cancellationToken)
         {

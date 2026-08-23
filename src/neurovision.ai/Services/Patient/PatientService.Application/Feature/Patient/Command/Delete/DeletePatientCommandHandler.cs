@@ -50,6 +50,22 @@ public sealed class DeletePatientCommandHandler
         writes.Remove(entity);
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
+        if (entity.AssignedDoctorId is Guid assignedDoctorId)
+        {
+            await publishEndpoint.Publish(
+                new CreateNotificationEvent(
+                    assignedDoctorId,
+                    "SYS",
+                    "WARN",
+                    "Patient removed",
+                    $"{entity.FirstName} {entity.LastName} was removed from the platform.",
+                    Guid.NewGuid(),
+                    RelatedEntityType: "Patient",
+                    RelatedEntityId: entity.Id,
+                    HealthInstitutionId: entity.CurrentHealthInstitutionId),
+                cancellationToken);
+        }
+
         await publishEndpoint.Publish(new DeleteUserEvent(command.Id), cancellationToken);
 
         logger.LogInformation("Patient deleted successfully. PatientId={PatientId}", command.Id);

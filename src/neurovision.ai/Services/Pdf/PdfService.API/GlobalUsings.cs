@@ -1,4 +1,7 @@
-﻿global using BuildingBlocks.Pagination;
+﻿global using BuildingBlocks.Auth;
+global using BuildingBlocks.Pagination;
+global using Microsoft.AspNetCore.Authentication.JwtBearer;
+global using Microsoft.AspNetCore.Authorization;
 global using BuildingBlocks.Results;
 global using MediatR;
 global using Microsoft.AspNetCore.Mvc;

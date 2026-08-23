@@ -8,7 +8,9 @@ using PatientService.Application.Feature.InsurancePayer.Query.GetAll;
 namespace PatientService.API.Controllers;
 
 [Route("api/[controller]")]
-[ApiController]
+[ApiController]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+[Authorize(Policy = AuthPolicies.Staff)]
 public class InsurancePayerController : ControllerBase
 {
     private readonly ISender sender;
@@ -27,6 +29,7 @@ public class InsurancePayerController : ControllerBase
         return result.ToActionResult();
     }
 
+    [Authorize(Policy = AuthPolicies.SuperAdmin)]
     [HttpPost]
     public async Task<IActionResult> Create(
         [FromBody] CreateInsurancePayerRequest request,

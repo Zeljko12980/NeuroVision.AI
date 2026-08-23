@@ -2,6 +2,7 @@
 global using FluentValidation;
 global using MediatR;
 global using Microsoft.AspNetCore.Authentication.JwtBearer;
+global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Diagnostics;
 global using Microsoft.AspNetCore.Http;
 global using Microsoft.AspNetCore.Mvc;
@@ -12,5 +13,6 @@ global using Microsoft.Extensions.Logging;
 global using Microsoft.IdentityModel.Tokens;
 global using System.Collections.Concurrent;
 global using System.Diagnostics;
+global using System.IdentityModel.Tokens.Jwt;
 global using System.Linq.Expressions;
 global using System.Text;

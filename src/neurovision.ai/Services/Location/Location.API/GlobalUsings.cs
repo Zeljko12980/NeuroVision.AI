@@ -1,5 +1,8 @@
+global using BuildingBlocks.Auth;
 global using BuildingBlocks.Exceptions.Handler;
 global using BuildingBlocks.Logging;
+global using Microsoft.AspNetCore.Authentication.JwtBearer;
+global using Microsoft.AspNetCore.Authorization;
 global using LocationService.Application;
 global using LocationService.Infrastructure;
 global using LocationService.Infrastructure.Persistence;

@@ -8,7 +8,9 @@ using PatientService.Application.Feature.PatientDoctorAssignmentHistory.Query.Ge
 namespace PatientService.API.Controllers;
 
 [Route("api/[controller]")]
-[ApiController]
+[ApiController]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+[Authorize(Policy = AuthPolicies.Staff)]
 public class PatientDoctorAssignmentHistoryController : ControllerBase
 {
     private readonly ISender sender;
