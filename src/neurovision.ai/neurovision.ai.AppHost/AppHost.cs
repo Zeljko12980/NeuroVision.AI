@@ -1,3 +1,20 @@
+// Visual Studio's Aspire debugger often returns HTTP 500 for Executable run
+// requests, after which DCP falls back to `dotnet.exe` with no arguments.
+// Clearing the debug-session variables forces process execution instead.
+foreach (var key in new[]
+{
+    "DEBUG_SESSION_PORT",
+    "DEBUG_SESSION_TOKEN",
+    "DEBUG_SESSION_SERVER_CERTIFICATE",
+    "DEBUG_SESSION_INFO",
+    "DASHBOARD__DEBUGSESSION__PORT",
+    "DASHBOARD__DEBUGSESSION__TOKEN",
+    "DASHBOARD__DEBUGSESSION__SERVERCERTIFICATE"
+})
+{
+    Environment.SetEnvironmentVariable(key, null);
+}
+
 var builder = DistributedApplication.CreateBuilder(args);
 
 
@@ -13,6 +30,7 @@ var pdfDb = postgres.AddDatabase("pdfdb");
 var locationDb = postgres.AddDatabase("locationdb");
 
 var doctorDb = postgres.AddDatabase("doctordb");
+var patientDb = postgres.AddDatabase("patientdb");
 
 
 //MESSAGING
@@ -33,10 +51,8 @@ var loki = builder.AddContainer("loki", "grafana/loki")
     .WithHttpEndpoint(name: "http", port: 3100, targetPort: 3100)
     .WithVolume("loki-data", "/loki");
 
-var grafanaAdminUser = builder.Configuration["Grafana:AdminUser"]
-    ?? throw new InvalidOperationException("Grafana:AdminUser is required.");
-var grafanaAdminPassword = builder.Configuration["Grafana:AdminPassword"]
-    ?? throw new InvalidOperationException("Grafana:AdminPassword is required.");
+var grafanaAdminUser = builder.Configuration["Grafana:AdminUser"] ?? "admin";
+var grafanaAdminPassword = builder.Configuration["Grafana:AdminPassword"] ?? "admin";
 
 var grafana = builder.AddContainer("grafana", "grafana/grafana:11.6.3")
     .WithHttpEndpoint(name: "http", port: 3000, targetPort: 3000)
@@ -68,16 +84,17 @@ var identityService = builder.AddProject<Projects.IdentityService_API>("identity
        .WaitFor(identityDb)
        .WithReference(identityDb)
        .WaitFor(loki)
-       .WaitFor(prometheus)
-       .WaitFor(grafana)
-       .WithEnvironment("Observability__ServiceName", "identityservice-api");
+       .WithEnvironment("Observability__ServiceName", "identityservice-api")
+       .WithEnvironment("Observability__LokiUrl", loki.GetEndpoint("http"))
+       .WithEnvironment("IdentitySeed__Patient__Id", "22222222-2222-2222-2222-222222222222")
+       .WithEnvironment("IdentitySeed__Patient__Email", "armanigas78@gmail.com")
+       .WithEnvironment("IdentitySeed__Patient__UserName", "armanigas78")
+       .WithEnvironment("IdentitySeed__Patient__Password", "Patient123!");
 
 var pdfService = builder.AddProject<Projects.PdfService_API>("pdfservice-api")
        .WaitFor(pdfDb)
        .WithReference(pdfDb)
        .WaitFor(loki)
-       .WaitFor(prometheus)
-       .WaitFor(grafana)
        .WithHttpEndpoint(name: "http", port: 6002, isProxied: false)
        .WithHttpEndpoint(name: "grpc", port: 6102, isProxied: false)
        .WithEnvironment("Observability__ServiceName", "pdfservice-api")
@@ -89,8 +106,6 @@ var locationService = builder.AddProject<Projects.LocationService_API>("location
        .WaitFor(locationDb)
        .WithReference(locationDb)
        .WaitFor(loki)
-       .WaitFor(prometheus)
-       .WaitFor(grafana)
        .WithHttpEndpoint(name: "http", port: 6003, isProxied: false)
        .WithEnvironment("Observability__ServiceName", "locationservice-api")
        .WithEnvironment("Observability__LokiUrl", loki.GetEndpoint("http"));
@@ -101,7 +116,6 @@ builder.AddProject<Projects.MailService_API>("mailservice-api")
        .WaitFor(pdfService)
        .WithReference(pdfService)
        .WaitFor(loki)
-       .WaitFor(prometheus)
        .WithEnvironment("Observability__ServiceName", "mailservice-api")
        .WithEnvironment("Observability__LokiUrl", loki.GetEndpoint("http"))
        .WithEnvironment("PdfService__GrpcUrl", pdfService.GetEndpoint("grpc"));
@@ -112,10 +126,18 @@ var doctorService = builder.AddProject<Projects.DoctorService_API>("doctorservic
        .WaitFor(doctorDb)
        .WithReference(doctorDb)
        .WaitFor(loki)
-       .WaitFor(prometheus)
-       .WaitFor(grafana)
        .WithHttpEndpoint(name: "http", port: 6004, isProxied: false)
        .WithEnvironment("Observability__ServiceName", "doctorservice-api")
+       .WithEnvironment("Observability__LokiUrl", loki.GetEndpoint("http"));
+
+var patientService = builder.AddProject<Projects.PatientService_API>("patientservice-api")
+       .WaitFor(rabbitmq)
+       .WithReference(rabbitmq)
+       .WaitFor(patientDb)
+       .WithReference(patientDb)
+       .WaitFor(loki)
+       .WithHttpEndpoint(name: "http", port: 6005, isProxied: false)
+       .WithEnvironment("Observability__ServiceName", "patientservice-api")
        .WithEnvironment("Observability__LokiUrl", loki.GetEndpoint("http"));
 
 
@@ -129,7 +151,9 @@ var gateway = builder.AddProject<Projects.Gateway_API>("gateway-api")
     .WaitFor(locationService)
     .WithReference(locationService)
     .WaitFor(doctorService)
-    .WithReference(doctorService);
+    .WithReference(doctorService)
+    .WaitFor(patientService)
+    .WithReference(patientService);
 
 //FRONTEND
 

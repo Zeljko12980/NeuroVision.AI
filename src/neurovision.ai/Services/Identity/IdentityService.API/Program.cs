@@ -22,18 +22,6 @@ builder.Services.AddOpenApi(options =>
 builder.Services.AddInfrastructureServices(builder.Configuration, builder.Environment);
 builder.Services.AddApplicationServices(builder.Configuration);
 
-var frontendUrl = builder.Configuration.GetValue<string>("AppSettings:FrontendUrl");
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowFrontend", policy =>
-    {
-        policy.WithOrigins(frontendUrl!)
-              .AllowAnyHeader()
-              .AllowAnyMethod()
-              .AllowCredentials();
-    });
-});
 
 var app = builder.Build();
 
@@ -69,7 +57,6 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.UseCors("AllowFrontend");
 
 app.UseHttpsRedirection();
 

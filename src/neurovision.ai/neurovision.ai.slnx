@@ -19,6 +19,12 @@
     <Project Path="Services/Doctor/DoctorService.Domain/DoctorService.Domain.csproj" />
     <Project Path="Services/Doctor/DoctorService.Infrastructure/DoctorService.Infrastructure.csproj" />
   </Folder>
+  <Folder Name="/Services/Patient/">
+    <Project Path="Services/Patient/PatientService.API/PatientService.API.csproj" />
+    <Project Path="Services/Patient/PatientService.Application/PatientService.Application.csproj" />
+    <Project Path="Services/Patient/PatientService.Domain/PatientService.Domain.csproj" />
+    <Project Path="Services/Patient/PatientService.Infrastructure/PatientService.Infrastructure.csproj" />
+  </Folder>
   <Folder Name="/Services/Identity/">
     <Project Path="Services/Identity/IdentityService.API/IdentityService.API.csproj" />
     <Project Path="Services/Identity/IdentityService.Application/IdentityService.Application.csproj" />
@@ -44,6 +50,10 @@
     <Project Path="Services/Pdf/PdfService.Infrastructure/PdfService.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/Tests/" />
+  <Folder Name="/Tests/Doctor/">
+    <Project Path="Tests/Doctor/DoctorService.ArchitectureTests/DoctorService.ArchitectureTests.csproj" />
+    <Project Path="Tests/Doctor/DoctorService.UnitTests/DoctorService.UnitTests.csproj" />
+  </Folder>
   <Folder Name="/Tests/Identity/">
     <Project Path="tests/Identity/IdentityService.ArchitectureTests/IdentityService.ArchitectureTests.csproj" />
     <Project Path="tests/Identity/IdentityService.UnitTests/IdentityService.UnitTests.csproj" />
@@ -55,6 +65,10 @@
   <Folder Name="/Tests/Mail/">
     <Project Path="Tests/Mail/MailService.ArchitectureTests/MailService.ArchitectureTests.csproj" />
     <Project Path="Tests/Mail/MailService.UnitTests/MailService.UnitTests.csproj" />
+  </Folder>
+  <Folder Name="/Tests/Patient/">
+    <Project Path="Tests/Patient/PatientService.ArchitectureTests/PatientService.ArchitectureTests.csproj" />
+    <Project Path="Tests/Patient/PatientService.UnitTests/PatientService.UnitTests.csproj" />
   </Folder>
   <Folder Name="/Tests/Pdf/">
     <Project Path="Tests/Pdf/PdfService.ArchitectureTests/PdfService.ArchitectureTests.csproj" />

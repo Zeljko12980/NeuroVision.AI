@@ -1,0 +1,17 @@
+global using BuildingBlocks.Behaviors;
+global using BuildingBlocks.CQRS;
+global using BuildingBlocks.Pagination;
+global using BuildingBlocks.Persistence;
+global using BuildingBlocks.Results;
+global using PatientService.Application.Common.Interfaces;
+global using PatientService.Application.Common.Mappings;
+global using PatientService.Application.Common.Request;
+global using PatientService.Application.Common.Response;
+global using PatientService.Domain;
+global using PatientService.Domain.Entities;
+global using FluentValidation;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Logging;
+global using System.Net;
+global using System.Reflection;

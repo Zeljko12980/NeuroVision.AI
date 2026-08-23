@@ -1,0 +1,10 @@
+global using BuildingBlocks.Exceptions.Handler;
+global using BuildingBlocks.Logging;
+global using PatientService.API.Middleware;
+global using PatientService.Application;
+global using PatientService.Infrastructure;
+global using PatientService.Infrastructure.Persistence;
+global using PatientService.Infrastructure.Seeding;
+global using Microsoft.EntityFrameworkCore;
+global using Scalar.AspNetCore;
+global using Serilog;

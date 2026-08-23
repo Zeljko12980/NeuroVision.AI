@@ -6,6 +6,7 @@ public class IdentitySeedOptions
 
     public SeedUserOptions? SuperAdministrator { get; set; }
     public SeedUserOptions? Doctor { get; set; }
+    public SeedUserOptions? Patient { get; set; }
 }
 
 public class SeedUserOptions

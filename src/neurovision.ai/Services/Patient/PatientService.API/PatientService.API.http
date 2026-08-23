@@ -1,0 +1,11 @@
+@PatientService.API_HostAddress = http://localhost:6005
+
+GET {{PatientService.API_HostAddress}}/api/patient
+Accept: application/json
+
+###
+
+GET {{PatientService.API_HostAddress}}/api/patient/catalogs
+Accept: application/json
+
+###

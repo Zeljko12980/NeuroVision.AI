@@ -48,6 +48,11 @@ import {
 } from "../utils/claims";
 
 import BrandLogo from "../components/common/BrandLogo";
+import {
+    doctorTables,
+    getEntityTableBasePath,
+    patientTables,
+} from "../features/entityTable/tables.config";
 
 
 
@@ -62,6 +67,27 @@ type NavItem = {
     subItems?: NavItem[];
 
 };
+
+const lookupTableNavItems = (
+    tables: typeof doctorTables,
+    service: "doctor" | "patient"
+): NavItem[] =>
+    tables.map((item) => ({
+        nameKey: item.nameKey,
+        icon: <TableIcon />,
+        subItems: [
+            {
+                nameKey: "entityTables.tableMenu",
+                icon: <TableIcon />,
+                path: `${getEntityTableBasePath(service)}/${item.key}`,
+            },
+            {
+                nameKey: "entityTables.createMenu",
+                icon: <DocsIcon />,
+                path: `${getEntityTableBasePath(service)}/${item.key}/create`,
+            },
+        ],
+    }));
 
 
 
@@ -362,10 +388,31 @@ const superAdminNavItems: NavItem[] = [
                 nameKey: "sidebar.patientList",
                 icon: <TableIcon />,
                 path: "/admin/patients"
+            },
+
+
+            {
+                nameKey: "sidebar.addPatient",
+                icon: <DocsIcon />,
+                path: "/admin/patients/add"
             }
 
 
         ]
+    },
+
+
+    {
+        nameKey: "sidebar.doctorTables",
+        icon: <TableIcon />,
+        subItems: lookupTableNavItems(doctorTables, "doctor")
+    },
+
+
+    {
+        nameKey: "sidebar.patientTables",
+        icon: <TableIcon />,
+        subItems: lookupTableNavItems(patientTables, "patient")
     },
 
 

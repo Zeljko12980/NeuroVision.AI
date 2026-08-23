@@ -11,6 +11,7 @@ public static class DatabaseSeeder
         await SeedRolesAsync(roleManager, logger);
         await SeedUserAsync(userManager, seedOptions?.SuperAdministrator, RoleNames.SuperAdministrator, logger);
         await SeedUserAsync(userManager, seedOptions?.Doctor, RoleNames.Doctor, logger);
+        await SeedUserAsync(userManager, seedOptions?.Patient, RoleNames.Patient, logger);
     }
 
     private static async Task SeedRolesAsync(RoleManager<AspIdentityRole> roleManager, ILogger logger)

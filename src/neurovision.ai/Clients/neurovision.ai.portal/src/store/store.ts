@@ -5,6 +5,7 @@ import uiReducer from "../features/ui/uiSlice";
 import languageReducer from "../features/language/languageSlice";
 import roleReducer from "../features/role/roleSlice";
 import doctorReducer from "../features/doctor/doctorSlice";
+import patientReducer from "../features/patient/patientSlice";
 import pdfReducer from "../features/pdf/pdfSlice";
 import certificateReducer from "../features/certificate/certificateSlice";
 import countryReducer from "../features/location/country/country.slice";
@@ -35,6 +36,7 @@ export const store = configureStore({
         language: languageReducer,
         roles: roleReducer,
         doctor: doctorReducer,
+        patient: patientReducer,
         pdfTemplate: pdfReducer,
         certificate: certificateReducer,
         countries: countryReducer,
