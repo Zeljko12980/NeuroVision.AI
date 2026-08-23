@@ -8,7 +8,9 @@ using PatientService.Application.Feature.PatientConsentCoverage.Query.GetAll;
 namespace PatientService.API.Controllers;
 
 [Route("api/[controller]")]
-[ApiController]
+[ApiController]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+[Authorize(Policy = AuthPolicies.Staff)]
 public class PatientConsentCoverageController : ControllerBase
 {
     private readonly ISender sender;

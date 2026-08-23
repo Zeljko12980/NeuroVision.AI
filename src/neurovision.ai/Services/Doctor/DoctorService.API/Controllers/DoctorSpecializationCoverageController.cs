@@ -8,7 +8,9 @@ using DoctorService.Application.Feature.DoctorSpecializationCoverage.Query.GetAl
 namespace DoctorService.API.Controllers;
 
 [Route("api/[controller]")]
-[ApiController]
+[ApiController]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+[Authorize(Policy = AuthPolicies.SuperAdmin)]
 public class DoctorSpecializationCoverageController : ControllerBase
 {
     private readonly ISender sender;

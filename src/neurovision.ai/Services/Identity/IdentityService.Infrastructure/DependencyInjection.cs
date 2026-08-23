@@ -31,6 +31,7 @@ public static class DependencyInjection
             {
                 x.RequireHttpsMetadata = environment.IsProduction();
                 x.SaveToken = true;
+                x.MapInboundClaims = false;
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
@@ -40,7 +41,9 @@ public static class DependencyInjection
                     ValidAudience = audience,
                     ValidIssuer = issuer,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
-                    ClockSkew = TimeSpan.FromMinutes(1)
+                    ClockSkew = TimeSpan.FromMinutes(1),
+                    RoleClaimType = ClaimTypes.Role,
+                    NameClaimType = ClaimTypes.Name
                 };
             });
 
@@ -54,6 +57,9 @@ public static class DependencyInjection
 
             options.AddPolicy(AuthPolicies.SuperAdmin, policy =>
                 policy.RequireRole(RoleNames.SuperAdministrator));
+
+            options.AddPolicy(AuthPolicies.Staff, policy =>
+                policy.RequireRole(RoleNames.SuperAdministrator, RoleNames.Doctor));
         });
 
         services.AddIdentity<AspIdentityUser, AspIdentityRole>()

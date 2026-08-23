@@ -1,0 +1,16 @@
+global using BuildingBlocks.Auth;
+global using BuildingBlocks.Exceptions.Handler;
+global using BuildingBlocks.Logging;
+global using Microsoft.AspNetCore.Authentication.JwtBearer;
+global using Microsoft.AspNetCore.Authorization;
+global using Microsoft.AspNetCore.SignalR;
+global using NotificationService.API.Hubs;
+global using NotificationService.Application.Common.Interfaces;
+global using NotificationService.API.Middleware;
+global using NotificationService.Application;
+global using NotificationService.Infrastructure;
+global using NotificationService.Infrastructure.Persistence;
+global using NotificationService.Infrastructure.Seeding;
+global using Microsoft.EntityFrameworkCore;
+global using Scalar.AspNetCore;
+global using Serilog;

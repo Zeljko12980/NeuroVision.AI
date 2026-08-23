@@ -5,6 +5,7 @@ using IdentityService.Domain.Entities;
 using IdentityService.Infrastructure.Services;
 using MassTransit;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IdentityService.ArchitectureTests;
@@ -168,6 +169,22 @@ public class ControllerConventionTests
             .DoNotHaveName("ControllerBase")
             .Should()
             .ResideInNamespace("IdentityService.API.Controllers")
+            .GetResult()
+            .ShouldBeSuccessful();
+    }
+
+    [Fact]
+    public void Controllers_ShouldHave_AuthorizeAttribute_ExceptAuthentication()
+    {
+        Types.InAssembly(Api)
+            .That()
+            .Inherit(typeof(ControllerBase))
+            .And()
+            .HaveNameEndingWith("Controller")
+            .And()
+            .DoNotHaveName("AuthenticationController")
+            .Should()
+            .HaveCustomAttribute(typeof(AuthorizeAttribute))
             .GetResult()
             .ShouldBeSuccessful();
     }

@@ -17,6 +17,18 @@ foreach (var key in new[]
 
 var builder = DistributedApplication.CreateBuilder(args);
 
+IResourceBuilder<ProjectResource> WithJwt(IResourceBuilder<ProjectResource> resource)
+{
+    var key = builder.Configuration["Jwt:Key"]
+        ?? throw new InvalidOperationException(
+            "Jwt:Key is not configured. Set Jwt:Key, Jwt:Issuer, and Jwt:Audience in AppHost user secrets.");
+
+    return resource
+        .WithEnvironment("Jwt__Key", key)
+        .WithEnvironment("Jwt__Issuer", builder.Configuration["Jwt:Issuer"] ?? "jwt")
+        .WithEnvironment("Jwt__Audience", builder.Configuration["Jwt:Audience"] ?? "jwt");
+}
+
 
 //DATABASES
 
@@ -31,6 +43,7 @@ var locationDb = postgres.AddDatabase("locationdb");
 
 var doctorDb = postgres.AddDatabase("doctordb");
 var patientDb = postgres.AddDatabase("patientdb");
+var notificationDb = postgres.AddDatabase("notificationdb");
 
 
 //MESSAGING
@@ -78,7 +91,7 @@ var grafana = builder.AddContainer("grafana", "grafana/grafana:11.6.3")
 //SERVICES
 
 
-var identityService = builder.AddProject<Projects.IdentityService_API>("identityservice-api")
+var identityService = WithJwt(builder.AddProject<Projects.IdentityService_API>("identityservice-api")
        .WaitFor(rabbitmq)
        .WithReference(rabbitmq)
        .WaitFor(identityDb)
@@ -89,9 +102,9 @@ var identityService = builder.AddProject<Projects.IdentityService_API>("identity
        .WithEnvironment("IdentitySeed__Patient__Id", "22222222-2222-2222-2222-222222222222")
        .WithEnvironment("IdentitySeed__Patient__Email", "armanigas78@gmail.com")
        .WithEnvironment("IdentitySeed__Patient__UserName", "armanigas78")
-       .WithEnvironment("IdentitySeed__Patient__Password", "Patient123!");
+       .WithEnvironment("IdentitySeed__Patient__Password", "Patient123!"));
 
-var pdfService = builder.AddProject<Projects.PdfService_API>("pdfservice-api")
+var pdfService = WithJwt(builder.AddProject<Projects.PdfService_API>("pdfservice-api")
        .WaitFor(pdfDb)
        .WithReference(pdfDb)
        .WaitFor(loki)
@@ -100,15 +113,15 @@ var pdfService = builder.AddProject<Projects.PdfService_API>("pdfservice-api")
        .WithEnvironment("Observability__ServiceName", "pdfservice-api")
        .WithEnvironment("Observability__LokiUrl", loki.GetEndpoint("http"))
        .WithEnvironment("Kestrel__Endpoints__http__Protocols", "Http1")
-       .WithEnvironment("Kestrel__Endpoints__grpc__Protocols", "Http2");
+       .WithEnvironment("Kestrel__Endpoints__grpc__Protocols", "Http2"));
 
-var locationService = builder.AddProject<Projects.LocationService_API>("locationservice-api")
+var locationService = WithJwt(builder.AddProject<Projects.LocationService_API>("locationservice-api")
        .WaitFor(locationDb)
        .WithReference(locationDb)
        .WaitFor(loki)
        .WithHttpEndpoint(name: "http", port: 6003, isProxied: false)
        .WithEnvironment("Observability__ServiceName", "locationservice-api")
-       .WithEnvironment("Observability__LokiUrl", loki.GetEndpoint("http"));
+       .WithEnvironment("Observability__LokiUrl", loki.GetEndpoint("http")));
 
 builder.AddProject<Projects.MailService_API>("mailservice-api")
        .WaitFor(rabbitmq)
@@ -120,7 +133,7 @@ builder.AddProject<Projects.MailService_API>("mailservice-api")
        .WithEnvironment("Observability__LokiUrl", loki.GetEndpoint("http"))
        .WithEnvironment("PdfService__GrpcUrl", pdfService.GetEndpoint("grpc"));
 
-var doctorService = builder.AddProject<Projects.DoctorService_API>("doctorservice-api")
+var doctorService = WithJwt(builder.AddProject<Projects.DoctorService_API>("doctorservice-api")
        .WaitFor(rabbitmq)
        .WithReference(rabbitmq)
        .WaitFor(doctorDb)
@@ -128,9 +141,9 @@ var doctorService = builder.AddProject<Projects.DoctorService_API>("doctorservic
        .WaitFor(loki)
        .WithHttpEndpoint(name: "http", port: 6004, isProxied: false)
        .WithEnvironment("Observability__ServiceName", "doctorservice-api")
-       .WithEnvironment("Observability__LokiUrl", loki.GetEndpoint("http"));
+       .WithEnvironment("Observability__LokiUrl", loki.GetEndpoint("http")));
 
-var patientService = builder.AddProject<Projects.PatientService_API>("patientservice-api")
+var patientService = WithJwt(builder.AddProject<Projects.PatientService_API>("patientservice-api")
        .WaitFor(rabbitmq)
        .WithReference(rabbitmq)
        .WaitFor(patientDb)
@@ -138,7 +151,17 @@ var patientService = builder.AddProject<Projects.PatientService_API>("patientser
        .WaitFor(loki)
        .WithHttpEndpoint(name: "http", port: 6005, isProxied: false)
        .WithEnvironment("Observability__ServiceName", "patientservice-api")
-       .WithEnvironment("Observability__LokiUrl", loki.GetEndpoint("http"));
+       .WithEnvironment("Observability__LokiUrl", loki.GetEndpoint("http")));
+
+var notificationService = WithJwt(builder.AddProject<Projects.NotificationService_API>("notificationservice-api")
+       .WaitFor(rabbitmq)
+       .WithReference(rabbitmq)
+       .WaitFor(notificationDb)
+       .WithReference(notificationDb)
+       .WaitFor(loki)
+       .WithHttpEndpoint(name: "http", port: 6006, isProxied: false)
+       .WithEnvironment("Observability__ServiceName", "notificationservice-api")
+       .WithEnvironment("Observability__LokiUrl", loki.GetEndpoint("http")));
 
 
 //GATEWAY
@@ -153,7 +176,9 @@ var gateway = builder.AddProject<Projects.Gateway_API>("gateway-api")
     .WaitFor(doctorService)
     .WithReference(doctorService)
     .WaitFor(patientService)
-    .WithReference(patientService);
+    .WithReference(patientService)
+    .WaitFor(notificationService)
+    .WithReference(notificationService);
 
 //FRONTEND
 

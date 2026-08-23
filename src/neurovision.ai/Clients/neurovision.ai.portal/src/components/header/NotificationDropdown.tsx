@@ -1,71 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Dropdown } from "../ui/dropdown/Dropdown";
 import { DropdownItem } from "../ui/dropdown/DropdownItem";
 import { Link } from "react-router";
-
-type Notification = {
-    id: number;
-    title: string;
-    message: string;
-    time: string;
-    type: "critical" | "warning" | "info";
-};
-
-const notifications: Notification[] = [
-    {
-        id: 1,
-        title: "ICU Monitor",
-        message: "Critical vitals detected for patient ID #48291",
-        time: "2 min ago",
-        type: "critical",
-    },
-    {
-        id: 2,
-        title: "Lab System",
-        message: "Abnormal potassium level (6.8 mmol/L)",
-        time: "10 min ago",
-        type: "warning",
-    },
-    {
-        id: 3,
-        title: "Medication Service",
-        message: "Dosage conflict detected for patient ID #19302",
-        time: "15 min ago",
-        type: "critical",
-    },
-    {
-        id: 4,
-        title: "Security Alert",
-        message: "Multiple failed login attempts on admin account",
-        time: "25 min ago",
-        type: "critical",
-    },
-    {
-        id: 5,
-        title: "Radiology API",
-        message: "Connection lost to PACS server",
-        time: "40 min ago",
-        type: "warning",
-    },
-    {
-        id: 6,
-        title: "Database Service",
-        message: "Nightly backup completed successfully",
-        time: "1 hr ago",
-        type: "info",
-    },
-];
+import { useAppDispatch, useAppSelector } from "../../store/store";
+import { selectUserClaims } from "../../selectors/authSelectors";
+import { getUserInfoFromClaims } from "../../utils/claims";
+import { fetchNotifications, readNotification } from "../../features/notification/notificationSlice";
+import { formatNotificationTime, mapSeverity } from "../../features/notification/notification.utils";
 
 export default function NotificationDropdown() {
+    const dispatch = useAppDispatch();
+    const claims = useAppSelector(selectUserClaims);
+    const { userId } = getUserInfoFromClaims(claims || {});
+    const { items, unreadCount, loading } = useAppSelector((state) => state.notification);
+
     const [isOpen, setIsOpen] = useState(false);
-    const [notifying, setNotifying] = useState(true);
 
     const toggleDropdown = () => setIsOpen(!isOpen);
     const closeDropdown = () => setIsOpen(false);
 
+    useEffect(() => {
+        if (!userId) return;
+        void dispatch(fetchNotifications({ recipientUserId: userId, take: 20 }));
+    }, [dispatch, userId]);
+
     const handleClick = () => {
         toggleDropdown();
-        setNotifying(false);
+        if (userId) {
+            void dispatch(fetchNotifications({ recipientUserId: userId, take: 20 }));
+        }
+    };
+
+    const handleItemClick = (id: string) => {
+        if (userId) {
+            void dispatch(readNotification({ id, recipientUserId: userId }));
+        }
+        closeDropdown();
     };
 
     const getStatusColor = (type: string) => {
@@ -86,8 +56,9 @@ export default function NotificationDropdown() {
                 onClick={handleClick}
             >
                 <span
-                    className={`absolute right-0 top-0.5 h-2 w-2 rounded-full bg-orange-400 ${!notifying ? "hidden" : "flex"
-                        }`}
+                    className={`absolute right-0 top-0.5 h-2 w-2 rounded-full bg-orange-400 ${
+                        unreadCount <= 0 ? "hidden" : "flex"
+                    }`}
                 >
                     <span className="absolute w-full h-full bg-orange-400 rounded-full opacity-75 animate-ping"></span>
                 </span>
@@ -106,19 +77,26 @@ export default function NotificationDropdown() {
                 </div>
 
                 <ul className="flex flex-col overflow-y-auto">
-                    {notifications.map((n) => (
+                    {loading && items.length === 0 && (
+                        <li className="p-3 text-sm text-gray-400">Loading notifications...</li>
+                    )}
+                    {!loading && items.length === 0 && (
+                        <li className="p-3 text-sm text-gray-400">No notifications yet.</li>
+                    )}
+                    {items.map((n) => (
                         <li key={n.id}>
                             <DropdownItem
-                                onItemClick={closeDropdown}
-                                className="flex gap-3 p-3 border-b hover:bg-gray-100 dark:hover:bg-white/5"
+                                onItemClick={() => handleItemClick(n.id)}
+                                className={`flex gap-3 p-3 border-b hover:bg-gray-100 dark:hover:bg-white/5 ${
+                                    n.isRead ? "opacity-70" : ""
+                                }`}
                             >
                                 <span
                                     className={`h-3 w-3 mt-2 rounded-full ${getStatusColor(
-                                        n.type
+                                        mapSeverity(n.severityCode)
                                     )}`}
                                 ></span>
 
-                                {/* CONTENT */}
                                 <span className="block">
                                     <span className="block text-sm text-gray-500">
                                         <span className="font-medium text-gray-800 dark:text-white">
@@ -127,7 +105,9 @@ export default function NotificationDropdown() {
                                         {n.message}
                                     </span>
 
-                                    <span className="text-xs text-gray-400">{n.time}</span>
+                                    <span className="text-xs text-gray-400">
+                                        {formatNotificationTime(n.createdAt)}
+                                    </span>
                                 </span>
                             </DropdownItem>
                         </li>

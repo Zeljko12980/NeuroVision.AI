@@ -1,4 +1,4 @@
-﻿using BuildingBlocks.Results;
+using BuildingBlocks.Results;
 using LocationService.API.Contracts;
 using LocationService.Application.Common.Request;
 using LocationService.Application.Feature.Country.Command.Create;
@@ -12,7 +12,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace LocationService.API.Controllers;
 
 [Route("api/[controller]")]
-[ApiController]
+[ApiController]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+[Authorize(Policy = AuthPolicies.Staff)]
 public class CountryController : ControllerBase
 {
     private readonly ISender _sender;
@@ -40,6 +42,7 @@ public class CountryController : ControllerBase
         return result.ToActionResult();
     }
 
+    [Authorize(Policy = AuthPolicies.SuperAdmin)]
     [HttpPost]
     public async Task<IActionResult> Create(
         [FromForm] CreateCountryForm form,
@@ -62,6 +65,7 @@ public class CountryController : ControllerBase
         return result.ToActionResult();
     }
 
+    [Authorize(Policy = AuthPolicies.SuperAdmin)]
     [HttpDelete("{code}")]
     public async Task<IActionResult> Delete(
         [FromRoute] string code,
@@ -71,6 +75,7 @@ public class CountryController : ControllerBase
         return result.ToActionResult();
     }
 
+    [Authorize(Policy = AuthPolicies.SuperAdmin)]
     [HttpPut("{code}")]
     public async Task<IActionResult> Update(
         [FromRoute] string code,

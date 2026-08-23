@@ -12,6 +12,7 @@ namespace PatientService.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 public class PatientController : ControllerBase
 {
     private readonly ISender _sender;
@@ -21,6 +22,7 @@ public class PatientController : ControllerBase
         _sender = sender;
     }
 
+    [Authorize(Policy = AuthPolicies.Staff)]
     [HttpGet]
     public async Task<IActionResult> GetAll([FromQuery] GetPatientsRequest request, CancellationToken cancellationToken)
     {
@@ -28,12 +30,14 @@ public class PatientController : ControllerBase
         return result.ToActionResult();
     }
 
+    [Authorize(Policy = AuthPolicies.Staff)]
     [HttpGet("catalogs")]
     public async Task<IActionResult> GetCatalogs(CancellationToken cancellationToken)
     {
         var result = await _sender.Send(new GetPatientCatalogsQuery(), cancellationToken);
         return result.ToActionResult();
     }
+
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetByKey([FromRoute] Guid id, CancellationToken cancellationToken)
     {
@@ -41,6 +45,7 @@ public class PatientController : ControllerBase
         return result.ToActionResult();
     }
 
+    [Authorize(Policy = AuthPolicies.Staff)]
     [HttpPost]
     public async Task<IActionResult> Create([FromForm] CreatePatientRequest request, CancellationToken cancellationToken)
     {
@@ -48,6 +53,7 @@ public class PatientController : ControllerBase
         return result.ToActionResult();
     }
 
+    [Authorize(Policy = AuthPolicies.Staff)]
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id, CancellationToken cancellationToken)
     {

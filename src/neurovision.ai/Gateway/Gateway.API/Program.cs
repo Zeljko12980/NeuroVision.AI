@@ -78,8 +78,7 @@ var app = builder.Build();
 
 
 app.UseCors("AllowFrontend");
-
-
+app.UseWebSockets();
 
 app.MapDefaultEndpoints();
 

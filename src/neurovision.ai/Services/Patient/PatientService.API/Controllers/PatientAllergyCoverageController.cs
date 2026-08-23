@@ -8,7 +8,9 @@ using PatientService.Application.Feature.PatientAllergyCoverage.Query.GetAll;
 namespace PatientService.API.Controllers;
 
 [Route("api/[controller]")]
-[ApiController]
+[ApiController]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+[Authorize(Policy = AuthPolicies.Staff)]
 public class PatientAllergyCoverageController : ControllerBase
 {
     private readonly ISender sender;

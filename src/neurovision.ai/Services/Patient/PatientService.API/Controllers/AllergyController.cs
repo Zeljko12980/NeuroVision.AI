@@ -8,7 +8,9 @@ using PatientService.Application.Feature.Allergy.Query.GetAll;
 namespace PatientService.API.Controllers;
 
 [Route("api/[controller]")]
-[ApiController]
+[ApiController]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+[Authorize(Policy = AuthPolicies.Staff)]
 public class AllergyController : ControllerBase
 {
     private readonly ISender sender;
@@ -27,6 +29,7 @@ public class AllergyController : ControllerBase
         return result.ToActionResult();
     }
 
+    [Authorize(Policy = AuthPolicies.SuperAdmin)]
     [HttpPost]
     public async Task<IActionResult> Create(
         [FromBody] CreateAllergyRequest request,

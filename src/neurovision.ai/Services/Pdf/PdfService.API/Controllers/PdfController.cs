@@ -1,7 +1,9 @@
-﻿namespace PdfService.API.Controllers;
+namespace PdfService.API.Controllers;
 
 [Route("api/[controller]")]
-[ApiController]
+[ApiController]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+[Authorize(Policy = AuthPolicies.SuperAdmin)]
 public class PdfController : ControllerBase
 {
     private readonly ISender _sender;

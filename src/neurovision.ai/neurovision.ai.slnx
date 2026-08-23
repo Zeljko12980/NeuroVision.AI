@@ -37,6 +37,12 @@
     <Project Path="Services/Location/Location.Domain/LocationService.Domain.csproj" />
     <Project Path="Services/Location/Location.Infrastructure/LocationService.Infrastructure.csproj" />
   </Folder>
+  <Folder Name="/Services/Notification/">
+    <Project Path="Services/Notification/NotificationService.API/NotificationService.API.csproj" />
+    <Project Path="Services/Notification/NotificationService.Application/NotificationService.Application.csproj" />
+    <Project Path="Services/Notification/NotificationService.Domain/NotificationService.Domain.csproj" />
+    <Project Path="Services/Notification/NotificationService.Infrastructure/NotificationService.Infrastructure.csproj" />
+  </Folder>
   <Folder Name="/Services/Mail/">
     <Project Path="Services/Mail/MailService.API/MailService.API.csproj" />
     <Project Path="Services/Mail/MailService.Application/MailService.Application.csproj" Id="df7621e5-6f99-4148-a255-65a3b549edf0" />
@@ -65,6 +71,10 @@
   <Folder Name="/Tests/Mail/">
     <Project Path="Tests/Mail/MailService.ArchitectureTests/MailService.ArchitectureTests.csproj" />
     <Project Path="Tests/Mail/MailService.UnitTests/MailService.UnitTests.csproj" />
+  </Folder>
+  <Folder Name="/Tests/Notification/">
+    <Project Path="Tests/Notification/NotificationService.ArchitectureTests/NotificationService.ArchitectureTests.csproj" />
+    <Project Path="Tests/Notification/NotificationService.UnitTests/NotificationService.UnitTests.csproj" />
   </Folder>
   <Folder Name="/Tests/Patient/">
     <Project Path="Tests/Patient/PatientService.ArchitectureTests/PatientService.ArchitectureTests.csproj" />

@@ -86,6 +86,7 @@ import AnalysesTable from "./pages/TumorDetection/AnalysesTable";
 import AnalysisDetailPage from "./pages/TumorDetection/AnalysisDetailPage";
 import AiMonitoringPage from "./pages/TumorDetection/AiMonitoringPage";
 import ReportsTable from "./pages/TumorDetection/ReportsTable";
+import NotificationsPage from "./pages/NotificationsPage";
 
 export default function App() {
     const token = useAppSelector((state) => state.auth.token);
@@ -202,6 +203,7 @@ export default function App() {
                         </Route>
 
                         <Route path="/profile" element={<UserProfiles />} />
+                        <Route path="/notifications" element={<NotificationsPage />} />
                         <Route path="/calendar" element={<Calendar />} />
                         <Route path="/blank" element={<Blank />} />
                         <Route path="/form-elements" element={<FormElements />} />

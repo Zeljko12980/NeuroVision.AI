@@ -19,6 +19,7 @@ builder.Services.AddOpenApi();
 builder.Services
     .AddInfrastructure(builder.Configuration)
     .AddApplicationServices(builder.Configuration);
+builder.Services.AddJwtAuthentication(builder.Configuration);
 
 var frontendUrl = builder.Configuration["AppSettings:FrontendUrl"];
 
@@ -53,6 +54,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("AllowFrontend");
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 

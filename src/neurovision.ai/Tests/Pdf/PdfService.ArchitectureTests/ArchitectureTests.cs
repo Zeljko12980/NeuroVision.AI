@@ -4,6 +4,7 @@ using PdfService.Application.Common.Interfaces;
 using PdfService.Domain.Entities;
 using PdfService.Infrastructure.Services;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace PdfService.ArchitectureTests;
@@ -175,6 +176,20 @@ public class ControllerConventionTests
             .DoNotHaveName("ControllerBase")
             .Should()
             .ResideInNamespace("PdfService.API.Controllers")
+            .GetResult()
+            .ShouldBeSuccessful();
+    }
+
+    [Fact]
+    public void Controllers_ShouldHave_AuthorizeAttribute()
+    {
+        Types.InAssembly(Api)
+            .That()
+            .Inherit(typeof(ControllerBase))
+            .And()
+            .HaveNameEndingWith("Controller")
+            .Should()
+            .HaveCustomAttribute(typeof(AuthorizeAttribute))
             .GetResult()
             .ShouldBeSuccessful();
     }

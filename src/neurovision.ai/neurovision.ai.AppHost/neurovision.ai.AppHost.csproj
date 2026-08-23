@@ -23,6 +23,7 @@
 		<ProjectReference Include="..\Services\Identity\IdentityService.API\IdentityService.API.csproj" />
 		<ProjectReference Include="..\Services\Location\Location.API\LocationService.API.csproj" />
 		<ProjectReference Include="..\Services\Mail\MailService.API\MailService.API.csproj" />
+		<ProjectReference Include="..\Services\Notification\NotificationService.API\NotificationService.API.csproj" />
 		<ProjectReference Include="..\Services\Pdf\PdfService.API\PdfService.API.csproj" />
 	</ItemGroup>
 

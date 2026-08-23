@@ -8,7 +8,9 @@ using DoctorService.Application.Feature.DoctorLanguageCoverage.Query.GetAll;
 namespace DoctorService.API.Controllers;
 
 [Route("api/[controller]")]
-[ApiController]
+[ApiController]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+[Authorize(Policy = AuthPolicies.SuperAdmin)]
 public class DoctorLanguageCoverageController : ControllerBase
 {
     private readonly ISender sender;

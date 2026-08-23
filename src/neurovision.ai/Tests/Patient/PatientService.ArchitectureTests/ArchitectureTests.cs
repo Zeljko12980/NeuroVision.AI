@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PatientService.API.Controllers;
 using PatientService.Application.Common.Interfaces;
@@ -172,6 +173,20 @@ public class ControllerConventionTests
             .DoNotHaveName("ControllerBase")
             .Should()
             .ResideInNamespace("PatientService.API.Controllers")
+            .GetResult()
+            .ShouldBeSuccessful();
+    }
+
+    [Fact]
+    public void Controllers_ShouldHave_AuthorizeAttribute()
+    {
+        Types.InAssembly(Api)
+            .That()
+            .Inherit(typeof(ControllerBase))
+            .And()
+            .HaveNameEndingWith("Controller")
+            .Should()
+            .HaveCustomAttribute(typeof(AuthorizeAttribute))
             .GetResult()
             .ShouldBeSuccessful();
     }
