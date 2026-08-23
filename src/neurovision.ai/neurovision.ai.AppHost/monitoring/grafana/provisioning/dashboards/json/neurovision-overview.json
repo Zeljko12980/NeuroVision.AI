@@ -4,7 +4,7 @@
   "tags": ["neurovision"],
   "timezone": "browser",
   "schemaVersion": 39,
-  "version": 4,
+  "version": 5,
   "refresh": "5s",
   "time": { "from": "now-15m", "to": "now" },
   "panels": [
@@ -142,10 +142,48 @@
       }
     },
     {
+      "id": 19,
+      "type": "stat",
+      "title": "Notification scrape",
+      "gridPos": { "h": 4, "w": 2, "x": 14, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "targets": [
+        { "refId": "A", "expr": "up{job=\"notification\"}" }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            { "type": "value", "options": { "0": { "text": "DOWN", "color": "red" }, "1": { "text": "UP", "color": "green" } } }
+          ],
+          "thresholds": { "mode": "absolute", "steps": [{ "color": "red", "value": null }, { "color": "green", "value": 1 }] }
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 20,
+      "type": "stat",
+      "title": "Appointment scrape",
+      "gridPos": { "h": 4, "w": 2, "x": 16, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "targets": [
+        { "refId": "A", "expr": "up{job=\"appointment\"}" }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            { "type": "value", "options": { "0": { "text": "DOWN", "color": "red" }, "1": { "text": "UP", "color": "green" } } }
+          ],
+          "thresholds": { "mode": "absolute", "steps": [{ "color": "red", "value": null }, { "color": "green", "value": 1 }] }
+        },
+        "overrides": []
+      }
+    },
+    {
       "id": 3,
       "type": "stat",
       "title": "Request rate",
-      "gridPos": { "h": 4, "w": 5, "x": 14, "y": 0 },
+      "gridPos": { "h": 4, "w": 3, "x": 18, "y": 0 },
       "datasource": { "type": "prometheus", "uid": "prometheus" },
       "targets": [
         { "refId": "A", "expr": "sum(rate(http_server_request_duration_seconds_count[1m]))" }
@@ -159,7 +197,7 @@
       "id": 4,
       "type": "stat",
       "title": "p95 latency",
-      "gridPos": { "h": 4, "w": 5, "x": 19, "y": 0 },
+      "gridPos": { "h": 4, "w": 3, "x": 21, "y": 0 },
       "datasource": { "type": "prometheus", "uid": "prometheus" },
       "targets": [
         { "refId": "A", "expr": "histogram_quantile(0.95, sum(rate(http_server_request_duration_seconds_bucket[5m])) by (le))" }
@@ -251,6 +289,26 @@
       "datasource": { "type": "loki", "uid": "loki" },
       "targets": [
         { "refId": "A", "expr": "{service=~\"PatientService|patientservice-api\"}" }
+      ]
+    },
+    {
+      "id": 21,
+      "type": "logs",
+      "title": "Notification logs",
+      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 72 },
+      "datasource": { "type": "loki", "uid": "loki" },
+      "targets": [
+        { "refId": "A", "expr": "{service=~\"NotificationService|notificationservice-api\"}" }
+      ]
+    },
+    {
+      "id": 22,
+      "type": "logs",
+      "title": "Appointment logs",
+      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 82 },
+      "datasource": { "type": "loki", "uid": "loki" },
+      "targets": [
+        { "refId": "A", "expr": "{service=~\"AppointmentService|appointmentservice-api\"}" }
       ]
     }
   ]

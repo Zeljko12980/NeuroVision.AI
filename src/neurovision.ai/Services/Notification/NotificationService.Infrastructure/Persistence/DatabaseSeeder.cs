@@ -15,9 +15,7 @@ public static class DatabaseSeeder
 
     public static async Task SeedNotificationTypesAsync(this DbContext context)
     {
-        if (await context.Set<NotificationType>().AnyAsync())
-            return;
-
+        var existing = await context.Set<NotificationType>().Select(item => item.Code).ToListAsync();
         var items = new List<NotificationType>
         {
             NotificationType.Create(NotificationTypeCodes.Tumor, "Tumor analysis", "Tumor detection and analysis status"),
@@ -25,8 +23,12 @@ public static class DatabaseSeeder
             NotificationType.Create(NotificationTypeCodes.Medication, "Medication", "Medication conflicts and dosage alerts"),
             NotificationType.Create(NotificationTypeCodes.Security, "Security", "Authentication and access alerts"),
             NotificationType.Create(NotificationTypeCodes.System, "System", "Platform and infrastructure events"),
-            NotificationType.Create(NotificationTypeCodes.Radiology, "Radiology", "Imaging and PACS connectivity")
-        };
+            NotificationType.Create(NotificationTypeCodes.Radiology, "Radiology", "Imaging and PACS connectivity"),
+            NotificationType.Create(NotificationTypeCodes.Appointment, "Appointment", "Appointment scheduling updates")
+        }.Where(item => !existing.Contains(item.Code)).ToList();
+
+        if (items.Count == 0)
+            return;
 
         await context.Set<NotificationType>().AddRangeAsync(items);
         await context.SaveChangesAsync();

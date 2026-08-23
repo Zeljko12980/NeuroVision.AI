@@ -44,6 +44,7 @@ var locationDb = postgres.AddDatabase("locationdb");
 var doctorDb = postgres.AddDatabase("doctordb");
 var patientDb = postgres.AddDatabase("patientdb");
 var notificationDb = postgres.AddDatabase("notificationdb");
+var appointmentDb = postgres.AddDatabase("appointmentdb");
 
 
 //MESSAGING
@@ -102,7 +103,8 @@ var identityService = WithJwt(builder.AddProject<Projects.IdentityService_API>("
        .WithEnvironment("IdentitySeed__Patient__Id", "22222222-2222-2222-2222-222222222222")
        .WithEnvironment("IdentitySeed__Patient__Email", "armanigas78@gmail.com")
        .WithEnvironment("IdentitySeed__Patient__UserName", "armanigas78")
-       .WithEnvironment("IdentitySeed__Patient__Password", "Patient123!"));
+       .WithEnvironment("IdentitySeed__Patient__Password", "Patient123!")
+       .WithEnvironment("IdentitySeed__Doctor__Id", "a1a1a1a1-a1a1-a1a1-a1a1-a1a1a1a1a1a1"));
 
 var pdfService = WithJwt(builder.AddProject<Projects.PdfService_API>("pdfservice-api")
        .WaitFor(pdfDb)
@@ -163,6 +165,16 @@ var notificationService = WithJwt(builder.AddProject<Projects.NotificationServic
        .WithEnvironment("Observability__ServiceName", "notificationservice-api")
        .WithEnvironment("Observability__LokiUrl", loki.GetEndpoint("http")));
 
+var appointmentService = WithJwt(builder.AddProject<Projects.AppointmentService_API>("appointmentservice-api")
+       .WaitFor(rabbitmq)
+       .WithReference(rabbitmq)
+       .WaitFor(appointmentDb)
+       .WithReference(appointmentDb)
+       .WaitFor(loki)
+       .WithHttpEndpoint(name: "http", port: 6007, isProxied: false)
+       .WithEnvironment("Observability__ServiceName", "appointmentservice-api")
+       .WithEnvironment("Observability__LokiUrl", loki.GetEndpoint("http")));
+
 
 //GATEWAY
 
@@ -178,7 +190,9 @@ var gateway = builder.AddProject<Projects.Gateway_API>("gateway-api")
     .WaitFor(patientService)
     .WithReference(patientService)
     .WaitFor(notificationService)
-    .WithReference(notificationService);
+    .WithReference(notificationService)
+    .WaitFor(appointmentService)
+    .WithReference(appointmentService);
 
 //FRONTEND
 

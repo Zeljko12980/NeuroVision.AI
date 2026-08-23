@@ -37,6 +37,12 @@
     <Project Path="Services/Location/Location.Domain/LocationService.Domain.csproj" />
     <Project Path="Services/Location/Location.Infrastructure/LocationService.Infrastructure.csproj" />
   </Folder>
+  <Folder Name="/Services/Appointment/">
+    <Project Path="Services/Appointment/AppointmentService.API/AppointmentService.API.csproj" />
+    <Project Path="Services/Appointment/AppointmentService.Application/AppointmentService.Application.csproj" />
+    <Project Path="Services/Appointment/AppointmentService.Domain/AppointmentService.Domain.csproj" />
+    <Project Path="Services/Appointment/AppointmentService.Infrastructure/AppointmentService.Infrastructure.csproj" />
+  </Folder>
   <Folder Name="/Services/Notification/">
     <Project Path="Services/Notification/NotificationService.API/NotificationService.API.csproj" />
     <Project Path="Services/Notification/NotificationService.Application/NotificationService.Application.csproj" />
@@ -56,6 +62,10 @@
     <Project Path="Services/Pdf/PdfService.Infrastructure/PdfService.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/Tests/" />
+  <Folder Name="/Tests/Appointment/">
+    <Project Path="Tests/Appointment/AppointmentService.ArchitectureTests/AppointmentService.ArchitectureTests.csproj" />
+    <Project Path="Tests/Appointment/AppointmentService.UnitTests/AppointmentService.UnitTests.csproj" />
+  </Folder>
   <Folder Name="/Tests/Doctor/">
     <Project Path="Tests/Doctor/DoctorService.ArchitectureTests/DoctorService.ArchitectureTests.csproj" />
     <Project Path="Tests/Doctor/DoctorService.UnitTests/DoctorService.UnitTests.csproj" />

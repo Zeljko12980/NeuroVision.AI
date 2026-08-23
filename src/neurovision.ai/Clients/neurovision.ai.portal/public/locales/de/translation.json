@@ -1550,6 +1550,7 @@
   "sidebar": {
     "menu": "Menü",
     "dashboard": "Dashboard",
+    "calendar": "Kalender",
     "myScans": "Meine Scans",
     "viewScans": "Scans anzeigen",
     "myAnalysis": "Meine Analysen",
@@ -1668,5 +1669,26 @@
     "healthMonitoring": "Systemüberwachung",
     "logs": "Protokolle",
     "settings": "Einstellungen"
+  },
+  "calendar": {
+    "pageTitle": "Kalender",
+    "pageDescription": "Termine planen und verwalten",
+    "add": "Termin hinzufügen",
+    "edit": "Termin bearbeiten",
+    "subtitle": "Einen Termin im Kalender erstellen oder ändern",
+    "eventTitle": "Titel",
+    "type": "Typ",
+    "patient": "Patient",
+    "doctor": "Arzt",
+    "selectPatient": "Patient auswählen",
+    "selectDoctor": "Arzt auswählen",
+    "noAssignedDoctor": "Kein zugewiesener Arzt. Bitte zuerst zuweisen lassen.",
+    "start": "Beginn",
+    "end": "Ende",
+    "notes": "Notizen",
+    "close": "Schließen",
+    "update": "Änderungen speichern",
+    "cancelAppointment": "Termin absagen",
+    "loading": "Termine werden geladen..."
   }
 }

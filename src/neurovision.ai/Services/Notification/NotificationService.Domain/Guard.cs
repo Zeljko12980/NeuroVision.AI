@@ -36,10 +36,11 @@ public static class NotificationTypeCodes
     public const string Security = "SEC";
     public const string System = "SYS";
     public const string Radiology = "RAD";
+    public const string Appointment = "APPT";
 
     public static readonly string[] All =
     [
-        Tumor, Lab, Medication, Security, System, Radiology
+        Tumor, Lab, Medication, Security, System, Radiology, Appointment
     ];
 }
 
