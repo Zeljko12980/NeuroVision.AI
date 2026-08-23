@@ -38,6 +38,8 @@ import RoleRoute from "./components/common/RoleRoute";
 import { ScrollToTop } from "./components/common/ScrollToTop";
 import DoctorsTable from "./pages/Tables/DoctorsTable";
 import PatientsTable from "./pages/Tables/PatientsTable";
+import EntityTablePage from "./pages/Tables/EntityTablePage";
+import CreateEntityTablePage from "./pages/Tables/CreateEntityTablePage";
 import PdfTable from "./pages/Pdf/PdfTable";
 import CreatePdfTemplatePage from "./pages/Pdf/CreatePdfTemplatePage";
 import CertificateTable from "./pages/Certificate/CertificateTable";
@@ -148,8 +150,12 @@ export default function App() {
                             <Route path="/admin/users/create" element={<CreateAdministratorPage />} />
                             <Route path="/admin/doctors" element={<DoctorsTable />} />
                             <Route path="/admin/doctors/add" element={<CreateDoctorPage />} />
+                            <Route path="/admin/doctors/tables/:table" element={<EntityTablePage service="doctor" />} />
+                            <Route path="/admin/doctors/tables/:table/create" element={<CreateEntityTablePage service="doctor" />} />
                             <Route path="/admin/patients" element={<PatientsTable />} />
                             <Route path="/admin/patients/add" element={<CreatePatientPage />} />
+                            <Route path="/admin/patients/tables/:table" element={<EntityTablePage service="patient" />} />
+                            <Route path="/admin/patients/tables/:table/create" element={<CreateEntityTablePage service="patient" />} />
                             <Route path="/admin/pdfs" element={<PdfTable />} />
                             <Route path="/admin/pdfs/create" element={<CreatePdfTemplatePage />} />
                             <Route path="/admin/certificates" element={<CertificateTable />} />

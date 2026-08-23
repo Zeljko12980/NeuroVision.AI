@@ -34,7 +34,6 @@ public class PatientController : ControllerBase
         var result = await _sender.Send(new GetPatientCatalogsQuery(), cancellationToken);
         return result.ToActionResult();
     }
-
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetByKey([FromRoute] Guid id, CancellationToken cancellationToken)
     {

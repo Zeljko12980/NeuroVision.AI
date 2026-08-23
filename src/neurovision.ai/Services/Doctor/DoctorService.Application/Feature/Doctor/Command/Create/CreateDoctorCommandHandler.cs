@@ -50,7 +50,7 @@ public sealed class CreateDoctorCommandHandler
 
         if (!string.IsNullOrWhiteSpace(request.LicenseAuthorityCode))
         {
-            var authority = await writes.FindAsync<LicenseAuthority>(
+            var authority = await writes.FindAsync<global::DoctorService.Domain.Entities.LicenseAuthority>(
                 new object[] { request.LicenseAuthorityCode.Trim().ToUpperInvariant() },
                 cancellationToken);
 
@@ -93,14 +93,14 @@ public sealed class CreateDoctorCommandHandler
 
         foreach (var code in ParseCodes(request.Languages))
         {
-            var language = await writes.FindAsync<Language>(new object[] { code }, cancellationToken);
+            var language = await writes.FindAsync<global::DoctorService.Domain.Entities.Language>(new object[] { code }, cancellationToken);
             if (language is not null)
                 doctor.AddLanguage(code);
         }
 
         foreach (var code in ParseCodes(request.Degrees))
         {
-            var degree = await writes.FindAsync<DegreeType>(new object[] { code }, cancellationToken);
+            var degree = await writes.FindAsync<global::DoctorService.Domain.Entities.DegreeType>(new object[] { code }, cancellationToken);
             if (degree is not null)
                 doctor.AddDegree(code);
         }

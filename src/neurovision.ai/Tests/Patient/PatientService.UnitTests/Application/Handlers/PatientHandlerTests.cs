@@ -227,6 +227,8 @@ public class PatientHandlerTests
         result.Value.Genders.Should().ContainSingle(item => item.Code == "M");
     }
 
+    
+
     private CreatePatientCommandHandler CreateHandler() =>
         new(
             _writes,

@@ -27,12 +27,22 @@ public static class DependencyInjection
         services.AddScoped(typeof(IDoctorReadStore<>), typeof(DoctorReadStore<>));
         services.AddScoped(typeof(IRepository<,>), typeof(DoctorRepository<,>));
         services.AddScoped<IFileStorageService, FileStorageService>();
+        services.AddScoped<ISequenceStore, SequenceStore>();
 
         services.AddSingleton<IDoctorSql<DoctorResponse>, DoctorSql>();
-        services.AddSingleton<IDoctorSql<SpecializationResponse>>(_ => new LookupSql<SpecializationResponse>("Specializations"));
-        services.AddSingleton<IDoctorSql<LanguageResponse>>(_ => new LookupSql<LanguageResponse>("Languages"));
-        services.AddSingleton<IDoctorSql<DegreeTypeResponse>>(_ => new LookupSql<DegreeTypeResponse>("DegreeTypes"));
-        services.AddSingleton<IDoctorSql<LicenseAuthorityResponse>>(_ => new LookupSql<LicenseAuthorityResponse>("LicenseAuthorities"));
+        services.AddSingleton<IDoctorSql<DoctorStatusResponse>, DoctorStatusSql>();
+        services.AddSingleton<IDoctorSql<SpecializationResponse>, SpecializationSql>();
+        services.AddSingleton<IDoctorSql<LanguageResponse>, DoctorLanguageSql>();
+        services.AddSingleton<IDoctorSql<DegreeTypeResponse>, DegreeTypeSql>();
+        services.AddSingleton<IDoctorSql<LicenseAuthorityResponse>, LicenseAuthoritySql>();
+        services.AddSingleton<IDoctorSql<DoctorStatusHistoryResponse>, DoctorStatusHistorySql>();
+        services.AddSingleton<IDoctorSql<DoctorLicenseHistoryResponse>, DoctorLicenseHistorySql>();
+        services.AddSingleton<IDoctorSql<DoctorAffiliationHistoryResponse>, DoctorAffiliationHistorySql>();
+        services.AddSingleton<IDoctorSql<DoctorLanguageCoverageResponse>, DoctorLanguageCoverageSql>();
+        services.AddSingleton<IDoctorSql<DoctorDegreeCoverageResponse>, DoctorDegreeCoverageSql>();
+        services.AddSingleton<IDoctorSql<DoctorSpecializationCoverageResponse>, DoctorSpecializationCoverageSql>();
+        services.AddSingleton<IDoctorSql<WorkingSlotResponse>, WorkingSlotSql>();
+        services.AddSingleton<IDoctorSql<DoctorReviewResponse>, DoctorReviewSql>();
 
         return services;
     }

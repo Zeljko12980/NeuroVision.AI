@@ -1,4 +1,4 @@
-using BuildingBlocks.Dapper;
+ using BuildingBlocks.Dapper;
 using PatientService.Application.Common.Interfaces;
 
 namespace PatientService.Infrastructure.Persistence;

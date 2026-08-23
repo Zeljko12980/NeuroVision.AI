@@ -24,17 +24,27 @@ public static class DependencyInjection
         services.AddScoped(typeof(IPatientReadStore<>), typeof(PatientReadStore<>));
         services.AddScoped(typeof(IRepository<,>), typeof(PatientRepository<,>));
         services.AddScoped<IFileStorageService, FileStorageService>();
+        services.AddScoped<ISequenceStore, SequenceStore>();
 
         services.AddSingleton<IPatientSql<PatientResponse>, PatientSql>();
-        services.AddSingleton<IPatientSql<PatientStatusResponse>>(_ => new LookupSql<PatientStatusResponse>("PatientStatuses"));
-        services.AddSingleton<IPatientSql<GenderResponse>>(_ => new LookupSql<GenderResponse>("Genders"));
-        services.AddSingleton<IPatientSql<BloodTypeResponse>>(_ => new LookupSql<BloodTypeResponse>("BloodTypes"));
-        services.AddSingleton<IPatientSql<LanguageResponse>>(_ => new LookupSql<LanguageResponse>("Languages"));
-        services.AddSingleton<IPatientSql<AllergyResponse>>(_ => new LookupSql<AllergyResponse>("Allergies"));
-        services.AddSingleton<IPatientSql<ConditionResponse>>(_ => new LookupSql<ConditionResponse>("Conditions"));
-        services.AddSingleton<IPatientSql<InsurancePayerResponse>>(_ => new LookupSql<InsurancePayerResponse>("InsurancePayers"));
-        services.AddSingleton<IPatientSql<RelationshipTypeResponse>>(_ => new LookupSql<RelationshipTypeResponse>("RelationshipTypes"));
-        services.AddSingleton<IPatientSql<ConsentTypeResponse>>(_ => new LookupSql<ConsentTypeResponse>("ConsentTypes"));
+        services.AddSingleton<IPatientSql<PatientStatusResponse>, StatusSql>();
+        services.AddSingleton<IPatientSql<GenderResponse>, GenderSql>();
+        services.AddSingleton<IPatientSql<BloodTypeResponse>, BloodTypeSql>();
+        services.AddSingleton<IPatientSql<LanguageResponse>, LanguageSql>();
+        services.AddSingleton<IPatientSql<AllergyResponse>, AllergySql>();
+        services.AddSingleton<IPatientSql<ConditionResponse>, ConditionSql>();
+        services.AddSingleton<IPatientSql<InsurancePayerResponse>, InsurancePayerSql>();
+        services.AddSingleton<IPatientSql<RelationshipTypeResponse>, RelationshipTypeSql>();
+        services.AddSingleton<IPatientSql<ConsentTypeResponse>, ConsentTypeSql>();
+        services.AddSingleton<IPatientSql<PatientStatusHistoryResponse>, PatientStatusHistorySql>();
+        services.AddSingleton<IPatientSql<PatientAffiliationHistoryResponse>, PatientAffiliationHistorySql>();
+        services.AddSingleton<IPatientSql<PatientInsuranceHistoryResponse>, PatientInsuranceHistorySql>();
+        services.AddSingleton<IPatientSql<PatientDoctorAssignmentHistoryResponse>, PatientDoctorAssignmentHistorySql>();
+        services.AddSingleton<IPatientSql<PatientLanguageCoverageResponse>, PatientLanguageCoverageSql>();
+        services.AddSingleton<IPatientSql<PatientAllergyCoverageResponse>, PatientAllergyCoverageSql>();
+        services.AddSingleton<IPatientSql<PatientConditionCoverageResponse>, PatientConditionCoverageSql>();
+        services.AddSingleton<IPatientSql<PatientConsentCoverageResponse>, PatientConsentCoverageSql>();
+        services.AddSingleton<IPatientSql<PatientEmergencyContactResponse>, PatientEmergencyContactSql>();
 
         return services;
     }

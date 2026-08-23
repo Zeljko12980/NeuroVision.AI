@@ -7,6 +7,11 @@ namespace BuildingBlocks.Dapper
     {
         private readonly ISqlConnectionFactory _factory;
 
+        static SqlQueryExecutor()
+        {
+            DapperTypeHandlers.EnsureRegistered();
+        }
+
         public SqlQueryExecutor(
             ISqlConnectionFactory factory)
         {

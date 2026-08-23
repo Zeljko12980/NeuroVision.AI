@@ -50,7 +50,7 @@ public sealed class CreatePatientCommandHandler
 
         if (!string.IsNullOrWhiteSpace(request.BloodType))
         {
-            var bloodType = await writes.FindAsync<BloodType>(
+            var bloodType = await writes.FindAsync<global::PatientService.Domain.Entities.BloodType>(
                 [request.BloodType.Trim().ToUpperInvariant()],
                 cancellationToken);
 
@@ -100,21 +100,21 @@ public sealed class CreatePatientCommandHandler
 
         foreach (var code in ParseCodes(request.Languages))
         {
-            var language = await writes.FindAsync<Language>([code], cancellationToken);
+            var language = await writes.FindAsync<global::PatientService.Domain.Entities.Language>([code], cancellationToken);
             if (language is not null)
                 patient.AddLanguage(code);
         }
 
         foreach (var code in ParseCodes(request.Allergies))
         {
-            var allergy = await writes.FindAsync<Allergy>([code], cancellationToken);
+            var allergy = await writes.FindAsync<global::PatientService.Domain.Entities.Allergy>([code], cancellationToken);
             if (allergy is not null)
                 patient.AddAllergy(code);
         }
 
         foreach (var code in ParseCodes(request.Conditions))
         {
-            var condition = await writes.FindAsync<Condition>([code], cancellationToken);
+            var condition = await writes.FindAsync<global::PatientService.Domain.Entities.Condition>([code], cancellationToken);
             if (condition is not null)
                 patient.AddCondition(code);
         }
@@ -122,7 +122,7 @@ public sealed class CreatePatientCommandHandler
         if (!string.IsNullOrWhiteSpace(request.InsurancePayerCode)
             && !string.IsNullOrWhiteSpace(request.InsurancePolicyNumber))
         {
-            var payer = await writes.FindAsync<InsurancePayer>(
+            var payer = await writes.FindAsync<global::PatientService.Domain.Entities.InsurancePayer>(
                 [request.InsurancePayerCode.Trim().ToUpperInvariant()],
                 cancellationToken);
 
