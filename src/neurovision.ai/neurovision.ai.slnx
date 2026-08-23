@@ -31,13 +31,13 @@
     <Project Path="Services/Identity/IdentityService.Domain/IdentityService.Domain.csproj" />
     <Project Path="Services/Identity/IdentityService.Infrastructure/IdentityService.Infrastructure.csproj" />
   </Folder>
-  <Folder Name="/Services/Location/" Id="3c86dbb2-578c-d4b9-14b0-7b9ee208d811">
+  <Folder Name="/Services/Location/">
     <Project Path="Services/Location/Location.API/LocationService.API.csproj" />
     <Project Path="Services/Location/Location.Application/LocationService.Application.csproj" />
     <Project Path="Services/Location/Location.Domain/LocationService.Domain.csproj" />
     <Project Path="Services/Location/Location.Infrastructure/LocationService.Infrastructure.csproj" />
   </Folder>
-  <Folder Name="/Services/Appointment/">
+  <Folder Name="/Services/Appointment/" Id="ec4d58aa-3e6a-772b-884d-8b41220b85e8">
     <Project Path="Services/Appointment/AppointmentService.API/AppointmentService.API.csproj" />
     <Project Path="Services/Appointment/AppointmentService.Application/AppointmentService.Application.csproj" />
     <Project Path="Services/Appointment/AppointmentService.Domain/AppointmentService.Domain.csproj" />
@@ -62,7 +62,7 @@
     <Project Path="Services/Pdf/PdfService.Infrastructure/PdfService.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/Tests/" />
-  <Folder Name="/Tests/Appointment/">
+  <Folder Name="/Tests/Appointment/" Id="03901da9-97f7-9079-2881-eb39bb7ec6f8">
     <Project Path="Tests/Appointment/AppointmentService.ArchitectureTests/AppointmentService.ArchitectureTests.csproj" />
     <Project Path="Tests/Appointment/AppointmentService.UnitTests/AppointmentService.UnitTests.csproj" />
   </Folder>
@@ -74,7 +74,7 @@
     <Project Path="tests/Identity/IdentityService.ArchitectureTests/IdentityService.ArchitectureTests.csproj" />
     <Project Path="tests/Identity/IdentityService.UnitTests/IdentityService.UnitTests.csproj" />
   </Folder>
-  <Folder Name="/Tests/Location/" Id="0f4598f7-b237-6942-a69e-41e947896fb6">
+  <Folder Name="/Tests/Location/">
     <Project Path="Tests/Location/LocationService.ArchitectureTests/LocationService.ArchitectureTests.csproj" />
     <Project Path="Tests/Location/LocationService.UnitTests/LocationService.UnitTests.csproj" />
   </Folder>
