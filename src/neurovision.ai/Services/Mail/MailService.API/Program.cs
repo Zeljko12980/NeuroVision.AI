@@ -17,12 +17,7 @@ app.MapDefaultEndpoints();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    app.MapScalarApiReference(options =>
-    {
-        options
-            .WithTitle("Mail Service API")
-            .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
-    });
+    app.MapScalarApiReferenceIfAvailable("Mail Service API");
 }
 
 app.Run();

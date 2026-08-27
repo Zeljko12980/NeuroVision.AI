@@ -8,6 +8,7 @@ import ComponentCard from "../../components/common/ComponentCard";
 import Button from "../../components/ui/button/Button";
 import Badge from "../../components/ui/badge/Badge";
 import Pagination from "../../components/ui/pagination/Pagination";
+import Label from "../../components/form/Label";
 import {
     Table,
     TableBody,
@@ -27,7 +28,8 @@ import { showAlert } from "../../features/ui/uiSlice";
 import TumorTableSkeleton from "./TumorTableSkeleton";
 import TumorRefreshButton from "./TumorRefreshButton";
 import TumorTableCard, { tumorTableHeaderClass } from "./TumorTableCard";
-import { formatTumorClass, tumorStatusColor } from "./tumorUtils";
+import PatientSelect from "./PatientSelect";
+import { formatPatientName, formatTumorClass, tumorStatusColor } from "./tumorUtils";
 import type { AnalysisReportResponse } from "../../features/tumorDetection/tumorDetection.types";
 
 interface ReportsTableProps {
@@ -42,7 +44,8 @@ export default function ReportsTable({
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
     const claims = useAppSelector(selectUserClaims);
-    const { userId, role } = getUserInfoFromClaims(claims || {});
+    const { userId } = getUserInfoFromClaims(claims || {});
+    const patients = useAppSelector((s) => s.patient.items);
 
     const [reports, setReports] = useState<AnalysisReportResponse[]>([]);
     const [total, setTotal] = useState(0);
@@ -51,10 +54,11 @@ export default function ReportsTable({
     const [loading, setLoading] = useState(true);
     const [spinning, setSpinning] = useState(false);
     const [downloadingId, setDownloadingId] = useState<string | null>(null);
+    const [selectedPatientId, setSelectedPatientId] = useState("");
 
     const baseKey = `tumor.reports.${translationKey}`;
-    const isDoctor = role === "doctor" || role === "superadministrator";
-    const patientFilter = isDoctor ? undefined : userId;
+    const isDoctor = translationKey === "doctor";
+    const patientFilter = isDoctor ? selectedPatientId || undefined : userId;
     const totalPages = Math.max(1, Math.ceil(total / pageSize));
 
     const load = useCallback(async () => {
@@ -108,7 +112,22 @@ export default function ReportsTable({
 
             <div className="space-y-6">
                 <ComponentCard title={t(`${baseKey}.title`)} desc={t(`${baseKey}.description`)}>
-                    <div className="mb-3 flex justify-end">
+                    <div className="mb-3 flex flex-wrap items-end justify-between gap-3">
+                        {isDoctor ? (
+                            <div className="min-w-[240px] max-w-sm flex-1">
+                                <Label>{t("tumor.patient.label")}</Label>
+                                <PatientSelect
+                                    value={selectedPatientId}
+                                    allowAll
+                                    onChange={(patientId) => {
+                                        setSelectedPatientId(patientId);
+                                        setPage(0);
+                                    }}
+                                />
+                            </div>
+                        ) : (
+                            <div />
+                        )}
                         <TumorRefreshButton
                             label={t(`${baseKey}.actions.refresh`)}
                             spinning={spinning}
@@ -119,10 +138,10 @@ export default function ReportsTable({
                     <TumorTableCard
                         footer={
                             <Pagination
-                                currentPage={page}
+                                currentPage={page + 1}
                                 totalPages={totalPages}
                                 pageSize={pageSize}
-                                onPageChange={setPage}
+                                onPageChange={(nextPage) => setPage(nextPage - 1)}
                                 onPageSizeChange={(size) => {
                                     setPageSize(size);
                                     setPage(0);
@@ -131,11 +150,16 @@ export default function ReportsTable({
                         }
                     >
                         {loading ? (
-                            <TumorTableSkeleton columns={5} rows={6} />
+                            <TumorTableSkeleton columns={isDoctor ? 6 : 5} rows={6} />
                         ) : (
                             <Table>
                                 <TableHeader className={tumorTableHeaderClass}>
                                     <TableRow>
+                                        {isDoctor && (
+                                            <TableCell isHeader className="px-5 py-3 text-xs font-semibold uppercase">
+                                                {t("tumor.patient.label")}
+                                            </TableCell>
+                                        )}
                                         <TableCell isHeader className="px-5 py-3 text-xs font-semibold uppercase">
                                             {t(`${baseKey}.columns.scan`)}
                                         </TableCell>
@@ -156,7 +180,7 @@ export default function ReportsTable({
                                 <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
                                     {reports.length === 0 ? (
                                         <TableRow>
-                                            <TableCell colSpan={5} className="px-5 py-10 text-center text-sm text-gray-500">
+                                            <TableCell colSpan={isDoctor ? 6 : 5} className="px-5 py-10 text-center text-sm text-gray-500">
                                                 {t(`${baseKey}.empty`)}
                                             </TableCell>
                                         </TableRow>
@@ -166,6 +190,11 @@ export default function ReportsTable({
                                                 key={report.analysisId}
                                                 className="hover:bg-gray-50 dark:hover:bg-white/[0.03]"
                                             >
+                                                {isDoctor && (
+                                                    <TableCell className="px-5 py-4 text-sm">
+                                                        {formatPatientName(patients, report.patientId)}
+                                                    </TableCell>
+                                                )}
                                                 <TableCell className="px-5 py-4">
                                                     <Link
                                                         to={`${detailPathPrefix}/${report.analysisId}`}

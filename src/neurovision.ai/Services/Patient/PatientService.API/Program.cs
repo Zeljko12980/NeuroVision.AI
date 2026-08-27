@@ -45,12 +45,7 @@ app.UseMiddleware<ExceptionHandlingMiddleware>();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    app.MapScalarApiReference(options =>
-    {
-        options
-            .WithTitle("Patient Service API")
-            .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
-    });
+    app.MapScalarApiReferenceIfAvailable("Patient Service API");
 }
 app.UseCors("AllowFrontend");
 app.UseAuthentication();

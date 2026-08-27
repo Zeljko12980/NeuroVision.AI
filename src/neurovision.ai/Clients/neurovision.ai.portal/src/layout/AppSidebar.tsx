@@ -35,7 +35,9 @@ import {
     FolderIcon,
     DocsIcon,
     GlobeIcon,
-    CalenderIcon
+    CalenderIcon,
+    UserCircleIcon,
+    ChatIcon
 } from "../icons";
 
 
@@ -53,6 +55,7 @@ import {
     doctorTables,
     getEntityTableBasePath,
     patientTables,
+    tumorTables,
 } from "../features/entityTable/tables.config";
 
 
@@ -71,7 +74,7 @@ type NavItem = {
 
 const lookupTableNavItems = (
     tables: typeof doctorTables,
-    service: "doctor" | "patient"
+    service: "doctor" | "patient" | "tumor"
 ): NavItem[] =>
     tables.map((item) => ({
         nameKey: item.nameKey,
@@ -92,6 +95,18 @@ const lookupTableNavItems = (
 
 
 
+const accountNavItems: NavItem[] = [
+    {
+        nameKey: "sidebar.notifications",
+        icon: <ChatIcon />,
+        path: "/notifications"
+    },
+    {
+        nameKey: "sidebar.profile",
+        icon: <UserCircleIcon />,
+        path: "/profile"
+    }
+];
 
 
 /*
@@ -126,6 +141,11 @@ const patientNavItems: NavItem[] = [
                 nameKey: "sidebar.viewScans",
                 icon: <TableIcon />,
                 path: "/my-scans"
+            },
+            {
+                nameKey: "sidebar.addScan",
+                icon: <DocsIcon />,
+                path: "/my-scans/upload"
             }
 
         ]
@@ -160,7 +180,9 @@ const patientNavItems: NavItem[] = [
         nameKey: "sidebar.myReports",
         icon: <DocsIcon />,
         path: "/my-reports"
-    }
+    },
+
+    ...accountNavItems
 
 
 ];
@@ -292,7 +314,9 @@ const doctorNavItems: NavItem[] = [
         nameKey: "sidebar.aiMonitoring",
         icon: <InfoIcon />,
         path: "/ai-monitoring"
-    }
+    },
+
+    ...accountNavItems
 
 
 
@@ -321,6 +345,40 @@ const superAdminNavItems: NavItem[] = [
     },
 
     {
+        nameKey: "sidebar.scans",
+        icon: <FolderIcon />,
+        subItems: [
+            {
+                nameKey: "sidebar.viewScans",
+                icon: <TableIcon />,
+                path: "/scans/list"
+            },
+            {
+                nameKey: "sidebar.addScan",
+                icon: <DocsIcon />,
+                path: "/scans/add"
+            }
+        ]
+    },
+
+    {
+        nameKey: "sidebar.analysis",
+        icon: <ArrowUpIcon />,
+        subItems: [
+            {
+                nameKey: "sidebar.newAnalysis",
+                icon: <DocsIcon />,
+                path: "/analysis/new"
+            },
+            {
+                nameKey: "sidebar.archivedAnalysis",
+                icon: <DocsIcon />,
+                path: "/analysis/archive"
+            }
+        ]
+    },
+
+    {
         nameKey: "sidebar.roleManagement",
         icon: <GroupIcon />,
         subItems: [
@@ -333,6 +391,11 @@ const superAdminNavItems: NavItem[] = [
                 nameKey: "sidebar.createRole",
                 icon: <DocsIcon />,
                 path: "/admin/roles/create"
+            },
+            {
+                nameKey: "sidebar.assignRoles",
+                icon: <GroupIcon />,
+                path: "/admin/roles/assign"
             }
         ]
     },
@@ -424,6 +487,12 @@ const superAdminNavItems: NavItem[] = [
         nameKey: "sidebar.patientTables",
         icon: <TableIcon />,
         subItems: lookupTableNavItems(patientTables, "patient")
+    },
+
+    {
+        nameKey: "sidebar.tumorTables",
+        icon: <TableIcon />,
+        subItems: lookupTableNavItems(tumorTables, "tumor")
     },
 
 
@@ -1014,7 +1083,9 @@ const superAdminNavItems: NavItem[] = [
         nameKey: "sidebar.reports",
         icon: <DocsIcon />,
         path: "/admin/reports"
-    }
+    },
+
+    ...accountNavItems
 
 
 

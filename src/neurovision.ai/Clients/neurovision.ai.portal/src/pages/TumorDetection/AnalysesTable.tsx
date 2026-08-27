@@ -9,6 +9,7 @@ import Button from "../../components/ui/button/Button";
 import Badge from "../../components/ui/badge/Badge";
 import Pagination from "../../components/ui/pagination/Pagination";
 import Label from "../../components/form/Label";
+import Input from "../../components/form/input/InputField";
 import {
     Table,
     TableBody,
@@ -29,7 +30,8 @@ import { showAlert } from "../../features/ui/uiSlice";
 import TumorTableSkeleton from "./TumorTableSkeleton";
 import TumorRefreshButton from "./TumorRefreshButton";
 import TumorTableCard, { tumorTableHeaderClass } from "./TumorTableCard";
-import { formatTumorClass, tumorSelectClass, tumorStatusColor } from "./tumorUtils";
+import PatientSelect from "./PatientSelect";
+import { formatPatientName, formatTumorClass, primaryFindingClass, tumorSelectClass, tumorStatusColor } from "./tumorUtils";
 import { useTumorAnalysisHub } from "../../features/tumorDetection/useTumorAnalysisHub";
 import type { AnalysisStatusNotification } from "../../features/tumorDetection/tumorDetection.types";
 
@@ -47,10 +49,11 @@ export default function AnalysesTable({
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
     const claims = useAppSelector(selectUserClaims);
-    const { userId, role } = getUserInfoFromClaims(claims || {});
+    const { userId } = getUserInfoFromClaims(claims || {});
 
     const analyses = useAppSelector((s) => s.tumorDetection.analyses);
     const scans = useAppSelector((s) => s.tumorDetection.scans);
+    const patients = useAppSelector((s) => s.patient.items);
     const total = useAppSelector((s) => s.tumorDetection.analysesTotal);
     const starting = useAppSelector((s) => s.tumorDetection.startingAnalysis);
 
@@ -59,10 +62,15 @@ export default function AnalysesTable({
     const [selectedScanId, setSelectedScanId] = useState("");
     const [spinning, setSpinning] = useState(false);
     const [fetching, setFetching] = useState(false);
+    const [selectedPatientId, setSelectedPatientId] = useState("");
+    const [fromInput, setFromInput] = useState("");
+    const [toInput, setToInput] = useState("");
+    const [appliedFrom, setAppliedFrom] = useState("");
+    const [appliedTo, setAppliedTo] = useState("");
 
     const baseKey = `tumor.analyses.${translationKey}${archived ? "Archive" : ""}`;
-    const isDoctor = role === "doctor" || role === "superadministrator";
-    const patientFilter = isDoctor ? undefined : userId;
+    const isDoctor = translationKey === "doctor";
+    const patientFilter = isDoctor ? selectedPatientId || undefined : userId;
     const totalPages = Math.max(1, Math.ceil(total / pageSize));
 
     const load = useCallback(async () => {
@@ -72,6 +80,8 @@ export default function AnalysesTable({
             await dispatch(
                 loadAnalyses({
                     patientId: patientFilter,
+                    from: appliedFrom || undefined,
+                    to: appliedTo || undefined,
                     page: page + 1,
                     pageSize,
                     archived,
@@ -97,7 +107,7 @@ export default function AnalysesTable({
             setSpinning(false);
             setFetching(false);
         }
-    }, [archived, baseKey, dispatch, page, pageSize, patientFilter, selectedScanId, t]);
+    }, [archived, appliedFrom, appliedTo, baseKey, dispatch, page, pageSize, patientFilter, selectedScanId, t]);
 
     useEffect(() => {
         load();
@@ -149,12 +159,12 @@ export default function AnalysesTable({
 
         try {
             await dispatch(
-                runAnalysis({ brainScanId: selectedScanId, requestedByUserId: userId })
+                runAnalysis({ brainScanId: selectedScanId })
             ).unwrap();
 
             dispatch(
                 showAlert({
-                    type: "info",
+                    type: "success",
                     message: t(`${baseKey}.messages.analysisStarted`),
                 })
             );
@@ -170,6 +180,28 @@ export default function AnalysesTable({
         }
     };
 
+    const applyFilters = () => {
+        setAppliedFrom(fromInput);
+        setAppliedTo(toInput);
+        setPage(0);
+    };
+
+    const clearFilters = () => {
+        setSelectedPatientId("");
+        setSelectedScanId("");
+        setFromInput("");
+        setToInput("");
+        setAppliedFrom("");
+        setAppliedTo("");
+        setPage(0);
+    };
+
+    const handlePatientChange = (patientId: string) => {
+        setSelectedPatientId(patientId);
+        setSelectedScanId("");
+        setPage(0);
+    };
+
     return (
         <>
             <PageMeta
@@ -182,6 +214,16 @@ export default function AnalysesTable({
                 {!archived && (
                     <ComponentCard title={t(`${baseKey}.startTitle`)}>
                         <div className="flex flex-wrap items-end gap-4">
+                            {isDoctor && (
+                                <div className="min-w-[240px] flex-1">
+                                    <Label>{t("tumor.patient.label")}</Label>
+                                    <PatientSelect
+                                        value={selectedPatientId}
+                                        allowAll
+                                        onChange={handlePatientChange}
+                                    />
+                                </div>
+                            )}
                             <div className="min-w-[280px] flex-1">
                                 <Label>{t(`${baseKey}.fields.scan`)}</Label>
                                 <select
@@ -189,9 +231,14 @@ export default function AnalysesTable({
                                     value={selectedScanId}
                                     onChange={(e) => setSelectedScanId(e.target.value)}
                                 >
+                                    {scans.length === 0 && (
+                                        <option value="">{t(`${baseKey}.fields.scanEmpty`)}</option>
+                                    )}
                                     {scans.map((scan) => (
                                         <option key={scan.id} value={scan.id}>
-                                            {scan.fileName}
+                                            {isDoctor && !patientFilter
+                                                ? `${formatPatientName(patients, scan.patientId)} — ${scan.fileName}`
+                                                : scan.fileName}
                                         </option>
                                     ))}
                                 </select>
@@ -209,21 +256,53 @@ export default function AnalysesTable({
                 )}
 
                 <ComponentCard title={t(`${baseKey}.title`)}>
-                    <div className="flex justify-end mb-3">
-                        <TumorRefreshButton
-                            label={t("common.actions.refresh")}
-                            spinning={spinning}
-                            onClick={load}
-                        />
+                    <div className="mb-4 flex flex-wrap items-end gap-3">
+                        {isDoctor && (
+                            <div className="min-w-[240px] flex-1">
+                                <Label>{t("tumor.patient.label")}</Label>
+                                <PatientSelect
+                                    value={selectedPatientId}
+                                    allowAll
+                                    onChange={handlePatientChange}
+                                />
+                            </div>
+                        )}
+                        <div className="min-w-[160px]">
+                            <Label>{t("tumor.analyses.filters.from")}</Label>
+                            <Input
+                                type="date"
+                                value={fromInput}
+                                onChange={(e) => setFromInput(e.target.value)}
+                            />
+                        </div>
+                        <div className="min-w-[160px]">
+                            <Label>{t("tumor.analyses.filters.to")}</Label>
+                            <Input
+                                type="date"
+                                value={toInput}
+                                onChange={(e) => setToInput(e.target.value)}
+                            />
+                        </div>
+                        <Button onClick={applyFilters}>{t("tumor.analyses.filters.apply")}</Button>
+                        <Button variant="outline" onClick={clearFilters}>
+                            {t("tumor.analyses.filters.clear")}
+                        </Button>
+                        <div className="ml-auto">
+                            <TumorRefreshButton
+                                label={t("common.actions.refresh")}
+                                spinning={spinning}
+                                onClick={load}
+                            />
+                        </div>
                     </div>
 
                     <TumorTableCard
                         footer={
                             <Pagination
-                                currentPage={page}
+                                currentPage={page + 1}
                                 totalPages={totalPages}
                                 pageSize={pageSize}
-                                onPageChange={setPage}
+                                onPageChange={(nextPage) => setPage(nextPage - 1)}
                                 onPageSizeChange={(size) => {
                                     setPageSize(size);
                                     setPage(0);
@@ -234,6 +313,11 @@ export default function AnalysesTable({
                         <Table>
                             <TableHeader className={tumorTableHeaderClass}>
                                     <TableRow>
+                                        {isDoctor && (
+                                            <TableCell isHeader className="px-5 py-3 text-xs font-semibold uppercase">
+                                                {t("tumor.patient.label")}
+                                            </TableCell>
+                                        )}
                                         <TableCell isHeader className="px-5 py-3 text-xs font-semibold uppercase">
                                             {t(`${baseKey}.columns.scan`)}
                                         </TableCell>
@@ -256,10 +340,10 @@ export default function AnalysesTable({
                                 </TableHeader>
                                 <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
                                     {fetching ? (
-                                        <TumorTableSkeleton rows={5} columns={6} />
+                                        <TumorTableSkeleton rows={5} columns={isDoctor ? 7 : 6} />
                                     ) : analyses.length === 0 ? (
                                         <TableRow>
-                                            <TableCell colSpan={6} className="px-5 py-8 text-center text-sm text-gray-500">
+                                            <TableCell colSpan={isDoctor ? 7 : 6} className="px-5 py-8 text-center text-sm text-gray-500">
                                                 {t(`${baseKey}.empty`)}
                                             </TableCell>
                                         </TableRow>
@@ -269,6 +353,11 @@ export default function AnalysesTable({
                                                 key={analysis.id}
                                                 className="hover:bg-gray-50 dark:hover:bg-white/[0.03] transition"
                                             >
+                                                {isDoctor && (
+                                                    <TableCell className="px-5 py-4 text-sm">
+                                                        {formatPatientName(patients, analysis.patientId)}
+                                                    </TableCell>
+                                                )}
                                                 <TableCell className="px-5 py-4 text-sm font-medium">
                                                     {analysis.scanFileName}
                                                 </TableCell>
@@ -278,9 +367,9 @@ export default function AnalysesTable({
                                                     </Badge>
                                                 </TableCell>
                                                 <TableCell className="px-5 py-4 text-sm">
-                                                    {analysis.classificationClass ? (
+                                                    {primaryFindingClass(analysis) ? (
                                                         <Badge color="primary" size="sm">
-                                                            {formatTumorClass(analysis.classificationClass, t)}
+                                                            {formatTumorClass(primaryFindingClass(analysis), t)}
                                                         </Badge>
                                                     ) : (
                                                         "—"

@@ -24,12 +24,7 @@ app.UseSerilogRequestLogging();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    app.MapScalarApiReference(options =>
-    {
-        options
-            .WithTitle("Location Service API")
-            .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
-    });
+    app.MapScalarApiReferenceIfAvailable("Location Service API");
 }
 
 app.UseAuthentication();

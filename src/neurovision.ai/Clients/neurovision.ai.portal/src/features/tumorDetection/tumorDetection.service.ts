@@ -1,13 +1,18 @@
 import { del, get, post, put } from "../../api/api";
 import type {
+    AiModelTypeResponse,
     AiModelVersionResponse,
+    AnalysisErrorLogResponse,
     AnalysisReportResponse,
     AnalysisResponse,
     AnalysisStatisticsResponse,
     BrainScanResponse,
+    ClinicalCatalogsResponse,
+    ClinicalFollowUpResponse,
     CommentResponse,
     PaginatedResponse,
     ScanType,
+    UpsertClinicalFollowUpRequest,
 } from "./tumorDetection.types";
 
 const base = "/tumor";
@@ -25,23 +30,20 @@ export const fetchScans = async (
 
 export const uploadScan = async (params: {
     patientId: string;
-    uploadedByUserId: string;
     scanType: ScanType;
     file: File;
 }): Promise<BrainScanResponse> => {
     const formData = new FormData();
     formData.append("patientId", params.patientId);
-    formData.append("uploadedByUserId", params.uploadedByUserId);
     formData.append("scanType", params.scanType);
     formData.append("file", params.file);
     return post(`${base}/scans`, formData);
 };
 
 export const startAnalysis = async (
-    brainScanId: string,
-    requestedByUserId: string
+    brainScanId: string
 ): Promise<AnalysisResponse> =>
-    post(`${base}/analyses`, { brainScanId, requestedByUserId });
+    post(`${base}/analyses`, { brainScanId });
 
 export const fetchAnalysis = async (analysisId: string): Promise<AnalysisResponse> =>
     get(`${base}/analyses/${analysisId}`);
@@ -72,49 +74,91 @@ export const fetchStatistics = async (): Promise<AnalysisStatisticsResponse> =>
 export const fetchModelVersions = async (): Promise<AiModelVersionResponse[]> =>
     get(`${base}/models`);
 
+export const fetchModelTypes = async (): Promise<AiModelTypeResponse[]> => {
+    const result = await get(`${base}/model-types?pageIndex=0&pageSize=100`);
+    return result?.data ?? [];
+};
+
 export const registerModelVersion = async (payload: {
     taskType: number;
     versionLabel: string;
     runId: string;
     weightsPath: string;
-    registeredByUserId: string;
     setActive?: boolean;
 }): Promise<AiModelVersionResponse> => post(`${base}/models`, payload);
+
+export const activateModelVersion = async (id: string): Promise<AiModelVersionResponse> =>
+    post(`${base}/models/${id}/activate`, {});
+
+export const uploadModelVersion = async (payload: {
+    taskType: number | string;
+    versionLabel: string;
+    runId?: string;
+    setActive?: boolean;
+    file: File;
+}): Promise<AiModelVersionResponse> => {
+    const formData = new FormData();
+    formData.append("taskType", String(payload.taskType));
+    formData.append("versionLabel", payload.versionLabel);
+    if (payload.runId) formData.append("runId", payload.runId);
+    formData.append("setActive", String(payload.setActive ?? true));
+    formData.append("file", payload.file, payload.file.name);
+    return post(`${base}/models/upload`, formData);
+};
+
+export const fetchAnalysisErrors = async (
+    page = 1,
+    pageSize = 10
+): Promise<PaginatedResponse<AnalysisErrorLogResponse>> =>
+    get(`${base}/analyses/errors?${new URLSearchParams({
+        page: String(page),
+        pageSize: String(pageSize),
+    }).toString()}`);
 
 export const fetchComments = async (analysisId: string): Promise<CommentResponse[]> =>
     get(`${base}/analyses/${analysisId}/comments`);
 
 export const addComment = async (
     analysisId: string,
-    authorUserId: string,
     content: string
 ): Promise<CommentResponse> =>
-    post(`${base}/analyses/${analysisId}/comments`, { authorUserId, content });
+    post(`${base}/analyses/${analysisId}/comments`, { content });
 
 export const updateComment = async (
     analysisId: string,
     commentId: string,
-    authorUserId: string,
     content: string
 ): Promise<CommentResponse> =>
-    put(`${base}/analyses/${analysisId}/comments/${commentId}`, { authorUserId, content });
+    put(`${base}/analyses/${analysisId}/comments/${commentId}`, { content });
 
 export const deleteComment = async (
     analysisId: string,
-    commentId: string,
-    authorUserId: string
+    commentId: string
 ): Promise<void> =>
-    del(`${base}/analyses/${analysisId}/comments/${commentId}?authorUserId=${authorUserId}`);
+    del(`${base}/analyses/${analysisId}/comments/${commentId}`);
 
 export const applyManualCorrection = async (
     analysisId: string,
     payload: {
-        correctedByUserId: string;
         correctedClass: number;
         notes?: string;
     }
 ): Promise<AnalysisResponse> =>
     post(`${base}/analyses/${analysisId}/correction`, payload);
+
+export const fetchClinicalCatalogs = async (): Promise<ClinicalCatalogsResponse> =>
+    get(`${base}/clinical-catalogs`);
+
+export const fetchClinicalFollowUp = async (
+    analysisId: string
+): Promise<ClinicalFollowUpResponse | null> =>
+    get(`${base}/analyses/${analysisId}/follow-up`);
+
+export const saveClinicalFollowUp = async (
+    analysisId: string,
+    payload: UpsertClinicalFollowUpRequest
+): Promise<ClinicalFollowUpResponse> =>
+    put(`${base}/analyses/${analysisId}/follow-up`, payload);
 
 export const generateAnalysisReport = async (
     analysisId: string,

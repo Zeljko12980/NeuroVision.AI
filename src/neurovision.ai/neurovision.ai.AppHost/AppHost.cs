@@ -45,6 +45,7 @@ var doctorDb = postgres.AddDatabase("doctordb");
 var patientDb = postgres.AddDatabase("patientdb");
 var notificationDb = postgres.AddDatabase("notificationdb");
 var appointmentDb = postgres.AddDatabase("appointmentdb");
+var tumorDetectionDb = postgres.AddDatabase("tumordetectiondb");
 
 
 //MESSAGING
@@ -175,6 +176,19 @@ var appointmentService = WithJwt(builder.AddProject<Projects.AppointmentService_
        .WithEnvironment("Observability__ServiceName", "appointmentservice-api")
        .WithEnvironment("Observability__LokiUrl", loki.GetEndpoint("http")));
 
+var tumorDetectionService = WithJwt(builder.AddProject<Projects.TumorDetectionService_API>("tumordetectionservice-api")
+       .WaitFor(rabbitmq)
+       .WithReference(rabbitmq)
+       .WaitFor(tumorDetectionDb)
+       .WithReference(tumorDetectionDb)
+       .WithReference(pdfService)
+       .WaitFor(loki)
+       .WithHttpEndpoint(name: "http", port: 6008, isProxied: false)
+       .WithHttpHealthCheck("/health")
+       .WithEnvironment("Observability__ServiceName", "tumordetectionservice-api")
+       .WithEnvironment("Observability__LokiUrl", loki.GetEndpoint("http"))
+       .WithEnvironment("PdfService__GrpcUrl", pdfService.GetEndpoint("grpc")));
+
 
 //GATEWAY
 
@@ -192,7 +206,19 @@ var gateway = builder.AddProject<Projects.Gateway_API>("gateway-api")
     .WaitFor(notificationService)
     .WithReference(notificationService)
     .WaitFor(appointmentService)
-    .WithReference(appointmentService);
+    .WithReference(appointmentService)
+    .WaitFor(tumorDetectionService)
+    .WithReference(tumorDetectionService)
+    .WithHttpEndpoint(name: "http", port: 5000, isProxied: false)
+    .WithHttpsEndpoint(name: "https", port: 5050, isProxied: false)
+    .WithEnvironment("Services__identity", "https://localhost:6060/health")
+    .WithEnvironment("Services__pdf", "http://localhost:6002/health")
+    .WithEnvironment("Services__location", "http://localhost:6003/health")
+    .WithEnvironment("Services__doctor", "http://localhost:6004/health")
+    .WithEnvironment("Services__patient", "http://localhost:6005/health")
+    .WithEnvironment("Services__notification", "http://localhost:6006/health")
+    .WithEnvironment("Services__appointment", "http://localhost:6007/health")
+    .WithEnvironment("Services__tumor", "http://localhost:6008/health");
 
 //FRONTEND
 

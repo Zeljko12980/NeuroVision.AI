@@ -4,7 +4,7 @@
   "tags": ["neurovision"],
   "timezone": "browser",
   "schemaVersion": 39,
-  "version": 5,
+  "version": 6,
   "refresh": "5s",
   "time": { "from": "now-15m", "to": "now" },
   "panels": [
@@ -180,6 +180,25 @@
       }
     },
     {
+      "id": 23,
+      "type": "stat",
+      "title": "Tumor scrape",
+      "gridPos": { "h": 4, "w": 2, "x": 0, "y": 4 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "targets": [
+        { "refId": "A", "expr": "up{job=\"tumor\"}" }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            { "type": "value", "options": { "0": { "text": "DOWN", "color": "red" }, "1": { "text": "UP", "color": "green" } } }
+          ],
+          "thresholds": { "mode": "absolute", "steps": [{ "color": "red", "value": null }, { "color": "green", "value": 1 }] }
+        },
+        "overrides": []
+      }
+    },
+    {
       "id": 3,
       "type": "stat",
       "title": "Request rate",
@@ -211,7 +230,7 @@
       "id": 5,
       "type": "timeseries",
       "title": "HTTP requests / sec",
-      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 4 },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
       "datasource": { "type": "prometheus", "uid": "prometheus" },
       "targets": [
         { "refId": "A", "expr": "sum by (job) (rate(http_server_request_duration_seconds_count[1m]))", "legendFormat": "{{job}}" }
@@ -221,7 +240,7 @@
       "id": 6,
       "type": "timeseries",
       "title": "GC heap size",
-      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 4 },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
       "datasource": { "type": "prometheus", "uid": "prometheus" },
       "targets": [
         { "refId": "A", "expr": "process_runtime_dotnet_gc_heap_size_bytes", "legendFormat": "{{job}}" }
@@ -235,7 +254,7 @@
       "id": 7,
       "type": "logs",
       "title": "Identity logs",
-      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 12 },
+      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 16 },
       "datasource": { "type": "loki", "uid": "loki" },
       "targets": [
         { "refId": "A", "expr": "{service=\"identityservice-api\"}" }
@@ -245,7 +264,7 @@
       "id": 9,
       "type": "logs",
       "title": "Mail logs",
-      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 22 },
+      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 26 },
       "datasource": { "type": "loki", "uid": "loki" },
       "targets": [
         { "refId": "A", "expr": "{service=~\"MailService|mailservice-api\"}" }
@@ -255,7 +274,7 @@
       "id": 11,
       "type": "logs",
       "title": "PDF logs",
-      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 32 },
+      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 36 },
       "datasource": { "type": "loki", "uid": "loki" },
       "targets": [
         { "refId": "A", "expr": "{service=~\"PdfService|pdfservice-api\"}" }
@@ -265,7 +284,7 @@
       "id": 13,
       "type": "logs",
       "title": "Location logs",
-      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 42 },
+      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 46 },
       "datasource": { "type": "loki", "uid": "loki" },
       "targets": [
         { "refId": "A", "expr": "{service=~\"LocationService|locationservice-api\"}" }
@@ -275,7 +294,7 @@
       "id": 15,
       "type": "logs",
       "title": "Doctor logs",
-      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 52 },
+      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 56 },
       "datasource": { "type": "loki", "uid": "loki" },
       "targets": [
         { "refId": "A", "expr": "{service=~\"DoctorService|doctorservice-api\"}" }
@@ -285,7 +304,7 @@
       "id": 18,
       "type": "logs",
       "title": "Patient logs",
-      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 62 },
+      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 66 },
       "datasource": { "type": "loki", "uid": "loki" },
       "targets": [
         { "refId": "A", "expr": "{service=~\"PatientService|patientservice-api\"}" }
@@ -295,7 +314,7 @@
       "id": 21,
       "type": "logs",
       "title": "Notification logs",
-      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 72 },
+      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 76 },
       "datasource": { "type": "loki", "uid": "loki" },
       "targets": [
         { "refId": "A", "expr": "{service=~\"NotificationService|notificationservice-api\"}" }
@@ -305,10 +324,20 @@
       "id": 22,
       "type": "logs",
       "title": "Appointment logs",
-      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 82 },
+      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 86 },
       "datasource": { "type": "loki", "uid": "loki" },
       "targets": [
         { "refId": "A", "expr": "{service=~\"AppointmentService|appointmentservice-api\"}" }
+      ]
+    },
+    {
+      "id": 24,
+      "type": "logs",
+      "title": "Tumor detection logs",
+      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 96 },
+      "datasource": { "type": "loki", "uid": "loki" },
+      "targets": [
+        { "refId": "A", "expr": "{service=~\"TumorDetectionService|tumordetectionservice-api\"}" }
       ]
     }
   ]

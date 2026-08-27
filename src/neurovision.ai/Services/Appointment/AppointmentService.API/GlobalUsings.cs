@@ -10,5 +10,4 @@ global using AppointmentService.Infrastructure;
 global using AppointmentService.Infrastructure.Persistence;
 global using AppointmentService.Infrastructure.Seeding;
 global using Microsoft.EntityFrameworkCore;
-global using Scalar.AspNetCore;
 global using Serilog;

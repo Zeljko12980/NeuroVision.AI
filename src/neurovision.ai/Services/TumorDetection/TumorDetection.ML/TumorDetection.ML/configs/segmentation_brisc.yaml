@@ -1,0 +1,9 @@
+task: segmentation
+model: yolo11n-seg.pt
+epochs: 40
+imgsz: 640
+batch: 8
+patience: 10
+workers: 4
+lr0: 0.001
+lrf: 0.01

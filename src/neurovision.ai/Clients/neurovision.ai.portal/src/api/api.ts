@@ -29,16 +29,20 @@ const handleResponse = async (response: Response) => {
 
     if (!response.ok) {
 
+        if (response.status === 413) {
+            throw new Error("File is too large.");
+        }
+
         const errorText = await response.text();
         let message = errorText || "Request failed";
 
         try {
             const parsed = JSON.parse(errorText);
             message =
+                firstValidationError(parsed.errors) ||
                 parsed.detail ||
                 parsed.title ||
                 parsed.error ||
-                firstValidationError(parsed.errors) ||
                 message;
         } catch {
             // plain text error
@@ -97,6 +101,8 @@ export const getAnalysisImagePath = (
     analysisId: string,
     kind: "scan" | "annotated" | "detection" | "segmentation" | "mask"
 ) => `/tumor/analyses/${analysisId}/images/${kind}`;
+
+export const getScanImagePath = (scanId: string) => `/tumor/scans/${scanId}/image`;
 
 
 

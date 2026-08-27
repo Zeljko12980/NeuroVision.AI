@@ -47,6 +47,8 @@ namespace Gateway.API.Service
                     ? "Healthy"
                     : "Unhealthy",
 
+                HealthyCount = services.Count(x => x.Status == "Healthy"),
+                UnhealthyCount = services.Count(x => x.Status != "Healthy"),
 
                 Services = new PaginatedResult<ServiceHealthResponse>(
                     request.PageIndex,

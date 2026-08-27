@@ -43,12 +43,7 @@ app.UseMiddleware<ExceptionHandlingMiddleware>();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    app.MapScalarApiReference(options =>
-    {
-        options
-            .WithTitle("Appointment Service API")
-            .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
-    });
+    app.MapScalarApiReferenceIfAvailable("Appointment Service API");
 }
 
 app.UseCors("AllowFrontend");

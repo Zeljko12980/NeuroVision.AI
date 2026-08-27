@@ -70,6 +70,8 @@ import CreateLegalSuccessorPage from "./pages/Location/legalSuccessor/CreateLega
 import GovernmentHistoriesTable from "./pages/Location/governmentHistory/GovernmentHistoriesTable";
 import CreateGovernmentHistoryPage from "./pages/Location/governmentHistory/CreateGovernmentHistoryPage";
 import HealthPage from "./pages/Health/HealthPage";
+import LogsPage from "./pages/Admin/LogsPage";
+import SettingsPage from "./pages/Admin/SettingsPage";
 import ScansTable from "./pages/TumorDetection/ScansTable";
 import UploadScanPage from "./pages/TumorDetection/UploadScanPage";
 import AnalysesTable from "./pages/TumorDetection/AnalysesTable";
@@ -101,7 +103,6 @@ export default function App() {
                     <Route path="/confirm-email" element={<ConfirmEmailPage />} />
                     <Route path="/set-password" element={<SetPasswordPage />} />
                     <Route path="/reset-password" element={<ResetPasswordPage />} />
-                    <Route path="*" element={<NotFound />} />
 
                     <Route
                         element={
@@ -147,6 +148,8 @@ export default function App() {
                             <Route path="/admin/patients/add" element={<CreatePatientPage />} />
                             <Route path="/admin/patients/tables/:table" element={<EntityTablePage service="patient" />} />
                             <Route path="/admin/patients/tables/:table/create" element={<CreateEntityTablePage service="patient" />} />
+                            <Route path="/admin/tumor/tables/:table" element={<EntityTablePage service="tumor" />} />
+                            <Route path="/admin/tumor/tables/:table/create" element={<CreateEntityTablePage service="tumor" />} />
                             <Route path="/admin/pdfs" element={<PdfTable />} />
                             <Route path="/admin/pdfs/create" element={<CreatePdfTemplatePage />} />
                             <Route path="/admin/certificates" element={<CertificateTable />} />
@@ -189,12 +192,15 @@ export default function App() {
 
                             <Route path="/admin/health" element={<HealthPage />} />
                             <Route path="/admin/ai-monitoring" element={<AiMonitoringPage />} />
+                            <Route path="/admin/logs" element={<LogsPage />} />
+                            <Route path="/admin/settings" element={<SettingsPage />} />
                             <Route path="/admin/reports" element={<ReportsTable detailPathPrefix="/analysis" translationKey="doctor" />} />
                         </Route>
 
                         <Route path="/profile" element={<UserProfiles />} />
                         <Route path="/notifications" element={<NotificationsPage />} />
                         <Route path="/calendar" element={<Calendar />} />
+                        <Route path="*" element={<NotFound />} />
                     </Route>
                 </Routes>
             </Router>

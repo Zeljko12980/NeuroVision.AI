@@ -1,0 +1,16 @@
+global using BuildingBlocks.Auth;
+global using BuildingBlocks.Exceptions.Handler;
+global using BuildingBlocks.Logging;
+global using Microsoft.AspNetCore.Authentication.JwtBearer;
+global using Microsoft.AspNetCore.Authorization;
+global using Microsoft.AspNetCore.SignalR;
+global using Microsoft.EntityFrameworkCore;
+global using Serilog;
+global using TumorDetectionService.API;
+global using TumorDetectionService.API.Hubs;
+global using TumorDetectionService.API.Middleware;
+global using TumorDetectionService.API.Services;
+global using TumorDetectionService.Application;
+global using TumorDetectionService.Application.Common.Interfaces;
+global using TumorDetectionService.Infrastructure;
+global using TumorDetectionService.Infrastructure.Persistence;

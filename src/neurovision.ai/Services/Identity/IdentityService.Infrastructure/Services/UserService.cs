@@ -273,7 +273,7 @@ public class UserService : IUserService
         if (user == null)
         {
             _logger.LogWarning("Delete failed. User not found. UserId={UserId}", userId);
-            return Result.Fail("User not found");
+            return Result.Fail("User not found", HttpStatusCode.NotFound);
         }
 
         var result = await _userManager.DeleteAsync(user);

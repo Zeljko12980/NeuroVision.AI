@@ -3,14 +3,20 @@ using Gateway.API.Common.Interface;
 using Gateway.API.Common.Model;
 using Gateway.API.Service;
 using Microsoft.Extensions.ServiceDiscovery;
-using Scalar.AspNetCore;
 using System.Net;
 using System.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.AddServiceDefaults();
+builder.Services.Configure<Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions>(options =>
+{
+    options.Limits.MaxRequestBodySize = 536_870_912;
+});
+builder.Services.Configure<Microsoft.AspNetCore.Http.Features.FormOptions>(options =>
+{
+    options.MultipartBodyLengthLimit = 536_870_912;
+});
 
 
 builder.Services.Configure<ServiceEndpointsOptions>(options =>
@@ -39,6 +45,10 @@ builder.Services.AddHttpClient("yarp-forwarder")
         UseCookies = false,
         ActivityHeadersPropagator = DistributedContextPropagator.Current,
         ConnectTimeout = TimeSpan.FromSeconds(15),
+    })
+    .ConfigureHttpClient(client =>
+    {
+        client.Timeout = TimeSpan.FromMinutes(10);
     });
 
 builder.Services
@@ -85,12 +95,7 @@ app.MapDefaultEndpoints();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    app.MapScalarApiReference(options =>
-    {
-        options
-            .WithTitle("Gateway API")
-            .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
-    });
+    app.MapScalarApiReferenceIfAvailable("Gateway API");
 }
 
 app.MapReverseProxy();

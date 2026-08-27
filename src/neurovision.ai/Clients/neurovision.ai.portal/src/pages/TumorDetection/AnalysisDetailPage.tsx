@@ -22,10 +22,12 @@ import { getUserInfoFromClaims } from "../../utils/claims";
 import {
     addComment,
     applyManualCorrection,
+    deleteComment,
     downloadAnalysisReport,
     fetchAnalysis,
     fetchComments,
     generateAnalysisReport,
+    updateComment,
 } from "../../features/tumorDetection/tumorDetection.service";
 import { showAlert } from "../../features/ui/uiSlice";
 import type {
@@ -36,9 +38,11 @@ import type {
 import AnalysisImageViewer from "./AnalysisImageViewer";
 import { useTumorAnalysisHub } from "../../features/tumorDetection/useTumorAnalysisHub";
 import { useClientPagination } from "./useClientPagination";
-import { formatTumorClass, tumorSelectClass, tumorStatusColor, tumorTextareaClass } from "./tumorUtils";
+import { formatTumorClass, isNoTumorClass, primaryDetection, primaryFindingClass, tumorClassToCorrectionValue, tumorClassesDisagree, tumorSelectClass, tumorStatusColor, tumorTextareaClass } from "./tumorUtils";
 import TumorStatCard from "./TumorStatCard";
 import TumorPanel from "./TumorPanel";
+import AnalysisFollowUpCard from "./AnalysisFollowUpCard";
+import ConfirmDialog from "../../components/ui/dialog/ConfirmDialog";
 import TumorTableCard, { tumorTableHeaderClass } from "./TumorTableCard";
 
 interface AnalysisDetailPageProps {
@@ -76,6 +80,10 @@ export default function AnalysisDetailPage({
     const [analysis, setAnalysis] = useState<AnalysisResponse | null>(null);
     const [comments, setComments] = useState<CommentResponse[]>([]);
     const [commentText, setCommentText] = useState("");
+    const [editingCommentId, setEditingCommentId] = useState<string | null>(null);
+    const [editingText, setEditingText] = useState("");
+    const [commentToDelete, setCommentToDelete] = useState<string | null>(null);
+    const [deletingComment, setDeletingComment] = useState(false);
     const [correctionClass, setCorrectionClass] = useState("1");
     const [loading, setLoading] = useState(true);
     const [generatingReport, setGeneratingReport] = useState(false);
@@ -100,6 +108,9 @@ export default function AnalysisDetailPage({
             ]);
             setAnalysis(analysisResult);
             setComments(commentsResult);
+            setCorrectionClass(
+                tumorClassToCorrectionValue(primaryFindingClass(analysisResult))
+            );
         } catch (err: any) {
             dispatch(
                 showAlert({
@@ -148,17 +159,19 @@ export default function AnalysisDetailPage({
         [analysisId, dispatch, load, t, baseKey]
     );
 
+    const isStaff = ["doctor", "superadministrator"].includes((role || "").toLowerCase());
+
     useTumorAnalysisHub({
         analysisId,
         patientId: userId,
-        isDoctor: role === "doctor" || role === "superadministrator",
+        isDoctor: isStaff,
         onStatusChanged: handleAnalysisStatusChanged,
     });
 
     const handleAddComment = async () => {
-        if (!analysisId || !userId || !commentText.trim()) return;
+        if (!isStaff || !analysisId || !userId || !commentText.trim()) return;
         try {
-            await addComment(analysisId, userId, commentText.trim());
+            await addComment(analysisId, commentText.trim());
             setCommentText("");
             await load(true);
             dispatch(showAlert({ type: "success", message: t(`${baseKey}.messages.commentSuccess`) }));
@@ -167,11 +180,38 @@ export default function AnalysisDetailPage({
         }
     };
 
+    const handleSaveComment = async () => {
+        if (!isStaff || !analysisId || !editingCommentId || !editingText.trim()) return;
+        try {
+            await updateComment(analysisId, editingCommentId, editingText.trim());
+            setEditingCommentId(null);
+            setEditingText("");
+            await load(true);
+            dispatch(showAlert({ type: "success", message: t(`${baseKey}.messages.commentUpdated`) }));
+        } catch (err: any) {
+            dispatch(showAlert({ type: "error", message: err?.message ?? t(`${baseKey}.messages.commentUpdateError`) }));
+        }
+    };
+
+    const handleConfirmDeleteComment = async () => {
+        if (!isStaff || !analysisId || !commentToDelete) return;
+        try {
+            setDeletingComment(true);
+            await deleteComment(analysisId, commentToDelete);
+            setCommentToDelete(null);
+            await load(true);
+            dispatch(showAlert({ type: "success", message: t(`${baseKey}.messages.commentDeleted`) }));
+        } catch (err: any) {
+            dispatch(showAlert({ type: "error", message: err?.message ?? t(`${baseKey}.messages.commentDeleteError`) }));
+        } finally {
+            setDeletingComment(false);
+        }
+    };
+
     const handleCorrection = async () => {
-        if (!analysisId || !userId) return;
+        if (!isStaff || !analysisId || !userId) return;
         try {
             await applyManualCorrection(analysisId, {
-                correctedByUserId: userId,
                 correctedClass: Number(correctionClass),
             });
             await load(true);
@@ -227,9 +267,15 @@ export default function AnalysisDetailPage({
         return <p className="px-6 py-8">{t(`${baseKey}.notFound`)}</p>;
     }
 
-    const canCorrect = role === "doctor" || role === "superadministrator";
+    const canCorrect = isStaff && translationKey !== "patient";
     const isDone = analysis.status === "Completed" || analysis.status === "Corrected";
     const listPath = isDone ? `${detailPathPrefix}/archive` : `${detailPathPrefix}/new`;
+    const topDetection = primaryDetection(analysis.detections);
+    const findingClass = primaryFindingClass(analysis);
+    const modelsDisagree = tumorClassesDisagree(
+        analysis.classificationClass,
+        topDetection?.className
+    );
 
     return (
         <>
@@ -256,21 +302,38 @@ export default function AnalysisDetailPage({
                             accent="text-gray-800 dark:text-white"
                         />
                         <TumorStatCard
-                            label={t(`${baseKey}.fields.classification`)}
-                            value={formatTumorClass(analysis.classificationClass, t)}
+                            label={t("tumor.models.detection")}
+                            value={formatTumorClass(topDetection?.className ?? findingClass, t)}
                             accent="text-brand-600 dark:text-brand-400"
+                        />
+                        <TumorStatCard
+                            label={t("tumor.models.classification")}
+                            value={formatTumorClass(analysis.classificationClass, t)}
+                            accent="text-gray-800 dark:text-white"
                         />
                         <TumorStatCard
                             label={t(`${baseKey}.fields.confidence`)}
                             value={
-                                analysis.classificationConfidence != null ? (
-                                    <ConfidenceBar value={analysis.classificationConfidence} />
+                                (topDetection?.confidence ?? analysis.classificationConfidence) != null ? (
+                                    <ConfidenceBar
+                                        value={topDetection?.confidence ?? analysis.classificationConfidence ?? 0}
+                                    />
                                 ) : (
                                     "—"
                                 )
                             }
                             accent="text-gray-800 dark:text-white"
                         />
+                    </div>
+                    {modelsDisagree && (
+                        <p className="mt-4 rounded-xl border border-warning-500 bg-warning-50 px-4 py-3 text-sm text-warning-600 dark:border-warning-500/30 dark:bg-warning-500/10 dark:text-orange-400">
+                            {t("tumor.models.mismatch", {
+                                detection: formatTumorClass(topDetection?.className, t),
+                                classification: formatTumorClass(analysis.classificationClass, t),
+                            })}
+                        </p>
+                    )}
+                    <div className="mt-4 grid gap-4 sm:grid-cols-2">
                         <TumorStatCard
                             label={t(`${baseKey}.fields.tumorArea`)}
                             value={
@@ -304,10 +367,10 @@ export default function AnalysisDetailPage({
                         footer={
                             detections.length > 0 ? (
                                 <Pagination
-                                    currentPage={detectionPage.page}
+                                    currentPage={detectionPage.uiPage}
                                     totalPages={detectionPage.totalPages}
                                     pageSize={detectionPage.pageSize}
-                                    onPageChange={detectionPage.setPage}
+                                    onPageChange={detectionPage.setUiPage}
                                     onPageSizeChange={detectionPage.setPageSize}
                                 />
                             ) : undefined
@@ -340,12 +403,10 @@ export default function AnalysisDetailPage({
                                                 <p className="text-sm text-gray-500">
                                                     {t(`${baseKey}.emptyDetections`)}
                                                 </p>
-                                                {analysis.classificationClass &&
-                                                    analysis.classificationClass !== "NoTumor" &&
-                                                    analysis.classificationClass !== "No Tumor" && (
+                                                {findingClass && !isNoTumorClass(findingClass) && (
                                                         <p className="mt-2 text-xs text-gray-400">
                                                             {t(`${baseKey}.emptyDetectionsHint`, {
-                                                                class: formatTumorClass(analysis.classificationClass, t),
+                                                                class: formatTumorClass(findingClass, t),
                                                             })}
                                                         </p>
                                                     )}
@@ -381,6 +442,14 @@ export default function AnalysisDetailPage({
                             </Table>
                     </TumorTableCard>
                 </ComponentCard>
+
+                {isDone && (
+                    <AnalysisFollowUpCard
+                        analysis={analysis}
+                        audience={translationKey}
+                        canEdit={canCorrect}
+                    />
+                )}
 
                 {canCorrect && isDone && (
                     <ComponentCard title={t(`${baseKey}.correctionTitle`)}>
@@ -421,16 +490,18 @@ export default function AnalysisDetailPage({
                                         >
                                             {t(`${baseKey}.actions.downloadReport`)}
                                         </Button>
-                                        <Button
-                                            variant="outline"
-                                            onClick={handleGenerateReport}
-                                            disabled={generatingReport}
-                                        >
-                                            {t(`${baseKey}.actions.regenerateReport`)}
-                                        </Button>
+                                        {canCorrect && (
+                                            <Button
+                                                variant="outline"
+                                                onClick={handleGenerateReport}
+                                                disabled={generatingReport}
+                                            >
+                                                {t(`${baseKey}.actions.regenerateReport`)}
+                                            </Button>
+                                        )}
                                     </div>
                                 </div>
-                            ) : (
+                            ) : canCorrect ? (
                                 <div className="space-y-4">
                                     <p className="text-sm text-gray-600 dark:text-gray-400">
                                         {t(`${baseKey}.reportEmpty`)}
@@ -439,6 +510,10 @@ export default function AnalysisDetailPage({
                                         {t(`${baseKey}.actions.generateReport`)}
                                     </Button>
                                 </div>
+                            ) : (
+                                <p className="text-sm text-gray-600 dark:text-gray-400">
+                                    {t(`${baseKey}.reportEmpty`)}
+                                </p>
                             )}
                         </TumorPanel>
                     </ComponentCard>
@@ -450,10 +525,10 @@ export default function AnalysisDetailPage({
                         footer={
                             comments.length > 0 ? (
                                 <Pagination
-                                    currentPage={commentsPage.page}
+                                    currentPage={commentsPage.uiPage}
                                     totalPages={commentsPage.totalPages}
                                     pageSize={commentsPage.pageSize}
-                                    onPageChange={commentsPage.setPage}
+                                    onPageChange={commentsPage.setUiPage}
                                     onPageSizeChange={commentsPage.setPageSize}
                                 />
                             ) : undefined
@@ -467,27 +542,89 @@ export default function AnalysisDetailPage({
                             ) : (
                                 commentsPage.slice.map((comment) => (
                                     <TumorPanel key={comment.id} className="p-4">
-                                        <p className="text-sm leading-relaxed">{comment.content}</p>
-                                        <p className="mt-2 text-xs text-gray-500">
-                                            {new Date(comment.createdAt).toLocaleString()}
-                                        </p>
+                                        {editingCommentId === comment.id ? (
+                                            <>
+                                                <textarea
+                                                    className={`mb-3 ${tumorTextareaClass}`}
+                                                    value={editingText}
+                                                    onChange={(e) => setEditingText(e.target.value)}
+                                                />
+                                                <div className="flex gap-2">
+                                                    <Button size="sm" onClick={handleSaveComment}>
+                                                        {t(`${baseKey}.actions.saveComment`)}
+                                                    </Button>
+                                                    <Button
+                                                        size="sm"
+                                                        variant="outline"
+                                                        onClick={() => {
+                                                            setEditingCommentId(null);
+                                                            setEditingText("");
+                                                        }}
+                                                    >
+                                                        {t("common.cancel")}
+                                                    </Button>
+                                                </div>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <p className="text-sm leading-relaxed">{comment.content}</p>
+                                                <p className="mt-2 text-xs text-gray-500">
+                                                    {new Date(comment.createdAt).toLocaleString()}
+                                                    {comment.updatedAt
+                                                        ? ` · ${t(`${baseKey}.commentEdited`)}`
+                                                        : ""}
+                                                </p>
+                                                {canCorrect && (
+                                                    <div className="mt-3 flex gap-2">
+                                                        <Button
+                                                            size="sm"
+                                                            variant="outline"
+                                                            onClick={() => {
+                                                                setEditingCommentId(comment.id);
+                                                                setEditingText(comment.content);
+                                                            }}
+                                                        >
+                                                            {t("common.actions.edit")}
+                                                        </Button>
+                                                        <Button
+                                                            size="sm"
+                                                            variant="outline"
+                                                            onClick={() => setCommentToDelete(comment.id)}
+                                                        >
+                                                            {t("common.actions.delete")}
+                                                        </Button>
+                                                    </div>
+                                                )}
+                                            </>
+                                        )}
                                     </TumorPanel>
                                 ))
                             )}
                         </div>
                     </TumorTableCard>
 
-                    <div className="mt-4">
-                        <textarea
-                            className={`mb-3 ${tumorTextareaClass}`}
-                            value={commentText}
-                            onChange={(e) => setCommentText(e.target.value)}
-                            placeholder={t(`${baseKey}.commentPlaceholder`)}
-                        />
-                        <Button onClick={handleAddComment}>{t(`${baseKey}.actions.postComment`)}</Button>
-                    </div>
+                    {canCorrect && (
+                        <div className="mt-4">
+                            <textarea
+                                className={`mb-3 ${tumorTextareaClass}`}
+                                value={commentText}
+                                onChange={(e) => setCommentText(e.target.value)}
+                                placeholder={t(`${baseKey}.commentPlaceholder`)}
+                            />
+                            <Button onClick={handleAddComment}>{t(`${baseKey}.actions.postComment`)}</Button>
+                        </div>
+                    )}
                 </ComponentCard>
             </div>
+
+            <ConfirmDialog
+                isOpen={!!commentToDelete}
+                title={t(`${baseKey}.messages.deleteCommentTitle`)}
+                description={t(`${baseKey}.messages.deleteCommentDescription`)}
+                onConfirm={handleConfirmDeleteComment}
+                onCancel={() => setCommentToDelete(null)}
+                loading={deletingComment}
+            />
         </>
     );
 }

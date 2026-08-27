@@ -12,7 +12,9 @@
   },
   "alerts": {
     "success": "Erfolg",
-    "error": "Fehler"
+    "error": "Fehler",
+    "info": "Hinweis",
+    "warning": "Warnung"
   },
   "errors": {
     "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
@@ -68,7 +70,58 @@
     "description": "Systemmetriken und Protokolle",
     "openGrafana": "In Grafana öffnen",
     "welcomeTitle": "Willkommen",
-    "welcomeDescription": "Nutzen Sie die Seitenleiste, um Ihren Arbeitsbereich zu öffnen."
+    "welcomeDescription": "Nutzen Sie die Seitenleiste, um Ihren Arbeitsbereich zu öffnen.",
+    "homeTitle": "Startseite",
+    "homeDescription": "Überblick über Termine, Scans und Analysen",
+    "greetingMorning": "Guten Morgen",
+    "greetingAfternoon": "Guten Tag",
+    "greetingEvening": "Guten Abend",
+    "colleague": "Kollege",
+    "doctorHeadline": "Hallo, Dr. {{name}}",
+    "patientHeadline": "Hallo, {{name}}",
+    "doctorSubtitle": "Heutige Termine, offene Analysen und Patientenaktivität.",
+    "patientSubtitle": "Ihr nächster Termin, Scan-Ergebnisse und zugewiesener Arzt.",
+    "viewAll": "Alle anzeigen",
+    "loading": "Laden...",
+    "emptyAppointments": "Keine anstehenden Termine in den nächsten zwei Wochen.",
+    "emptyAnalyses": "Noch keine Analysen.",
+    "emptyScans": "Noch keine Scans hochgeladen.",
+    "emptyNotifications": "Keine neuen Benachrichtigungen.",
+    "upcomingTitle": "Anstehende Termine",
+    "analysesTitle": "Aktuelle Analysen",
+    "scansTitle": "Aktuelle Scans",
+    "notificationsTitle": "Benachrichtigungen",
+    "careTeamTitle": "Ihr Behandlungsteam",
+    "noAssignedDoctor": "Noch kein Arzt zugewiesen",
+    "assignedDoctorHint": "Die Klinik weist Ihrem Profil einen Arzt zu.",
+    "analysisCount": "{{count}} Analysen",
+    "unreadLink": "Sie haben {{count}} ungelesene Benachrichtigungen",
+    "actions": {
+      "calendar": "Kalender",
+      "patients": "Patienten",
+      "addScan": "Scan hinzufügen",
+      "uploadScan": "Scan hochladen",
+      "analyses": "Analysen",
+      "myAnalyses": "Meine Analysen",
+      "reports": "Berichte",
+      "notifications": "Benachrichtigungen"
+    },
+    "stats": {
+      "todayAppointments": "Termine heute",
+      "upcomingHint": "{{count}} anstehend",
+      "patients": "Patienten",
+      "patientsHint": "In Ihrem Arbeitsbereich",
+      "scans": "Meine Scans",
+      "scansHint": "Hochgeladene MRT/CT-Bilder",
+      "inProgress": "Analysen in Bearbeitung",
+      "completedAnalyses": "{{count}} abgeschlossen",
+      "unread": "Ungelesene Benachrichtigungen",
+      "reportsHint": "{{count}} PDF-Berichte"
+    },
+    "profile": {
+      "institution": "Einrichtung",
+      "bloodType": "Blutgruppe"
+    }
   },
   "twoFA": {
     "title": "Zwei-Faktor-Authentifizierung",
@@ -133,6 +186,12 @@
     "locking": "Wird gesperrt...",
     "lockSuccess": "Konto wurde gesperrt.",
     "lockError": "Konto konnte nicht gesperrt werden.",
+    "delete": "Löschen",
+    "deleteTitle": "Benutzer löschen",
+    "deleteConfirm": "Dieses Benutzerkonto löschen? Diese Aktion kann nicht rückgängig gemacht werden.",
+    "deleteSuccess": "Benutzer wurde gelöscht.",
+    "deleteError": "Benutzer konnte nicht gelöscht werden.",
+    "cannotDeleteSelf": "Sie können Ihr eigenes Konto nicht löschen.",
     "createPageTitle": "Administrator erstellen",
     "createPageDescription": "Neues Administratorkonto erstellen",
     "createTitle": "Neuer Administrator",
@@ -445,6 +504,65 @@
       "degraded": "Eingeschränkt"
     },
     "empty": "Keine Dienste gefunden"
+  },
+  "logs": {
+    "pageTitle": "Systemprotokolle",
+    "pageDescription": "Analysefehler und Grafana-Loki-Explorer",
+    "grafanaTitle": "Dienstprotokolle",
+    "grafanaDescription": "Live-Loki-Protokolle der NeuroVision-Dienste. Gleiche Grafana-Einbettung wie auf dem Dashboard.",
+    "errorsTitle": "Analysefehler",
+    "errorsDescription": "Aktuelle Fehler aus der Tumoranalyse-Pipeline.",
+    "empty": "Keine Analysefehler erfasst.",
+    "stats": {
+      "systemStatus": "Systemstatus",
+      "analysisErrors": "Analysefehler",
+      "healthPage": "Dienstgesundheit"
+    },
+    "columns": {
+      "occurred": "Zeitpunkt",
+      "analysis": "Analyse",
+      "message": "Meldung"
+    },
+    "actions": {
+      "openHealth": "Gesundheitsseite öffnen",
+      "showDetails": "Details anzeigen",
+      "hideDetails": "Details ausblenden"
+    },
+    "messages": {
+      "loadError": "Protokolle konnten nicht geladen werden."
+    }
+  },
+  "settings": {
+    "pageTitle": "Einstellungen",
+    "pageDescription": "Darstellung, Konto und Umgebung des Portals",
+    "appearanceTitle": "Darstellung",
+    "appearanceDescription": "Design und Sprache für diesen Browser.",
+    "theme": "Design",
+    "themeLight": "Hell",
+    "themeDark": "Dunkel",
+    "language": "Sprache",
+    "accountTitle": "Angemeldetes Konto",
+    "account": {
+      "name": "Name",
+      "email": "E-Mail",
+      "role": "Rolle"
+    },
+    "environmentTitle": "Umgebung",
+    "environmentDescription": "Diese Werte stammen aus der Portal-Konfiguration und können hier nicht geändert werden.",
+    "env": {
+      "api": "API-URL",
+      "grafana": "Grafana-URL",
+      "mode": "Modus"
+    },
+    "linksTitle": "Administration",
+    "links": {
+      "health": "Systemgesundheit",
+      "aiMonitoring": "KI-Monitoring",
+      "logs": "Protokolle",
+      "profile": "Profil",
+      "certificates": "Zertifikate",
+      "editProfile": "Profil bearbeiten"
+    }
   },
   "location": {
     "territorialOrganization": "Territoriale Organisation",
@@ -1102,6 +1220,11 @@
       "mri": "MRT",
       "ct": "CT"
     },
+    "patient": {
+      "label": "Patient",
+      "select": "Patient auswählen",
+      "all": "Alle Patienten"
+    },
     "status": {
       "Pending": "Ausstehend",
       "Processing": "In Bearbeitung",
@@ -1114,6 +1237,45 @@
       "meningioma": "Meningeom",
       "pituitary": "Hypophysentumor",
       "noTumor": "Kein Tumor"
+    },
+    "models": {
+      "detection": "Detektion",
+      "classification": "Klassifikation",
+      "mismatch": "Die Detektion fand {{detection}}, die Klassifikation sagte {{classification}} voraus. Das sind zwei getrennte Modelle. Der hervorgehobene Befund folgt der Detektionsbox."
+    },
+    "followUp": {
+      "title": "Wie geht es weiter",
+      "audience": {
+        "doctor": "Klinisches Follow-up mit Katalogwerten ausfüllen. Das ist Orientierung für das Gespräch, kein Behandlungsplan.",
+        "patient": "Sprechen Sie mit Ihrer Ärztin oder Ihrem Arzt. Das sind vom Arzt eingetragene Informationen, kein persönlicher Behandlungsplan."
+      },
+      "disclaimer": "Ein MRT kann einen Tumor stark nahelegen, ist aber nicht dasselbe wie eine bestätigte Diagnose und der genaue Typ. Bei vielen Tumoren werden Typ und Grad erst durch die Gewebeanalyse nach Biopsie oder Operation bestimmt.",
+      "intro": "Wenn der Befund zu {{class}} passt, gibt es keine einheitliche Therapie für alle Tumoren.",
+      "noTumor": "Wenn kein Tumor erkannt wird, ersetzt das keine klinische Untersuchung. Bei anhaltenden Symptomen kann eine Kontrollaufnahme nötig sein.",
+      "formTitle": "Klinisches Follow-up (Eingabe durch Arzt)",
+      "loading": "Kataloge werden geladen...",
+      "save": "Follow-up speichern",
+      "saving": "Speichern...",
+      "emptyPatient": "Ihre Ärztin oder Ihr Arzt hat den klinischen Follow-up-Bereich noch nicht ausgefüllt.",
+      "fields": {
+        "grade": "Grad und Aggressivität",
+        "operability": "Operabilität",
+        "spread": "Ausbreitung",
+        "treatments": "Empfohlene Optionen",
+        "sizeLocation": "Größe und Lage",
+        "notes": "Klinische Notizen"
+      },
+      "placeholders": {
+        "select": "Aus Katalog wählen",
+        "treatments": "Behandlungsoptionen wählen",
+        "sizeLocation": "Größe, Lage und relevante Anatomie beschreiben...",
+        "notes": "Zusätzliche Orientierung für Patient oder Team..."
+      },
+      "messages": {
+        "loadError": "Klinisches Follow-up konnte nicht geladen werden.",
+        "saveSuccess": "Klinisches Follow-up gespeichert.",
+        "saveError": "Klinisches Follow-up konnte nicht gespeichert werden."
+      }
     },
     "scans": {
       "doctor": {
@@ -1133,6 +1295,11 @@
         },
         "messages": {
           "loadError": "Scans konnten nicht geladen werden."
+        },
+        "preview": {
+          "title": "Scan-Vorschau",
+          "loading": "Bild wird geladen...",
+          "error": "Das Scan-Bild konnte nicht geladen werden."
         }
       },
       "patient": {
@@ -1152,6 +1319,11 @@
         },
         "messages": {
           "loadError": "Scans konnten nicht geladen werden."
+        },
+        "preview": {
+          "title": "Scan-Vorschau",
+          "loading": "Bild wird geladen...",
+          "error": "Das Scan-Bild konnte nicht geladen werden."
         }
       }
     },
@@ -1161,7 +1333,7 @@
         "pageDescription": "MRT/CT-Scan eines Patienten hochladen",
         "title": "Neuer Scan",
         "fields": {
-          "patientId": "Patienten-ID",
+          "patientId": "Patient",
           "scanType": "Scan-Typ",
           "file": "Bild"
         },
@@ -1195,6 +1367,13 @@
       }
     },
     "analyses": {
+      "filters": {
+        "patientId": "Patient",
+        "from": "Von",
+        "to": "Bis",
+        "apply": "Anwenden",
+        "clear": "Zurücksetzen"
+      },
       "doctor": {
         "pageTitle": "Neue Analyse",
         "pageDescription": "KI-Tumoranalyse starten",
@@ -1202,7 +1381,8 @@
         "startTitle": "Analyse starten",
         "empty": "Noch keine Analysen.",
         "fields": {
-          "scan": "Scan"
+          "scan": "Scan",
+          "scanEmpty": "Keine Scans für diesen Patienten"
         },
         "columns": {
           "scan": "Scan",
@@ -1251,7 +1431,8 @@
         "startTitle": "Analyse starten",
         "empty": "Noch keine Analysen.",
         "fields": {
-          "scan": "Scan"
+          "scan": "Scan",
+          "scanEmpty": "Sie haben keine hochgeladenen Scans"
         },
         "columns": {
           "scan": "Scan",
@@ -1321,6 +1502,7 @@
         "emptyDetections": "Keine Detektionen.",
         "emptyDetectionsHint": "KI klassifizierte «{{class}}», aber keine Bounding Box gefunden. Starten Sie eine neue Analyse mit dem aktualisierten Modell.",
         "emptyComments": "Noch keine Kommentare.",
+        "commentEdited": "bearbeitet",
         "fields": {
           "status": "Status",
           "classification": "Klasse",
@@ -1337,6 +1519,7 @@
           "back": "Zurück zur Liste",
           "applyCorrection": "Korrektur anwenden",
           "postComment": "Kommentar posten",
+          "saveComment": "Kommentar speichern",
           "generateReport": "Bericht erstellen",
           "downloadReport": "PDF herunterladen",
           "regenerateReport": "Neu erstellen"
@@ -1347,6 +1530,12 @@
           "analysisFailed": "Analyse fehlgeschlagen.",
           "commentSuccess": "Kommentar gespeichert.",
           "commentError": "Kommentar konnte nicht gespeichert werden.",
+          "commentUpdated": "Kommentar aktualisiert.",
+          "commentUpdateError": "Kommentar konnte nicht aktualisiert werden.",
+          "commentDeleted": "Kommentar gelöscht.",
+          "commentDeleteError": "Kommentar konnte nicht gelöscht werden.",
+          "deleteCommentTitle": "Kommentar löschen",
+          "deleteCommentDescription": "Diesen Kommentar löschen?",
           "correctionSuccess": "Korrektur angewendet.",
           "correctionError": "Korrektur fehlgeschlagen.",
           "reportGenerated": "PDF-Bericht erfolgreich erstellt.",
@@ -1379,6 +1568,7 @@
         "emptyDetections": "Keine Detektionen.",
         "emptyDetectionsHint": "KI klassifizierte «{{class}}», aber keine Bounding Box gefunden. Starten Sie eine neue Analyse mit dem aktualisierten Modell.",
         "emptyComments": "Noch keine Kommentare.",
+        "commentEdited": "bearbeitet",
         "fields": {
           "status": "Status",
           "classification": "Klasse",
@@ -1394,6 +1584,7 @@
         "actions": {
           "back": "Zurück zur Liste",
           "postComment": "Kommentar posten",
+          "saveComment": "Kommentar speichern",
           "generateReport": "Bericht erstellen",
           "downloadReport": "PDF herunterladen",
           "regenerateReport": "Neu erstellen"
@@ -1404,6 +1595,12 @@
           "analysisFailed": "Analyse fehlgeschlagen.",
           "commentSuccess": "Kommentar gespeichert.",
           "commentError": "Kommentar konnte nicht gespeichert werden.",
+          "commentUpdated": "Kommentar aktualisiert.",
+          "commentUpdateError": "Kommentar konnte nicht aktualisiert werden.",
+          "commentDeleted": "Kommentar gelöscht.",
+          "commentDeleteError": "Kommentar konnte nicht gelöscht werden.",
+          "deleteCommentTitle": "Kommentar löschen",
+          "deleteCommentDescription": "Diesen Kommentar löschen?",
           "reportGenerated": "PDF-Bericht erfolgreich erstellt.",
           "reportError": "Bericht konnte nicht erstellt werden.",
           "reportDownloadError": "Bericht konnte nicht heruntergeladen werden."
@@ -1462,20 +1659,60 @@
       "pageTitle": "KI-Monitoring",
       "pageDescription": "Statistiken und Modelle",
       "modelsTitle": "Registrierte KI-Modelle",
+      "activeTitle": "Aktive Pipeline-Modelle",
+      "activeDescription": "Wählen Sie, welche registrierte Version jede Analyseaufgabe verwendet. Ein erneuter Upload ist nicht nötig.",
+      "uploadTitle": "Neue Modellversion registrieren",
+      "errorsTitle": "Analyse-Fehlerprotokolle",
       "emptyModels": "Keine Modelle registriert. Starten Sie den Dienst nach dem Training neu.",
+      "emptyErrors": "Keine Analysefehler protokolliert.",
       "stats": {
         "completed": "Abgeschlossene Analysen",
         "scans": "Hochgeladene Scans"
+      },
+      "fields": {
+        "task": "Aufgabe",
+        "taskPlaceholder": "Modelltyp wählen",
+        "version": "Versionsbezeichnung",
+        "versionPlaceholder": "z. B. yolo11-v2",
+        "runId": "Run-ID (optional)",
+        "runIdPlaceholder": "Leer lassen zum Generieren",
+        "file": "Gewichte (.pt)",
+        "setActive": "Als aktives Modell setzen",
+        "modelPlaceholder": "Registrierte Version wählen"
+      },
+      "tasks": {
+        "detection": "Erkennung",
+        "classification": "Klassifikation",
+        "segmentation": "Segmentierung"
       },
       "columns": {
         "task": "Aufgabe",
         "version": "Version",
         "runId": "Run-ID",
         "status": "Status",
-        "registered": "Registriert"
+        "registered": "Registriert",
+        "actions": "Aktionen"
+      },
+      "errorColumns": {
+        "occurred": "Zeitpunkt",
+        "analysis": "Analyse",
+        "message": "Meldung"
+      },
+      "actions": {
+        "upload": "Modell hochladen",
+        "uploading": "Wird hochgeladen...",
+        "use": "In Pipeline verwenden",
+        "activating": "Wird gewechselt...",
+        "showDetails": "Details anzeigen",
+        "hideDetails": "Details ausblenden"
       },
       "messages": {
-        "loadError": "Monitoring-Daten konnten nicht geladen werden."
+        "loadError": "Monitoring-Daten konnten nicht geladen werden.",
+        "uploadRequired": "Versionsbezeichnung und eine .pt-Datei sind erforderlich.",
+        "uploadSuccess": "Modellversion wurde registriert.",
+        "uploadError": "Modell konnte nicht registriert werden.",
+        "activateSuccess": "Die Pipeline verwendet jetzt das ausgewählte Modell.",
+        "activateError": "Aktives Modell konnte nicht gewechselt werden."
       }
     }
   },
@@ -1568,6 +1805,7 @@
     "roleManagement": "Rollenverwaltung",
     "roles": "Rollen",
     "createRole": "Rolle erstellen",
+    "assignRoles": "Rollen zuweisen",
     "userManagement": "Benutzerverwaltung",
     "users": "Benutzer",
     "createAdministrator": "Administrator erstellen",
@@ -1589,6 +1827,12 @@
     "doctorWorkingSlots": "Arbeitszeiten",
     "doctorReviews": "Bewertungen",
     "patientTables": "Patienten-Tabellen",
+    "tumorTables": "KI-Modelltabellen",
+    "modelTypes": "Modelltypen",
+    "tumorGrades": "Tumorgrade",
+    "treatmentOptions": "Behandlungsoptionen",
+    "operabilityStatuses": "Operabilitätsstatus",
+    "spreadStatuses": "Ausbreitungsstatus",
     "patientStatuses": "Statuswerte",
     "patientGenders": "Geschlechter",
     "patientBloodTypes": "Blutgruppen",
@@ -1668,7 +1912,9 @@
     "system": "System",
     "healthMonitoring": "Systemüberwachung",
     "logs": "Protokolle",
-    "settings": "Einstellungen"
+    "settings": "Einstellungen",
+    "notifications": "Benachrichtigungen",
+    "profile": "Profil"
   },
   "calendar": {
     "pageTitle": "Kalender",

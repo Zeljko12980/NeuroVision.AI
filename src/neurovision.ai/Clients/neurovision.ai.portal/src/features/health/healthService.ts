@@ -29,6 +29,8 @@ export interface PaginatedResult<T> {
 export interface SystemHealthResponse {
     status: HealthStatus;
     services: PaginatedResult<ServiceHealth>;
+    healthyCount?: number;
+    unhealthyCount?: number;
 }
 
 

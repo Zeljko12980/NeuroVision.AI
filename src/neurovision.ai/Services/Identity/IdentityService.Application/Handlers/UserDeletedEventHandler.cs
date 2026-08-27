@@ -21,6 +21,12 @@ public class UserDeletedEventHandler : IConsumer<DeleteUserEvent>
 
         if (!result.IsSuccess)
         {
+            if (result.Error.Contains("not found", StringComparison.OrdinalIgnoreCase))
+            {
+                _logger.LogInformation("User {UserId} already deleted", userId);
+                return;
+            }
+
             _logger.LogError("Failed to delete user {UserId}: {Error}",
                 userId, result.Error);
 

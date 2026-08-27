@@ -1,4 +1,4 @@
-export type EntityService = "doctor" | "patient";
+export type EntityService = "doctor" | "patient" | "tumor";
 
 export type EntityFieldKind =
     | "text"
@@ -237,8 +237,32 @@ export const patientTables: EntityTableDef[] = [
     },
 ];
 
-export const getTablesForService = (service: EntityService): EntityTableDef[] =>
-    service === "doctor" ? doctorTables : patientTables;
+export const tumorTables: EntityTableDef[] = [
+    { key: "model-types", apiPath: "/tumor/model-types", nameKey: "sidebar.modelTypes", fields: catalogFields },
+    { key: "tumor-grades", apiPath: "/tumor/tumor-grades", nameKey: "sidebar.tumorGrades", fields: catalogFields },
+    { key: "treatment-options", apiPath: "/tumor/treatment-options", nameKey: "sidebar.treatmentOptions", fields: catalogFields },
+    { key: "operability-statuses", apiPath: "/tumor/operability-statuses", nameKey: "sidebar.operabilityStatuses", fields: catalogFields },
+    { key: "spread-statuses", apiPath: "/tumor/spread-statuses", nameKey: "sidebar.spreadStatuses", fields: catalogFields },
+];
 
-export const getEntityTableBasePath = (service: EntityService) =>
-    service === "doctor" ? "/admin/doctors/tables" : "/admin/patients/tables";
+export const getTablesForService = (service: EntityService): EntityTableDef[] => {
+    switch (service) {
+        case "doctor":
+            return doctorTables;
+        case "patient":
+            return patientTables;
+        case "tumor":
+            return tumorTables;
+    }
+};
+
+export const getEntityTableBasePath = (service: EntityService) => {
+    switch (service) {
+        case "doctor":
+            return "/admin/doctors/tables";
+        case "patient":
+            return "/admin/patients/tables";
+        case "tumor":
+            return "/admin/tumor/tables";
+    }
+};
