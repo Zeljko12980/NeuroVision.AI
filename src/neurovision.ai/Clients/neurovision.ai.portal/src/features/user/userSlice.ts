@@ -5,6 +5,7 @@ import {
     getUsersRequest,
     lockUserRequest,
     unlockUserRequest,
+    deleteUserRequest,
 } from "./userService";
 
 interface UserAdminState {
@@ -78,6 +79,19 @@ export const lockUser = createAsyncThunk(
     }
 );
 
+export const deleteUser = createAsyncThunk(
+    "users/deleteUser",
+    async (userId: string, { rejectWithValue }) => {
+        try {
+            await deleteUserRequest(userId);
+            return userId;
+        } catch (err: unknown) {
+            const message = err instanceof Error ? err.message : "Failed to delete user";
+            return rejectWithValue(message);
+        }
+    }
+);
+
 const userSlice = createSlice({
     name: "users",
     initialState,
@@ -111,6 +125,10 @@ const userSlice = createSlice({
                 if (user) {
                     user.isLockedOut = true;
                 }
+            })
+            .addCase(deleteUser.fulfilled, (state, action) => {
+                state.users = state.users.filter((item) => item.id !== action.payload);
+                state.totalCount = Math.max(0, state.totalCount - 1);
             });
     },
 });

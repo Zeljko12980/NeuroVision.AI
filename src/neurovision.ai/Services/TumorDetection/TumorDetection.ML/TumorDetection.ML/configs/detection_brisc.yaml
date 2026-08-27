@@ -1,0 +1,9 @@
+task: detection
+model: artifacts/detection/det_20260823_190946/weights/best.pt
+epochs: 25
+imgsz: 640
+batch: 8
+patience: 8
+workers: 4
+lr0: 0.001
+lrf: 0.01

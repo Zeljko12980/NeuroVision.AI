@@ -54,7 +54,7 @@ const GlobalAlert = () => {
     return createPortal(
         <Alert
             variant={type}
-            title={type === "success" ? t("alerts.success") : t("alerts.error")}
+            title={t(`alerts.${type}`)}
             message={message}
             onClose={() => dispatch(hideAlert())}
         />,

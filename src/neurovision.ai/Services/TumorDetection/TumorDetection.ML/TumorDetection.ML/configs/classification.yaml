@@ -1,0 +1,7 @@
+task: classification
+model: yolo11n-cls.pt
+epochs: 40
+imgsz: 224
+batch: 16
+patience: 15
+workers: 4

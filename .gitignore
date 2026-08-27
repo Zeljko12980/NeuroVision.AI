@@ -429,3 +429,5 @@ FodyWeavers.xsd
 *.msp
 /src/neurovision.ai/Services/Pdf/PdfService.API/wwwroot/signatures
 /src/neurovision.ai/Services/Pdf/PdfService.API/wwwroot/signatures/4d12bbfde82d462eb985818abdb5c1a6.png
+/src/neurovision.ai/Services/TumorDetection/TumorDetectionService.API/wwwroot/reports
+/src/neurovision.ai/Services/TumorDetection/TumorDetectionService.API/wwwroot/scans

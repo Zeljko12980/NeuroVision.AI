@@ -49,4 +49,11 @@ public class UserController : ControllerBase
         return result.ToActionResult();
     }
 
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
+    {
+        var result = await _sender.Send(new DeleteUserCommand(id), cancellationToken);
+        return result.ToActionResult();
+    }
+
 }

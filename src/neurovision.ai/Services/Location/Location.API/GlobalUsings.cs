@@ -8,5 +8,4 @@ global using LocationService.Infrastructure;
 global using LocationService.Infrastructure.Persistence;
 global using LocationService.Infrastructure.Seeding;
 global using Microsoft.EntityFrameworkCore;
-global using Scalar.AspNetCore;
 global using Serilog;

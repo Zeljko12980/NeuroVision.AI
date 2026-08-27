@@ -1,0 +1,15 @@
+global using BuildingBlocks.Behaviors;
+global using BuildingBlocks.CQRS;
+global using BuildingBlocks.Messaging.Events;
+global using BuildingBlocks.Messaging.MassTransit;
+global using BuildingBlocks.Results;
+global using FluentValidation;
+global using MassTransit;
+global using MediatR;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Logging;
+global using System.Reflection;
+global using TumorDetectionService.Application.Common;
+global using TumorDetectionService.Application.Common.Interfaces;
+global using TumorDetectionService.Domain.Entities;

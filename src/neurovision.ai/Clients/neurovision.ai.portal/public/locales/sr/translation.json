@@ -12,7 +12,9 @@
   },
   "alerts": {
     "success": "Uspešno",
-    "error": "Greška"
+    "error": "Greška",
+    "info": "Obaveštenje",
+    "warning": "Upozorenje"
   },
   "errors": {
     "invalidEmail": "Unesite validnu email adresu",
@@ -68,7 +70,58 @@
     "description": "Sistemske metrike i logovi",
     "openGrafana": "Otvori u Grafani",
     "welcomeTitle": "Dobrodošli",
-    "welcomeDescription": "Koristite meni sa strane da otvorite svoj radni prostor."
+    "welcomeDescription": "Koristite meni sa strane da otvorite svoj radni prostor.",
+    "homeTitle": "Početna",
+    "homeDescription": "Pregled termina, skenova i analiza",
+    "greetingMorning": "Dobro jutro",
+    "greetingAfternoon": "Dobar dan",
+    "greetingEvening": "Dobro veče",
+    "colleague": "kolega",
+    "doctorHeadline": "Zdravo, dr {{name}}",
+    "patientHeadline": "Zdravo, {{name}}",
+    "doctorSubtitle": "Današnji termini, analize na čekanju i aktivnost pacijenata.",
+    "patientSubtitle": "Sledeći termin, rezultati skenova i dodeljeni lekar.",
+    "viewAll": "Prikaži sve",
+    "loading": "Učitavanje...",
+    "emptyAppointments": "Nema predstojećih termina u naredne dve nedelje.",
+    "emptyAnalyses": "Još nema analiza.",
+    "emptyScans": "Još nema otpremljenih skenova.",
+    "emptyNotifications": "Nema novih obaveštenja.",
+    "upcomingTitle": "Predstojeći termini",
+    "analysesTitle": "Nedavne analize",
+    "scansTitle": "Nedavni skenovi",
+    "notificationsTitle": "Obaveštenja",
+    "careTeamTitle": "Vaš tim",
+    "noAssignedDoctor": "Još nemate dodeljenog lekara",
+    "assignedDoctorHint": "Klinika će dodeliti lekara vašem profilu.",
+    "analysisCount": "{{count}} analiza",
+    "unreadLink": "Imate {{count}} nepročitanih obaveštenja",
+    "actions": {
+      "calendar": "Kalendar",
+      "patients": "Pacijenti",
+      "addScan": "Dodaj sken",
+      "uploadScan": "Otpremi sken",
+      "analyses": "Analize",
+      "myAnalyses": "Moje analize",
+      "reports": "Izveštaji",
+      "notifications": "Obaveštenja"
+    },
+    "stats": {
+      "todayAppointments": "Termini danas",
+      "upcomingHint": "{{count}} predstojećih",
+      "patients": "Pacijenti",
+      "patientsHint": "U vašem radnom prostoru",
+      "scans": "Moji skenovi",
+      "scansHint": "Otpremljeni MRI/CT snimci",
+      "inProgress": "Analize u toku",
+      "completedAnalyses": "{{count}} završenih",
+      "unread": "Nepročitana obaveštenja",
+      "reportsHint": "{{count}} PDF izveštaja"
+    },
+    "profile": {
+      "institution": "Ustanova",
+      "bloodType": "Krvna grupa"
+    }
   },
   "twoFA": {
     "title": "Dvofaktorska autentifikacija",
@@ -133,6 +186,12 @@
     "locking": "Zaključavanje...",
     "lockSuccess": "Nalog je zaključan.",
     "lockError": "Zaključavanje naloga nije uspjelo.",
+    "delete": "Obriši",
+    "deleteTitle": "Obriši korisnika",
+    "deleteConfirm": "Obrisati ovaj korisnički nalog? Ova akcija se ne može poništiti.",
+    "deleteSuccess": "Korisnik je obrisan.",
+    "deleteError": "Brisanje korisnika nije uspjelo.",
+    "cannotDeleteSelf": "Ne možete obrisati sopstveni nalog.",
     "createPageTitle": "Kreiraj administratora",
     "createPageDescription": "Kreiranje novog administratorskog naloga",
     "createTitle": "Novi administrator",
@@ -445,6 +504,65 @@
       "degraded": "Degradiran"
     },
     "empty": "Nema pronađenih servisa"
+  },
+  "logs": {
+    "pageTitle": "Sistemski logovi",
+    "pageDescription": "Greške analize i Grafana Loki preglednik",
+    "grafanaTitle": "Logovi servisa",
+    "grafanaDescription": "Živi Loki logovi NeuroVision servisa. Isti Grafana prikaz kao na kontrolnoj tabli.",
+    "errorsTitle": "Greške analize",
+    "errorsDescription": "Nedavne greške iz cevovoda analize tumora.",
+    "empty": "Nema zabeleženih grešaka analize.",
+    "stats": {
+      "systemStatus": "Status sistema",
+      "analysisErrors": "Greške analize",
+      "healthPage": "Zdravlje servisa"
+    },
+    "columns": {
+      "occurred": "Vreme",
+      "analysis": "Analiza",
+      "message": "Poruka"
+    },
+    "actions": {
+      "openHealth": "Otvori zdravlje sistema",
+      "showDetails": "Prikaži detalje",
+      "hideDetails": "Sakrij detalje"
+    },
+    "messages": {
+      "loadError": "Učitavanje logova nije uspelo."
+    }
+  },
+  "settings": {
+    "pageTitle": "Podešavanja",
+    "pageDescription": "Izgled portala, nalog i okruženje",
+    "appearanceTitle": "Izgled",
+    "appearanceDescription": "Tema i jezik za ovaj pregledač.",
+    "theme": "Tema",
+    "themeLight": "Svetla",
+    "themeDark": "Tamna",
+    "language": "Jezik",
+    "accountTitle": "Prijavljeni nalog",
+    "account": {
+      "name": "Ime",
+      "email": "Email",
+      "role": "Uloga"
+    },
+    "environmentTitle": "Okruženje",
+    "environmentDescription": "Vrednosti dolaze iz konfiguracije portala i ovde se ne mogu menjati.",
+    "env": {
+      "api": "API URL",
+      "grafana": "Grafana URL",
+      "mode": "Režim"
+    },
+    "linksTitle": "Administracija",
+    "links": {
+      "health": "Zdravlje sistema",
+      "aiMonitoring": "AI nadzor",
+      "logs": "Logovi",
+      "profile": "Profil",
+      "certificates": "Sertifikati",
+      "editProfile": "Izmeni profil"
+    }
   },
   "location": {
     "territorialOrganization": "Teritorijalna organizacija",
@@ -1102,6 +1220,11 @@
       "mri": "MRI",
       "ct": "CT"
     },
+    "patient": {
+      "label": "Pacijent",
+      "select": "Izaberi pacijenta",
+      "all": "Svi pacijenti"
+    },
     "status": {
       "Pending": "Na čekanju",
       "Processing": "U obradi",
@@ -1114,6 +1237,45 @@
       "meningioma": "Meningiom",
       "pituitary": "Hipofizarni tumor",
       "noTumor": "Bez tumora"
+    },
+    "models": {
+      "detection": "Detekcija",
+      "classification": "Klasifikacija",
+      "mismatch": "Detekcija je našla {{detection}}, a klasifikacija je predvidjela {{classification}}. To su dva odvojena modela. Istaknuti nalaz prati okvir detekcije."
+    },
+    "followUp": {
+      "title": "Šta slijedi",
+      "audience": {
+        "doctor": "Popunite klinički follow-up koristeći vrijednosti iz šifarnika. Ovo je orijentacija za razgovor, ne plan liječenja.",
+        "patient": "Razgovarajte sa svojim ljekarom. Ovo su informacije koje je unio ljekar, ne lični plan liječenja."
+      },
+      "disclaimer": "MRI može jako sugerisati tumor, ali to nije isto što i potvrđena dijagnoza i tip. Za mnoge tumore konačni tip i gradus određuju se analizom tkiva nakon biopsije ili operacije.",
+      "intro": "Ako nalaz odgovara {{class}}, ne postoji jedna terapija za sve tumore.",
+      "noTumor": "Ako tumor nije nađen, to i dalje ne zamjenjuje klinički pregled. Ako simptomi traju, može biti potrebno kontrolno snimanje.",
+      "formTitle": "Klinički follow-up (unosi doktor)",
+      "loading": "Učitavanje šifarnika...",
+      "save": "Sačuvaj follow-up",
+      "saving": "Snimanje...",
+      "emptyPatient": "Vaš ljekar još nije popunio sekciju kliničkog follow-up-a.",
+      "fields": {
+        "grade": "Gradus i agresivnost",
+        "operability": "Operabilnost",
+        "spread": "Širenje",
+        "treatments": "Preporučene opcije",
+        "sizeLocation": "Veličina i lokacija",
+        "notes": "Kliničke napomene"
+      },
+      "placeholders": {
+        "select": "Izaberite iz šifarnika",
+        "treatments": "Izaberite opcije liječenja",
+        "sizeLocation": "Opišite veličinu, lokaciju i relevantnu anatomiju...",
+        "notes": "Dodatna orijentacija za pacijenta ili tim..."
+      },
+      "messages": {
+        "loadError": "Neuspjelo učitavanje kliničkog follow-up-a.",
+        "saveSuccess": "Klinički follow-up je sačuvan.",
+        "saveError": "Neuspjelo snimanje kliničkog follow-up-a."
+      }
     },
     "scans": {
       "doctor": {
@@ -1133,6 +1295,11 @@
         },
         "messages": {
           "loadError": "Greška pri učitavanju snimaka."
+        },
+        "preview": {
+          "title": "Pregled snimka",
+          "loading": "Učitavanje slike...",
+          "error": "Nije moguće učitati sliku snimka."
         }
       },
       "patient": {
@@ -1152,6 +1319,11 @@
         },
         "messages": {
           "loadError": "Greška pri učitavanju snimaka."
+        },
+        "preview": {
+          "title": "Pregled snimka",
+          "loading": "Učitavanje slike...",
+          "error": "Nije moguće učitati sliku snimka."
         }
       }
     },
@@ -1161,7 +1333,7 @@
         "pageDescription": "Otpremite MRI/CT snimak pacijenta",
         "title": "Novi snimak",
         "fields": {
-          "patientId": "ID pacijenta",
+          "patientId": "Pacijent",
           "scanType": "Tip snimka",
           "file": "Slika"
         },
@@ -1195,6 +1367,13 @@
       }
     },
     "analyses": {
+      "filters": {
+        "patientId": "Pacijent",
+        "from": "Od",
+        "to": "Do",
+        "apply": "Primeni",
+        "clear": "Obriši"
+      },
       "doctor": {
         "pageTitle": "Nova analiza",
         "pageDescription": "Pokretanje AI analize tumora",
@@ -1202,7 +1381,8 @@
         "startTitle": "Pokreni analizu",
         "empty": "Nema analiza.",
         "fields": {
-          "scan": "Snimak"
+          "scan": "Snimak",
+          "scanEmpty": "Nema snimaka za ovog pacijenta"
         },
         "columns": {
           "scan": "Snimak",
@@ -1251,7 +1431,8 @@
         "startTitle": "Pokreni analizu",
         "empty": "Nema analiza.",
         "fields": {
-          "scan": "Snimak"
+          "scan": "Snimak",
+          "scanEmpty": "Nemate otpremljene snimke"
         },
         "columns": {
           "scan": "Snimak",
@@ -1321,6 +1502,7 @@
         "emptyDetections": "Nema detekcija.",
         "emptyDetectionsHint": "AI je klasifikovao «{{class}}», ali okvir detekcije nije pronađen. Pokrenite novu analizu sa ažuriranim modelom.",
         "emptyComments": "Još nema komentara.",
+        "commentEdited": "izmenjeno",
         "fields": {
           "status": "Status",
           "classification": "Klasa",
@@ -1337,6 +1519,7 @@
           "back": "Nazad na listu",
           "applyCorrection": "Primeni korekciju",
           "postComment": "Objavi komentar",
+          "saveComment": "Sačuvaj komentar",
           "generateReport": "Generiši izveštaj",
           "downloadReport": "Preuzmi PDF",
           "regenerateReport": "Ponovo generiši"
@@ -1347,6 +1530,12 @@
           "analysisFailed": "Analiza nije uspela.",
           "commentSuccess": "Komentar je sačuvan.",
           "commentError": "Komentar nije sačuvan.",
+          "commentUpdated": "Komentar je izmenjen.",
+          "commentUpdateError": "Izmena komentara nije uspela.",
+          "commentDeleted": "Komentar je obrisan.",
+          "commentDeleteError": "Brisanje komentara nije uspelo.",
+          "deleteCommentTitle": "Obriši komentar",
+          "deleteCommentDescription": "Obrisati ovaj komentar?",
           "correctionSuccess": "Korekcija je primenjena.",
           "correctionError": "Korekcija nije uspela.",
           "reportGenerated": "PDF izveštaj je uspešno generisan.",
@@ -1379,6 +1568,7 @@
         "emptyDetections": "Nema detekcija.",
         "emptyDetectionsHint": "AI je klasifikovao «{{class}}», ali okvir detekcije nije pronađen. Pokrenite novu analizu sa ažuriranim modelom.",
         "emptyComments": "Još nema komentara.",
+        "commentEdited": "izmenjeno",
         "fields": {
           "status": "Status",
           "classification": "Klasa",
@@ -1394,6 +1584,7 @@
         "actions": {
           "back": "Nazad na listu",
           "postComment": "Objavi komentar",
+          "saveComment": "Sačuvaj komentar",
           "generateReport": "Generiši izveštaj",
           "downloadReport": "Preuzmi PDF",
           "regenerateReport": "Ponovo generiši"
@@ -1404,6 +1595,12 @@
           "analysisFailed": "Analiza nije uspela.",
           "commentSuccess": "Komentar je sačuvan.",
           "commentError": "Komentar nije sačuvan.",
+          "commentUpdated": "Komentar je izmenjen.",
+          "commentUpdateError": "Izmena komentara nije uspela.",
+          "commentDeleted": "Komentar je obrisan.",
+          "commentDeleteError": "Brisanje komentara nije uspelo.",
+          "deleteCommentTitle": "Obriši komentar",
+          "deleteCommentDescription": "Obrisati ovaj komentar?",
           "reportGenerated": "PDF izveštaj je uspešno generisan.",
           "reportError": "Generisanje izveštaja nije uspelo.",
           "reportDownloadError": "Preuzimanje izveštaja nije uspelo."
@@ -1462,20 +1659,60 @@
       "pageTitle": "AI nadzor",
       "pageDescription": "Statistika i registrovani modeli",
       "modelsTitle": "Registrovani AI modeli",
+      "activeTitle": "Aktivni modeli u pipelineu",
+      "activeDescription": "Izaberi koju registrovanu verziju koristi svaki zadatak. Ne moraš ponovo otpremati fajl.",
+      "uploadTitle": "Registruj novu verziju modela",
+      "errorsTitle": "Logovi grešaka analize",
       "emptyModels": "Nema registrovanih modela. Restartuj servis nakon treninga.",
+      "emptyErrors": "Nema zabeleženih grešaka analize.",
       "stats": {
         "completed": "Završene analize",
         "scans": "Otpremljeni snimci"
+      },
+      "fields": {
+        "task": "Zadatak",
+        "taskPlaceholder": "Izaberi tip modela",
+        "version": "Oznaka verzije",
+        "versionPlaceholder": "npr. yolo11-v2",
+        "runId": "ID pokretanja (opciono)",
+        "runIdPlaceholder": "Ostavi prazno za automatski ID",
+        "file": "Težine (.pt)",
+        "setActive": "Postavi kao aktivni model",
+        "modelPlaceholder": "Izaberi registrovanu verziju"
+      },
+      "tasks": {
+        "detection": "Detekcija",
+        "classification": "Klasifikacija",
+        "segmentation": "Segmentacija"
       },
       "columns": {
         "task": "Zadatak",
         "version": "Verzija",
         "runId": "ID pokretanja",
         "status": "Status",
-        "registered": "Registrovano"
+        "registered": "Registrovano",
+        "actions": "Akcije"
+      },
+      "errorColumns": {
+        "occurred": "Vreme",
+        "analysis": "Analiza",
+        "message": "Poruka"
+      },
+      "actions": {
+        "upload": "Otpremi model",
+        "uploading": "Otpremanje...",
+        "use": "Koristi u pipelineu",
+        "activating": "Prebacivanje...",
+        "showDetails": "Prikaži detalje",
+        "hideDetails": "Sakrij detalje"
       },
       "messages": {
-        "loadError": "Greška pri učitavanju podataka nadzora."
+        "loadError": "Greška pri učitavanju podataka nadzora.",
+        "uploadRequired": "Oznaka verzije i .pt fajl su obavezni.",
+        "uploadSuccess": "Verzija modela je registrovana.",
+        "uploadError": "Registracija modela nije uspela.",
+        "activateSuccess": "Pipeline sada koristi izabrani model.",
+        "activateError": "Nije uspjelo prebacivanje aktivnog modela."
       }
     }
   },
@@ -1568,6 +1805,7 @@
     "roleManagement": "Upravljanje ulogama",
     "roles": "Uloge",
     "createRole": "Kreiraj ulogu",
+    "assignRoles": "Dodijeli uloge",
     "userManagement": "Upravljanje korisnicima",
     "users": "Korisnici",
     "createAdministrator": "Kreiraj administratora",
@@ -1589,6 +1827,12 @@
     "doctorWorkingSlots": "Termini rada",
     "doctorReviews": "Recenzije",
     "patientTables": "Tabele pacijenata",
+    "tumorTables": "Tabele AI modela",
+    "modelTypes": "Tipovi modela",
+    "tumorGrades": "Gradusi tumora",
+    "treatmentOptions": "Opcije liječenja",
+    "operabilityStatuses": "Operabilnost",
+    "spreadStatuses": "Status širenja",
     "patientStatuses": "Statusi",
     "patientGenders": "Polovi",
     "patientBloodTypes": "Krvne grupe",
@@ -1668,7 +1912,9 @@
     "system": "Sistem",
     "healthMonitoring": "Nadzor zdravlja sistema",
     "logs": "Logovi",
-    "settings": "Podešavanja"
+    "settings": "Podešavanja",
+    "notifications": "Obaveštenja",
+    "profile": "Profil"
   },
   "calendar": {
     "pageTitle": "Kalendar",

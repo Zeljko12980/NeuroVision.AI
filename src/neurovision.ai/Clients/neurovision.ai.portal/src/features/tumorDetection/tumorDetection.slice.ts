@@ -55,7 +55,7 @@ export const loadScans = createAsyncThunk<
 
 export const uploadBrainScan = createAsyncThunk<
     BrainScanResponse,
-    { patientId: string; uploadedByUserId: string; scanType: "Mri" | "Ct"; file: File },
+    { patientId: string; scanType: "Mri" | "Ct"; file: File },
     { rejectValue: string }
 >("tumorDetection/uploadScan", async (payload, { rejectWithValue }) => {
     try {
@@ -67,12 +67,21 @@ export const uploadBrainScan = createAsyncThunk<
 
 export const loadAnalyses = createAsyncThunk<
     PaginatedResponse<AnalysisResponse>,
-    { patientId?: string; page?: number; pageSize?: number; archived?: boolean },
+    {
+        patientId?: string;
+        from?: string;
+        to?: string;
+        page?: number;
+        pageSize?: number;
+        archived?: boolean;
+    },
     { rejectValue: string }
 >("tumorDetection/loadAnalyses", async (params, { rejectWithValue }) => {
     try {
         const response = await searchAnalyses({
             patientId: params.patientId,
+            from: params.from,
+            to: params.to,
             page: params.page ?? 1,
             pageSize: params.pageSize ?? 10,
             archived: params.archived,
@@ -85,11 +94,11 @@ export const loadAnalyses = createAsyncThunk<
 
 export const runAnalysis = createAsyncThunk<
     AnalysisResponse,
-    { brainScanId: string; requestedByUserId: string },
+    { brainScanId: string },
     { rejectValue: string }
 >("tumorDetection/runAnalysis", async (payload, { rejectWithValue }) => {
     try {
-        return await startAnalysis(payload.brainScanId, payload.requestedByUserId);
+        return await startAnalysis(payload.brainScanId);
     } catch (err) {
         return rejectWithValue(err instanceof Error ? err.message : "Analysis failed");
     }

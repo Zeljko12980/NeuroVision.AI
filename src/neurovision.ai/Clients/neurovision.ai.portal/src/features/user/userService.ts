@@ -1,4 +1,4 @@
-import { get, post, put } from "../../api/api";
+import { get, post, put, del } from "../../api/api";
 
 export interface AdminUserDto {
     id: string;
@@ -48,6 +48,10 @@ export const unlockUserRequest = async (userId: string): Promise<void> => {
 
 export const lockUserRequest = async (userId: string): Promise<void> => {
     await post(`/user/${userId}/lock`, {});
+};
+
+export const deleteUserRequest = async (userId: string): Promise<void> => {
+    await del(`/user/${userId}`);
 };
 
 export const updateUserRolesRequest = async (data: {

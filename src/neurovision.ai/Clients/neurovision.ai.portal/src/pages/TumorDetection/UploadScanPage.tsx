@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
@@ -15,6 +15,7 @@ import { getUserInfoFromClaims } from "../../utils/claims";
 import { uploadBrainScan } from "../../features/tumorDetection/tumorDetection.slice";
 import { showAlert } from "../../features/ui/uiSlice";
 import type { ScanType } from "../../features/tumorDetection/tumorDetection.types";
+import PatientSelect from "./PatientSelect";
 import { tumorSelectClass } from "./tumorUtils";
 
 interface UploadScanPageProps {
@@ -34,10 +35,17 @@ export default function UploadScanPage({
     const uploading = useAppSelector((s) => s.tumorDetection.uploading);
 
     const baseKey = `tumor.upload.${translationKey}`;
+    const isDoctor = translationKey === "doctor";
 
     const [scanType, setScanType] = useState<ScanType>("Mri");
     const [file, setFile] = useState<File | null>(null);
-    const [patientId, setPatientId] = useState(userId);
+    const [patientId, setPatientId] = useState(isDoctor ? "" : userId);
+
+    useEffect(() => {
+        if (!isDoctor) {
+            setPatientId(userId);
+        }
+    }, [isDoctor, userId]);
 
     const handleSubmit = async () => {
         if (!file || !patientId || !userId) {
@@ -49,7 +57,6 @@ export default function UploadScanPage({
             await dispatch(
                 uploadBrainScan({
                     patientId,
-                    uploadedByUserId: userId,
                     scanType,
                     file,
                 })
@@ -78,14 +85,10 @@ export default function UploadScanPage({
             <div className="space-y-6">
                 <ComponentCard title={t(`${baseKey}.title`)}>
                     <div className="grid max-w-xl gap-5">
-                        {translationKey === "doctor" && (
+                        {isDoctor && (
                             <div>
-                                <Label>{t(`${baseKey}.fields.patientId`)}</Label>
-                                <input
-                                    className={tumorSelectClass}
-                                    value={patientId}
-                                    onChange={(e) => setPatientId(e.target.value)}
-                                />
+                                <Label>{t("tumor.patient.label")}</Label>
+                                <PatientSelect value={patientId} onChange={setPatientId} />
                             </div>
                         )}
 
@@ -96,21 +99,21 @@ export default function UploadScanPage({
                                 value={scanType}
                                 onChange={(e) => setScanType(e.target.value as ScanType)}
                             >
-                            <option value="Mri">{t("tumor.scanTypes.mri")}</option>
-                            <option value="Ct">{t("tumor.scanTypes.ct")}</option>
-                        </select>
-                    </div>
+                                <option value="Mri">{t("tumor.scanTypes.mri")}</option>
+                                <option value="Ct">{t("tumor.scanTypes.ct")}</option>
+                            </select>
+                        </div>
 
-                    <div>
-                        <Label>{t(`${baseKey}.fields.file`)}</Label>
-                        <FileInput onChange={(e) => setFile(e.target.files?.[0] ?? null)} />
-                    </div>
+                        <div>
+                            <Label>{t(`${baseKey}.fields.file`)}</Label>
+                            <FileInput onChange={(e) => setFile(e.target.files?.[0] ?? null)} />
+                        </div>
 
-                    <Button disabled={uploading || !file} onClick={handleSubmit}>
-                        {uploading ? t(`${baseKey}.actions.uploading`) : t(`${baseKey}.actions.upload`)}
-                    </Button>
-                </div>
-            </ComponentCard>
+                        <Button disabled={uploading || !file || (isDoctor && !patientId)} onClick={handleSubmit}>
+                            {uploading ? t(`${baseKey}.actions.uploading`) : t(`${baseKey}.actions.upload`)}
+                        </Button>
+                    </div>
+                </ComponentCard>
             </div>
         </>
     );

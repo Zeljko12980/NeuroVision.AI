@@ -9,5 +9,4 @@ global using PatientService.Infrastructure;
 global using PatientService.Infrastructure.Persistence;
 global using PatientService.Infrastructure.Seeding;
 global using Microsoft.EntityFrameworkCore;
-global using Scalar.AspNetCore;
 global using Serilog;

@@ -31,5 +31,7 @@ export function useClientPagination<T>(items: T[], initialPageSize = 5) {
         slice,
         total: items.length,
         resetPage,
+        uiPage: safePage + 1,
+        setUiPage: (next: number) => setPageSafe(next - 1),
     };
 }

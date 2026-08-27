@@ -1,0 +1,9 @@
+path: C:\Users\ikano\source\repos\Zeljko12980\NeuroVision.AI\src\neurovision.ai\Services\TumorDetection\TumorDetection.ML\TumorDetection.ML\datasets\segmentation
+train: images/train
+val: images/val
+names:
+  0: glioma
+  1: meningioma
+  2: pituitary
+  3: notumor
+nc: 4

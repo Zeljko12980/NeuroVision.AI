@@ -395,9 +395,8 @@ export default function HealthPage() {
                             >
 
                                 {
-                                    getHealthyCount(
-                                        services
-                                    )
+                                    data?.healthyCount ??
+                                    getHealthyCount(services)
                                 }
 
                             </h3>
@@ -421,9 +420,8 @@ export default function HealthPage() {
                             >
 
                                 {
-                                    getUnhealthyCount(
-                                        services
-                                    )
+                                    data?.unhealthyCount ??
+                                    getUnhealthyCount(services)
                                 }
 
                             </h3>
@@ -461,6 +459,11 @@ export default function HealthPage() {
 
                     </div>
 
+                    {services.length === 0 ? (
+                        <p className="mb-6 text-center text-sm text-gray-500 dark:text-gray-400">
+                            {t("health.empty")}
+                        </p>
+                    ) : (
                     <div
                         className="
                         grid
@@ -625,6 +628,20 @@ export default function HealthPage() {
 
 
                     </div>
+                    )}
+
+                    {totalCount > 0 && (
+                        <Pagination
+                            currentPage={page + 1}
+                            totalPages={totalPages}
+                            pageSize={pageSize}
+                            onPageChange={(nextPage) => setPage(nextPage - 1)}
+                            onPageSizeChange={(size) => {
+                                setPageSize(size);
+                                setPage(0);
+                            }}
+                        />
+                    )}
 
                 </ComponentCard>
 

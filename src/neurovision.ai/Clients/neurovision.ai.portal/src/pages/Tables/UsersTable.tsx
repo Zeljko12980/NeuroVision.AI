@@ -16,14 +16,17 @@ import Badge from "../../components/ui/badge/Badge";
 import Pagination from "../../components/ui/pagination/Pagination";
 import { Dropdown } from "../../components/ui/dropdown/Dropdown";
 import Input from "../../components/form/input/InputField";
+import ConfirmDialog from "../../components/ui/dialog/ConfirmDialog";
 import { useAppDispatch, useAppSelector } from "../../store/store";
-import { fetchUsers, lockUser, unlockUser } from "../../features/user/userSlice";
+import { deleteUser, fetchUsers, lockUser, unlockUser } from "../../features/user/userSlice";
 import { fetchRoles } from "../../features/role/roleSlice";
 import { updateUserRolesRequest } from "../../features/user/userService";
 import AssignUserRolesModal from "../../components/ui/dialog/AssignUserRolesModal";
 import RoleTableSkeleton from "../Auth/RoleTableSkeleton";
 import { showAlert } from "../../features/ui/uiSlice";
 import { AdminUserDto } from "../../features/user/userService";
+import { selectUserClaims } from "../../selectors/authSelectors";
+import { getUserInfoFromClaims } from "../../utils/claims";
 
 export default function UsersTable() {
     const { t } = useTranslation();
@@ -42,9 +45,15 @@ export default function UsersTable() {
     const [spinning, setSpinning] = useState(false);
     const [fetching, setFetching] = useState(false);
 
+    const claims = useAppSelector(selectUserClaims);
+    const { userId: currentUserId } = getUserInfoFromClaims(claims || {});
+
     const [editUser, setEditUser] = useState<AdminUserDto | null>(null);
     const [editLoading, setEditLoading] = useState(false);
     const [lockBusy, setLockBusy] = useState(false);
+    const [confirmOpen, setConfirmOpen] = useState(false);
+    const [selectedId, setSelectedId] = useState<string | null>(null);
+    const [deleting, setDeleting] = useState(false);
 
     const totalPages = Math.max(1, Math.ceil(total / pageSize));
 
@@ -118,6 +127,37 @@ export default function UsersTable() {
             );
         } finally {
             setLockBusy(false);
+        }
+    };
+
+    const handleDeleteClick = (id: string) => {
+        closeDropdown();
+        if (id === currentUserId) {
+            dispatch(showAlert({ type: "error", message: t("users.cannotDeleteSelf") }));
+            return;
+        }
+        setSelectedId(id);
+        setConfirmOpen(true);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!selectedId) return;
+        try {
+            setDeleting(true);
+            await dispatch(deleteUser(selectedId)).unwrap();
+            dispatch(showAlert({ type: "success", message: t("users.deleteSuccess") }));
+            setConfirmOpen(false);
+            setSelectedId(null);
+            await loadUsers();
+        } catch (err: unknown) {
+            dispatch(
+                showAlert({
+                    type: "error",
+                    message: err instanceof Error ? err.message : t("users.deleteError"),
+                })
+            );
+        } finally {
+            setDeleting(false);
         }
     };
 
@@ -230,6 +270,14 @@ export default function UsersTable() {
                                                             >
                                                                 {t("users.modify")}
                                                             </button>
+                                                            {user.id !== currentUserId && (
+                                                                <button
+                                                                    onClick={() => handleDeleteClick(user.id)}
+                                                                    className="px-4 py-2 text-left text-red-500 hover:bg-gray-100"
+                                                                >
+                                                                    {t("users.delete")}
+                                                                </button>
+                                                            )}
                                                         </div>
                                                     </Dropdown>
                                                 </TableCell>
@@ -291,6 +339,15 @@ export default function UsersTable() {
                         setEditLoading(false);
                     }
                 }}
+            />
+
+            <ConfirmDialog
+                isOpen={confirmOpen}
+                title={t("users.deleteTitle")}
+                description={t("users.deleteConfirm")}
+                onConfirm={handleConfirmDelete}
+                onCancel={() => setConfirmOpen(false)}
+                loading={deleting}
             />
         </>
     );

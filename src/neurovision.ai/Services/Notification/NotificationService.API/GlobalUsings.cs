@@ -12,5 +12,4 @@ global using NotificationService.Infrastructure;
 global using NotificationService.Infrastructure.Persistence;
 global using NotificationService.Infrastructure.Seeding;
 global using Microsoft.EntityFrameworkCore;
-global using Scalar.AspNetCore;
 global using Serilog;

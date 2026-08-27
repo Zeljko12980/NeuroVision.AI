@@ -11,6 +11,7 @@ interface CustomSelectProps {
     placeholder?: string;
     value?: string;
     onChange: (value: string) => void;
+    disabled?: boolean;
 }
 
 
@@ -18,7 +19,8 @@ export default function CustomSelect({
     options,
     placeholder = "Select option",
     value,
-    onChange
+    onChange,
+    disabled = false
 }: CustomSelectProps) {
 
 
@@ -40,9 +42,11 @@ export default function CustomSelect({
             <button
 
                 type="button"
-
-                onClick={() => setOpen(prev => !prev)}
-
+                disabled={disabled}
+                onClick={() => {
+                    if (disabled) return;
+                    setOpen(prev => !prev);
+                }}
                 className="
                     h-11
                     w-full
@@ -53,6 +57,8 @@ export default function CustomSelect({
                     px-4
                     text-left
                     text-sm
+                    disabled:cursor-not-allowed
+                    disabled:opacity-60
                     dark:border-gray-700
                     dark:bg-gray-900
                     dark:text-white

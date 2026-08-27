@@ -81,6 +81,50 @@ export interface AiModelVersionResponse {
     registeredAt: string;
 }
 
+export interface AiModelTypeResponse {
+    code: string;
+    name: string;
+    description?: string | null;
+}
+
+export interface ClinicalCatalogItemResponse {
+    code: string;
+    name: string;
+    description?: string | null;
+}
+
+export interface ClinicalCatalogsResponse {
+    grades: ClinicalCatalogItemResponse[];
+    operabilityStatuses: ClinicalCatalogItemResponse[];
+    spreadStatuses: ClinicalCatalogItemResponse[];
+    treatmentOptions: ClinicalCatalogItemResponse[];
+}
+
+export interface ClinicalFollowUpResponse {
+    tumorAnalysisId: string;
+    gradeCode?: string | null;
+    gradeName?: string | null;
+    operabilityCode?: string | null;
+    operabilityName?: string | null;
+    spreadCode?: string | null;
+    spreadName?: string | null;
+    treatmentOptionCodes: string[];
+    treatmentOptionNames: string[];
+    sizeLocationNotes?: string | null;
+    clinicalNotes?: string | null;
+    updatedByUserId?: string | null;
+    updatedAt?: string | null;
+}
+
+export interface UpsertClinicalFollowUpRequest {
+    gradeCode?: string;
+    operabilityCode?: string;
+    spreadCode?: string;
+    treatmentOptionCodes?: string[];
+    sizeLocationNotes?: string;
+    clinicalNotes?: string;
+}
+
 export interface CommentResponse {
     id: string;
     tumorAnalysisId: string;
@@ -88,6 +132,14 @@ export interface CommentResponse {
     content: string;
     createdAt: string;
     updatedAt?: string | null;
+}
+
+export interface AnalysisErrorLogResponse {
+    id: string;
+    tumorAnalysisId?: string | null;
+    message: string;
+    details?: string | null;
+    occurredAt: string;
 }
 
 export interface AnalysisStatusNotification {

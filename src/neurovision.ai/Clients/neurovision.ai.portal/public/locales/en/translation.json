@@ -12,7 +12,9 @@
   },
   "alerts": {
     "success": "Success",
-    "error": "Error"
+    "error": "Error",
+    "info": "Info",
+    "warning": "Warning"
   },
   "errors": {
     "invalidEmail": "Please enter a valid email address",
@@ -68,7 +70,58 @@
     "description": "System metrics and logs",
     "openGrafana": "Open in Grafana",
     "welcomeTitle": "Welcome",
-    "welcomeDescription": "Use the sidebar to open your workspace."
+    "welcomeDescription": "Use the sidebar to open your workspace.",
+    "homeTitle": "Home",
+    "homeDescription": "Overview of your appointments, scans and analyses",
+    "greetingMorning": "Good morning",
+    "greetingAfternoon": "Good afternoon",
+    "greetingEvening": "Good evening",
+    "colleague": "colleague",
+    "doctorHeadline": "Hello, dr {{name}}",
+    "patientHeadline": "Hello, {{name}}",
+    "doctorSubtitle": "Today's appointments, pending analyses and patient activity.",
+    "patientSubtitle": "Your next appointment, scan results and assigned doctor.",
+    "viewAll": "View all",
+    "loading": "Loading...",
+    "emptyAppointments": "No upcoming appointments in the next two weeks.",
+    "emptyAnalyses": "No analyses yet.",
+    "emptyScans": "No scans uploaded yet.",
+    "emptyNotifications": "No new notifications.",
+    "upcomingTitle": "Upcoming appointments",
+    "analysesTitle": "Recent analyses",
+    "scansTitle": "Recent scans",
+    "notificationsTitle": "Notifications",
+    "careTeamTitle": "Your care team",
+    "noAssignedDoctor": "No assigned doctor yet",
+    "assignedDoctorHint": "The clinic will assign a doctor to your profile.",
+    "analysisCount": "{{count}} analyses",
+    "unreadLink": "You have {{count}} unread notifications",
+    "actions": {
+      "calendar": "Calendar",
+      "patients": "Patients",
+      "addScan": "Add scan",
+      "uploadScan": "Upload scan",
+      "analyses": "Analyses",
+      "myAnalyses": "My analyses",
+      "reports": "Reports",
+      "notifications": "Notifications"
+    },
+    "stats": {
+      "todayAppointments": "Today's appointments",
+      "upcomingHint": "{{count}} upcoming",
+      "patients": "Patients",
+      "patientsHint": "In your workspace",
+      "scans": "My scans",
+      "scansHint": "Uploaded MRI/CT images",
+      "inProgress": "Analyses in progress",
+      "completedAnalyses": "{{count}} completed",
+      "unread": "Unread notifications",
+      "reportsHint": "{{count}} PDF reports"
+    },
+    "profile": {
+      "institution": "Institution",
+      "bloodType": "Blood type"
+    }
   },
   "twoFA": {
     "title": "Two-Factor Authentication",
@@ -133,6 +186,12 @@
     "locking": "Locking...",
     "lockSuccess": "Account locked.",
     "lockError": "Failed to lock account.",
+    "delete": "Delete",
+    "deleteTitle": "Delete user",
+    "deleteConfirm": "Delete this user account? This cannot be undone.",
+    "deleteSuccess": "User deleted.",
+    "deleteError": "Failed to delete user.",
+    "cannotDeleteSelf": "You cannot delete your own account.",
     "createPageTitle": "Create administrator",
     "createPageDescription": "Create a new administrator account",
     "createTitle": "New administrator",
@@ -445,6 +504,65 @@
       "degraded": "Degraded"
     },
     "empty": "No services found"
+  },
+  "logs": {
+    "pageTitle": "System logs",
+    "pageDescription": "Application error logs and Grafana Loki explorer",
+    "grafanaTitle": "Service logs",
+    "grafanaDescription": "Live Loki logs for NeuroVision services. Same Grafana embed as the overview dashboard.",
+    "errorsTitle": "Analysis errors",
+    "errorsDescription": "Recent failures from the tumor analysis pipeline.",
+    "empty": "No analysis errors recorded.",
+    "stats": {
+      "systemStatus": "System status",
+      "analysisErrors": "Analysis errors",
+      "healthPage": "Service health"
+    },
+    "columns": {
+      "occurred": "Occurred",
+      "analysis": "Analysis",
+      "message": "Message"
+    },
+    "actions": {
+      "openHealth": "Open health page",
+      "showDetails": "Show details",
+      "hideDetails": "Hide details"
+    },
+    "messages": {
+      "loadError": "Failed to load logs."
+    }
+  },
+  "settings": {
+    "pageTitle": "Settings",
+    "pageDescription": "Portal appearance, account and environment",
+    "appearanceTitle": "Appearance",
+    "appearanceDescription": "Theme and language for this browser.",
+    "theme": "Theme",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "language": "Language",
+    "accountTitle": "Signed-in account",
+    "account": {
+      "name": "Name",
+      "email": "Email",
+      "role": "Role"
+    },
+    "environmentTitle": "Environment",
+    "environmentDescription": "Values come from the portal build configuration and cannot be changed here.",
+    "env": {
+      "api": "API URL",
+      "grafana": "Grafana URL",
+      "mode": "Mode"
+    },
+    "linksTitle": "Administration",
+    "links": {
+      "health": "System health",
+      "aiMonitoring": "AI monitoring",
+      "logs": "Logs",
+      "profile": "Profile",
+      "certificates": "Certificates",
+      "editProfile": "Edit profile"
+    }
   },
   "location": {
     "settlements": {
@@ -1101,6 +1219,11 @@
       "mri": "MRI",
       "ct": "CT"
     },
+    "patient": {
+      "label": "Patient",
+      "select": "Select patient",
+      "all": "All patients"
+    },
     "status": {
       "Pending": "Pending",
       "Processing": "Processing",
@@ -1113,6 +1236,45 @@
       "meningioma": "Meningioma",
       "pituitary": "Pituitary",
       "noTumor": "No tumor"
+    },
+    "models": {
+      "detection": "Detection",
+      "classification": "Classification",
+      "mismatch": "Detection found {{detection}}, while classification predicted {{classification}}. These are two separate models. The highlighted finding follows the detection box."
+    },
+    "followUp": {
+      "title": "What happens next",
+      "audience": {
+        "doctor": "Complete the clinical follow-up using catalog values. This is orientation for discussion, not a treatment plan.",
+        "patient": "Talk with your doctor. This is general information from your clinician, not a personal treatment plan."
+      },
+      "disclaimer": "An MRI can strongly suggest a tumor, but that is not the same as a confirmed diagnosis and type. For many tumors the final type and grade are determined by tissue analysis after biopsy or surgery.",
+      "intro": "If the finding is consistent with {{class}}, treatment is not one-size-fits-all.",
+      "noTumor": "If no tumor is detected, that still does not replace a clinical exam. Follow-up imaging may be needed if symptoms persist.",
+      "formTitle": "Clinical follow-up (doctor entry)",
+      "loading": "Loading catalogs...",
+      "save": "Save follow-up",
+      "saving": "Saving...",
+      "emptyPatient": "Your doctor has not completed the clinical follow-up section yet.",
+      "fields": {
+        "grade": "Grade and aggressiveness",
+        "operability": "Operability",
+        "spread": "Spread",
+        "treatments": "Recommended options",
+        "sizeLocation": "Size and location",
+        "notes": "Clinical notes"
+      },
+      "placeholders": {
+        "select": "Select from catalog",
+        "treatments": "Select treatment options",
+        "sizeLocation": "Describe size, location, and relevant anatomy...",
+        "notes": "Additional orientation for the patient or care team..."
+      },
+      "messages": {
+        "loadError": "Failed to load clinical follow-up data.",
+        "saveSuccess": "Clinical follow-up saved.",
+        "saveError": "Failed to save clinical follow-up."
+      }
     },
     "scans": {
       "doctor": {
@@ -1132,6 +1294,11 @@
         },
         "messages": {
           "loadError": "Failed to load scans."
+        },
+        "preview": {
+          "title": "Scan preview",
+          "loading": "Loading image...",
+          "error": "Could not load the scan image."
         }
       },
       "patient": {
@@ -1151,6 +1318,11 @@
         },
         "messages": {
           "loadError": "Failed to load scans."
+        },
+        "preview": {
+          "title": "Scan preview",
+          "loading": "Loading image...",
+          "error": "Could not load the scan image."
         }
       }
     },
@@ -1160,7 +1332,7 @@
         "pageDescription": "Upload a patient's MRI/CT scan",
         "title": "New scan",
         "fields": {
-          "patientId": "Patient ID",
+          "patientId": "Patient",
           "scanType": "Scan type",
           "file": "Image"
         },
@@ -1194,6 +1366,13 @@
       }
     },
     "analyses": {
+      "filters": {
+        "patientId": "Patient",
+        "from": "From",
+        "to": "To",
+        "apply": "Apply",
+        "clear": "Clear"
+      },
       "doctor": {
         "pageTitle": "New analysis",
         "pageDescription": "Run AI tumor analysis",
@@ -1201,7 +1380,8 @@
         "startTitle": "Start analysis",
         "empty": "No analyses yet.",
         "fields": {
-          "scan": "Scan"
+          "scan": "Scan",
+          "scanEmpty": "No scans for this patient"
         },
         "columns": {
           "scan": "Scan",
@@ -1250,7 +1430,8 @@
         "startTitle": "Start analysis",
         "empty": "No analyses yet.",
         "fields": {
-          "scan": "Scan"
+          "scan": "Scan",
+          "scanEmpty": "You have no uploaded scans"
         },
         "columns": {
           "scan": "Scan",
@@ -1320,6 +1501,7 @@
         "emptyDetections": "No detections.",
         "emptyDetectionsHint": "AI classified «{{class}}», but no bounding box was found. Run a new analysis with the updated model.",
         "emptyComments": "No comments yet.",
+        "commentEdited": "edited",
         "fields": {
           "status": "Status",
           "classification": "Class",
@@ -1336,6 +1518,7 @@
           "back": "Back to list",
           "applyCorrection": "Apply correction",
           "postComment": "Post comment",
+          "saveComment": "Save comment",
           "generateReport": "Generate report",
           "downloadReport": "Download PDF",
           "regenerateReport": "Regenerate"
@@ -1346,6 +1529,12 @@
           "analysisFailed": "Analysis failed.",
           "commentSuccess": "Comment saved.",
           "commentError": "Failed to save comment.",
+          "commentUpdated": "Comment updated.",
+          "commentUpdateError": "Failed to update comment.",
+          "commentDeleted": "Comment deleted.",
+          "commentDeleteError": "Failed to delete comment.",
+          "deleteCommentTitle": "Delete comment",
+          "deleteCommentDescription": "Delete this comment?",
           "correctionSuccess": "Correction applied.",
           "correctionError": "Correction failed.",
           "reportGenerated": "PDF report generated successfully.",
@@ -1378,6 +1567,7 @@
         "emptyDetections": "No detections.",
         "emptyDetectionsHint": "AI classified «{{class}}», but no bounding box was found. Run a new analysis with the updated model.",
         "emptyComments": "No comments yet.",
+        "commentEdited": "edited",
         "fields": {
           "status": "Status",
           "classification": "Class",
@@ -1393,6 +1583,7 @@
         "actions": {
           "back": "Back to list",
           "postComment": "Post comment",
+          "saveComment": "Save comment",
           "generateReport": "Generate report",
           "downloadReport": "Download PDF",
           "regenerateReport": "Regenerate"
@@ -1403,6 +1594,12 @@
           "analysisFailed": "Analysis failed.",
           "commentSuccess": "Comment saved.",
           "commentError": "Failed to save comment.",
+          "commentUpdated": "Comment updated.",
+          "commentUpdateError": "Failed to update comment.",
+          "commentDeleted": "Comment deleted.",
+          "commentDeleteError": "Failed to delete comment.",
+          "deleteCommentTitle": "Delete comment",
+          "deleteCommentDescription": "Delete this comment?",
           "reportGenerated": "PDF report generated successfully.",
           "reportError": "Failed to generate report.",
           "reportDownloadError": "Failed to download report."
@@ -1461,20 +1658,60 @@
       "pageTitle": "AI monitoring",
       "pageDescription": "Statistics and models",
       "modelsTitle": "Registered AI models",
+      "activeTitle": "Active pipeline models",
+      "activeDescription": "Choose which registered version each analysis task uses. You do not need to upload again.",
+      "uploadTitle": "Register a new model version",
+      "errorsTitle": "Analysis error logs",
       "emptyModels": "No models registered. Restart the service after training.",
+      "emptyErrors": "No analysis errors logged.",
       "stats": {
         "completed": "Completed analyses",
         "scans": "Uploaded scans"
+      },
+      "fields": {
+        "task": "Task",
+        "taskPlaceholder": "Select model type",
+        "version": "Version label",
+        "versionPlaceholder": "e.g. yolo11-v2",
+        "runId": "Run ID (optional)",
+        "runIdPlaceholder": "Leave empty to generate",
+        "file": "Weights (.pt)",
+        "setActive": "Set as active model",
+        "modelPlaceholder": "Select a registered version"
+      },
+      "tasks": {
+        "detection": "Detection",
+        "classification": "Classification",
+        "segmentation": "Segmentation"
       },
       "columns": {
         "task": "Task",
         "version": "Version",
         "runId": "Run ID",
         "status": "Status",
-        "registered": "Registered"
+        "registered": "Registered",
+        "actions": "Actions"
+      },
+      "errorColumns": {
+        "occurred": "Occurred",
+        "analysis": "Analysis",
+        "message": "Message"
+      },
+      "actions": {
+        "upload": "Upload model",
+        "uploading": "Uploading...",
+        "use": "Use in pipeline",
+        "activating": "Switching...",
+        "showDetails": "Show details",
+        "hideDetails": "Hide details"
       },
       "messages": {
-        "loadError": "Failed to load monitoring data."
+        "loadError": "Failed to load monitoring data.",
+        "uploadRequired": "Version label and a .pt file are required.",
+        "uploadSuccess": "Model version registered.",
+        "uploadError": "Failed to register the model.",
+        "activateSuccess": "Pipeline now uses the selected model.",
+        "activateError": "Could not switch the active model."
       }
     }
   },
@@ -1567,6 +1804,7 @@
     "roleManagement": "Role Management",
     "roles": "Roles",
     "createRole": "Create Role",
+    "assignRoles": "Assign roles",
     "userManagement": "User Management",
     "users": "Users",
     "createAdministrator": "Create administrator",
@@ -1588,6 +1826,12 @@
     "doctorWorkingSlots": "Working slots",
     "doctorReviews": "Reviews",
     "patientTables": "Patient tables",
+    "tumorTables": "AI model tables",
+    "modelTypes": "Model types",
+    "tumorGrades": "Tumor grades",
+    "treatmentOptions": "Treatment options",
+    "operabilityStatuses": "Operability statuses",
+    "spreadStatuses": "Spread statuses",
     "patientStatuses": "Statuses",
     "patientGenders": "Genders",
     "patientBloodTypes": "Blood types",
@@ -1667,7 +1911,9 @@
     "system": "System",
     "healthMonitoring": "Health Monitoring",
     "logs": "Logs",
-    "settings": "Settings"
+    "settings": "Settings",
+    "notifications": "Notifications",
+    "profile": "Profile"
   },
   "calendar": {
     "pageTitle": "Calendar",

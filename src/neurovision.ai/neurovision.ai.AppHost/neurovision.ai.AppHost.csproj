@@ -25,6 +25,7 @@
 		<ProjectReference Include="..\Services\Mail\MailService.API\MailService.API.csproj" />
 		<ProjectReference Include="..\Services\Appointment\AppointmentService.API\AppointmentService.API.csproj" />
 		<ProjectReference Include="..\Services\Notification\NotificationService.API\NotificationService.API.csproj" />
+		<ProjectReference Include="..\Services\TumorDetection\TumorDetectionService.API\TumorDetectionService.API.csproj" />
 		<ProjectReference Include="..\Services\Pdf\PdfService.API\PdfService.API.csproj" />
 	</ItemGroup>
 

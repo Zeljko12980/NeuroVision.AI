@@ -61,6 +61,15 @@
     <Project Path="Services/Pdf/PdfService.Domain/PdfService.Domain.csproj" />
     <Project Path="Services/Pdf/PdfService.Infrastructure/PdfService.Infrastructure.csproj" />
   </Folder>
+  <Folder Name="/Services/TumorDetection/">
+    <Project Path="Services/TumorDetection/TumorDetection.ML/TumorDetection.ML/TumorDetection.ML.pyproj" Type="888888a0-9f3d-457c-b088-3a5042f75d52" Id="d16b6930-29b5-484c-ae77-1e4ec7185dc6">
+      <Build Project="false" />
+    </Project>
+    <Project Path="Services/TumorDetection/TumorDetectionService.API/TumorDetectionService.API.csproj" />
+    <Project Path="Services/TumorDetection/TumorDetectionService.Application/TumorDetectionService.Application.csproj" />
+    <Project Path="Services/TumorDetection/TumorDetectionService.Domain/TumorDetectionService.Domain.csproj" />
+    <Project Path="Services/TumorDetection/TumorDetectionService.Infrastructure/TumorDetectionService.Infrastructure.csproj" />
+  </Folder>
   <Folder Name="/Tests/" />
   <Folder Name="/Tests/Appointment/" Id="03901da9-97f7-9079-2881-eb39bb7ec6f8">
     <Project Path="Tests/Appointment/AppointmentService.ArchitectureTests/AppointmentService.ArchitectureTests.csproj" />
